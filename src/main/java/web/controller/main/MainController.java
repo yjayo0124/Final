@@ -14,7 +14,7 @@ public class MainController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public void main() {
 			
-		logger.info("∏ﬁ¿Œ");
+		logger.info("main");
 		
 	}
 	
