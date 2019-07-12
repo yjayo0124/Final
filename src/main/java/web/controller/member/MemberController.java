@@ -37,7 +37,7 @@ public class MemberController {
 
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login() {
-		logger.info("·Î±×ÀÎ Æû");
+		logger.info("·Î±×ÀÎ Æû check");
 	}
 	
 	
