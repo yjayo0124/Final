@@ -25,7 +25,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	@Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
 	
 	private static final Logger logger = LoggerFactory.getLogger(CustomAuthenticationProvider.class);
 	
@@ -40,10 +39,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		try {
 			member = (Member) customServiceImpl.loadUserByUsername(input_id );
-			logger.info("ì„œë¹„ìŠ¤ë¥¼ ê±°ì¹œ member"+member.toString());
+			logger.info("DB¿¡¼­ Á¶È¸µÈ  member"+member.toString());
 			
 			if( !input_password.equals(member.getMember_pw())) {
-				throw new BadCredentialsException("ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
+				throw new BadCredentialsException("ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
 			}
 		 } catch(UsernameNotFoundException e) {
 	            e.printStackTrace();
@@ -57,9 +56,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	     }
 		
 	
-	 
-    
-        //ì•„ì´ë””, ë¹„ë°€ë²ˆí˜¸, ê¶Œí•œ, customUserDetail ê°’ ì„¸íŒ…
+
         UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(member.getMember_id(), member.getMember_pw(), member.getAuthorities() );
         result.setDetails(member);
 		
