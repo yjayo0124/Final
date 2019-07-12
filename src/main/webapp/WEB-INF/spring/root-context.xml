@@ -36,12 +36,13 @@
 			<array>
 				<value>classpath:/mappers/**/*Mapper.xml</value>
 				<value>classpath:/web/dao/member/impl/*.xml</value>
+				<value>classpath:/web/dao/mypage/impl/*.xml</value>
 			</array>
 		</property>
 	</bean>
 
 	<!--  마이바티스 인터페이스 설정 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="web.dao.member.face"/>
+		<property name="basePackage" value="web.dao.member.face, web.dao.mypage.face"/>
 	</bean>	
 </beans>
