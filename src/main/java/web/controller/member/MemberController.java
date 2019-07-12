@@ -21,7 +21,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET) 
 	public void join() {
-		logger.info("íšŒì›ê°€ì… í¼");
+		logger.info("È¸¿ø°¡ÀÔÆû");
 		
 	}
 	
@@ -37,7 +37,7 @@ public class MemberController {
 
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login() {
-		logger.info("ë¡œê·¸ì¸ í¼");
+		logger.info("·Î±×ÀÎ Æû");
 	}
 	
 	
