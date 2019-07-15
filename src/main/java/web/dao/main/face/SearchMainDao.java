@@ -8,6 +8,6 @@ public interface SearchMainDao {
 
 	public List<Cor> selectCor(String keyword);
 
-	public List autocomplete(String result);
+	public List<Cor> autocomplete(String result);
 
 }

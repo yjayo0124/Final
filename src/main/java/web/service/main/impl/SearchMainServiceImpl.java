@@ -20,7 +20,7 @@ public class SearchMainServiceImpl implements SearchMainService {
 	}
 
 	@Override
-	public List autocomplete(String result) {
+	public List<Cor> autocomplete(String result) {
 		return searchmainDao.autocomplete(result);
 	}
 }

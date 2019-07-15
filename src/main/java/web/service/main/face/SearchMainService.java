@@ -8,5 +8,5 @@ public interface SearchMainService {
 
 	public List<Cor> getSearch(String keyword);
 
-	public List autocomplete(String result);
+	public List<Cor> autocomplete(String result);
 }

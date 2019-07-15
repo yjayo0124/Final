@@ -113,7 +113,6 @@
 </dependency>
 
 
-<!-- Json Library -->
 <dependency>
 	<groupId>org.json</groupId>
  	<artifactId>json</artifactId>

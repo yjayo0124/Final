@@ -11,6 +11,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	// 검색 자동완성 기능
 	$('#keyword').autocomplete({
 		source:function(request,response){
 			$.ajax({
@@ -19,8 +21,13 @@ $(document).ready(function() {
 				dataType:"json",
 				data:{ keyword : $('#keyword').val()},
 				success: function(data){
-					var result = data;
-					response(result);
+					response(
+							$.map(data, function(item) {
+								return {
+									value : item.data
+								}
+							})
+							)
 				},
 				error : function(data) {
 					alert("에러가 발생하였습니다.")
@@ -40,7 +47,10 @@ $(document).ready(function() {
 <style type="text/css">
 /* 메인 검색엔진 css */
 .search {
-	padding-right:10px;
+	padding-right: 10px;
+}
+#keyword {
+	width: 630px;
 }
 </style>
 
