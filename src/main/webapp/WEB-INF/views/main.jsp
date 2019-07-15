@@ -2,11 +2,60 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js">
+</script>
+<script src="http://code.jquery.com/jquery-1.7.js"	type="text/javascript"></script>
+<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#keyword').autocomplete({
+		source:function(request,response){
+			$.ajax({
+				url: "/main/autocomplete",
+				type:"post",
+				dataType:"json",
+				data:{ keyword : $('#keyword').val()},
+				success: function(data){
+					var result = data;
+					response(result);
+				},
+				error : function(data) {
+					alert("에러가 발생하였습니다.")
+				}
+			});
+		}
+	});
+	
+	// 검색버튼 동작
+	$("#searchBtn").click(function() {
+		// form submit 수행
+		$("form").submit();
+	});
+});
+</script>
+
+<style type="text/css">
+/* 메인 검색엔진 css */
+.search {
+	padding-right:10px;
+}
+</style>
+
 <body>
 
 <h2>메인</h2>
 <hr>
+
+<!-- 검색기능 -->
+<form action="/main/search" method="get">
+	<div class="search">
+		<input type="text" name="keyword" id="keyword">
+		<button type="button" id="searchBtn">검색</button>
+	</div>
+</form>
 
 <p>
 로그인 객체 id : <sec:authentication property="principal"/><br>
