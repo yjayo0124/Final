@@ -63,6 +63,6 @@
 	<!-- 여러 패키지를 등록할 때에는 , 로 구분한다.  -->
 	<context:component-scan base-package="com.khob.www, web" />
 	
-	
+
 	
 </beans:beans>

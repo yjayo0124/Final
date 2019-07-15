@@ -1,6 +1,10 @@
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.SecureRandom"%>
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
 <style>
 #btnLogin {
@@ -98,6 +102,7 @@
 <form action="/member/login" method="POST">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 <div class="content" style="margin: 0 auto;">
+
 				<div class="iddiv">
 					<div class="idlabel">
 						<label for="member_id">아이디</label>
@@ -120,15 +125,40 @@
 					<input type="submit" id="btnLogin" value="로그인">
 					<input type="button" id="btnCancel" value="취소">
 				</div>
-				
+
+
 				<div>
-				<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-      				이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-     			</c:if>
+
 				</div>
 			</div>
-
 </form>
 
+<!-- 네이버아이디로로그인 버튼 노출 영역 -->
+<div id="naverIdLogin"></div>
+<!-- //네이버아이디로로그인 버튼 노출 영역 -->
+
+<!-- 네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+	var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "gNvaof_cqFwyZHwlPfhK",
+			callbackUrl: "http://localhost:8088/member/callback",
+			isPopup: false, /* 팝업을 통한 연동처리 여부 */
+			loginButton: {color: "white", type: 3, height: 40} /* 로그인 버튼의 타입을 지정 */
+		}
+	);
+	
+	/* 설정정보를 초기화하고 연동을 준비 */
+	naverLogin.init();
+	
+</script>
+<!-- // 네이버아이디로로그인 초기화 Script -->
+
+
 </div>    
+
+    
+    
+    
+    
     
