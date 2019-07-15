@@ -38,13 +38,16 @@ public class MemberController {
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login() {
 		logger.info("로그인 폼 check");
+	
 	}
 	
 	
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public void loginProc() {
+		logger.info("네아로 확인");
 
+		
 	}
 	
 	
@@ -55,6 +58,8 @@ public class MemberController {
 		session.invalidate();
 		
 	}
+	
+
 	
 	
 }
