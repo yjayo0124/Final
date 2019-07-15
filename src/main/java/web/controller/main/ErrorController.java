@@ -18,7 +18,7 @@ public class ErrorController {
 		
 		logger.info("access Denied : "+auth);
 		
-		
-	}
+		logger.info("test");
+	 }
 	
 }
