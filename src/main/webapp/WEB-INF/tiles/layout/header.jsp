@@ -13,7 +13,7 @@
 	
 <sec:authorize access="isAuthenticated()"> 
 	<a href="/member/logout">로그아웃</a>
-	<a href="/member/mypage">마이페이지</a>
+	<a href="/mypage/main">마이페이지</a>
 </sec:authorize> 
 	</span>
 	</div>
