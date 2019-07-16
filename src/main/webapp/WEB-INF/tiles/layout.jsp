@@ -23,7 +23,6 @@
 
 .wrap{
 	
-	width: 1200px;
 
 }
 

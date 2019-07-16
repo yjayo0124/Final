@@ -17,11 +17,11 @@ import web.service.mypage.face.ResumeService;
 public class MypageController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
-//	@Autowired MypageService mypageService;
-//	@Autowired IntroductionService introductionService;
-//	@Autowired ResumeService resumeService;
-//	@Autowired MyCommentService myCommentService;
-//	@Autowired MyScrapService myScrapService;
+	@Autowired MypageService mypageService;
+	@Autowired IntroductionService introductionService;
+	@Autowired ResumeService resumeService;
+	@Autowired MyCommentService myCommentService;
+	@Autowired MyScrapService myScrapService;
 	
 	@RequestMapping(value = "/mypage/main", method = RequestMethod.GET) 
 	public void mypage() {
