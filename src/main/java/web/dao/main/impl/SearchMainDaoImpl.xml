@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="web.dao.main.face.SearchMainDao">
+	<select id="autocomplete" parameterType="String" resultType="web.dto.Cor">
+		SELECT cor_name FROM COR
+		WHERE cor_name LIKE '%' || UPPER(#{result }) || '%'
+	</select>
+	<select id="selectCor" resultType="hashmap">
+		SELECT * FROM COR
+		WHERE cor_name LIKE '%' || #{keyword } || '%'
+	</select>
+</mapper>
