@@ -1,8 +1,5 @@
 package web.security;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import web.controller.member.MemberController;
 import web.dto.Member;
 
 
@@ -28,6 +24,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CustomAuthenticationProvider.class);
 	
+	
+	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {	
 		String input_id = authentication.getName();
@@ -39,10 +37,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		try {
 			member = (Member) customServiceImpl.loadUserByUsername(input_id );
-			logger.info("DBø°º≠ ¡∂»∏µ»  member"+member.toString());
+			//logger.info("DBÏóêÏÑú Ï°∞ÌöåÎêú  member"+member.toString());
 			
 			if( !input_password.equals(member.getMember_pw())) {
-				throw new BadCredentialsException("∫Òπ–π¯»£ ∫“¿œƒ°");
+				throw new BadCredentialsException("ÎπÑÎ∞ÄÎ≤àÌò∏ Î∂àÏùºÏπò ");
 			}
 		 } catch(UsernameNotFoundException e) {
 	            e.printStackTrace();
@@ -64,6 +62,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		
 		return result;
 	}
+	
+	
+
+	
 
 	@Override
 	public boolean supports(Class<?> authentication) {

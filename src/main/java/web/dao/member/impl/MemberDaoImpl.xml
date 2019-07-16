@@ -9,11 +9,29 @@
 	<insert id="insert" parameterType="web.dto.Member">
 	INSERT INTO member(member_no, member_id, member_pw, member_name, member_phone, member_email, member_auth)
 	VALUES(member_seq.nextval, #{member_id}, #{member_pw}, #{member_name}, #{member_phone}, #{member_email}, #{member_auth})
-	
 	</insert>
+
+	<insert id="socialInsert" parameterType="web.dto.Member">
+	INSERT INTO member(member_no, member_id, member_name, member_phone, member_email, member_auth)
+	VALUES(member_seq.nextval, #{member_id}, #{member_name}, #{member_phone}, #{member_email}, #{member_auth})
+	</insert>
+
 	
 	<select id="getUserDetails" parameterType="String" resultType="web.dto.Member">
 	SELECT * FROM member WHERE member_id = #{member_id}
 	</select>
+
+
+	<select id="selectById" parameterType="String" resultType="int">
+	SELECT count(*) FROM member where member_id = #{member_id}
+	</select>
+
+
+	<insert id="insertOauth" parameterType="web.dto.Oauth">
+	INSERT INTO oauth(member_no, social_id, social_email, social_name)
+	VALUES( #{member_no}, #{social_id}, #{social_email}, #{social_name} )
+	</insert>
+
+
 
 </mapper>

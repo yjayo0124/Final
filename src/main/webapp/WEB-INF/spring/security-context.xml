@@ -25,11 +25,15 @@
 
 
 	<security:authentication-manager>
-		<security:authentication-provider ref="customAuthenticationProvider">	
+	
+	<security:authentication-provider ref="customOAuthenticationProvider">
+	</security:authentication-provider>
+		<security:authentication-provider ref="customAuthenticationProvider" >	
 		</security:authentication-provider>
 		<security:authentication-provider user-service-ref="securityService"/>
 	</security:authentication-manager>
 
+	<bean id="customOAuthenticationProvider" class="web.security.CustomOAuthenticationProvider"/> 
 	<bean id="customAuthenticationProvider" class="web.security.CustomAuthenticationProvider"/> 
     <bean id="securityService" class="web.security.CustomServiceImpl"/>
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
