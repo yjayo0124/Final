@@ -2,10 +2,10 @@ package web.service.recruitment.impl;
 
 import org.springframework.stereotype.Service;
 
-import web.service.mypage.face.IntroductionService;
+import web.service.recruitment.face.recruitmentService;
 
 @Service
-public class recruitmentServiceImpl implements IntroductionService {
+public class recruitmentServiceImpl implements recruitmentService {
 	
 
 }
