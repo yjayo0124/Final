@@ -11,7 +11,7 @@ public class Cor {
 	private String cor_type;
 	private int cor_history;
 	private int cor_mem;
-	private int national_pesion;
+	private int national_pension;
 	private int cor_new_mem;
 	private int cor_lev_mem;
 	
@@ -19,7 +19,7 @@ public class Cor {
 	public String toString() {
 		return "Cor [cor_no=" + cor_no + ", cor_name=" + cor_name + ", cor_rgn=" + cor_rgn + ", cor_addr=" + cor_addr
 				+ ", cor_classify=" + cor_classify + ", business_no=" + business_no + ", cor_type=" + cor_type
-				+ ", cor_history=" + cor_history + ", cor_mem=" + cor_mem + ", national_pesion=" + national_pesion
+				+ ", cor_history=" + cor_history + ", cor_mem=" + cor_mem + ", national_pension=" + national_pension
 				+ ", cor_new_mem=" + cor_new_mem + ", cor_lev_mem=" + cor_lev_mem + "]";
 	}
 
@@ -95,12 +95,12 @@ public class Cor {
 		this.cor_mem = cor_mem;
 	}
 
-	public int getNational_pesion() {
-		return national_pesion;
+	public int getNational_pension() {
+		return national_pension;
 	}
 
-	public void setNational_pesion(int national_pesion) {
-		this.national_pesion = national_pesion;
+	public void setNational_pension(int national_pension) {
+		this.national_pension = national_pension;
 	}
 
 	public int getCor_new_mem() {
