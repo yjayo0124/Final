@@ -253,33 +253,18 @@ $(document).ready(function() {
 }
 </style>
 
-
 <div>
-<form action="/member/join" method="post" class="form">
-	<div class="join_content">
-		<div class="row_group">
-			<h3 class="join_title">
-				<label for="id">아이디</label>
-			</h3>
-			<span class="intext"> <input type="text" id="member_id"
-				name="member_id" class="inputtext" maxlength="20"/>
-			</span> <span class="error" id="idMsg">필수 정보입니다</span>
-		</div>
 
-		<div class="row_group">
-			<h3 class="join_title">
-				<label for="pw1">비밀번호</label>
-			</h3>
-			<span class="intext"> <input type="password" id="member_pw"
-				name="member_pw" class="inputtext" maxlength="20" />
-			</span> <span class="error" id="pwMsg1">필수 정보입니다</span>
-			<h3 class="join_title">
-				<label for="pw2">비밀번호 확인</label>
-			</h3>
-			<span class="intext"> <input type="password" id="member_pw2"
-				name="member_pw2" class="inputtext" maxlength="20" />
-			</span> <span class="error" id="pwMsg2">필수 정보입니다</span>
-		</div>
+<div style="text-align: center;">
+<h2> KHOB x NAVER </h2>
+<p>네이버 연동을 통해 간편하게 회원가입할 수 있습니다.</p>
+<hr>
+</div>
+<form action="/member/socialjoin" method="post" class="form">
+	<div class="join_content">
+		
+		 <input type="hidden" id="member_id"
+				name="member_id" class="inputtext" maxlength="20" value="${ param.member_id}"/>
 
 		<div class="row_group">
 			
@@ -287,15 +272,15 @@ $(document).ready(function() {
 				<label for="name">이름</label>
 			</h3>
 			<span class="intext"> <input type="text" id="member_name"
-				name="member_name" class="inputtext" maxlength="40" />
-			</span> <span class="error" id="nameMsg"> 필수 정보입니다 </span>
+				name="member_name" class="inputtext" maxlength="40" value="${ param.member_name}" readonly/>
+			</span>
 		
 			<h3 class="join_title">
 				<label for="email">이메일</label>
 			</h3>
 			<span class="intext"> <input type="email" id="member_email"
-				name="member_email" class="inputtext" maxlength="100" />
-			</span> <span class="error" id="emailMsg"> 필수 정보입니다 </span>
+				name="member_email" class="inputtext" maxlength="100" value="${ param.member_email}" readonly/>
+			</span>
 			
 			<h3 class="join_title">
 				<label for="phone">휴대전화</label>
