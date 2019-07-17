@@ -1,6 +1,6 @@
 package web.dto;
 
-public class Recruitment {
+public class Recruit {
 	private int recruit_no;
 	private String recruit_name;
 	private String recruit_title;
