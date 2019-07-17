@@ -33,17 +33,18 @@
 <body>
 
 <!-- HEADER -->
-<div class="wrap">
+<div class="container">
 <tiles:insertAttribute name="header"/>
 </div>
 <!-- BODY -->
+<div class="container">
 <div class="wrap">
 <tiles:insertAttribute name="body"/>
+</div>
 </div>
 
 <!-- FOOTER -->
 <tiles:insertAttribute name="footer"/>
-
 
 </body>
 </html>

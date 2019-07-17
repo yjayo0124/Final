@@ -14,6 +14,6 @@ public interface JobFairService {
 	
 	public void updateFair(JobFair jobfair);
 	
-	public List<String> jobFairSearch(String title);
+	public List<String> jobFairSearch(String title); 
 
 }

@@ -22,3 +22,5 @@
 	<a href="/main"><h1>KHOB</h1></a>
 	</div>
 </div>
+<br>
+<br>

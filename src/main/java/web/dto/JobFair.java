@@ -8,7 +8,7 @@ public class JobFair {
 	private String jobfair_end;
 	private String jobfair_loc;
 	private String jobfair_content;
-	private String jobfair_limit;
+	private String jobfair_limit; 
 	private int member_no;
 	
 	@Override

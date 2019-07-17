@@ -23,7 +23,7 @@ public class JobfairController {
 		
 	}
 	
-	@RequestMapping(value="/jobfair/register", method=RequestMethod.GET)
+	@RequestMapping(value="/jobfair/register", method=RequestMethod.POST)
 	public void registerProc(JobFair jobfair) {
 		
 	}
@@ -33,7 +33,7 @@ public class JobfairController {
 		
 	}
 	
-	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.GET)
+	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
 	public void adminViewProc(JobFair jobfair) {
 		
 	}
@@ -43,7 +43,7 @@ public class JobfairController {
 		
 	}
 	
-	@RequestMapping(value="/jobfair/update", method=RequestMethod.GET)
+	@RequestMapping(value="/jobfair/update", method=RequestMethod.POST)
 	public void updateProc(JobFair jobfair) {
 		
 	}

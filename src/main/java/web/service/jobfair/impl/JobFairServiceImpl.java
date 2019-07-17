@@ -10,7 +10,7 @@ public class JobFairServiceImpl implements JobFairService {
 	@Override
 	public List<JobFair> calList() {
 
-		
+		 
 		
 		return null;
 	}

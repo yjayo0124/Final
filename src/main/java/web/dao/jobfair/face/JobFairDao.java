@@ -17,5 +17,5 @@ public interface JobFairDao {
 	public void update(JobFair jobfair);
 	
 	public void delete(JobFair jobfair);
-
+ 
 }
