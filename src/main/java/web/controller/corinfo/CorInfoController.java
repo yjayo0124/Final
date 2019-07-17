@@ -21,12 +21,14 @@ public class CorInfoController {
 	@Autowired CorInfoService corinfoService;
 	
 	@RequestMapping(value = "/cor/info", method = RequestMethod.GET) 
+
 	public void corInfo(int cor_no, String cor_type, Model model) {
 		logger.info("기업상세 페이지");
 		
 		// 해당기업 리스트
 		List<Cor> corlist = corinfoService.getCorinfo(cor_no);
 		// 해당기업 리스트 test
+
 //		logger.info(corlist.toString());
 		
 		// date format

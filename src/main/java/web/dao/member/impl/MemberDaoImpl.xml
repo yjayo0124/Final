@@ -33,5 +33,11 @@
 	</insert>
 
 
+	<update id="update" parameterType="web.dto.Member">
+	UPDATE member
+	SET member_phone = #{member_phone}, member_email = #{member_email}
+	WHERE member_no = #{member_no}
+	</update>
+
 
 </mapper>

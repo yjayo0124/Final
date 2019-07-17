@@ -254,6 +254,13 @@ $(document).ready(function() {
 </style>
 
 
+<div style="text-align: center; margin-top: 50px;">
+<a href="/member/join">개인회원</a>
+<a href="/member/corJoin">기업회원</a>
+</div>
+
+
+
 <div>
 <form action="/member/join" method="post" class="form">
 	<div class="join_content">
