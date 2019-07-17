@@ -50,7 +50,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET) 
 	public void join() {
-		logger.info("회원가입폼");
+		logger.info("join form");
 		
 	}
 	
@@ -67,11 +67,10 @@ public class MemberController {
 	@RequestMapping(value="/member/login")
 	public String login(Model model, HttpSession session) {
 		
-		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 	
-		System.out.println("네이버:" + naverAuthUrl);
-		//네이버
+		System.out.println("naver authUrl : " + naverAuthUrl);
+
 		model.addAttribute("url", naverAuthUrl);
 		
 		return "/member/login";
@@ -79,9 +78,7 @@ public class MemberController {
 
 	
 	}
-	
 
-	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/member/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(
 			Model model, 
@@ -90,27 +87,20 @@ public class MemberController {
 			HttpSession session, 
 			HttpServletRequest request
 			) throws IOException, ParseException {
-		
-		System.out.println("여기는 callback");
-		
+				
 		OAuth2AccessToken oauthToken;
 		
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+
+		apiResult = naverLoginBO.getUserProfile(oauthToken);
 		
-		//1. 로그인 사용자 정보를 읽어온다.
-		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
-		
-		//2. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(apiResult);
 		JSONObject jsonObj = (JSONObject) obj;
 		
-		//3. 데이터 파싱
-		//Top레벨 단계 _response 파싱
+		
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
 		
-		//System.out.println(response_obj);
-		//response의 nickname값 파싱
 		String social_name = (String)response_obj.get("name");
 		String social_id = (String) response_obj.get("id");
 		String social_email = (String) response_obj.get("email");
@@ -119,7 +109,7 @@ public class MemberController {
 		String res = null;
 		
 		if( memberService.memChk(social_id+"@naver") ) {
-			//가입한적 있는 사람이면 
+
 			
 			model.addAttribute("member_id", social_id);
 			model.addAttribute("token", oauthToken.getAccessToken());
@@ -167,6 +157,27 @@ public class MemberController {
 		return "redirect: /member/socialwelcom";
 	}
 	
+
+	
+	@RequestMapping(value="/member/corJoin", method=RequestMethod.GET)
+	public void corJoin() {		
+	
+	}
+
+	@RequestMapping(value="/member/corJoin", method=RequestMethod.POST)
+	public String corJoinProc(Member member, String corName) {		
+		
+		logger.info(corName);
+		
+//		int cor_no = memberService.selectIdByName(corName);
+		
+//		member.setCompany_no(cor_no);
+		memberService.join(member);
+		
+		return "redirect:"+"/main";
+		
+	}
+
 	
 	
 	

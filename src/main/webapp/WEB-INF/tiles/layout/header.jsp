@@ -13,7 +13,14 @@
 	
 <sec:authorize access="isAuthenticated()"> 
 	<a href="/member/logout">로그아웃</a>
+	<sec:authorize access="hasRole('ROLE_IDV')">
 	<a href="/mypage/main">마이페이지</a>
+	</sec:authorize>
+	
+	<sec:authorize access="hasRole('ROLE_COR')">
+	<a href="/cor/main">기업페이지</a>
+	</sec:authorize>
+
 </sec:authorize> 
 	</span>
 	</div>

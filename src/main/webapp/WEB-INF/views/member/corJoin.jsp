@@ -1,16 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js">
+</script>
+<script src="http://code.jquery.com/jquery-1.7.js"	type="text/javascript"></script>
+<script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+
+});
+</script>
 
     <script type="text/javascript">
 var ch_id=false;
 var ch_pw=false;
 var ch_pw2=false;
 var ch_name=false;
-var ch_nick=false;
-var ch_birthday=false;
-var ch_gender=false;
 var ch_email=false;
 var ch_phone=false;
+var ch_cor=false;
 	//id체크
 	function idcheck() {
 		var memId = $('#member_id').val();
@@ -86,37 +97,6 @@ var ch_phone=false;
 						ch_name=true;
 					}
 				})
-		$('#member_nick').blur(
-				function() {
-					if ($('#member_nick').val() === ''
-							|| $('#member_nick').val() === null) {
-						$('#nickMsg').show();
-						ch_nick=false;
-					} else {
-						$('#nickMsg').hide();
-						ch_nick=true;
-					}
-				})
-		$('#member_birthday').blur(
-				function() {
-					if ($('#member_birthday').val() === ''
-							|| $('#member_birthday').val() === null) {
-						$('#birthdayMsg').show();
-						ch_birthday=false;
-					} else {
-						$('#birthdayMsg').hide();
-						ch_birthday=true;
-					}
-				})
-		$('#member_gender').blur(function() {
-			if ($('select[name=member_gender]').val() === "0") {
-				$('#genderMsg').show();
-				ch_gender=false;
-			} else {
-				$('#genderMsg').hide();
-				ch_gender=true;
-			}
-		})
 		$('#member_email').blur(
 				function() {
 					if ($('#member_email').val() === ''
@@ -139,6 +119,18 @@ var ch_phone=false;
 						ch_phone=true;
 					}
 				})
+		$('#corName').blur(
+				function() {
+					if ($('#corName').val() === ''
+							|| $('#corName').val() === null) {
+						$('#corMsg').show();
+						ch_cor=false;
+					} else {
+						$('#corMsg').hide();
+						ch_cor=true;
+					}
+				})
+				
 	});
 	$(function() {
 		//비밀번호 확인
@@ -171,16 +163,12 @@ $(document).ready(function() {
 		//가입 버튼 클릭 시 form submit
 		$("#btnJoin").click(function() {
 			if(ch_id==true && ch_pw==true && ch_pw2==true && 
-				ch_name==true && ch_nick==true && ch_birthday==true && 
-				ch_gender==true && ch_email==true && ch_phone==true){
+				ch_name==true && ch_email==true && ch_phone==true){
 				$(this).parents("form").submit();
 			}if(ch_id==false){ $('#idMsg').show(); 
 			}if(ch_pw==false){ $('#pwMsg1').show(); 
 			}if(ch_pw2==false){ $('#pwMsg2').show(); 
 			}if(ch_name==false){ $('#nameMsg').show();  
-			}if(ch_nick==false){ $('#nickMsg').show(); 
-			}if(ch_birthday==false){ $('#birthdayMsg').show(); 
-			}if(ch_gender==false){ $('#genderMsg').show(); 
 			}if(ch_email==false){ $('#emailMsg').show(); 
 			}if(ch_phone==false){ $('#phoneMsg').show(); 
 			}
@@ -203,6 +191,7 @@ $(document).ready(function() {
 .row_group {
 	overflow: hidden;
 	width: 100%;
+	margin-bottom: 30px;
 }
 .join_title {
 	margin: 19px 0 8px;
@@ -213,8 +202,8 @@ $(document).ready(function() {
 	border: none;
 	display: block;
 	position: relative;
-	width: 100%;
-	height: 29px;
+	width: 300px;
+	height: 25px;
 }
 .intext, .genderdiv {
 	display: block;
@@ -227,17 +216,7 @@ $(document).ready(function() {
 	box-sizing: border-box;
 	vertical-align: top;
 }
-.gen {
-	width: 100%;
-	height: 29px;
-	font-size: 15px;
-	line-height: 18px;
-	color: #000;
-	border: none;
-	border-radius: 0;
-	height: auto;
-	margin-top: 3px;
-}
+
 .btnarea {
 	margin: 30px 0 9px;
 }
@@ -252,66 +231,71 @@ $(document).ready(function() {
 	box-sizing: border-box;
 }
 </style>
-
-
-<div style="text-align: center; margin-top: 50px;">
-<a href="/member/join">개인회원</a>
-<a href="/member/corJoin">기업회원</a>
-</div>
-
-
-
 <div>
-<form action="/member/join" method="post" class="form">
+
+	<div style="text-align: center; margin-top: 50px;">
+	<a href="/member/join">개인회원</a>
+	<a href="/member/corJoin">기업회원</a>
+	</div>
+
+
+<form action="/member/corJoin" method="post" class="form">
+
+
 	<div class="join_content">
+
+	<div style="border: 1px solid #ccc; margin-bottom: 30px;">
+	<p>기업정보</p>
+	<hr>
+	<div class="row_group">
+		<span class="intext"> <input type="text" id="corName"
+		name="corName" class="inputtext" maxlength="40" placeholder="회사명*" />
+		</span> 
+		<span id="helpBlock" class="help-block">
+		추후 개발
+		</span>
+	</div>
+	</div>
+	
+	<div style="border: 1px solid #ccc;">
+	<p>인사담당자 정보</p>
+	<hr>
 		<div class="row_group">
-			<h3 class="join_title">
-				<label for="id">아이디</label>
-			</h3>
 			<span class="intext"> <input type="text" id="member_id"
-				name="member_id" class="inputtext" maxlength="20"/>
+				name="member_id" class="inputtext" maxlength="20" placeholder="아이디(8자이상)*"/>
 			</span> <span class="error" id="idMsg">필수 정보입니다</span>
 		</div>
 
 		<div class="row_group">
-			<h3 class="join_title">
-				<label for="pw1">비밀번호</label>
-			</h3>
 			<span class="intext"> <input type="password" id="member_pw"
-				name="member_pw" class="inputtext" maxlength="20" />
+				name="member_pw" class="inputtext" maxlength="20" placeholder="비밀번호(8자이상 영문 숫자, 특수기호)*"/>
 			</span> <span class="error" id="pwMsg1">필수 정보입니다</span>
-			<h3 class="join_title">
-				<label for="pw2">비밀번호 확인</label>
-			</h3>
+			
 			<span class="intext"> <input type="password" id="member_pw2"
-				name="member_pw2" class="inputtext" maxlength="20" />
+				name="member_pw2" class="inputtext" maxlength="20" placeholder="비밀번호확인"/>
 			</span> <span class="error" id="pwMsg2">필수 정보입니다</span>
 		</div>
 
-		<div class="row_group">
-			
-			<h3 class="join_title">
-				<label for="name">이름</label>
-			</h3>
+		<div class="row_group">			
 			<span class="intext"> <input type="text" id="member_name"
-				name="member_name" class="inputtext" maxlength="40" />
+				name="member_name" class="inputtext" maxlength="40" placeholder="가입자명*"/>
 			</span> <span class="error" id="nameMsg"> 필수 정보입니다 </span>
+		</div>
 		
-			<h3 class="join_title">
-				<label for="email">이메일</label>
-			</h3>
+		<div class="row_group">
 			<span class="intext"> <input type="email" id="member_email"
-				name="member_email" class="inputtext" maxlength="100" />
+				name="member_email" class="inputtext" maxlength="100" placeholder="이메일*"/>
 			</span> <span class="error" id="emailMsg"> 필수 정보입니다 </span>
-			
-			<h3 class="join_title">
-				<label for="phone">휴대전화</label>
-			</h3>
+		</div>	
+		
+		<div class="row_group">
 			<span class="intext"> <input type="text" id="member_phone"
-				name="member_phone" class="inputtext" maxlength="16" />
+				name="member_phone" class="inputtext" maxlength="16" placeholder="휴대폰 번호*" />
 			</span> <span class="error" id="phoneMsg"> 필수 정보입니다 </span>
-			
-			<input type="hidden" id="member_auth" name="member_auth" value="ROLE_IDV" />
+		</div>
+	</div>	
+		
+			<input type="hidden" id="member_auth" name="member_auth" value="ROLE_COR" />
 			
 			<div class="btnarea">
 				<button type="submit" id="btnJoin" class="btn_type">
@@ -320,7 +304,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-
-
 </form>
+
+
 </div>
