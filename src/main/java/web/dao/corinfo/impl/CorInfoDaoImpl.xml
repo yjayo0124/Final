@@ -10,4 +10,9 @@
 		SELECT * FROM COR
 		WHERE cor_no = #{cor_no }
 	</select>
+	
+	<select id="selectIndustryinfo" parameterType="String" resultType="web.dto.Cor">
+		SELECT * FROM COR
+		WHERE cor_type = #{cor_type } AND ROWNUM <![CDATA[<=]]> 200
+	</select>
 </mapper>

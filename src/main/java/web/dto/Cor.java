@@ -9,7 +9,7 @@ public class Cor {
 	private int cor_classify;
 	private int business_no;
 	private String cor_type;
-	private int cor_history;
+	private String cor_history;
 	private int cor_mem;
 	private int national_pension;
 	private int cor_new_mem;
@@ -79,11 +79,11 @@ public class Cor {
 		this.cor_type = cor_type;
 	}
 
-	public int getCor_history() {
+	public String getCor_history() {
 		return cor_history;
 	}
 
-	public void setCor_history(int cor_history) {
+	public void setCor_history(String cor_history) {
 		this.cor_history = cor_history;
 	}
 
