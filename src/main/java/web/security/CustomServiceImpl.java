@@ -20,11 +20,11 @@ public class CustomServiceImpl implements UserDetailsService {
 		
 		Member member = memberDao.getUserDetails(username);
 
-        if(member==null) throw new UsernameNotFoundException("["+username+"] 이름으로 검색된 결과가 없습니다");
+        if(member==null) throw new UsernameNotFoundException("["+username+"] username cant find :: suggest to join!");
 
         if(member.getAuthorities().size()==0)
 
-            throw new UsernameNotFoundException("["+username+"] 이용자는 아무런 권한이 없습니다");
+            throw new UsernameNotFoundException("["+username+"] Ż���� ȸ��");
 
         return member;
 		

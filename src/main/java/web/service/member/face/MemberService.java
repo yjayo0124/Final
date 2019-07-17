@@ -10,5 +10,6 @@ public interface MemberService {
 	
 	public boolean memChk(String member_id);
 	
+	public void update(Member member);
 	
 }

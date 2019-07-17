@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper  namespace="web.dao.cor.face.CorDao" >
+
+	<select id="selectByNo" parameterType="int" resultType="web.dto.Cor">
+	SELECT * FROM cor WHERE cor_no = #{cor_no}
+	</select>
+
+
+	<update id="update" parameterType="web.dto.Cor">
+	UPDATE cor 
+	set cor_name = #{cor_name}, cor_addr = #{cor_addr}, cor_mem = #{cor_mem} 
+	WHERE cor_no = #{cor_no}
+	</update>
+
+</mapper>

@@ -24,7 +24,7 @@ public class Member implements UserDetails {
 	
 	
 	
-	//--------시큐리티 설정 --
+	//--------�떆�걧由ы떚 �꽕�젙 --
 	private List authorities; 
 	private boolean accountNonExpired = true; 
 	private boolean accountNonLocked = true; 
@@ -114,7 +114,7 @@ public class Member implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 	
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();   
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority(member_auth));
         return authorities;
 		
 	}

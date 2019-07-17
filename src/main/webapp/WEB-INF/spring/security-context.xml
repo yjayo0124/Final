@@ -13,6 +13,10 @@
  -->
 <security:http auto-config="true" use-expressions="true">
 
+	<security:intercept-url pattern="/cor/info**" access="permitAll"/>
+	<security:intercept-url pattern="/cor/**" access="hasRole('ROLE_COR')"/>
+	<security:intercept-url pattern="/" access="hasRole('ROLE_COR')"/>
+	
 	<security:form-login login-page="/member/login" login-processing-url="/member/login" 
 	default-target-url="/main"
 	always-use-default-target="false"

@@ -22,11 +22,10 @@ public class CorInfoController {
 	
 	@RequestMapping(value = "/cor/info", method = RequestMethod.GET) 
 	public void corInfo(int cor_no, Model model) {
-		logger.info("기업상세 페이지");
-		
+
 		List<Cor> corlist = corinfoService.getCorinfo(cor_no);
 		
-		// 해당기업 리스트 test
+
 //		logger.info(corlist.toString());
 		
 		model.addAttribute("list", corlist);

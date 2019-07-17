@@ -14,4 +14,6 @@ public interface MemberDao {
 	public int selectById(String member_id);
 	
 	public void insertOauth(Oauth oauth);
+	
+	public void update(Member member);
 }
