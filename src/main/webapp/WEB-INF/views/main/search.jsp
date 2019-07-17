@@ -34,7 +34,7 @@
 
 <c:forEach items="${list }" var="i">
 <tr>
-	<td><a href="/cor/info?cor_no=${i.COR_NO }">${i.COR_NAME }</a></td>
+	<td><a href="/cor/info?cor_no=${i.COR_NO }&cor_type=${i.COR_TYPE }">${i.COR_NAME }</a></td>
 </tr>
 </c:forEach>
 </table>
