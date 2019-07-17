@@ -3,19 +3,112 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	var a = $('#calculator').children().eq(1).find('select[name=grades]').val();
-	var b = $('#calculator').children().eq(1).find('input[type="text"]').val();
-	console.log(a);
-	console.log(b);
-	var c = $('#calculator').children().eq(2).find('select[name=grades]').val();
-	var d = $('#calculator').children().eq(2).find('input[type="text"]').val();
-	console.log(c);
-	console.log(d);
+	$('#btn_calculation').click(function(){
+		
+		var table = $('#calculator tbody tr');
+		var length = $('#calculator tbody tr').length;
+		var grades = 0;
+		var credit = 0;
+		var count = 0;
+		var sum = 0;
+		var score = 0;
+		var total = 0;
+		var totalcredit = 0;
+		
+		for(var i=0; i<length-1; i++) {
+			
+			credit = table.eq(i).find('input[name="credit"]').val();
+			
+			if(credit != 0) {
+				
+				switch(table.eq(i).find('select[name=grades]').val()) {
+					
+				case 'A+' :	grades = 4.5;
+					break;
+				case 'A' :	grades = 4.0;
+					break;
+				case 'B+' :	grades = 3.5;
+					break;
+				case 'B' :	grades = 3.0;
+					break;
+				case 'C+' :	grades = 2.5;
+					break;
+				case 'c' :	grades = 2.0;
+					break;
+				case 'D+' :	grades = 1.5;
+					break;
+				case 'D' :	grades = 1.0;
+					break;
+				case 'F' :	grades = 0;
+					break;
+				
+				}
+				
+				count++;
+				totalcredit = Number(totalcredit) + Number(credit);
+				score = Number(grades) * Number(credit);
+				sum = Number(sum) + Number(score);
+				
+			}
+			
+		}
+		total = sum/totalcredit;
+		
+		if (isNaN(total)) total = 0;
+		
+		$("#main_avg").text(parseFloat(total.toFixed(2)));
+		$("#grades_avg").text(parseFloat(total.toFixed(2)) + " / 4.5");
+		$("#main_credit").text(totalcredit);
+		$("#credit_sum").text("수업 : "+count+" / 총점 : "+totalcredit);
+	});
+	
+	
+	$('#new').click(function(){
+		
+		$('#calculator_tbody').append(
+				"<tr class='more'>"+
+				"<th>"+
+					"<select class='selecter'name='grades'>"+
+							"<option value='A+' selected='selected'>A+</option>"+
+							"<option value='A'>A</option>"+
+							"<option value='B+'>B+</option>"+
+							"<option value='B'>B</option>"+
+							"<option value='C+'>C+</option>"+
+							"<option value='C'>C</option>"+
+							"<option value='D+'>D+</option>"+
+							"<option value='D'>D</option>"+
+							"<option value='F'>F</option>"+
+					"</select>"+
+				"</th>"+
+				"<th><input type='text' class='credit_input' name='credit' value='0'/></th>"+
+				"<th><input type='text' class='class_name_input' name='class_name'/></th>"+
+			"</tr>");
+		
+	});
+	
+	$('#btn_reset').click(function(){
+		
+		var table = $('#calculator tbody tr');
+		var length = $('#calculator tbody tr').length;
+		
+		for(var i=0; i<length-1; i++) {
+			
+			table.eq(i).find('input[name="credit"]').val("0");
+			table.eq(i).find('select[name=grades]').find("option:eq(0)").prop("selected", true);
+			
+		}
+		
+		$("#main_avg").text("0");
+		$("#grades_avg").text("0 / 4.5");
+		$("#main_credit").text("0");
+		$("#credit_sum").text("수업 : 0 / 총점 : 0");
+		
+		
+		$('.more').remove();
+		
+	});
 })
 
-
-function score() {
-}
 </script>
 <style type="text/css">
 .container {
@@ -142,7 +235,7 @@ td {
 	font-size: 20px;
 	font-weight: bold;
 }
-.more_input {
+.new_input {
 	padding-left : 20px;
 	text-align: left;
 }
@@ -228,13 +321,13 @@ td {
 			<div class="grades_div">
 				<div class="div_radius_avg">
 					<strong>학점 평균</strong>
-					<h1 class="grades_num">0</h1>
-					<p style="font-size: 15px;">0 / 4.5</p>
+					<h1 class="grades_num" id="main_avg">0</h1>
+					<p style="font-size: 15px;" id="grades_avg">0 / 4.5</p>
 				</div>
 				<div class="div_radius_sum">
 					<strong>전체 학점</strong>
-					<h1 class="grades_num">0</h1>
-					<p style="font-size: 15px;">총점 : 0</p>
+					<h1 class="grades_num" id="main_credit">0</h1>
+					<p style="font-size: 15px;" id="credit_sum">수업 : 0 / 총점 : 0</p>
 				</div>
 			</div>
 		</div>
@@ -275,7 +368,7 @@ td {
 			<div class="top_calculator">
 				<div class="calculator_title"><p>학점계산기</p></div>
 				<div class="div_reset">
-					<button type="button" class="btn btn-default">초기화</button>
+					<button type="button" class="btn btn-default" id="btn_reset">초기화</button>
 				</div>
 			</div>
 			<table class="calculator_table"  id="calculator" border="1">
@@ -286,7 +379,7 @@ td {
 						<th class="class_name">수업</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="calculator_tbody">
 					<tr>
 						<th>
 							<select class="selecter"name="grades">
@@ -494,9 +587,10 @@ td {
 					
 				</tbody>
 				<tr>
-					<th colspan="3" class="more_input">+ 더 입력하기</th>
+					<th colspan="3" class="new_input"><p id="new" style="cursor:pointer;">+ 더 입력하기</p></th>
 				</tr>
 			</table>
+			<button class="btn btn-default" id="btn_calculation" style="margin-top:8px; font-weight: bold; float: right;">계산하기</button>
 		</div>
 	</div>
 
