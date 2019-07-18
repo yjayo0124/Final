@@ -41,12 +41,13 @@
 				<value>classpath:/web/dao/main/impl/*.xml</value>
 				<value>classpath:/web/dao/corinfo/impl/*.xml</value>
 				<value>classpath:/web/dao/cor/impl/*.xml</value>
+				<value>classpath:/web/dao/jobfair/impl/*.xml</value>
 			</array>
 		</property>
 	</bean>
 
 	<!--  마이바티스 인터페이스 설정 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="web.dao.member.face, web.dao.mypage.face, web.dao.recruitment.face, web.dao.main.face, web.dao.corinfo.face, web.dao.cor.face"/>
+		<property name="basePackage" value="web.dao.member.face, web.dao.mypage.face, web.dao.recruitment.face, web.dao.main.face, web.dao.corinfo.face, web.dao.cor.face, web.dao.jobfair.face"/>
 	</bean>	
 </beans>

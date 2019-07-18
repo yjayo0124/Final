@@ -1,9 +1,11 @@
 package web.dto;
 
+import java.util.Date;
+
 public class JobFair {
 	private int jobfair_no;
 	private String jobfair_name;
-	private String jobfair_date;
+	private Date jobfair_date;
 	private String jobfair_start;
 	private String jobfair_end;
 	private String jobfair_loc;
@@ -13,7 +15,7 @@ public class JobFair {
 	
 	@Override
 	public String toString() {
-		return "Jobfair [jobfair_no=" + jobfair_no + ", jobfair_name=" + jobfair_name + ", jobfair_date=" + jobfair_date
+		return "JobFair [jobfair_no=" + jobfair_no + ", jobfair_name=" + jobfair_name + ", jobfair_date=" + jobfair_date
 				+ ", jobfair_start=" + jobfair_start + ", jobfair_end=" + jobfair_end + ", jobfair_loc=" + jobfair_loc
 				+ ", jobfair_content=" + jobfair_content + ", jobfair_limit=" + jobfair_limit + ", member_no="
 				+ member_no + "]";
@@ -35,11 +37,11 @@ public class JobFair {
 		this.jobfair_name = jobfair_name;
 	}
 
-	public String getJobfair_date() {
+	public Date getJobfair_date() {
 		return jobfair_date;
 	}
 
-	public void setJobfair_date(String jobfair_date) {
+	public void setJobfair_date(Date jobfair_date) {
 		this.jobfair_date = jobfair_date;
 	}
 
@@ -90,5 +92,5 @@ public class JobFair {
 	public void setMember_no(int member_no) {
 		this.member_no = member_no;
 	}
-	
+			
 }
