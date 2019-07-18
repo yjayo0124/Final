@@ -33,4 +33,9 @@
 		INSERT INTO recruit_file( recruit_file_no, recruit_file_storedname, recruit_file_originname, recruit_file_upload_date, recruit_no)
 		VALUES(recruit_file_seq.nextval, #{recruit_file_storedname},#{recruit_file_originname},#{recruit_file_upload_date},#{recruit_no}) 
 	</insert>
+
+	<select id="selectByMemberNo" resultType="web.dto.Recruit" parameterType="int">
+	SELECT * FROM recruit WHERE member_no = #{member_no} ORDER BY recruit_no desc
+	</select>
+	
 </mapper>

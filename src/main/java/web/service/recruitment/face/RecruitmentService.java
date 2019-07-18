@@ -27,4 +27,7 @@ public interface RecruitmentService {
 			ServletContext context //서블릿컨텍스트
 			);
 
+	public List<Recruit> getListByMemberNo(int member_no);
+
+
 }

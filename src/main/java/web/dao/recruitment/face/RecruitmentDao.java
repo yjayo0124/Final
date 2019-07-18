@@ -34,5 +34,8 @@ public interface RecruitmentDao {
 	 * @param recruit_file
 	 */
 	public void insertFile(Recruit_file recruit_file);
+
+	public List<Recruit> selectByMemberNo(int member_no);
+
 	
 }
