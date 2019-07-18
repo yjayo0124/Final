@@ -2,11 +2,13 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <script type="text/javascript">
 (function( $ ) {
     "use strict";
     $(function() {
+		var chart = 1;
         function animated_contents() {
         	$(".zt-skill-bar").each(function(i) {
                 var $this  = $(this),
@@ -34,51 +36,52 @@
         } else {
             animated_contents();
         }
+
+    	$('#zt-span7').hide();
+    	$('#zt-span8').hide();
+    	$('#zt-span9').hide();
+    	$('#zt-span6').show();
+    	$('#membox').click(function() {
+    		$('#zt-span7').hide();
+    		$('#zt-span8').hide();
+    		$('#zt-span9').hide();
+    		$('#zt-span6').show();
+
+    	});
+    	$('#historybox').click(function() {
+    		$('#zt-span6').hide();
+    		$('#zt-span8').hide();
+    		$('#zt-span9').hide();
+    		$('#zt-span7').show();
+    		animated_contents();
+    	});
+    	$('#newmembox').click(function() {
+    		$('#zt-span7').hide();
+    		$('#zt-span6').hide();
+    		$('#zt-span9').hide();
+    		$('#zt-span8').show();
+    		animated_contents();
+    	});
+    	$('#levmembox').click(function() {
+    		$('#zt-span7').hide();
+    		$('#zt-span8').hide();
+    		$('#zt-span6').hide();
+    		$('#zt-span9').show();
+    		animated_contents();
+    	});
+    	
     });
 }(jQuery));
 
-$(function() {
-		$('#zt-span7').hide();
-		$('#zt-span8').hide();
-		$('#zt-span9').hide();
-		$('#zt-span6').show();
-	$('#membox').click(function() {
-		$('#zt-span7').hide();
-		$('#zt-span8').hide();
-		$('#zt-span9').hide();
-		$('#zt-span6').show();
-		$('#hidechart').load('#zt-span6');
-	});
-	$('#historybox').click(function() {
-		$('#zt-span6').hide();
-		$('#zt-span8').hide();
-		$('#zt-span9').hide();
-		$('#zt-span7').show();
-		$('#hidechart').load('#zt-span7');
-	});
-	$('#newmembox').click(function() {
-		$('#zt-span7').hide();
-		$('#zt-span6').hide();
-		$('#zt-span9').hide();
-		$('#zt-span8').show();
-		$('#hidechart').load('#zt-span8');
-	});
-	$('#levmembox').click(function() {
-		$('#zt-span7').hide();
-		$('#zt-span8').hide();
-		$('#zt-span6').hide();
-		$('#zt-span9').show();
-		$('#hidechart').load('#zt-span9');
-	});
-});
-
-
+function writePop(corno){
+	window.open("http://localhost:8088/review/writePop?cor_no="+corno, "글쓰기", "width=1000, height=650");
+}
 
 </script>
 
 <style type="text/css">
 body {
-	width: 1000px;
+	width: 1200px;
 	margin: 0 auto;
 }
 
@@ -86,6 +89,10 @@ h6 {
 	margin-top: 50px;
 	width: 300px;
 	border: 0px;
+}
+
+h5 {
+	font-weight: bold;
 }
 
 #corname {
@@ -111,18 +118,7 @@ h6 {
 	width: 520px;
 }
 
-#mem {
-	float: left;
-}
-#history {
-	float: left;
-}
-
-#newmem {
-	float: left;
-}
-
-#levmem {
+#mem, #history, #newmem, #levmem {
 	float: left;
 }
 
@@ -131,16 +127,24 @@ h6 {
 	float: right;
 }
 
-#zt-sapn1 {
-	height: auto;
+#zt-sapn1, #zt-sapn2 {
+	height: 25px;
 	float: left;
 }
 
-#zt-sapn2 {
-	height: auto;
+#review, #recruit {
 	float: left;
+	margin: 3px;
+	border: 3px solid #dddddd;
+	padding: 5px;
+	width: 100%;
+	border-radius: 8px;
+	height: 500px;
 }
 
+#reviewBtn {
+	float: right;
+}
 
 table {
 	width: 100%;
@@ -166,19 +170,7 @@ td {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* css */
 .sm-link{
     --uismLinkDisplay: var(--smLinkDisplay, inline-flex);   
     --uismLinkTextColor: var(--smLinkTextColor);
@@ -378,21 +370,6 @@ SETTINGS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*-------------------------------------------------------------------------*/
 /*  Skill bar style
 /*-------------------------------------------------------------------------*/
@@ -436,7 +413,8 @@ SETTINGS
 
 .zt-skill-bar span {
     display: block;
-    position: absolute;
+    position: absolute; 
+    left: auto;
     right: 0;
     top: 0;
     height: auto;
@@ -451,7 +429,7 @@ SETTINGS
 
 .zt-skill-bar span:before {
     content: "";
-    position: absolute;
+    position: absolute; 
     width: 6px;
     height: 6px;
     top: 50%;
@@ -515,7 +493,7 @@ SETTINGS
 	<div id="history" class="section">
 		<h5>업력</h5>
 		<div id="historybox" class="sm-link sm-link_bg sm-link12">
-			<h4><span id="cor_history" class="sm-link__label"></span></h4>
+			<h4><span id="cor_history" class="sm-link__label">${formatdate }년</span></h4>
 		</div>
 	</div>
 	<div id="newmem" class="section">
@@ -532,107 +510,97 @@ SETTINGS
 	</div>
 </div>
 
-<div id="hidechart">
-	<div id="zt-span6" class="zt-span6 last">
-		<c:choose>
-			<c:when test="${i.cor_mem > idmem}">
-				<c:set var="cormem" value="${i.cor_mem }"/>
-			</c:when>
-			<c:when test="${i.cor_mem < idmem}">
-				<c:set var="cormem" value="${idmem }"/>
-			</c:when>
-		</c:choose>
-		
-		<h3><strong>인원</strong></h3>
-		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:50px;">${i.cor_mem }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:50px;">${idmem }명</span></div></div>
-	</div>
+<div id="chart">
+<div id="zt-span6" class="zt-span6 last">
+	<c:set var="cormemvar" value="${i.cor_mem }"/>
+	<c:set var="idmemvar" value="${idmem }"/>
+	<c:set var="cornewmemvar" value="${i.cor_new_mem }"/>
+	<c:set var="newmemvar" value="${newmem }"/>
+	<c:set var="corlevmemvar" value="${i.cor_lev_mem }"/>
+	<c:set var="levmemvar" value="${levmem }"/>
 	
-	<div id="zt-span7" class="zt-span6 last">
-		<c:choose>
-			<c:when test="${i.cor_mem > i.cor_new_mem}">
-				<c:set var="cormem" value="${i.cor_mem }"/>
-			</c:when>
-			<c:when test="${i.cor_mem < i.cor_new_mem}">
-				<c:set var="cormem" value="${i.cor_new_mem }"/>
-			</c:when>
-		</c:choose>
-		
-		<h3><strong>업력</strong></h3>
-		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:50px;">${i.cor_mem }년</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:50px;">${idmem }년</span></div></div>
-	</div>
-	
-	<div id="zt-span8" class="zt-span6 last">
-		<c:choose>
-			<c:when test="${i.cor_new_mem > newmem}">
-				<c:set var="cormem" value="${i.cor_mem }"/>
-			</c:when>
-			<c:when test="${i.cor_new_mem < newmem}">
-				<c:set var="cormem" value="${newmem }"/>
-			</c:when>
-		</c:choose>
-		
-		<h3><strong>입사율</strong></h3>
-		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:50px;">${i.cor_new_mem }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:50px;">${newmem }명</span></div></div>
-	</div>
-	
-	<div id="zt-span9" class="zt-span6 last">
-		<c:choose>
-			<c:when test="${i.cor_lev_mem > levmem}">
-				<c:set var="cormem" value="${i.cor_mem }"/>
-			</c:when>
-			<c:when test="${i.cor_lev_mem < levmem}">
-				<c:set var="cormem" value="${levmem }"/>
-			</c:when>
-		</c:choose>
-		
-		<h3><strong>퇴사율</strong></h3>
-		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:50px;">${i.cor_lev_mem }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:50px;">${levmem }명</span></div></div>
-	</div>
+	<c:choose>
+		<c:when test="${i.cor_mem > idmem and i.cor_mem > 101}">
+			<c:set var="cormem" value="${i.cor_mem }"/>
+			<c:set var="idmem" value="${(idmem / i.cor_mem) * 100}"/>
+		</c:when>
+		<c:when test="${i.cor_mem < idmem and idmem > 101}">
+			<c:set var="cormem" value="${idmem }"/>
+			<c:set var="i.cor_mem" value="${(i.cor_mem / idmem) * 100}"/>
+		</c:when>
+	</c:choose>
+
+	<h3><strong>인원</strong></h3>
+	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
 </div>
 
+<div id="zt-span7" class="zt-span6 last">
+	<c:choose>
+		<c:when test="${formatdate > idformatdate and formatdate > 101}">
+			<c:set var="cormem" value="${formatdate }"/>
+			<c:set var="idmem" value="${(idformatdate / formatdate) * 100}"/>
+		</c:when>
+		<c:when test="${formatdate < idformatdate and idformatdate > 101}">
+			<c:set var="cormem" value="${idformatdate }"/>
+			<c:set var="idmem" value="${(formatdate / idformatdate) * 100}"/>
+		</c:when>
+	</c:choose>
+	
+	<h3><strong>업력</strong></h3>
+	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+</div>
+
+<div id="zt-span8" class="zt-span6 last">
+	<c:choose>
+		<c:when test="${i.cor_new_mem > newmem and i.cor_new_mem > 101}">
+			<c:set var="cormem" value="${i.cor_mem }"/>
+			<c:set var="newmem" value="${(newmem / i.cor_new_mem) * 100}"/>
+		</c:when>
+		<c:when test="${i.cor_new_mem < newmem and newmem > 101}">
+			<c:set var="cormem" value="${newmem }"/>
+			<c:set var="i.cor_new_mem" value="${(i.cor_new_mem / newmem) * 100}"/>
+		</c:when>
+	</c:choose>
+	
+	<h3><strong>입사율</strong></h3>
+	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+</div>
+
+<div id="zt-span9" class="zt-span6 last">
+	<c:choose>
+		<c:when test="${i.cor_lev_mem > levmem and i.cor_lev_mem > 101}">
+			<c:set var="cormem" value="${i.cor_mem }"/>
+			<c:set target="levmem" value="${(levmem / i.cor_lev_mem) * 100}"/>
+		</c:when>
+		<c:when test="${i.cor_lev_mem < levmem and levmem > 101}">
+			<c:set var="cormem" value="${levmem }"/>
+			<c:set target="i.cor_lev_mem" value="${(i.cor_lev_mem / levmem) * 100}"/>
+		</c:when>
+	</c:choose>
+	
+	<h3><strong>퇴사율</strong></h3>
+	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+</div>
+</div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<h5>기업리뷰</h5>
+<button id="reviewBtn" onclick="writePop(${i.cor_no})">글쓰기</button>
+<div id="review">
+
+</div>
+<div style="margin: 500px;"></div>
+<br><br><br><br><br><br>
+<h5>채용공고</h5>
+<div id="recruit">
+
+</div>
 </c:forEach>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
-
-<script type="text/javascript">
-Date.prototype.format = function(f) {
-	if (!this.valueOf()) return " ";
- 
-	var weekName = ["일", "월", "화", "수", "목", "금", "토"];
-	var d = this;
-	 
-	return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
-		switch ($1) {
-			case "yyyy": return d.getFullYear();
-			case "yy": return (d.getFullYear() % 1000).zf(2);
-			case "MM": return (d.getMonth() + 1).zf(2);
-			case "dd": return d.getDate().zf(2);
-			case "E": return weekName[d.getDay()];
-			case "HH": return d.getHours().zf(2);
-			case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
-			case "mm": return d.getMinutes().zf(2);
-			case "ss": return d.getSeconds().zf(2);
-			case "a/p": return d.getHours() < 12 ? "오전" : "오후";
-			default: return $1;
-		}
-	});
-};
- 
-String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
-String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
-Number.prototype.zf = function(len){return this.toString().zf(len);};
-
-var formatdate = new Date('${formatdate }');
-formatdate = formatdate.format("yyyy");
-var sysdate = new Date();
-sysdate = sysdate.format("yyyy");
-formatdate = sysdate-formatdate;
-console.log(formatdate);
-document.getElementById('cor_history').innerHTML=formatdate+"년";
-
-</script>
 </html>

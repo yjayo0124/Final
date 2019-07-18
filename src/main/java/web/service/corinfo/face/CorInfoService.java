@@ -18,4 +18,6 @@ public interface CorInfoService {
 
 	int addLevmem(List<Cor> industrylist);
 
+	String idformatDate(List<Cor> industrylist);
+
 }

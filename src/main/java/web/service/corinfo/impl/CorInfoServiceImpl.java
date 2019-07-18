@@ -1,5 +1,7 @@
 package web.service.corinfo.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +39,25 @@ public class CorInfoServiceImpl implements CorInfoService {
 	@Override
 	public String formatDate(List<Cor> corlist) {
 		String formatdate = null;
+		int cordate = 0;
+		int sys_date = 0;
 		for(int i = 0; i < corlist.size(); i++) {
 			formatdate = corlist.get(i).getCor_history();
 		}
-		formatdate = formatdate.substring(0,4)+ "-" +formatdate.substring(4, formatdate.length());
-		formatdate = formatdate.substring(0,7)+ "-" +formatdate.substring(7, formatdate.length());
+		formatdate = formatdate.substring(0,4);
+		cordate = Integer.parseInt(formatdate);
+		
+		// date to String
+		Date sysdate = new Date();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy");
+		String to = transFormat.format(sysdate);
+//		System.out.println("to : " + to); // test
+		sys_date = Integer.parseInt(to);
+		
+		cordate = sys_date - cordate;
+		formatdate = Integer.toString(cordate);
+		System.out.println("formatedate : " + formatdate);
+		
 		return formatdate;
 	}
 
@@ -63,6 +79,37 @@ public class CorInfoServiceImpl implements CorInfoService {
 		}
 		levmem = levmem/industrylist.size();
 		return levmem;
+	}
+
+	@Override
+	public String idformatDate(List<Cor> industrylist) {
+		String idformatdate = null;
+		long cordate = 0;
+		int sys_date = 0;
+		
+		for(int i = 0; i < industrylist.size(); i++) {
+			idformatdate = industrylist.get(i).getCor_history();
+			long formatdate = Integer.parseInt(idformatdate);
+			cordate += formatdate;
+		}
+		cordate = cordate/industrylist.size();
+//		System.out.println("cordate : " + cordate); // test
+		idformatdate = Long.toString(cordate);
+		idformatdate = idformatdate.substring(0,4);
+		cordate = Integer.parseInt(idformatdate);
+		
+		// date to String
+		Date sysdate = new Date();
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy");
+		String to = transFormat.format(sysdate);
+//		System.out.println("to : " + to); // test
+		sys_date = Integer.parseInt(to);
+		
+		cordate = sys_date - cordate;
+		idformatdate = Long.toString(cordate);
+		System.out.println("idformatdate : " + idformatdate);
+		
+		return idformatdate;
 	}
 
 }

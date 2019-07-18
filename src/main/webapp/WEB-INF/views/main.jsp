@@ -62,7 +62,7 @@ $(document).ready(function() {
 <!-- 검색기능 -->
 <form action="/main/search" method="get">
 	<div class="search">
-		<input type="text" name="keyword" id="keyword">
+		<input type="text" name="keyword" id="keyword"/>
 		<button type="button" id="searchBtn">검색</button>
 	</div>
 </form>
