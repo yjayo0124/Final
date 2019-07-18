@@ -12,4 +12,6 @@ public interface MemberService {
 	
 	public void update(Member member);
 	
+	public Member selectById(String member_id);
+	
 }

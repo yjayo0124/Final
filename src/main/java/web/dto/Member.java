@@ -17,26 +17,42 @@ public class Member implements UserDetails {
 	private String member_phone;
 	private String member_email;
 	
+	
 	private char enab;
 	private int company_no;
+	private String company_name;
 	private String member_auth;
 	
 	
-	
-	
-	//--------�떆�걧由ы떚 �꽕�젙 --
 	private List authorities; 
 	private boolean accountNonExpired = true; 
 	private boolean accountNonLocked = true; 
 	private boolean credentialsNonExpired = true; 
 	private boolean enabled = true; 
 
+
+
 	@Override
 	public String toString() {
 		return "Member [member_no=" + member_no + ", member_id=" + member_id + ", member_pw=" + member_pw
 				+ ", member_name=" + member_name + ", member_phone=" + member_phone + ", member_email=" + member_email
-				+ ", enab=" + enab + ", company_no=" + company_no + ", member_auth=" + member_auth + "]";
+				+ ", enab=" + enab + ", company_no=" + company_no + ", company_name=" + company_name + ", member_auth="
+				+ member_auth + "]";
 	}
+	
+	
+
+	public String getCompany_name() {
+		return company_name;
+	}
+
+
+
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+
+
 
 	public int getMember_no() {
 		return member_no;
