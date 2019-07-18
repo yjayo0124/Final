@@ -22,4 +22,8 @@
 		WHERE recruit_no = #{recruit_no}
 	</select>
 	
+	<select id="selectByMemberNo" resultType="web.dto.Recruit" parameterType="int">
+	SELECT * FROM recruit WHERE member_no = #{member_no} ORDER BY recruit_no desc
+	</select>
+	
 </mapper>
