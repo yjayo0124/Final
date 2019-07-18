@@ -27,33 +27,29 @@ public class CorInfoController {
 		
 		// �빐�떦湲곗뾽 由ъ뒪�듃
 		List<Cor> corlist = corinfoService.getCorinfo(cor_no);
-		// �빐�떦湲곗뾽 由ъ뒪�듃 test
 
-//		logger.info(corlist.toString());
-		
-		// date format
+		// 해당기업 date format
 		String formatdate = corinfoService.formatDate(corlist);
 		
 		// �룞醫낆궛�뾽援� 由ъ뒪�듃
 		List<Cor> industrylist = corinfoService.getIndustryinfo(cor_type);
-		// �룞醫낆궛�뾽援� 由ъ뒪�듃 test
-//		logger.info(industrylist.toString());
 
-		// �룞醫낆궛�뾽援� �룊洹� �씤�썝
+		// 동종산업군 date format
+		String idformatdate = corinfoService.idformatDate(industrylist);
+		
+		// 동종산업군 평균 인원
+
 		int industrymem = corinfoService.addIndustrymem(industrylist);
-//		System.out.println(industrymem);
-//		System.out.println(formatdate);
 		
 		// �룞醫낆궛�뾽援� �룊洹� �엯�궗�쑉
 		int newmem = corinfoService.addNewmem(industrylist);
-		System.out.println(newmem);
 		
 		// �룞醫낆궛�뾽援� �룊洹� �눜�궗�쑉
 		int levmem = corinfoService.addLevmem(industrylist);
-		System.out.println(levmem);
 		
 		model.addAttribute("list", corlist);
 		model.addAttribute("formatdate", formatdate);
+		model.addAttribute("idformatdate", idformatdate);
 		model.addAttribute("idmem", industrymem);
 		model.addAttribute("newmem", newmem);
 		model.addAttribute("levmem", levmem);

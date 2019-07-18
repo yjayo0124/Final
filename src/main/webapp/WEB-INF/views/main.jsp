@@ -61,9 +61,18 @@ $(document).ready(function() {
 <body>
 
 <hr>
+
+
+<!-- 검색기능 -->
+<form action="/main/search" method="get">
+	<div class="search">
+		<input type="text" name="keyword" id="keyword"/>
+		<button type="button" id="searchBtn">검색</button>
+
 <div class="row">
 	<div class="col-md-3">
 	<h3>KHOB</h3>
+
 	</div>
 	<div class="col-md-9">
 		<!-- 검색기능 -->

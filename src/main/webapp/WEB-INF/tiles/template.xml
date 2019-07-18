@@ -16,6 +16,9 @@
 		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp"/>
 	</definition>
 	
+	<definition name="review/writePop" template="/WEB-INF/views/review/writePop.jsp">
+	</definition>
+	
 	<definition name="*" extends="tilesbase">
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp"/>
 	</definition>
