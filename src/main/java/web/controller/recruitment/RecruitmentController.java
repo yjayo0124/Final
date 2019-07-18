@@ -2,6 +2,7 @@ package web.controller.recruitment;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Recruit;
 import web.service.recruitment.face.RecruitmentService;
@@ -20,10 +23,11 @@ import web.util.Paging;
 @Controller
 public class RecruitmentController {
 
+	@Autowired ServletContext context;
+	@Autowired RecruitmentService recruitmentService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(RecruitmentController.class);
 	
-	@Autowired RecruitmentService recruitmentService;
-
 	@RequestMapping(value = "/recruitment/main", method = RequestMethod.GET) 
 	public void recruitList(HttpServletRequest req, Model model) {
 //		logger.info("채용공고 리스트페이지");
@@ -60,9 +64,27 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value="/recruitment/write", method= RequestMethod.POST)
-	public void recruitWriteProc(Recruit recruit, HttpSession session) {
+	public String recruitWriteProc(
+			Recruit recruit,
+			HttpSession session,
+			@RequestParam(value="file") MultipartFile fileupload
+			) {
+	
+		logger.info("글쓰기");
+		recruit.setMember_no((int) session.getAttribute("member_no"));
+	
+		logger.info("파일업로드 처리");
+		logger.info("파일 : " + fileupload.getOriginalFilename());
+		logger.info(context.getRealPath("upload"));
 		
+		//첨부파일 저장
+		recruitmentService.filesave( fileupload, context);
+	
+		recruitmentService.write(recruit);
+		
+		return "redirect:/recruitment/main";
 	}
+	
 	@RequestMapping(value = "/recruitment/update", method = RequestMethod.GET) 
 	public void recruitUpdate() {
 		
