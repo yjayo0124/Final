@@ -31,36 +31,69 @@ button {
 }
 </style>
 
-<div class="wrap">
 
 <div class="container">
 
-<h1>채용정보</h1><hr>
-*기업명<br>
-*채용공고명<br><hr>
+<h2>채용정보</h2><hr>
 
-*지원자격<br>
-경력<br>
-학력<br>
-우대자격증<br>
-우대 전공<br><br>
 
-*근무자격<br>
-고용형태<br>
-급여<br>
-요일 및 시간<br>
-직급<br><br>
+<table class="table table-bordered">
+<tr>
+<td> 기업명</td><td colspan="3">${viewRecruit.recruit_name }</td>
+</tr>
 
-*기업형태<br>
-대표자명<br>
-회사주소<br>
-</div>
+<tr>
+<td>채용공고명</td><td colspan="3">${viewRecruit.recruit_title }</td>
+</tr>
 
+<tr>
+<td>지원자격</td><td></td><td>기업 형태</td><td></td>
+</tr>
+
+<tr>
+<td>경력</td><td >${viewRecruit.recruit_career }</td><td></td>
+</tr>
+
+<tr>
+<td>학력</td><td >${viewRecruit.recruit_educareer }</td>
+<td>대표자명</td><td>#</td>
+</tr>
+
+<tr>
+<td>우대자격증</td><td>${viewRecruit.recruit_certificate }</td><td></td>
+</tr>
+
+<tr>
+<td>우대전공</td><td>${viewRecruit.recruit_major }</td>
+<td>회사 주소</td><td>#</td>
+</tr>
+
+<tr>
+<td>근무자격</td><td colspan="3"></td>
+</tr>
+
+<tr>
+<td>고용형태</td><td >${viewRecruit.recruit_type }</td><td colspan="3"></td>
+</tr>
+
+<tr>
+<td>급여</td><td>${viewRecruit.recruit_sal }</td><td colspan="3"></td>
+</tr>
+
+<tr>
+<td>요일 및 시간</td><td>${viewRecruit.recruit_time }</td><td colspan="3"></td>
+</tr>
+
+<tr>
+<td>직급</td><td>${viewRecruit.recruit_position }</td><td colspan="3"></td>
+</tr>
+
+</table>
 <div class="text-center">
 	<button id="btnSubmit" class="btn btn-primary">홈페이지지원</button>
 	<button id="btnScrab" class="btn btn-primary">스크랩</button>
 </div>
 
-<h3>상세요강</h3><hr>
+<h2>상세요강</h2><hr>
 
 </div>

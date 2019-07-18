@@ -17,5 +17,4 @@ public interface CorInfoService {
 	int addNewmem(List<Cor> industrylist);
 
 	int addLevmem(List<Cor> industrylist);
-
 }
