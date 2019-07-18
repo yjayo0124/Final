@@ -22,8 +22,7 @@ $(document).ready(function() {
 			center: 'title',
 			right: 'next, today'
 		},
-		defaultView: 'month',
-		lang: 'ko',
+		//데이터 가져오기
 		events: function(start, end, timezone, callback) {
 			$.ajax({
 				type: "POST",
@@ -50,10 +49,15 @@ $(document).ready(function() {
 					console.log("실패");
 				}
 			});
-		}
-// 		,eventClick: function(event) {
+		},
+// 		eventClick: function(event) {
 //			$()
-//		}
+//		},
+		momonthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
+		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], 
+		dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+ 		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+ 		buttonText: {today: '오늘', month: '월', week: '주', day: '일'}
 	});
 	
 	
@@ -93,9 +97,9 @@ $(document).ready(function() {
 	<button id="btnSearch" class="btn btn-outline-secondary">검색</button>
 </div>
 
-<%-- <c:if test="${login eq admin }"> --%>
-<button id="btnRegister" class="btn pull-right">글쓰기</button>
-<%-- </c:if> --%>
+<c:if test="${login eq admin }">
+<button id="btnRegister" class="btn pull-right">등록</button>
+</c:if>
 </div>
 <br>
 <br>
