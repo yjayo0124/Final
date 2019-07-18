@@ -18,6 +18,7 @@ public class CorInfoServiceImpl implements CorInfoService {
 	public List<Cor> getCorinfo(int cor_no) {
 		return corinfoDao.selectCorinfo(cor_no);
 	}
+	
 
 	@Override
 	public List<Cor> getIndustryinfo(String cor_type) {
@@ -64,5 +65,7 @@ public class CorInfoServiceImpl implements CorInfoService {
 		levmem = levmem/industrylist.size();
 		return levmem;
 	}
+
+
 
 }

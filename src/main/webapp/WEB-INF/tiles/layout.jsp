@@ -19,30 +19,49 @@
 
 .header{
 	width: 100%;
-}
-
-.wrap{
+	height: 30px;
 
 }
+
+#wrap{
+	position: relative;
+	min-width: 1270px;
+	margin: 0 auto;
+	/* background: #f2f4f7; */
+}
+
+
+.footer{
+position: absolute;
+bottom: 0px;
+width: 100%;
+padding-bottom: 50px;
+border-top: 2px solid #a8a8a8;
+background: #fff;
+
+
+}
+
 
 </style>
 
 </head>
 <body>
 
+<div id="wrap">
+
 <!-- HEADER -->
-<div class="container">
 <tiles:insertAttribute name="header"/>
-</div>
+<hr>
 <!-- BODY -->
 <div class="container">
-<div class="wrap">
 <tiles:insertAttribute name="body"/>
 </div>
-</div>
-
 <!-- FOOTER -->
 <tiles:insertAttribute name="footer"/>
+
+
+</div>
 
 </body>
 </html>

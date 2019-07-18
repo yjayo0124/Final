@@ -2,32 +2,89 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
     
-<div class="header">
-	<div style="text-align: right;"> 
-	<span>
+<style type="text/css">
+#btnCorGo{
+	width: 85px;
+	height: 25px;
+	background: #84B1ED;
+	font-size: 12px;
+	color: #fff;
+	border: solid 1px;
+	border-radius: 1px;
+}
 
-<sec:authorize access="isAnonymous()"> 
-	<a href="/member/login">로그인</a>
-	<a href="/member/join">회원가입하러가기</a>
-</sec:authorize> 
-	
-<sec:authorize access="isAuthenticated()"> 
-	<a href="/member/logout">로그아웃</a>
-	<sec:authorize access="hasRole('ROLE_IDV')">
-	<a href="/mypage/main">마이페이지</a>
-	</sec:authorize>
-	
-	<sec:authorize access="hasRole('ROLE_COR')">
-	<a href="/cor/main">기업페이지</a>
-	</sec:authorize>
 
-</sec:authorize> 
-	</span>
+.utility{
+	position: relative;
+	width: 1020px;
+	height: 45px;
+	margin: 0 auto;
+
+}
+
+
+.header-home{
+	margin-left: -11px;
+}
+
+.userMenu{
+	position: absolute;
+	top: 11px;
+	right: 0;
+}
+
+.userMenu li{
+float: left;
+margin-left: 10px;
+}
+
+.userMenu li a{
+	display: block;
+	height: 23px;
+	color: #333;
+	font-size: 15px;
+	line-height: 23px;
+}
+
+ul,li{
+	list-style: none;
+}
+
+
+
+</style>    
+    
+   
+<div class="utility">
+
+	<div class="header-home">
+	<a href="/main">khob image logo</a>
 	</div>
 	
-	<div style="text-align: center;">
-	<a href="/main"><h1>KHOB</h1></a>
-	</div>
+	<ul class="userMenu">
+		<sec:authorize access="isAnonymous()"> 
+			<li><a href="/member/login"><span>로그인</span></a></li>
+			<li><a href="/member/join"><span>회원가입하러가기</span></a></li>
+		</sec:authorize> 
+			
+		<sec:authorize access="isAuthenticated()"> 
+		
+			<sec:authorize access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')">
+			<li><a href="/cor/main"><span>기업회원 홈</span></a></li>
+			</sec:authorize>
+		
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<li><a href="/admin"><span>관리자페이지</span></a></li>
+			</sec:authorize>
+				
+		
+			<li><a href="/member/logout">로그아웃</a></li>
+		
+			<sec:authorize access="hasRole('ROLE_IDV')">
+			<li><a href="/mypage/main">마이페이지</a></li>
+			</sec:authorize>
+		</sec:authorize> 
+	</ul>
+
 </div>
-<br>
-<br>
+</div>

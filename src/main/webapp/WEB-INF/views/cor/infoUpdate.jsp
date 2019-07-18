@@ -8,9 +8,6 @@ $(document).ready(function(){
 	});
 	
 	
-	$("#btnDelete").click(function() {
-		history.go(-1);
-	});
 	
 })
 	
@@ -26,7 +23,7 @@ $(document).ready(function(){
 	border: solid 2px;
 	border-radius: 1px;
 }
-#btnDelete{
+#btnGoMain{
 	width: 80px;
 	height: 40px;
 	background: #f1404b;
@@ -45,6 +42,8 @@ $(document).ready(function(){
 <form action="/cor/infoUpdate" method="POST" class="form-horizontal" >
 
 	<input type="hidden" name="member_no" value="${member.member_no }">
+	<input type="hidden" name="member_id" value="${member.member_id }">
+	
 	<div class="form-group">
 	<label for="member_name" class="col-sm-2">이름</label>
 	<div class="col-sm-7"><input type="text" class="form-control" id="member_name" name="member_name" value="${member.member_name }" readonly/></div>
@@ -77,7 +76,7 @@ $(document).ready(function(){
 
 <div style="text-align: center;">
 <button type="submit" id="btnUpdate">수정하기</button>
-<button type="button" id="btnDelete">뒤로가기</button>
+<button type="button" id="btnGoMain" onclick="location='/cor/main'">뒤로가기</button>
 </div>
 
 </form>

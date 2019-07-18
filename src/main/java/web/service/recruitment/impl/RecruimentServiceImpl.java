@@ -55,4 +55,11 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		return recruitmentDao.select(recruit_no);
 	}
 
+	@Override
+	public List<Recruit> getListByMemberNo(int member_no) {
+		
+		return recruitmentDao.selectByMemberNo(member_no);
+		
+	}
+
 }

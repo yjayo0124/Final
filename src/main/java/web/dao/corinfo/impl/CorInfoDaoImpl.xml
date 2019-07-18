@@ -15,4 +15,5 @@
 		SELECT * FROM COR
 		WHERE cor_type = #{cor_type } AND ROWNUM <![CDATA[<=]]> 200
 	</select>
+	
 </mapper>

@@ -13,5 +13,6 @@ public interface RecruitmentDao {
 	
 	public Recruit select(int recruit_no);
 	
+	public List<Recruit> selectByMemberNo(int member_no);
 	
 }

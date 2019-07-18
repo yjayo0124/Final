@@ -16,5 +16,7 @@ public interface RecruitmentService {
 	public int getRecruitno(HttpServletRequest req);
 
 	public Recruit view(int recruit_no);
+	
+	public List<Recruit> getListByMemberNo(int member_no);
 
 }
