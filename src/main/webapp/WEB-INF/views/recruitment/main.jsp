@@ -6,12 +6,14 @@
 table, th {
 	text-align: center;
 }
+#pagingBox {
+	position: relative;
+}
 
 .content {
 	border-left: 1px solid #eee;
 	border-right: 1px solid #eee;
 }
-
 </style>
 
 
@@ -43,23 +45,31 @@ table, th {
 </div>
 
 <div class="content">
+<div id="btnBox">
+<button onclick="location.href='/recruitment/write'">공고등록하기</button>
+</div>
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
 		<th style="width:20%;">기업명</th>
-		<th style="width:80%;">채용공고명</th>
+		<th style="width:60%;">채용공고명</th>
 	</tr>
 </thead>
+<tbody>
 <c:forEach items="${recruitList }" var="i">
 <tr>
 	<td><a href="#">${i.recruit_name }</a></td>
-	<td><a href="/recruitment/view?recruit_no=${i.recruit_title }">${i.recruit_title }</a></td>
+	<td><a href="/recruitment/view?recruit_no=${i.recruit_no }">${i.recruit_title }</a></td>
 </tr>
 </c:forEach>
+</tbody>
 
 </table>
 
 </div>
 
+<div id="pagingBox">
 <c:import url="/WEB-INF/views/recruitment/paging.jsp"/>
+</div>
+
 

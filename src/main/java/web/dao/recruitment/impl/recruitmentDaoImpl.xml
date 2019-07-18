@@ -22,6 +22,18 @@
 		WHERE recruit_no = #{recruit_no}
 	</select>
 	
+	<insert id="write" parameterType="web.dto.Recruit">
+		INSERT INTO recruit( recruit_no, recruit_name,recruit_title,recruit_career,recruit_educareer, recruit_certificate,
+			recruit_major, recruit_type, recruit_sal, recruit_time, recruit_position, member_no )
+		VALUES(recruit_seq.nextval, #{recruit_no}, #{recruit_name},#{recruit_title},#{recruit_career},#{recruit_educareer}, #{recruit_certificate},
+			#{recruit_major}, #{recruit_type}, #{recruit_sal}, #{recruit_time}, #{recruit_position}, #{member_no} )
+	</insert>
+	
+	<insert id="insertFile" parameterType="web.dto.Recruit_file">
+		INSERT INTO recruit_file( recruit_file_no, recruit_file_storedname, recruit_file_originname, recruit_file_upload_date, recruit_no)
+		VALUES(recruit_file_seq.nextval, #{recruit_file_storedname},#{recruit_file_originname},#{recruit_file_upload_date},#{recruit_no}) 
+	</insert>
+
 	<select id="selectByMemberNo" resultType="web.dto.Recruit" parameterType="int">
 	SELECT * FROM recruit WHERE member_no = #{member_no} ORDER BY recruit_no desc
 	</select>
