@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.dao.admin.face.AdminDao">
+
+<select id="selectAll" parameterType="web.util.admin.Paging" resultType="web.dto.Member" >
+	SELECT * FROM 
+	( SELECT rownum rnum, B.* FROM 
+	( SELECT * FROM MEMBER 
+	Where MEMBER_ID LIKE '%%'
+	ORDER by MEMBER_NO desc) 
+	B ORDER by rnum ) WHERE rnum between #{startNo} and #{endNo}
+	</select>
+
+	<select id="selectCntAll"  resultType="int">
+	SELECT count(*) FROM MEMBER
+	</select>
+
+
+<select id="selectCorAll" parameterType="web.util.admin.Paging" resultType="web.dto.Member" >
+SELECT * FROM 
+( SELECT rownum rnum, B.* 
+FROM 
+( SELECT 
+    member.member_no, 
+    member.member_id, 
+    member.member_name, 
+    member.member_phone, 
+    member.member_email, 
+    member.member_auth, 
+    cor.cor_name as company_name
+    FROM 
+    MEMBER, cor 
+	WHERE MEMBER_ID LIKE '%%' and member.company_no = cor.cor_no
+	ORDER by MEMBER_NO desc)
+	B ORDER by rnum ) WHERE rnum between #{startNo} and #{endNo}
+	</select>
+
+</mapper>
