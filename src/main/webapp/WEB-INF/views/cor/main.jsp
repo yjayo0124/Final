@@ -26,9 +26,9 @@
 <table class="table table-hover table-condensed" style="width: 90%; margin: 0 auto;" >
 	<thead>
 		<tr >
-			<th style="width: 15%; text-align: center;">공고번호</th>	
-			<th style="width: 60%; text-align: center;">공고 제목</th>
-			<th style="width: 25%; text-align: center;">기간</th>	
+			<th style="width: 25%; text-align: center;">공고번호</th>	
+			<th style="width: 55%; text-align: center;">공고 제목</th>
+			<th style="width: 20%; text-align: center;">기간</th>	
 		</tr>
 	</thead>
 	<tbody>
