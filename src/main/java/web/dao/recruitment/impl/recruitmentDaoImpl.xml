@@ -38,4 +38,10 @@
 	SELECT * FROM recruit WHERE member_no = #{member_no} ORDER BY recruit_no desc
 	</select>
 	
+	<update id="update" parameterType="web.dto.Recruit">
+		UPDATE recruit
+		SET recruit_name=#{recruit_name}, recruit_title=#{recruit_title}, recruit_career=#{recruit_career}, recruit_educareer=#{recruit_educareer}, recruit_certificate=#{recruit_certificate},
+			recruit_major=#{recruit_major}, recruit_type=#{recruit_type}, recruit_sal=#{recruit_sal}, recruit_time={recruit_time}, recruit_position={recruit_position}
+		WHERE recruit_no = #{recruit_no}
+	</update>
 </mapper>

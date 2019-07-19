@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!-- include summernote css/js -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+
 <!-- summer note korean language pack -->
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
@@ -40,18 +43,21 @@ $(document).ready(function() {
 	width:98%;
 }
 </style>
+
+<%-- <sec:authorize access="hasRole('ROLE_RECRUIT')"> --%>
+
 <div class="container">
 <h3>채용공고등록</h3>
 
 <form action="/recruitment/write" method="post" enctype="multipart/form-data">
 <div>
 <label>●기업명</label>
-<input type="text" name="recruit_name" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_name" id="recruit_name"placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;
 <div>
 <label>●공고 제목</label>
-<input type="text" name="recruit_title" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_title" id="recruit_title"placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;&nbsp;&nbsp;
 <div>
@@ -60,22 +66,22 @@ $(document).ready(function() {
 &nbsp;
 <div>
 <label>경력</label>
-<input type="text" name="recruit_career" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_career" id="recruit_career" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;
 <div>
 <label>학력</label>
-<input type="text" name="recruit_educareer" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_educareer" id="recruit_educareer" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;
 <div>
 <label>우대 자격증</label>
-<input type="text" name="recruit_certificate" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_certificate" id="recruit_certificate" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;
 <div>
 <label>우대 전공</label>
-<input type="text" name="recruit_major" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_major" id="recruit_majorplaceholder" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;&nbsp;&nbsp;
 <div>
@@ -144,11 +150,14 @@ $(document).ready(function() {
 <label>상세요강 글</label>
 <textarea name="content" id="summernote"></textarea>
 </div>
-</form>
 &nbsp;&nbsp;&nbsp;
-
 <div class="form-group">
 <button type="button" id="btnWrite" class="btn btn-success">공고 등록</button>
 <button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 </div>
+
+</form>
 </div>
+
+
+<%-- </sec:authorize>   --%>
