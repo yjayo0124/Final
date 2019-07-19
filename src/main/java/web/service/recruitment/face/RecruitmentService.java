@@ -29,5 +29,7 @@ public interface RecruitmentService {
 
 	public List<Recruit> getListByMemberNo(int member_no);
 
+	public void update(Recruit recruit);
+
 
 }

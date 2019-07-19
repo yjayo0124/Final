@@ -19,6 +19,7 @@
 	<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/cor/**" access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')"/>
 <!-- 	<security:intercept-url pattern="/" access="hasRole('ROLE_COR')"/> -->	
+	<security:intercept-url pattern="/recruitment/write" access="hasRole('ROLE_RECRUIT')"/>
 
 	<security:form-login login-page="/member/login" login-processing-url="/member/login" 
 	default-target-url="/main"
