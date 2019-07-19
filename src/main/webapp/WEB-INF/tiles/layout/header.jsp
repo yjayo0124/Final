@@ -50,6 +50,24 @@ ul,li{
 	list-style: none;
 }
 
+.menu{
+	position: absolute;
+	top: 11px;
+}
+
+
+.menu li{
+	float: left;
+}
+
+.menu li a{
+	margin-left: 7px;
+	display: block;
+	height: 23px;
+	color: #333;
+	font-size: 15px;
+	line-height: 23px;
+}
 
 
 </style>    
@@ -57,9 +75,17 @@ ul,li{
    
 <div class="utility">
 
-	<div class="header-home">
-	<a href="/main">khob image logo</a>
-	</div>
+<div class="header-home">
+		<ul class="menu">
+		<li><a style="margin-right: 20px;" href="/main">khob image logo</a></li>
+		<li><a href="/recruitment/main"><span>채용</span></a></li>
+		<li><a href="#"><span>리뷰</span></a></li>
+		<li><a href="/jobfair/main"><span>취준</span></a></li>
+	
+	</ul>
+	
+</div> 
+	
 	
 	<ul class="userMenu">
 		<sec:authorize access="isAnonymous()"> 
