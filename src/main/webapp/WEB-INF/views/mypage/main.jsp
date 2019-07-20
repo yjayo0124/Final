@@ -359,8 +359,8 @@ td {
 			<div class="listGroup">
 				<h2 class="list_title">회원정보 관리</h2>
 				<ul>
-					<li>회원정보 수정</li>
-					<li>회원 탈퇴</li>
+					<li><a href="/mypage/info/update">회원정보 수정</a></li>
+					<li><a href="/mypage/withdraw/confirm">회원 탈퇴</a></li>
 				</ul>
 			</div>
 		</div>

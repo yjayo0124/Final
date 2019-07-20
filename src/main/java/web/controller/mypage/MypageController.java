@@ -1,12 +1,19 @@
 package web.controller.mypage;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import web.dto.Cor;
+import web.dto.Member;
+import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
 import web.service.mypage.face.MyScrapService;
@@ -22,6 +29,8 @@ public class MypageController {
 	@Autowired ResumeService resumeService;
 	@Autowired MyCommentService myCommentService;
 	@Autowired MyScrapService myScrapService;
+	
+	@Autowired MemberService memberService;
 	
 	@RequestMapping(value = "/mypage/main", method = RequestMethod.GET) 
 	public void mypage() {
@@ -120,4 +129,54 @@ public class MypageController {
 	}
 	
 	
+	//-------------------seonhong------
+	
+	@RequestMapping(value="/mypage/withdraw/confirm", method=RequestMethod.GET)
+	public void myWithdraw() {
+	}
+	
+	
+	//withdraw method
+	@RequestMapping(value="/mypage/withdrawProc", method=RequestMethod.GET)
+	public String myWithdrawProc(Authentication auth, HttpSession session) {
+		
+		Member member = (Member) auth.getDetails();
+		
+		memberService.withdraw(member.getMember_no());
+		session.invalidate();
+		
+		//if proce
+		return "redirect: /withdrawSuccess";
+	}
+	
+	
+	@RequestMapping(value="/withdrawSuccess", method=RequestMethod.GET)
+	public void withdrawSuccess() {
+		
+	}
+	
+	
+	@RequestMapping(value="/mypage/info/update", method=RequestMethod.GET)
+	public void memUpdate(Authentication auth, Model model) {
+		
+		Member member = (Member) auth.getDetails();
+		
+		Member memberRes = memberService.selectById(member.getMember_id());
+		
+		model.addAttribute("member", memberRes);
+	}
+	
+	@RequestMapping(value="/mypage/info/update", method=RequestMethod.POST)
+	public String memUpdateProc(Member member, Model model) {
+		
+		memberService.update(member);
+		
+		Member memberRes = memberService.selectById(member.getMember_id());
+
+		
+		model.addAttribute("member", memberRes);
+		
+		return "redirect: /mypage/info/update";
+	
+	}
 }

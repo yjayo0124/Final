@@ -16,4 +16,7 @@ public interface MemberDao {
 	public void insertOauth(Oauth oauth);
 	
 	public void update(Member member);
+	
+	public void getWithdrawByNo(int member_no);
+	
 }

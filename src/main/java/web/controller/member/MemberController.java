@@ -183,15 +183,11 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/logout", method=RequestMethod.GET)
 	public void logout(HttpSession session) {
-		
 		session.invalidate();
-		
 	}
 	
 	@RequestMapping(value="/member/socialwelcom", method=RequestMethod.GET)
 	public void welcom() {
-		
-		
 		
 	}
 	
