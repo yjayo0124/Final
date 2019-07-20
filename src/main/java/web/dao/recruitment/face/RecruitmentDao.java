@@ -37,5 +37,11 @@ public interface RecruitmentDao {
 
 	public List<Recruit> selectByMemberNo(int member_no);
 
+	/**
+	 *  게시글 수정
+	 * @param recruit
+	 */
+	public void update(Recruit recruit);
+
 	
 }

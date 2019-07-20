@@ -73,6 +73,13 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public void withdraw(int member_no) {
+		
+		memberDao.getWithdrawByNo(member_no);
+		
+	}
+
 	
 
 }
