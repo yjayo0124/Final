@@ -38,6 +38,13 @@
 	SET member_phone = #{member_phone}, member_email = #{member_email}
 	WHERE member_no = #{member_no}
 	</update>
+	
+	
+	<update id="getWithdrawByNo" parameterType="int">
+	UPDATE member
+	SET enab = 0 
+	WHERE member_no = #{member_no}
+	</update>
 
 
 </mapper>

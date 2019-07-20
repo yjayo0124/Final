@@ -14,4 +14,6 @@ public interface MemberService {
 	
 	public Member selectById(String member_id);
 	
+	public void withdraw(int member_no);
+	
 }

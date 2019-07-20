@@ -104,11 +104,11 @@ ul,li{
 			</sec:authorize>
 				
 		
-			<li><a href="/member/logout">로그아웃</a></li>
-		
 			<sec:authorize access="hasRole('ROLE_IDV')">
 			<li><a href="/mypage/main">마이페이지</a></li>
 			</sec:authorize>
+		
+			<li><a href="/member/logout">로그아웃</a></li>
 		</sec:authorize> 
 	</ul>
 

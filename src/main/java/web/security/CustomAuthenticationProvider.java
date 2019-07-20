@@ -31,17 +31,22 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String input_id = authentication.getName();
 		String input_password = (String) authentication.getCredentials();
 	
-		logger.info("authentication : "+authentication );
+	//	logger.info("authentication : "+authentication );
 
 		Member member = new Member();
 		
 		try {
 			member = (Member) customServiceImpl.loadUserByUsername(input_id );
-		
+			
 			
 			if( !input_password.equals(member.getMember_pw())) {
-				throw new BadCredentialsException("��й�ȣ ����ġ ");
+				throw new BadCredentialsException("비밀번호 불일치");
+			
+			}else if( member.getEnab() != '1') {
+				throw new BadCredentialsException("탈퇴한 회원입니다. ");
 			}
+			
+			
 		 } catch(UsernameNotFoundException e) {
 	            e.printStackTrace();
 	            throw new UsernameNotFoundException(e.getMessage());
