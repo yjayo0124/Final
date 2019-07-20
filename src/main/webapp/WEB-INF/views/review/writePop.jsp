@@ -13,6 +13,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	$('input[name=selectTag]').attr('value','강추'); // tag default 값
+	
 	// 검색 자동완성 기능
 	$('#keyword').autocomplete({
 		source:function(request,response){
@@ -38,8 +40,26 @@ $(document).ready(function() {
 	});
 	
 	$("#searchBtn").click(function() {
-		var search = document.getElementById('keyword').value;
-		document.getElementById('selectCor').innerHTML=search;
+		 $.ajax({
+			 url: "/review/scantable",
+			 type: "get",
+			 dataType: "json",
+			 data: { keyword : $('#keyword').val()},
+			 success: function(data) {
+				 console.log(data);
+				 if(data.data == null) {
+					 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
+				 } else {
+					 var search = document.getElementById('keyword').value;
+					 document.getElementById('selectCor').innerHTML=search;
+					 $('#selectCor').val(search);
+					 $('input[name=selectCor]').attr('value',search);
+				 }
+			 },
+			 error : function(data) {
+				 alert("에러가 발생하였습니다.")
+			 }
+		 });
 	});
 	
 	$('#tag1').click(function() {
@@ -52,6 +72,8 @@ $(document).ready(function() {
 		$('#tag3').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','강추');
 	});
 	
 	$('#tag2').click(function() {
@@ -64,6 +86,8 @@ $(document).ready(function() {
 		$('#tag3').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','비추');
 	});
 	
 	$('#tag3').click(function() {
@@ -76,7 +100,43 @@ $(document).ready(function() {
 		$('#tag2').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','취업고민');
 	});
+	
+	$('#writeBtn').click(function() {
+		/* text input null check*/
+		function isNull(elm) { 
+	        //Null 체크 함수
+	        var elm;
+	        return (elm == null || elm == "" || elm == "undefined" || elm == " ") ? true : false
+		}
+		
+        var thisform = document.writeReview;
+        if(isNull(thisform.title.value)) {
+           alert("제목을 입력해 주세요.");
+           thisform.test.value ="";
+           thisform.test.focus();
+           return false;
+        } else if (isNull(thisform.content.value)) {
+           alert("내용을 입력해 주세요.");
+           thisform.test.value ="";
+           thisform.test.focus();
+           return false;
+        } else if (isNull(thisform.selectCor.value)) {
+            alert("기업을 검색해 주세요.");
+            thisform.test.value ="";
+            thisform.test.focus();
+            return false;
+         } else {
+   		   // form submit 수행
+   		   $("form").submit();
+   		   alert("리뷰작성 완료");
+   		   window.close();
+           return true;
+        }
+
+	})
 });
 </script>
 
@@ -192,20 +252,25 @@ ul, li {
 <label>다른 사람의 인격권을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</label>
 
 <br><br>
-<label>*선택한 기업<h5>기업검색시 아래에 선택한 기업이 보여집니다.</h5></label>
-<div id="selectCor">
+<form id="writeReview" name="writeReview" action="/review/writePop" method="post">
+	<label>*선택한 기업<h5>기업검색시 아래에 선택한 기업이 보여집니다.</h5></label>
+	<div id="selectCor" name="selectCor">
+	
+	</div>
 
-</div>
+	<br>
+	<label>글 제목</label><br>
+	<input type="text" name="title" id="title" placeholder="제목을 입력해주세요"/>
 
-<br>
-<label>글 제목</label><br>
-<input type="text" name="title" id="title" placeholder="제목을 입력해주세요"/>
+	<br><br>
+	<label>글 내용</label><br>
+	<textarea name="content" id="content" placeholder="내용을 입력해주세요"></textarea>
+	
+	<input type="hidden" name="selectTag"></input> <!-- tag 선택시 저장되는 곳 -->
+	<input type="hidden" name="selectCor"></input> <!-- 기업 선택시 저장되는 곳 -->
+	
+	<button type="button" id="writeBtn">글쓰기</button>
+</form>
 
-<br><br>
-<label>글 내용</label><br>
-<textarea name="content" id="content" placeholder="내용을 입력해주세요"></textarea>
-
-<button type="button" id="writeBtn">글쓰기</button>
 </body>
-
 </html>
