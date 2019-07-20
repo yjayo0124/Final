@@ -8,9 +8,9 @@ public interface JobFairDao {
 	
 	public List<JobFair> selectAll();
 	
-	public List<JobFair> selectByJobfairNo();
+	public List<JobFair> selectByJobfairNo(int jobfair_no);
 	
-	public JobFair selectByJobfairTitle(String title);
+	public String selectByJobfairTitle(String title);
 	
 	public void insert(JobFair jobfair);
 	

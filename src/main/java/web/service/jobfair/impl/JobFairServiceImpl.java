@@ -16,10 +16,7 @@ public class JobFairServiceImpl implements JobFairService {
 
 	@Override
 	public List<JobFair> calList() {
-
-		
-		
-		return null;
+		return jobfairDao.selectAll();
 	}
 
 	@Override
@@ -28,11 +25,8 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 
 	@Override
-	public JobFair adminView(int jobfair_no) {
-
-		
-		
-		return null;
+	public List<JobFair> adminView(int jobfair_no) {
+		return jobfairDao.selectByJobfairNo(jobfair_no);
 	}
 
 	@Override
@@ -41,11 +35,8 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 
 	@Override
-	public List<String> jobFairSearch(String title) {
-
-		
-		
-		return null;
+	public String jobFairSearch(String title) {
+		return jobfairDao.selectByJobfairTitle(title);
 	}
  
 }

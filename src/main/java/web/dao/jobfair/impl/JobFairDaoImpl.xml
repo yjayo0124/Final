@@ -8,28 +8,62 @@
 
 <mapper namespace="web.dao.jobfair.face.JobFairDao">
 
-<insert id="insert" parameterType="web.dto.JobFair">
-	INSERT INTO jobfair (
-		jobfair_no, 
-		jobfair_name, 
-		jobfair_date, 
-		jobfair_start, 
-		jobfair_end,
-		jobfair_loc,
-		jobfair_content,
-		jobfair_limit,
-		member_no ) 
-	VALUES (
-		jobfair_seq.nextval, 
-		#{jobfair_name, jdbcType=VARCHAR },
-		SYSDATE,
-		#{jobfair_start, jdbcType=VARCHAR },
-		#{jobfair_end, jdbcType=VARCHAR },
-		#{jobfair_loc, jdbcType=VARCHAR },
-		#{jobfair_content, jdbcType=VARCHAR },
-		#{jobfair_limit, jdbcType=VARCHAR }, 
-		#{member_no } ) 
-</insert>
+	<select id="selectAll" resultType="list">
+		SELECT * FROM jobfair
+	</select>
+	
+	<select id="selectByJobfairNo" 
+	parameterType="int"
+	resultType="list">
+		SELECT * FROM jobfair
+		WHERE jobfair_no = #{jobfair_no }
+	</select>
+	
+	<select id="selectByJobfairTitle" 
+	parameterType="string"
+	resultType="string">
+		SELECT * FROM jobfair
+		WHERE jobfair_name = #{jobfair_name }
+	</select>
+	
+	<insert id="insert" parameterType="web.dto.JobFair">
+		INSERT INTO jobfair (
+			jobfair_no, 
+			jobfair_name, 
+			jobfair_date, 
+			jobfair_start, 
+			jobfair_end,
+			jobfair_loc,
+			jobfair_content,
+			jobfair_limit,
+			member_no ) 
+		VALUES (
+			jobfair_seq.nextval, 
+			#{jobfair_name, jdbcType=VARCHAR },
+			SYSDATE,
+			#{jobfair_start, jdbcType=VARCHAR },
+			#{jobfair_end, jdbcType=VARCHAR },
+			#{jobfair_loc, jdbcType=VARCHAR },
+			#{jobfair_content, jdbcType=VARCHAR },
+			#{jobfair_limit, jdbcType=VARCHAR }, 
+			#{member_no } ) 
+	</insert>
+	
+	<update id="update" parameterType="web.dto.JobFair">
+		UPDATE jobfair
+		SET jobfair_name = #{jobfair_name, jdbcType=VARCHAR }, 
+			jobfair_start = #{jobfair_start, jdbcType=VARCHAR },
+			jobfair_end = #{jobfair_end, jdbcType=VARCHAR },
+			jobfair_loc = #{jobfair_loc, jdbcType=VARCHAR },
+			jobfair_content = #{jobfiar_content, jdbcType=VARCHAR },
+			jobfiar_limit = #{jobfair_limit, jdbcType=VARCHAR }
+		WHERE jobfiar_no = #{jobfair_no }
+	</update>
+	
+	<delete id="delete" parameterType="web.dto.JobFair">
+		DELETE FROM jobfair
+		WHERE jobfair_no = #{jobfair_no }
+	</delete>
 
 </mapper>
 
