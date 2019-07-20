@@ -10,10 +10,10 @@ public interface JobFairService {
 	
 	public void registerFair(JobFair jobfair);
 	
-	public JobFair adminView(int jobfair_no);
+	public List<JobFair> adminView(int jobfair_no);
 	
 	public void updateFair(JobFair jobfair);
 	
-	public List<String> jobFairSearch(String title); 
+	public String jobFairSearch(String title); 
 
 }
