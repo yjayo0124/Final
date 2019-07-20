@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DOCTYPE -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="web.dao.review.face.ReviewDao">
+	<select id="selectCorno" parameterType="String" resultType="int">
+		SELECT cor_no FROM cor
+		WHERE cor_name = #{selectCor }
+	</select>
+
+	<insert id="insertReview" parameterType="web.dto.Review">
+		INSERT INTO review
+		 VALUES (review_no_seq.nextval, #{cor_no }, 0, #{review_tag }, #{review_title }, #{review_content }, 0, 0, SYSDATE)
+	</insert>
+	
+	<select id="selectCor" parameterType="String" resultType="String">
+		SELECT cor_name FROM cor
+		WHERE cor_name = #{result }
+	</select>
+	
+	<select id="selectReview" resultType="web.dto.Review">
+		SELECT * FROM review
+		ORDER BY review_no DESC
+	</select>
+</mapper>
