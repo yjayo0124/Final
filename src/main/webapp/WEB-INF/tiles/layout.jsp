@@ -38,7 +38,7 @@
 
 #footer{
 
-
+position: relative;
 bottom: 0px;
 width: 100%;
 
