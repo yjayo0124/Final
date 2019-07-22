@@ -33,7 +33,7 @@
 
 
 #footer{
-position: absolute;
+position: relative;
 bottom: 0px;
 width: 100%;
 

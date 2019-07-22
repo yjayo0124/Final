@@ -1,8 +1,10 @@
 package web.dao.review.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import web.dto.Review;
+import web.util.Paging;
 
 public interface ReviewDao {
 
@@ -12,7 +14,11 @@ public interface ReviewDao {
 
 	public String selectCor(String result);
 
-	public List<Review> selectReview();
+	public List<HashMap<String, Object>> selectReview(Paging paging);
+
+	public int selectCntAll();
+
+	public List<HashMap<String, Object>> selectReviewByTag(String result);
 
 
 }
