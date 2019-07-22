@@ -28,10 +28,10 @@ $(document).ready(function() {
 	});
 	
 	$("#btnCancel").click(function() {
-		history.go(-1);
+		$(location).attr("href", "/jobfair/main");
 	});
 	
-	
+		
 	$("#summernote").summernote({
 		tabsize: 2,
 		height: 370,
@@ -49,6 +49,8 @@ $(document).ready(function() {
 	
 	$("#summernote").summernote('pasteHTML', string);
 });
+
+
 
 </script>
 
@@ -70,8 +72,8 @@ $(document).ready(function() {
 		<td><input type="text" name="jobfair_name" id="jobfair_name" /></td>
 	</tr>
 	<tr>
-		<td>아이디</td>
-		<td>${member }</td>
+		<td>글쓴이</td>
+		<td>${member_id }/${member.member_no }</td>
 	</tr>
 	<tr>
 		<td>날짜</td>
@@ -97,7 +99,11 @@ $(document).ready(function() {
 		<td>신청기간</td>
 		<td><input type="date" name="jobfair_limit" id="jobfair_limit" />
 			~ <input type="date" name="jobfair_limit" id="jobfair_limit" /></td>
+		<td><input type="hidden" name="member_no" id="member_no" value="${member.member_no }" /></td>
 	</tr>
+	
+		
+	
 </tbody>
 </table>
 
