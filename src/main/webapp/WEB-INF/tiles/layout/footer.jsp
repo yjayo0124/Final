@@ -3,15 +3,6 @@
     
 <style type="text/css">
 
-.inner{
-	position: relative;
-	width: 1250px;
-	margin: 0 auto;
-}
-
-.clear{
-	zoom: 1;
-}
 
 </style>       
 

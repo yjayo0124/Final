@@ -32,12 +32,12 @@
 }
 
 
-.footer{
+#footer{
 position: absolute;
 bottom: 0px;
 width: 100%;
-padding-bottom: 50px;
-border-top: 2px solid #a8a8a8;
+
+border-top: 1px solid #ccc;
 background: #fff;
 
 
@@ -49,20 +49,23 @@ background: #fff;
 </head>
 <body>
 
-<div id="wrap">
-
 <!-- HEADER -->
 <tiles:insertAttribute name="header"/>
 <hr>
 <!-- BODY -->
+
+
 <div class="container">
 <tiles:insertAttribute name="body"/>
 </div>
+
+
 <!-- FOOTER -->
-<tiles:insertAttribute name="footer"/>
-
-
+<div id="footer">
+<tiles:insertAttribute name="footer" />
 </div>
+
+
 
 </body>
 </html>
