@@ -5,11 +5,22 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	//홈페이지지원 버튼 동작
-	$("#btnList").click(function() {
+	$("#btnSubmit").click(function() {
 		$(location).attr("href", "#");
 	});
+	
+	$("#btnUpdate").click(function(){
+		$(location).attr("href","/recruitment/update?recruit_no="+${viewRecruit.getRecruit_no() });
+	});
+	
+	
+	$("#btnDelete").click(function(){
+		$(location).attr("href","/recruitment/delete?recruit_no="+${viewRecruit.getRecruit_no() });
+	});
+	
 });
 </script>
+
 <style type="text/css">
 table {
 	border:1px solid #ccc;
@@ -95,5 +106,13 @@ button {
 </div>
 
 <h2>상세요강</h2><hr>
+
+
+<div class="text-right">
+<%-- <c:if test="${member_no eq viewRecruit.member_no }"> --%>
+	<button id="btnUpdate" >수정</button>
+	<button id="btnDelete" class="btn btn-danger">삭제</button>
+<%-- </c:if> --%>
+</div>
 
 </div>

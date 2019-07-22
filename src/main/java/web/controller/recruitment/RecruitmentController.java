@@ -83,10 +83,10 @@ public class RecruitmentController {
 		logger.info(context.getRealPath("upload"));
 		
 		//첨부파일 저장
-		recruitmentService.filesave( fileupload, context);
+//		recruitmentService.filesave( fileupload, context);
 	
 		//글 저장
-		recruitmentService.write(recruit);
+		recruitmentService.write(recruit, fileupload, context);
 		
 		return "redirect:/recruitment/main";
 	}
@@ -110,8 +110,12 @@ public class RecruitmentController {
 		
 	}
 	@RequestMapping(value = "/recruitment/delete", method = RequestMethod.GET) 
-	public void recruitDelete() {
+	public String recruitDelete(int recruit_no) {
 		logger.info("채용공고 삭제");
+		
+		recruitmentService.delete(recruit_no);
+		
+		return "redirect:"+"/recruitment/main";
 	}
 	
 
