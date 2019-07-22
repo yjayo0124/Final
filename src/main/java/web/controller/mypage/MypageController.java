@@ -145,7 +145,7 @@ public class MypageController {
 		memberService.withdraw(member.getMember_no());
 		session.invalidate();
 		
-		//if proce
+
 		return "redirect: /withdrawSuccess";
 	}
 	
@@ -156,6 +156,8 @@ public class MypageController {
 	}
 	
 	
+
+	
 	@RequestMapping(value="/mypage/info/update", method=RequestMethod.GET)
 	public void memUpdate(Authentication auth, Model model) {
 		
@@ -164,11 +166,15 @@ public class MypageController {
 		Member memberRes = memberService.selectById(member.getMember_id());
 		
 		model.addAttribute("member", memberRes);
+		
+		
+
 	}
 	
 	@RequestMapping(value="/mypage/info/update", method=RequestMethod.POST)
 	public String memUpdateProc(Member member, Model model) {
 		
+		logger.info(member.toString());
 		memberService.update(member);
 		
 		Member memberRes = memberService.selectById(member.getMember_id());

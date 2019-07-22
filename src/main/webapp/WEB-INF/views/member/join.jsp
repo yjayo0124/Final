@@ -6,28 +6,33 @@ var ch_id=false;
 var ch_pw=false;
 var ch_pw2=false;
 var ch_name=false;
-var ch_nick=false;
-var ch_birthday=false;
-var ch_gender=false;
 var ch_email=false;
 var ch_phone=false;
+
 	//id체크
 	function idcheck() {
 		var memId = $('#member_id').val();
+		console.log(memId);
+		
 		$.ajax({
 			type : 'POST',
-			url : '/member/idcheck',
+			url : '/member/idCheck',
 			data : {
 				"member_id" : $('#member_id').val()
 			},
 			dataType : 'json',
 			success : function(data) {
-				if( data.check ) {
-					$('#idMsg').html("사용가능한 아이디입니다").css("color", "blue");
-					ch_id=true;
-				} else {
+				console.log(data);
+				if(  data ) {
+					
 					$('#idMsg').html("중복되거나 이미 있는 아이디입니다").css("color", "red");	
 					ch_id=false;
+				
+				} else {
+					
+					$('#idMsg').html("사용가능한 아이디입니다").css("color", "blue");
+					ch_id=true;
+					
 				}
 		
 			}
@@ -86,37 +91,8 @@ var ch_phone=false;
 						ch_name=true;
 					}
 				})
-		$('#member_nick').blur(
-				function() {
-					if ($('#member_nick').val() === ''
-							|| $('#member_nick').val() === null) {
-						$('#nickMsg').show();
-						ch_nick=false;
-					} else {
-						$('#nickMsg').hide();
-						ch_nick=true;
-					}
-				})
-		$('#member_birthday').blur(
-				function() {
-					if ($('#member_birthday').val() === ''
-							|| $('#member_birthday').val() === null) {
-						$('#birthdayMsg').show();
-						ch_birthday=false;
-					} else {
-						$('#birthdayMsg').hide();
-						ch_birthday=true;
-					}
-				})
-		$('#member_gender').blur(function() {
-			if ($('select[name=member_gender]').val() === "0") {
-				$('#genderMsg').show();
-				ch_gender=false;
-			} else {
-				$('#genderMsg').hide();
-				ch_gender=true;
-			}
-		})
+
+
 		$('#member_email').blur(
 				function() {
 					if ($('#member_email').val() === ''
@@ -171,16 +147,12 @@ $(document).ready(function() {
 		//가입 버튼 클릭 시 form submit
 		$("#btnJoin").click(function() {
 			if(ch_id==true && ch_pw==true && ch_pw2==true && 
-				ch_name==true && ch_nick==true && ch_birthday==true && 
-				ch_gender==true && ch_email==true && ch_phone==true){
+				ch_name==true && ch_email==true && ch_phone==true){
 				$(this).parents("form").submit();
 			}if(ch_id==false){ $('#idMsg').show(); 
 			}if(ch_pw==false){ $('#pwMsg1').show(); 
 			}if(ch_pw2==false){ $('#pwMsg2').show(); 
 			}if(ch_name==false){ $('#nameMsg').show();  
-			}if(ch_nick==false){ $('#nickMsg').show(); 
-			}if(ch_birthday==false){ $('#birthdayMsg').show(); 
-			}if(ch_gender==false){ $('#genderMsg').show(); 
 			}if(ch_email==false){ $('#emailMsg').show(); 
 			}if(ch_phone==false){ $('#phoneMsg').show(); 
 			}
@@ -188,17 +160,36 @@ $(document).ready(function() {
 });	
 	
 	
+	
+function clause(){
+
+	var f=document.forms[0];
+
+	if(f.ch.checked)
+
+		f.btn.disabled=false;
+
+	else
+
+		f.btn.disabled=true;
+
+}
+
+
 </script>
 
 <style>
 .error {
-	font-size: 10px;
+	text-align: center;
+	font-size: 8px;
 	color: red;
+	margin-left: 40px;
 }
 .join_content {
 	margin: 0 auto;
 	max-width: 335px;
-	min-width: 200px;
+	min-width: 275px;
+
 }
 .row_group {
 	overflow: hidden;
@@ -214,18 +205,21 @@ $(document).ready(function() {
 	display: block;
 	position: relative;
 	width: 100%;
-	height: 29px;
+	height: 17px;
 }
 .intext, .genderdiv {
 	display: block;
 	position: relative;
-	width: 100%;
-	height: 51px;
+	width: 75%;
+	height: 40px;
 	border: solid 1px #dadada;
 	padding: 10px 14px 10px 14px;
 	background: #fff;
 	box-sizing: border-box;
 	vertical-align: top;
+	margin: auto;
+	margin-top: 15px;
+	margin-bottom: 10px;
 }
 .gen {
 	width: 100%;
@@ -244,83 +238,124 @@ $(document).ready(function() {
 .btn_type {
 	display: block;
 	width: 100%;
+	background-color : #c03546;
 	padding: 21px 0 17px;
 	font-size: 20px;
 	font-weight: 700;
 	text-align: center;
 	cursor: pointer;
 	box-sizing: border-box;
+	border: 1px solid #c03546;
 }
+
+.container{
+	width: 350px;
+}
+
+.link{
+	background-color: #ccc;
+	width: 160px;
+	min-width: 160px;
+	height: 50px;
+	min-height: 50px;
+	font-size: 15px;
+	padding: 14px;
+	color: black;
+}
+
+
+.link_container{
+	
+	display: inline-block;
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 10px;
+
+}
+
+
+.idv{
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+
+.cor{
+
+	border-bottom: 1px solid black;
+}
+
 </style>
 
 
-<div style="text-align: center; margin-top: 50px;">
-<a href="/member/join">개인회원</a>
-<a href="/member/corJoin">기업회원</a>
+<div class="container">
+
+<h2 style="text-align: center;">KHOB</h2>
+
+<div class="link_container">
+  <div class="col-md-6 link idv" ><a href="/member/join">개인회원</a></div>
+  <div class="col-md-6 link cor"><a href="/member/corJoin">기업회원</a></div>
 </div>
-
-
 
 <div>
 <form action="/member/join" method="post" class="form">
 	<div class="join_content">
-		<div class="row_group">
-			<h3 class="join_title">
-				<label for="id">아이디</label>
-			</h3>
-			<span class="intext"> <input type="text" id="member_id"
-				name="member_id" class="inputtext" maxlength="20"/>
-			</span> <span class="error" id="idMsg">필수 정보입니다</span>
-		</div>
-
-		<div class="row_group">
-			<h3 class="join_title">
-				<label for="pw1">비밀번호</label>
-			</h3>
-			<span class="intext"> <input type="password" id="member_pw"
-				name="member_pw" class="inputtext" maxlength="20" />
-			</span> <span class="error" id="pwMsg1">필수 정보입니다</span>
-			<h3 class="join_title">
-				<label for="pw2">비밀번호 확인</label>
-			</h3>
-			<span class="intext"> <input type="password" id="member_pw2"
-				name="member_pw2" class="inputtext" maxlength="20" />
-			</span> <span class="error" id="pwMsg2">필수 정보입니다</span>
-		</div>
-
-		<div class="row_group">
-			
-			<h3 class="join_title">
-				<label for="name">이름</label>
-			</h3>
-			<span class="intext"> <input type="text" id="member_name"
-				name="member_name" class="inputtext" maxlength="40" />
-			</span> <span class="error" id="nameMsg"> 필수 정보입니다 </span>
 		
-			<h3 class="join_title">
-				<label for="email">이메일</label>
-			</h3>
+		<div style="border: 1px solid #ccc; margin-top: 10px; height: 250px;">
+		<h5 style="text-align: right; margin-top:20px; margin-bottom: -3px; margin-right:5px;">*는 필수정보입니다.</h5>
+		<div class="row_group">
+			<span class="intext"> <input type="text" id="member_id"
+				name="member_id" class="inputtext" maxlength="20" placeholder="아이디(8자이상)*"/> <span class="error" id="idMsg">필수 정보입니다</span>
+			</span>
+		</div>
+
+		<div class="row_group">
+			<span class="intext"> <input type="password" id="member_pw"
+				name="member_pw" class="inputtext" maxlength="20" placeholder="비밀번호(8-20자의 영문, 숫자, 특수기호)" /> <span class="error" id="pwMsg1">필수 정보입니다</span>
+			</span>
+			
+
+			<span class="intext"> <input type="password" id="member_pw2"
+				name="member_pw2" class="inputtext" maxlength="20" placeholder="비밀번호 확인"/> <span class="error" id="pwMsg2">필수 정보입니다</span>
+			</span>
+		</div>
+		</div>
+
+
+
+		<div class="row_group"  style="margin-top: 10px; ">
+		<div style="border: 1px solid #ccc; margin-bottom: 6px;">
+			<span class="intext"> <input type="text" id="member_name"
+				name="member_name" class="inputtext" maxlength="40" placeholder="이름(실명)*"/><span class="error" id="nameMsg"> 필수 정보입니다 </span>
+			</span> 
+		
+
 			<span class="intext"> <input type="email" id="member_email"
-				name="member_email" class="inputtext" maxlength="100" />
-			</span> <span class="error" id="emailMsg"> 필수 정보입니다 </span>
+				name="member_email" class="inputtext" maxlength="100" placeholder="이메일*" /><span class="error" id="emailMsg"> 필수 정보입니다 </span>
+			</span> 
 			
-			<h3 class="join_title">
-				<label for="phone">휴대전화</label>
-			</h3>
+
 			<span class="intext"> <input type="text" id="member_phone"
-				name="member_phone" class="inputtext" maxlength="16" />
-			</span> <span class="error" id="phoneMsg"> 필수 정보입니다 </span>
-			
+				name="member_phone" class="inputtext" maxlength="16" placeholder="휴대폰 번호*"/><span class="error" id="phoneMsg"> 필수 정보입니다 </span>
+			</span> 
+		</div>	
 			<input type="hidden" id="member_auth" name="member_auth" value="ROLE_IDV" />
+	
+			<div class="checkbox" style="text-align: center; font-size: 18px; border: 1px solid #ccc; height: 37px; margin: 0 auto;">
+  			<label style="margin-top: 5px;">
+		    <input type="checkbox" name="ch" onclick="clause();" >
+		 	이용약관 및 개인정보 수집 동의
+		 	 </label>
+			</div>
 			
 			<div class="btnarea">
-				<button type="submit" id="btnJoin" class="btn_type">
+				<button type="submit" id="btnJoin" class="btn_type" disabled="disabled" name="btn">
 					<span>가입하기</span>
 				</button>
 			</div>
 		</div>
 	</div>
-
-
 </form>
+</div>
+
 </div>

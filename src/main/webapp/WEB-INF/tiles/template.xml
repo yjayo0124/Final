@@ -6,9 +6,8 @@
 
 <tiles-definitions>
 
-
 	<definition name="member/callback" template="/WEB-INF/views/member/callback.jsp"></definition>   
-
+	
 
 	<definition name="tilesbase" template="/WEB-INF/tiles/layout.jsp">
 		<put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp"/>

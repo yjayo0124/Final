@@ -32,8 +32,13 @@
 }
 
 
+.body{
+	height: 800px;
+}
+
 #footer{
-position: relative;
+
+
 bottom: 0px;
 width: 100%;
 
@@ -55,7 +60,7 @@ background: #fff;
 <!-- BODY -->
 
 
-<div class="container">
+<div class="container body">
 <tiles:insertAttribute name="body"/>
 </div>
 

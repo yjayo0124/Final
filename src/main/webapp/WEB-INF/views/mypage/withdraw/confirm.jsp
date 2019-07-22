@@ -8,7 +8,7 @@
 $(function() {
 	$("body").on({			
 		click: function() {		// click 이벤트가 발생했을 때
-			$("#text").html("<a class='btn btn-danger' id='withdraw' href='/mypage/withdrawProc'>탈퇴하기</a>");
+			$("#text").html("<a class='btn btn-danger' id='withdraw' href='/mypage/withdrawProc'>>탈퇴하기<</a>");
 		}
 	}, "#btnWithdraw");		// id가 "btn"인 요소에 이벤트 핸들러를 등록함.
 });
@@ -21,14 +21,12 @@ $(function() {
     width: 1200px;
     zoom: 1;
 }
-.top_container {
-	width:1200px;
-	height: 190px;
-}
+
 .bottom_container{
 	width:1200px;
 	margin-top:10px;
 	height: auto;
+	display: inline;
 }
 .profile {
 	width:190px;
@@ -98,8 +96,8 @@ $(function() {
 
 .withdraw_container{
 	text-align: center;
+	margin-top: 15%;
 }
-
 
 #withdraw{
 	margin-top: 10px;
@@ -108,15 +106,6 @@ $(function() {
 </style>
     
 <div class="container">
-	<div class="top_container">
-	<div class="profile">
-			<div class="profile_img">
-				<img class="img-circle" src="/resources/images/avatar.png">
-				<div class="profile_name"><strong>홍길동</strong>님</div>
-				<div class="profile_btn"><button type="button" class="btn_create_resume">이력서 작성하기</button></div>
-			</div>
-		</div>
-	</div>
 	<div class="bottom_container">
  		<div class="page_list">
 			<div class="listGroup">
@@ -148,10 +137,10 @@ $(function() {
 				</ul>
 			</div>
 		</div>
-		
-		<div class="withdraw_container">
-			<h4 style="margin-bottom: 7px;">버튼을 누르시면 더이상 KHOB의 서비스를 이용하실 수 없습니다.</h4>
-		 <button id="btnWithdraw" type="button" class="btn btn-warning btn-lg">정말 탈퇴하시겠습니까?</button>
+		<div class="withdraw_container" style="margin-left: 250px; width: 700px;">
+			<h3>버튼을 누르시면 더이상 KHOB의 서비스를 이용하실 수 없습니다.</h3>
+			
+		 	<button id="btnWithdraw" type="button" class="btn btn-warning btn-lg">정말 탈퇴하시겠습니까?</button>
 		 	<div id="text">
 		 	</div>
 		</div>
