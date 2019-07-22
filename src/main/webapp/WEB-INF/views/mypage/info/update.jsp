@@ -1,11 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript">
+
+
+var ch_pw=false;
+var ch_pw2=false;
+
+$(function() {
+	
+	$('.error').hide();
+	
+	$('#member_pw').blur(
+			function() {
+				var pwok1  = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+					$('#pwMsg1').show();
+				if ($('#member_pw').val() === ''
+						|| $('#member_pw').val() === null) {
+					$('#pwMsg1').html("필수 정보입니다").css("color", "red");
+					ch_pw=false;
+				}else if(!pwok1.test($('#member_pw').val())){
+					$('#pwMsg1').html("8~20자의 특수문자, 영문 소문자, 숫자만 사용 가능합니다.").css("color","red");
+					ch_pw=false;
+				} 
+				else {
+					$('#pwMsg1').hide();
+					ch_pw=true;
+				}
+			})
+	$('#member_pw2').blur(function() {
+		$('#pwMsg2').show();
+	})
+
+
+			
+});
+$(function() {
+	//비밀번호 확인
+	$('#member_pw2').blur(
+					function() {
+						var pwok2  = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$/;
+						if ($('#member_pw').val() != $('#member_pw2')
+								.val()) {
+							$('#pwMsg2').html("위 비밀번호와 일치하지 않습니다").css(
+									"color", "red");
+							$('#member_pw2').val('');
+							ch_pw2=false;
+						} else if ($('#member_pw2').val() === ''
+								|| $('#member_pw2').val() === null) {
+							$('#pwMsg2').html("필수 정보입니다").css("color",
+									"red");
+							ch_pw2=false;
+						}else if(!pwok2.test($('#member_pw').val())){
+							$('#pwMsg2').html("8~20자의 특수문자, 영문 소문자, 숫자만 사용 가능합니다.").css("color","red");
+							$('#member_pw2').val('');
+							ch_pw2=false;
+						}  
+						else {
+							$('#pwMsg2').html("두 비밀번호가 일치합니다").css("color","blue");
+							ch_pw2=true;
+						}
+					})
+});
+
+
+$(document).ready(function() {
+	//가입 버튼 클릭 시 form submit
+	$("#btnUpdate").click(function() {
+		if( ch_pw==true && ch_pw2==true){
+			$(this).parents("form").submit();
+		}if(ch_pw==false){ $('#pwMsg1').show(); 
+		}if(ch_pw2==false){ $('#pwMsg2').show(); 
+		}
+	})
+});	
+
+</script>
+
+
 
 <style type="text/css">
 .container {
 	margin: 0 auto;
 	padding:0;
     width: 1200px;
+
     zoom: 1;
 }
 .top_container {
@@ -16,14 +94,9 @@
 	width:1200px;
 	margin-top:10px;
 	height: auto;
+	display: inline;
 }
-.profile {
-	width:190px;
-	height: 190px;
-	border: 1px solid #dce1eb;
-	float: left;
-	margin-right: 10px;
-}
+
 .page_list{
 	width:190px;
 	float: left;
@@ -136,6 +209,19 @@
 		<label for="member_name" class="col-sm-2">이름</label>
 		<div class="col-sm-4"><input type="text" class="form-control" id="member_name" name="member_name" value="${member.member_name }" readonly/></div>
 		</div>
+		
+		
+		<div class="form-group has-error">
+		<label for="member_pw" class="col-sm-2">비밀번호</label>
+		<div class="col-sm-4"><input type="password" id="member_pw" name="member_pw" class="inputtext form-control" maxlength="20" value="${member.member_pw }" /></div>
+		</div>
+			
+		<div class="form-group has-error">
+		<label for="member_pw2" class="col-sm-2">비밀번호 확인</label>
+		<div class="col-sm-4"><input type="password" id="member_pw2" name="member_pw2" class="inputtext form-control" maxlength="20" onkeyup="checkPwd()" /></div>
+		<div class="col-sm-4"> <span class="error" id="pwMsg2" role="alert"> 필수 정보입니다 </span></div>
+		</div>
+		
 	
 		<div class="form-group">
 		<label for="member_phone" class="col-sm-2">휴대폰</label>
@@ -146,10 +232,15 @@
 		<label for="member_email" class="col-sm-2">이메일</label>
 		<div class="col-sm-4"><input type="text" class="form-control" id="member_email" name="member_email" value="${member.member_email }"/></div>
 		</div>
-	
-		<h3><small>비밀번호 수정</small></h3>
-		
+
+		<button  id="btnUpdate" class="btn_type">
+		<span>변경하기</span>
+		</button>
+
+
 		</form>
+		
+		
 	</div>
 	
 	</div>

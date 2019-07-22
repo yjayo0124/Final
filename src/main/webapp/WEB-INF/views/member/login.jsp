@@ -58,8 +58,8 @@
 	padding-bottom: 15px;
 }
 .content{
-	width: 350px;
-	
+	width: 340px;
+
 }
 .pulldiv{
 	border-top: 2px solid black;
@@ -90,57 +90,79 @@
 .title{
 	padding-bottom: 20px;
 }
+
+
+.login-container{
+	
+	margin: 0 auto;
+	margin-top: 100px;
+	text-align: center;
+	border : 1px solid #ccc;
+	width: 400px;
+	height: 340px;
+
+}
+
+.input_row{
+	position: relative;
+	text-align: left;
+	margin-top: 30px;
+}
+
+.btLogin{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100px;
+	height: 96px;
+	min-height: 55px;
+	background: #c03546;
+	border: 1px;
+	color: white;
+}
+
+.inputstyle{
+	width: 235px;
+	padding: 0 0 0 20px;
+	height: 48px;
+	line-height: 46px;
+	
+}
+
 </style>
 
-<div style="text-align: center;">
-
-<h2>로그인</h2>
-<hr>
 <h2><c:out value="${error }" /></h2>
 <h2><c:out value="${logout }" /></h2>
+
+<div class="login-container">
+
+<h2 style="margin-bottom: 55px;">KHOB</h2>
 
 <form action="/member/login" method="POST">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 <div class="content" style="margin: 0 auto;">
 
-				<div class="iddiv">
-					<div class="idlabel">
-						<label for="member_id">아이디</label>
-					</div>
-					<div class="idinput">
-						<input class="inputstyle" type="text" id="member_id" name="member_id" placeholder="아이디를 입력하세요" />
-					</div>
-				</div>
-				<div class="pwdiv">
- 					<div class="pwlabel">
-						<label for="member_pw">패스워드</label>
-					</div>
-					<div class="pwinput">
-						<input class="inputstyle" type="password" id="member_pw" name="member_pw" placeholder="비밀번호를 입력하세요" />
-					</div>
-				</div>
+	<div class="input_row">
 
-	
-				<div class="btngroup">
-					<input type="submit" id="btnLogin" value="로그인">
-					<input type="button" id="btnCancel" value="취소">
-				</div>
+		<input class="inputstyle" type="text" id="member_id" name="member_id" placeholder="아이디를 입력하세요" />
+		<input class="inputstyle" type="password" id="member_pw" name="member_pw" placeholder="비밀번호를 입력하세요" />
+		<button type="submit" class="btLogin">로그인</button>
 
+	</div>
+</div>
 
-				<div>
-
-				</div>
-			</div>
 </form>
 
 <!-- 네이버 로그인 창으로 이동 -->
-<div id="naver_id_login" style="text-align:center"><a href="${url}">
-<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+<div id="naver_id_login" style="text-align:left; margin-left: 29px;"><a href="${url}">
+<img width="235px;" src="/resources/images/naverlogin.png.PNG"/></a></div>
 <br>
+<div style="margin-top:10px;"><p>아직 회원이 아니신가요? <a href="/member/join">회원가입</a> </div>
 
-</div>    
-
-    
+</div>   
+<div style="text-align: center;">
+<p>@All Right Reserved</p>
+</div>
     
     
     

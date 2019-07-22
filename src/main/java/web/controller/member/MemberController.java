@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -192,7 +193,19 @@ public class MemberController {
 	}
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value="/member/idCheck")
+	public boolean idCheck(String member_id, Model model) {
+			
+		logger.info(member_id);
+		
+		boolean check = memberService.memChk(member_id);
+		//if false== id create ok , if true == id create false;.
+		
+		logger.info("check: "+check);
+		
+		return check;
+	}
 	
 
 	
