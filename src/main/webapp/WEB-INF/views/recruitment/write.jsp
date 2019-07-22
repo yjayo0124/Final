@@ -2,14 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
+
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
 <!-- include summernote css/js -->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
-<!-- summer note korean language pack -->
-<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="lang/summernote-ko-KR.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -43,13 +50,12 @@ $(document).ready(function() {
 	width:98%;
 }
 </style>
-
-<%-- <sec:authorize access="hasRole('ROLE_RECRUIT')"> --%>
+<sec:authorize access="hasRole('ROLE_COR')">
 
 <div class="container">
 <h3>채용공고등록</h3>
 
-<form action="/recruitment/write" method="post" enctype="multipart/form-data">
+<form action="/recruitment/write" method="POST" enctype="multipart/form-data">
 <div>
 <label>●기업명</label>
 <input type="text" name="recruit_name" id="recruit_name"placeholder="내용을 입력해 주세요">
@@ -99,7 +105,7 @@ $(document).ready(function() {
 &nbsp;
 <div>
 <label>급여</label>
-<input type="text" name="recruit_sal" placeholder="내용을 입력해 주세요">원
+<input type="number" name="recruit_sal" placeholder="내용을 입력해 주세요">원
 </div>
 &nbsp;
 <div>
@@ -151,13 +157,12 @@ $(document).ready(function() {
 <textarea name="content" id="summernote"></textarea>
 </div>
 &nbsp;&nbsp;&nbsp;
-<div class="form-group">
+<div class="text-center">
 <button type="button" id="btnWrite" class="btn btn-success">공고 등록</button>
 <button type="button" id="btnCancel" class="btn btn-danger">취소</button>
 </div>
 
 </form>
 </div>
+</sec:authorize>
 
-
-<%-- </sec:authorize>   --%>
