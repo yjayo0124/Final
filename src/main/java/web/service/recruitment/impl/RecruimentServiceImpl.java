@@ -2,6 +2,7 @@ package web.service.recruitment.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,45 +61,83 @@ public class RecruimentServiceImpl implements RecruitmentService{
 	public Recruit view(int recruit_no) {
 		return recruitmentDao.select(recruit_no);
 	}
-
+	
 	@Override
-	public void write(Recruit recruit) {
-		
-		recruitmentDao.write(recruit);
-	}
-
-	@Override
-	public void filesave(MultipartFile file, ServletContext context) {
+	public void write(Recruit recruit, MultipartFile file, ServletContext context) {
 		//파일이 저장될 경로
-		String storedPath = context.getRealPath("upload");
+				String storedPath = context.getRealPath("upload");
 
-		//UUID
-		String uId = UUID.randomUUID().toString().split("-")[4];
-		
-		//저장될 파일의 이름 (원본이름 + UUID)
-		String name = file.getOriginalFilename()+"_"+uId;
+				//UUID
+				String uId = UUID.randomUUID().toString().split("-")[4];
+						
+				//저장될 파일의 이름 (원본이름 + UUID)
+				String name = file.getOriginalFilename()+"_"+uId;
 
-		//저장될 파일 객체
-		File dest = new File(storedPath, name);
-		
-				
-		//파일 저장
-		try {
-			file.transferTo(dest); //실제 저장
-					
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		//DB에저장 (업로드 정보 기록)
-		Recruit_file recruit_file = new Recruit_file();
-		recruit_file.setRecruit_file_originname(file.getOriginalFilename());
-		recruit_file.setRecruit_file_storedname(name);
-		
-		recruitmentDao.insertFile(recruit_file);		
+				//저장될 파일 객체
+				File dest = new File(storedPath, name);
+						
+								
+				//파일 저장
+				try {
+					file.transferTo(dest); //실제 저장
+									
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+						
+				//DB에저장 (업로드 정보 기록)
+				Recruit_file recruit_file = new Recruit_file();
+				recruit_file.setRecruit_file_originname(file.getOriginalFilename());
+				recruit_file.setRecruit_file_storedname(name);
+						
+				Date recruit_file_upload_date = null;
+				recruit_file.setRecruit_file_upload_date(recruit_file_upload_date);
+						
+						
+				recruitmentDao.insertFile(recruit_file);			
+				recruitmentDao.write(recruit);
 	}
+
+
+
+//	@Override
+//	public void filesave(MultipartFile file, ServletContext context) {
+//		//파일이 저장될 경로
+//		String storedPath = context.getRealPath("upload");
+//
+//		//UUID
+//		String uId = UUID.randomUUID().toString().split("-")[4];
+//		
+//		//저장될 파일의 이름 (원본이름 + UUID)
+//		String name = file.getOriginalFilename()+"_"+uId;
+//
+//		//저장될 파일 객체
+//		File dest = new File(storedPath, name);
+//		
+//				
+//		//파일 저장
+//		try {
+//			file.transferTo(dest); //실제 저장
+//					
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		//DB에저장 (업로드 정보 기록)
+//		Recruit_file recruit_file = new Recruit_file();
+//		recruit_file.setRecruit_file_originname(file.getOriginalFilename());
+//		recruit_file.setRecruit_file_storedname(name);
+//		
+//		Date recruit_file_upload_date = null;
+//		recruit_file.setRecruit_file_upload_date(recruit_file_upload_date);
+//		
+//		
+//		recruitmentDao.insertFile(recruit_file);		
+//	}
 
 	
 	@Override
@@ -114,5 +153,11 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		
 	}
 
+	@Override
+	public void delete(int recruit_no) {
+		recruitmentDao.deleteByrecruitno(recruit_no);
+		
+	}
 
+	
 }

@@ -30,10 +30,20 @@
 	</insert>
 	
 	<insert id="insertFile" parameterType="web.dto.Recruit_file">
-		INSERT INTO recruit_file( recruit_file_no, recruit_file_storedname, recruit_file_originname, recruit_file_upload_date, recruit_no)
-		VALUES(recruit_file_seq.nextval, #{recruit_file_storedname},#{recruit_file_originname},#{recruit_file_upload_date},#{recruit_no}) 
+		INSERT INTO recruit_file( recruit_file_no, recruit_file_storedname, recruit_file_originname, recruit_no)
+		VALUES(recruit_file_seq.nextval, #{recruit_file_storedname},#{recruit_file_originname},#{recruit_no}) 
 	</insert>
+	
+	<select id="selectFile" resultType="web.dto.Recruit">
+		SELECT * FROM recruit_file
+		WHERE recruit_no = #{recruit_no}
+	</select>
 
+	<select id="selectByfileno" resultType="web.dto.Recruit">
+		SELECT * FROM recruit_file 
+		WHERE recruit_file_no =#{recruit_file_no}
+	</select>
+	
 	<select id="selectByMemberNo" resultType="web.dto.Recruit" parameterType="int">
 	SELECT * FROM recruit WHERE member_no = #{member_no} ORDER BY recruit_no desc
 	</select>
@@ -44,4 +54,14 @@
 			recruit_major=#{recruit_major}, recruit_type=#{recruit_type}, recruit_sal=#{recruit_sal}, recruit_time={recruit_time}, recruit_position={recruit_position}
 		WHERE recruit_no = #{recruit_no}
 	</update>
-</mapper>
+	
+	<delete id="deleteByrecruitno" parameterType="int">
+		DELETE FROM recruit
+		WHERE recruit_no=#{recruit_no}
+	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE FROM recruit_file
+		WHERE recruit_no = #{recruit_no}
+	</delete>
+</mapper> 
