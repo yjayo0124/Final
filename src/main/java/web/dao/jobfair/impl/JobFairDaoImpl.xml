@@ -36,7 +36,7 @@
 			jobfair_loc,
 			jobfair_content,
 			jobfair_limit,
-			member_no ) 
+			member_no )
 		VALUES (
 			jobfair_seq.nextval, 
 			#{jobfair_name, jdbcType=VARCHAR },
@@ -46,9 +46,9 @@
 			#{jobfair_loc, jdbcType=VARCHAR },
 			#{jobfair_content, jdbcType=VARCHAR },
 			#{jobfair_limit, jdbcType=VARCHAR }, 
-			#{member_no } ) 
+			#{member_no } )
 	</insert>
-	
+
 	<update id="update" parameterType="web.dto.JobFair">
 		UPDATE jobfair
 		SET jobfair_name = #{jobfair_name, jdbcType=VARCHAR }, 
