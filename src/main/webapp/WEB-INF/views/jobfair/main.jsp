@@ -28,21 +28,19 @@ $(document).ready(function() {
 				type: "POST",
 				url: "/jobfair/main",
 				dataType: "json",
-				success: function( res ) {
+				success: function( data ) {
 					console.log("성공");
-					console.log(res);
+					console.log(data);
 					
 					var events = [];
-					if(!!res.result) {
-						$.map( res.result, function( r ) {
-							events.push({
-								id: r.id,
-								title: r.jobfair_title,
-								start: r.jobfair_start,
-								end: r.jobfair_end
-							});
+					$.each(data, function(index, value) {
+						events.push({
+							title: value.jobfair_name,
+							start: value.jobfair_start,
+							end: value.jobfair_end
 						});
-					}
+					});
+					
 					callback(events);
 				},
 				error: function() {
@@ -57,8 +55,14 @@ $(document).ready(function() {
 		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], 
 		dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
- 		buttonText: {today: '오늘', month: '월', week: '주', day: '일'}
+ 		buttonText: {today: 'today', month: '월', week: '주', day: '일'}
 	});
+	
+// 	$("#calendar").fullCalendar('renderEvent', {
+// 		title: 'jobfair_name',
+// 		start: '2019-07-23',
+// 		end: '2019-07-27'
+// 	});
 	
 	
 	$('#btnSearch').click(function() {

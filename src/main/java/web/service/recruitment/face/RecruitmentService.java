@@ -20,16 +20,20 @@ public interface RecruitmentService {
 
 	public Recruit view(int recruit_no);
 	
-	public void write(Recruit recruit);
+	public void write(Recruit recruit, MultipartFile file, ServletContext context);
 	
-	public void filesave(
-			MultipartFile file, //첨부파일
-			ServletContext context //서블릿컨텍스트
-			);
+//	public void filesave(
+//			MultipartFile file, //첨부파일
+//			ServletContext context //서블릿컨텍스트
+//			);
 
 	public List<Recruit> getListByMemberNo(int member_no);
 
 	public void update(Recruit recruit);
+
+	public void delete(int recruit_no);
+
+	
 
 
 }

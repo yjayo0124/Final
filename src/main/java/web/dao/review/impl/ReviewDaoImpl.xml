@@ -21,8 +21,23 @@
 		WHERE cor_name = #{result }
 	</select>
 	
-	<select id="selectReview" resultType="web.dto.Review">
-		SELECT * FROM review
-		ORDER BY review_no DESC
+		
+	<select id="selectCntAll" resultType="int">
+		SELECT COUNT(*) FROM review
+		ORDER BY review_no
+	</select>
+	
+	<select id="selectReview" resultType="hashmap">
+		SELECT * FROM (
+			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title FROM review, cor
+			WHERE review.cor_no = cor.cor_no
+			ORDER BY rnum
+		)
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectReviewByTag" resultType="hashmap">
+		SELECT review.review_no, cor.cor_name, review.review_title FROM review, cor
+		WHERE review.cor_no = cor.cor_no AND review.review_tag = #{result }
 	</select>
 </mapper>

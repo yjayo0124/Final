@@ -35,7 +35,7 @@
 
 	<update id="update" parameterType="web.dto.Member">
 	UPDATE member
-	SET member_phone = #{member_phone}, member_email = #{member_email}
+	SET member_phone = #{member_phone}, member_email = #{member_email}, member_pw = #{member_pw}
 	WHERE member_no = #{member_no}
 	</update>
 	
