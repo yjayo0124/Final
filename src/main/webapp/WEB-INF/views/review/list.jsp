@@ -15,7 +15,7 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function() {	
 	// 검색 자동완성 기능
 	$('#keyword').autocomplete({
 		source:function(request,response){
@@ -26,12 +26,12 @@ $(document).ready(function() {
 				data:{ keyword : $('#keyword').val()},
 				success: function(data){
 					response(
-							$.map(data, function(item) {
-								return {
-									value : item.data
-								}
-							})
-							)
+						$.map(data, function(item) {
+							return {
+								value : item.data
+							}
+						})
+						)
 				},
 				error : function(data) {
 					alert("에러가 발생하였습니다.")
@@ -53,6 +53,9 @@ $(document).ready(function() {
 		$('#tag4').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','전체');
+		tagsearch();
 	});
 	
 	$('#tag2').click(function() {
@@ -68,6 +71,9 @@ $(document).ready(function() {
 		$('#tag4').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','강추');
+		tagsearch();
 	});
 	
 	$('#tag3').click(function() {
@@ -83,6 +89,9 @@ $(document).ready(function() {
 		$('#tag4').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','비추');
+		tagsearch();
 	});
 	
 	$('#tag4').click(function() {
@@ -98,8 +107,27 @@ $(document).ready(function() {
 		$('#tag3').css({
 			color: "black"
 		});
+		
+		$('input[name=selectTag]').attr('value','취업고민');
+		tagsearch();
 	});
 	
+	function tagsearch() {
+		$.ajax({
+			url: "/review/tagsearch",
+			type: "get",
+			dataType: "json",
+			data: { selectTag : $('#selectTag').val()},
+			success: function(data) {
+				for(var i = 0; i < data.length; i++) {
+					console.log(data[i]);
+				}
+			},
+			error : function(data) {
+				alert("에러가 발생하였습니다.")
+			}
+		});
+	}
 });
 </script>
 
@@ -115,7 +143,7 @@ h1 {
 	margin: 0;
 }
 
-ul, li {
+#keyword ul, li {
 	width: 300px;
 	font-size: 12px;
 }
@@ -143,6 +171,7 @@ td {
 	padding: 10px;
 }
 
+
 .review-hr {
 	border: solid 2px #e9e9e9;
 	background-color: #e9e9e9;
@@ -167,6 +196,11 @@ td {
 	padding: 5px;
 	border-radius: 8px;
 }
+
+#pagingBox {
+	position: relative;
+}
+
 </style>
 
 </head>
@@ -197,12 +231,18 @@ td {
 	</tr>
 	<c:forEach items="${reviewlist }" var="i">
 		<tr>
-			<td>${i.review_no }</td>
-			<td>${i.cor_no }</td>
-			<td>${i.review_title }</td>
+			<td id = "tagno">${i.REVIEW_NO }</td>
+			<td id = "tagcor">${i.COR_NAME }</td>
+			<td id = "tagtitle">${i.REVIEW_TITLE }</td>
 		</tr>
 	</c:forEach>
 </table>
+
+<input type="hidden" id="selectTag" name="selectTag" value="강추"></input> <!-- tag 선택시 저장되는 곳 -->
+
+<div id="pagingBox">
+	<c:import url="/WEB-INF/views/layout/reviewPaging/paging.jsp" />
+</div>
 
 </body>
 </html>
