@@ -12,7 +12,6 @@ var ch_phone=false;
 	//id체크
 	function idcheck() {
 		var memId = $('#member_id').val();
-		console.log(memId);
 		
 		$.ajax({
 			type : 'POST',
@@ -260,7 +259,7 @@ function clause(){
 	min-height: 50px;
 	font-size: 15px;
 	padding: 14px;
-	color: black;
+	
 }
 
 
@@ -270,6 +269,7 @@ function clause(){
 	text-align: center;
 	margin-top: 40px;
 	margin-bottom: 10px;
+	color: black;
 
 }
 
@@ -284,6 +284,11 @@ function clause(){
 
 	border-bottom: 1px solid black;
 }
+
+a{
+	color: black;
+}
+
 
 </style>
 
@@ -303,6 +308,7 @@ function clause(){
 		
 		<div style="border: 1px solid #ccc; margin-top: 10px; height: 250px;">
 		<h5 style="text-align: right; margin-top:20px; margin-bottom: -3px; margin-right:5px;">*는 필수정보입니다.</h5>
+		
 		<div class="row_group">
 			<span class="intext"> <input type="text" id="member_id"
 				name="member_id" class="inputtext" maxlength="20" placeholder="아이디(8자이상)*"/> <span class="error" id="idMsg">필수 정보입니다</span>
@@ -340,6 +346,7 @@ function clause(){
 			</span> 
 		</div>	
 			<input type="hidden" id="member_auth" name="member_auth" value="ROLE_IDV" />
+	
 	
 			<div class="checkbox" style="text-align: center; font-size: 18px; border: 1px solid #ccc; height: 37px; margin: 0 auto;">
   			<label style="margin-top: 5px;">

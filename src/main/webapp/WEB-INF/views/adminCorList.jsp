@@ -36,3 +36,12 @@
 </div>
 </div>
 <c:import url="/WEB-INF/views/layout/adminPaging/CorPaging.jsp"/>
+
+<div class="form-inline text-center">
+<select class="form-control form-control-sm" name="select" id="select">
+	<option value="buy_board_title" selected>회원이름</option>
+	<option value="buy_board_content">회원아이디</option>
+</select>
+	<input class="form-control" type="text" id="search" />
+	<button id="btnSearch" class="btn">검색</button>
+</div> 

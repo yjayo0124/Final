@@ -11,7 +11,6 @@ import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -28,6 +27,7 @@ import web.dto.Member;
 import web.security.CustomOAuthenticationProvider;
 import web.service.member.NaverLoginBO;
 import web.service.member.face.MemberService;
+import web.service.review.face.ReviewService;
 
 @Controller
 public class MemberController {
@@ -48,6 +48,9 @@ public class MemberController {
 	}
 
 	@Autowired MemberService memberService;
+	@Autowired ReviewService reviewService;
+	
+	
 	
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET) 
 	public void join() {
@@ -165,15 +168,16 @@ public class MemberController {
 	
 	}
 
+	
+	
 	@RequestMapping(value="/member/corJoin", method=RequestMethod.POST)
-	public String corJoinProc(Member member, String corName) {		
+	public String corJoinProc(Member member, String selectCor) {		
 		
-		logger.info(corName);
+		int corno = reviewService.getCorno(selectCor);
+
+		member.setCompany_no(corno);
 		
-//		int cor_no = memberService.selectIdByName(corName);
-		
-//		member.setCompany_no(cor_no);
-		memberService.join(member);
+		memberService.corJoin(member);
 		
 		return "redirect:"+"/main";
 		

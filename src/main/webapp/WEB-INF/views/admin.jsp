@@ -2,6 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$("#btnSearch").click(function() {
+			location.href="/admin?select=" +$("#select").val() +"&search="+$("#search").val();
+		});
+		
+	})
+
+</script>
+
+
 <div style="margin-top:50px;">
 <h2>회원관리</h2>
 <hr>
@@ -34,3 +47,13 @@
 </div>
 </div>
 <c:import url="/WEB-INF/views/layout/adminPaging/paging.jsp"/>
+
+
+<div class="form-inline text-center">
+<select class="form-control form-control-sm" name="select" id="select">
+	<option value="member_name" selected>회원이름</option>
+	<option value="member_id">회원아이디</option>
+</select>
+	<input class="form-control" type="text" id="search" />
+	<button id="btnSearch" class="btn">검색</button>
+</div> 

@@ -1,21 +1,21 @@
 package web.util.admin;
 
 public class Paging {
-	private int curPage;	//현재 페이지 번호 (현재 선택한 페이지)
+	private int curPage;	
 
-	private int totalCount;	//총 게시글 수 (DB 조회 결과로 얻어옴)
-	private int listCount;	//한 페이지당 출력될 게시글 수 (직접 설정함)
-	private int totalPage;	//총 페이지 수 (계산으로 알아냄)
+	private int totalCount;	
+	private int listCount; 
+	private int totalPage;	
 
-	private int pageCount;	//한 화면에 출력될 페이지 수 (직접 설정함)
-	private int startPage;	//화면에 보이는 시작 페이지 (계산으로 알아냄)
-	private int endPage;	//화면에 보이는 끝 페이지 (계산으로 알아냄)
+	private int pageCount;	
+	private int startPage;	
+	private int endPage;	
 	
-	private int startNo;	//게시물리스트 첫 번호
-	private int endNo;	//게시물리스트 마지막 번호
+	private int startNo;	
+	private int endNo;	
 	
 	
-	private String search; //검색어 
+	private String search; 
 	
 	public String getSearch() {
 		return search;
@@ -26,20 +26,14 @@ public class Paging {
 	}
 	
 	
-	
-	// 총 게시글 수만 입력하는 생성자
-	//	curPage == 1
-	//	pageCount == 10
-	//	listCount == 10
+
 	public Paging(int totalCount) {
 		this.setTotalCount(totalCount);
 		
 		makePaging();
 	}
 
-	// 총 게시글 수와 현재 페이지를 입력하는 생성자
-	//	pageCount == 10
-	//	listCount == 10
+
 	public Paging(int totalCount, int curPage) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
@@ -47,8 +41,7 @@ public class Paging {
 		makePaging();
 	}
 
-	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수를 입력하는 생성자
-	//	pageCount == 10
+	
 	public Paging(int totalCount, int curPage, int listCount) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
@@ -57,7 +50,7 @@ public class Paging {
 		makePaging();
 	}
 
-	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수, 페이지 수를 입력하는 생성자
+	
 	public Paging(int totalCount, int curPage, int listCount, int pageCount) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
@@ -67,36 +60,33 @@ public class Paging {
 		makePaging();
 	}
 
-	// 페이징 정보 생성
+	
 	private void makePaging() {
-		if(totalCount == 0)	return; //게시글이 없는 경우
+		if(totalCount == 0)	return; 
 		
-		// 기본값 설정
-		if(curPage == 0)	setCurPage(1);	//기본값으로 첫 페이지(1) 세팅
-		if(listCount == 0)	setListCount(10); //한 화면에 보이는 게시글수 기본값(10) 세팅
-		if(pageCount == 0)	setPageCount(10); //한 화면에 보이는 페이지수 기본값(10) 세팅
+
+		if(curPage == 0)	setCurPage(1);	
+		if(listCount == 0)	setListCount(10); 
+		if(pageCount == 0)	setPageCount(10); 
 		
-		// 총 페이지수 계산
+
 		totalPage = totalCount / listCount;
 		if( totalCount % listCount > 0 )	totalPage++;
 
-		// 현재 페이지가 총 페이지보다 크게 입력되면
-		// 강제로 마지막페이지 고정
+
 		if (totalPage < curPage)	curPage = totalPage;
 		
-		
-		// 화면에 보일 시작 페이지 & 끝 페이지 설정 
+
 		startPage = ((curPage-1)/pageCount)*pageCount+1;
 		endPage = startPage+pageCount-1;
 
-		// 계산된 마지막 페이지가 totalPage보다 커질 경우
-		// 강제로 최종 페이지까지만 보이도록 설정
+	
 		if(endPage > totalPage)	endPage = totalPage;
 		
 		
-		// 게시글 시작번호
+
 		startNo = (curPage-1)*listCount+1;
-		// 게시글 끝번호
+		
 		endNo = curPage*listCount;
 	}
 
