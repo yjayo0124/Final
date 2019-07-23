@@ -31,6 +31,8 @@
 	margin-bottom: 50px;
 }
 
+
+
 #footer{
 
 
@@ -51,13 +53,11 @@ background: #fff;
 <!-- HEADER -->
 <tiles:insertAttribute name="header"/>
 <hr>
+
 <!-- BODY -->
-
-
-<div class="container body">
+<div class="container">
 <tiles:insertAttribute name="body"/>
 </div>
-
 
 <!-- FOOTER -->
 <div id="footer">

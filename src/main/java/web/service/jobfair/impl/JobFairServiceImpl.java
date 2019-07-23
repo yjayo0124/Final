@@ -1,5 +1,6 @@
 package web.service.jobfair.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class JobFairServiceImpl implements JobFairService {
 	@Autowired JobFairDao jobfairDao;
 
 	@Override
-	public List<JobFair> calList() {
+	public List<HashMap<String, Object>> calList() {
 		return jobfairDao.selectAll();
 	}
 
@@ -25,7 +26,7 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 
 	@Override
-	public List<JobFair> adminView(int jobfair_no) {
+	public List<HashMap<String, Object>> adminView(int jobfair_no) {
 		return jobfairDao.selectByJobfairNo(jobfair_no);
 	}
 

@@ -8,13 +8,13 @@
 
 <mapper namespace="web.dao.jobfair.face.JobFairDao">
 
-	<select id="selectAll" resultType="list">
+	<select id="selectAll" resultType="hashmap">
 		SELECT * FROM jobfair
 	</select>
 	
 	<select id="selectByJobfairNo" 
 	parameterType="int"
-	resultType="list">
+	resultType="hashmap">
 		SELECT * FROM jobfair
 		WHERE jobfair_no = #{jobfair_no }
 	</select>
@@ -23,7 +23,7 @@
 	parameterType="string"
 	resultType="string">
 		SELECT * FROM jobfair
-		WHERE jobfair_name = #{jobfair_name }
+		WHERE jobfair_name = #{jobfair_name, jdbcType=VARCHAR }
 	</select>
 	
 	<insert id="insert" parameterType="web.dto.JobFair">

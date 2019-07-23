@@ -1,5 +1,8 @@
 package web.controller.jobfair;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +27,23 @@ public class JobfairController {
 	private static final Logger logger = LoggerFactory.getLogger(JobfairController.class);
 	
 	@RequestMapping(value="/jobfair/main")
-	public void jobfair() {
+	public void jobfair(
+			Model model
+		) {
 		logger.info("메인");
+		
+		//member_id 가져오기
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String member_id = auth.getName();
+//		System.out.println(member_id);
+		
+		model.addAttribute("member_id", member_id);
+		
+		
+		List<HashMap<String, Object>> list = jobfairService.calList();
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
 	}
 	
 	@RequestMapping(value="/jobfair/register", method=RequestMethod.GET)
