@@ -27,16 +27,19 @@
 
 
 .body{
+
 	
 	margin-bottom: 50px;
 }
 
 
 
+
 #footer{
 
 
-bottom: 0px;
+position: relative;
+bottom: 0;
 width: 100%;
 border-top: 1px solid #ccc;
 background: #fff;
