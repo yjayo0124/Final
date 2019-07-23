@@ -20,6 +20,10 @@ public interface ReviewService {
 
 	public Paging getCurPage(HttpServletRequest request);
 
-	public List<HashMap<String, Object>> tagSearch(String result);
+	public List<HashMap<String, Object>> tagSearch(Paging paging);
+
+	public String getTag(String review_tag);
+
+	public List<HashMap<String, Object>> reviewSearch(Paging paging, String keyword);
 
 }

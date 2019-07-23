@@ -58,8 +58,27 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> tagSearch(String result) {
-		return reviewDao.selectReviewByTag(result);
+	public List<HashMap<String, Object>> tagSearch(Paging paging) {
+		if(paging.getTag().equalsIgnoreCase("전체")) {
+			return reviewDao.selectReview(paging);
+		} else if(paging.getTag().equalsIgnoreCase("강추") ||
+				paging.getTag().equalsIgnoreCase("비추") ||
+				paging.getTag().equalsIgnoreCase("취업고민")) {
+			return reviewDao.selectReviewByTag(paging);
+		} else {
+			return reviewDao.selectReview(paging);
+		}
 	}
 
+	@Override
+	public String getTag(String review_tag) {
+		String param = review_tag;
+		
+		return param;
+	}
+
+	@Override
+	public List<HashMap<String, Object>> reviewSearch(Paging paging, String keyword) {
+		return reviewDao.searchReview(paging, keyword);
+	}
 }
