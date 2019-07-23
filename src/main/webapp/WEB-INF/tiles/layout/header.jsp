@@ -79,7 +79,7 @@ ul,li{
 		<ul class="menu">
 		<li><a style="margin-right: 20px;" href="/main">khob image logo</a></li>
 		<li><a href="/recruitment/main"><span>채용</span></a></li>
-		<li><a href="#"><span>리뷰</span></a></li>
+		<li><a href="/review/list?tag=전체"><span>리뷰</span></a></li>
 		<li><a href="/jobfair/main"><span>취준</span></a></li>
 	
 	</ul>
