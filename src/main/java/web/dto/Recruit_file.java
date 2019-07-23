@@ -1,21 +1,17 @@
 package web.dto;
 
-import java.util.Date;
-
 public class Recruit_file {
 	private int recruit_file_no;
 	private String recruit_file_storedname;
 	private String recruit_file_originname;
-	private Date recruit_file_upload_date;
-	private int recruit_no;
+	private String recruit_no;
 	
 	@Override
 	public String toString() {
 		return "Recruit_file [recruit_file_no=" + recruit_file_no + ", recruit_file_storedname="
-				+ recruit_file_storedname + ", recruit_file_originname=" + recruit_file_originname
-				+ ", recruit_file_upload_date=" + recruit_file_upload_date + ", recruit_no=" + recruit_no + "]";
+				+ recruit_file_storedname + ", recruit_file_originname=" + recruit_file_originname + ", recruit_no="
+				+ recruit_no + "]";
 	}
-	
 	public int getRecruit_file_no() {
 		return recruit_file_no;
 	}
@@ -34,18 +30,12 @@ public class Recruit_file {
 	public void setRecruit_file_originname(String recruit_file_originname) {
 		this.recruit_file_originname = recruit_file_originname;
 	}
-	public Date getRecruit_file_upload_date() {
-		return recruit_file_upload_date;
-	}
-	public void setRecruit_file_upload_date(Date recruit_file_upload_date) {
-		this.recruit_file_upload_date = recruit_file_upload_date;
-	}
-	public int getRecruit_no() {
+	public String getRecruit_no() {
 		return recruit_no;
 	}
-	public void setRecruit_no(int recruit_no) {
+	public void setRecruit_no(String recruit_no) {
 		this.recruit_no = recruit_no;
 	}
-	
+
 	
 }

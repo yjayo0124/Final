@@ -21,12 +21,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$('#summernote').summernote({
-		height: 300,          // 기본 높이값
-	    minHeight: null,      // 최소 높이값(null은 제한 없음)
-	    maxHeight: null,      // 최대 높이값(null은 제한 없음)
-	    focus: true,          // 페이지가 열릴때 포커스를 지정함
-	    lang: 'ko-KR'         // 한국어 지정(기본값은 en-US)
+	$("#summernote").summernote({
+		tabsize: 2,
+		height: 370,
+		minHeight: null,
+		maxHeight: null,
+		focus: true,
+		lang: 'ko-KR'
 	});
 	
 	//작성버튼 동작
@@ -57,13 +58,14 @@ $(document).ready(function() {
 
 <form action="/recruitment/write" method="POST" enctype="multipart/form-data">
 <div>
+<p>글쓴이 회원번호: ${member_no }</p>
 <label>●기업명</label>
-<input type="text" name="recruit_name" id="recruit_name"placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_name" id="recruit_name" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;
 <div>
 <label>●공고 제목</label>
-<input type="text" name="recruit_title" id="recruit_title"placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_title" id="recruit_title" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;&nbsp;&nbsp;
 <div>
@@ -87,7 +89,7 @@ $(document).ready(function() {
 &nbsp;
 <div>
 <label>우대 전공</label>
-<input type="text" name="recruit_major" id="recruit_majorplaceholder" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_major" id="recruit_major" placeholder="내용을 입력해 주세요">
 </div>
 &nbsp;&nbsp;&nbsp;
 <div>
@@ -117,6 +119,7 @@ $(document).ready(function() {
 <input type="checkbox" name="recruit_time" value="fri">금
 <input type="checkbox" name="recruit_time" value="sat">토
 <input type="checkbox" name="recruit_time" value="sun">일
+
 <select name="recruit_time">
 	<option value="0900">09:00</option>
 	<option value="1000">10:00</option>
@@ -152,9 +155,10 @@ $(document).ready(function() {
 &nbsp;
 <div>
 <label>상세요강 이미지파일</label>
-<input type="file" name="file" id="file"/>
+<input type="file" name="recruit_file" id="recruit_file"/>
+
 <label>상세요강 글</label>
-<textarea name="content" id="summernote"></textarea>
+<textarea  id="summernote" name="recruit_content"></textarea>
 </div>
 &nbsp;&nbsp;&nbsp;
 <div class="text-center">
