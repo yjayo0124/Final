@@ -26,30 +26,45 @@ public class AdminController {
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView main(
 			ModelAndView mav, 
-			@RequestParam(defaultValue = "1") int curPage
+			@RequestParam(defaultValue = "1") int curPage,
+			@RequestParam(defaultValue = " ") String select,
+			@RequestParam(defaultValue = " ") String search
 			) {
-		Paging paging = adminService.getCurPage(curPage);
-		mav.addObject("paging", paging);
+		
+	//	logger.info("search : "+search);
+	//	logger.info("select : "+select);
+		
+		Paging paging = adminService.getCurPage(curPage, select, search);
+		
+		paging.setSearch(search);
 		
 		List<Member> list = adminService.getList(paging);
+		
+		
+		mav.addObject("paging", paging);
 	
-		logger.info(list.toString());
+	logger.info(paging.toString());
+		
 		mav.addObject("list", list);
 				
+	logger.info("list" + list);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/adminCorList", method = RequestMethod.GET)
 	public ModelAndView mainCor(
 			ModelAndView mav, 
-			@RequestParam(defaultValue = "1") int curPage
+			@RequestParam(defaultValue = "1") int curPage,
+			@RequestParam(defaultValue = " ") String select,
+			@RequestParam(defaultValue = " ") String search
 			) {
-		Paging paging = adminService.getCurPage(curPage);
-		mav.addObject("paging", paging);
+		
+		Paging paging = adminService.getCurPage(curPage, select, search);
 		
 		List<Member> list = adminService.getCorList(paging);
 	
-		logger.info(list.toString());
+		mav.addObject("paging", paging);
+	
 		mav.addObject("list", list);
 				
 		return mav;

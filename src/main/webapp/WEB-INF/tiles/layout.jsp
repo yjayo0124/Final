@@ -24,18 +24,15 @@
 
 }
 
-#wrap{
-	position: relative;
-	min-width: 1270px;
-	margin: 0 auto;
-	/* background: #f2f4f7; */
-}
 
 
 .body{
 
-
+	
+	margin-bottom: 50px;
 }
+
+
 
 
 #footer{
@@ -43,9 +40,7 @@
 
 position: relative;
 bottom: 0;
-
 width: 100%;
-
 border-top: 1px solid #ccc;
 background: #fff;
 

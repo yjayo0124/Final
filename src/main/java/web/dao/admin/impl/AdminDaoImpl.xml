@@ -10,13 +10,28 @@
 	SELECT * FROM 
 	( SELECT rownum rnum, B.* FROM 
 	( SELECT * FROM MEMBER 
-	Where MEMBER_ID LIKE '%%'
+	<where>
+	<if test="search != null">
+	MEMBER_ID LIKE #{search}
+	</if>
+	</where>
 	ORDER by MEMBER_NO desc) 
+	
 	B ORDER by rnum ) WHERE rnum between #{startNo} and #{endNo}
 	</select>
 
-	<select id="selectCntAll"  resultType="int">
+
+	<select id="selectCntAll"  resultType="int" parameterType="map">
 	SELECT count(*) FROM MEMBER
+	<trim prefix="WHERE" prefixOverrides="OR">
+		<if test="select != null and select =='member_name' and search != null">
+		member_name = #{search}
+		</if>
+		<if test="select != null and select =='member_id' and search != null ">
+		member_id = #{search}
+		</if>
+	</trim>
+	
 	</select>
 
 
@@ -34,7 +49,11 @@ FROM
     cor.cor_name as company_name
     FROM 
     MEMBER, cor 
-	WHERE MEMBER_ID LIKE '%%' and member.company_no = cor.cor_no
+	WHERE 
+	<if test="search != null">
+	MEMBER_ID LIKE '%#{search}%' 
+	</if>
+	and member.company_no = cor.cor_no
 	ORDER by MEMBER_NO desc)
 	B ORDER by rnum ) WHERE rnum between #{startNo} and #{endNo}
 	</select>

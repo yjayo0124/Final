@@ -79,7 +79,9 @@ ul,li{
 		<ul class="menu">
 		<li><a style="margin-right: 20px;" href="/main">khob image logo</a></li>
 		<li><a href="/recruitment/main"><span>채용</span></a></li>
+
 		<li><a href="/review/list?tag=전체"><span>리뷰</span></a></li>
+
 		<li><a href="/jobfair/main"><span>취준</span></a></li>
 	
 	</ul>
@@ -95,7 +97,7 @@ ul,li{
 			
 		<sec:authorize access="isAuthenticated()"> 
 		
-			<sec:authorize access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')">
+			<sec:authorize access="hasAnyRole('ROLE_COR')">
 			<li><a href="/cor/main"><span>기업회원 홈</span></a></li>
 			</sec:authorize>
 		
@@ -111,5 +113,4 @@ ul,li{
 			<li><a href="/member/logout">로그아웃</a></li>
 		</sec:authorize> 
 	</ul>
-
 </div>

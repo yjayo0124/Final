@@ -9,6 +9,6 @@ public interface AdminService {
 	public List getList(Paging paging);
 	public List getCorList(Paging paging);
 	
-	public Paging getCurPage(int curPage);
+	public Paging getCurPage(int curPage, String select, String search);
 	
 }

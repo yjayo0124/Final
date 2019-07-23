@@ -11,6 +11,11 @@
 	VALUES(member_seq.nextval, #{member_id}, #{member_pw}, #{member_name}, #{member_phone}, #{member_email}, #{member_auth})
 	</insert>
 
+	<insert id="corInsert" parameterType="web.dto.Member">
+	INSERT INTO member(member_no, member_id, member_pw, member_name, member_phone, member_email, member_auth, company_no)
+	VALUES(member_seq.nextval, #{member_id}, #{member_pw}, #{member_name}, #{member_phone}, #{member_email}, #{member_auth}, #{company_no})
+	</insert>
+
 	<insert id="socialInsert" parameterType="web.dto.Member">
 	INSERT INTO member(member_no, member_id, member_name, member_phone, member_email, member_auth)
 	VALUES(member_seq.nextval, #{member_id}, #{member_name}, #{member_phone}, #{member_email}, #{member_auth})

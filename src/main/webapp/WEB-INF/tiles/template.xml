@@ -5,7 +5,6 @@
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-
 	<definition name="member/callback" template="/WEB-INF/views/member/callback.jsp"></definition>   
 	
 

@@ -7,6 +7,8 @@ public interface MemberDao {
 
 	public void insert(Member member);
 	
+	public void corInsert(Member member);
+	
 	public void socialInsert(Member member);
 	
 	public Member getUserDetails(String member_id);

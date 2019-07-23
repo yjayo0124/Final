@@ -20,6 +20,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public void corJoin(Member member) {
+	 
+		memberDao.corInsert(member);
+	}
+	
+	@Override
 	public void socialJoin(Member member) {
 		
 		int res = memberDao.selectById(member.getMember_id());
