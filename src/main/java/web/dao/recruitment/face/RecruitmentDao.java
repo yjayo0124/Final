@@ -38,20 +38,20 @@ public interface RecruitmentDao {
 	 * @param recruit_file
 	 */
 	public void insertFile(Recruit_file recruit_file);
-
-	/**
-	 * 글 번호로 첨부파일 조회
-	 * @param recruit_file
-	 * @return 첨부파일 조회 결과
-	 */
-	public Recruit_file selectFile(Recruit_file recruit_file);
-	
+//
+//	/**
+//	 * 글 번호로 첨부파일 조회
+//	 * @param recruit_file
+//	 * @return 첨부파일 조회 결과
+//	 */
+//	public Recruit_file selectFile(Recruit_file recruit_file);
+//	
 	/**
 	 * 첨부파일번호로 첨부파일 조회
 	 * @param recruit_file_no
 	 * @return 첨부파일 조회 결과
 	 */
-	public Recruit_file selectByfileno(int recruit_file_no);
+//	public Recruit_file selectByfileno(int recruit_file_no);
 	
 	
 	public List<Recruit> selectByMemberNo(int member_no);
@@ -64,9 +64,9 @@ public interface RecruitmentDao {
 
 	/**
 	 * 	게시글 삭제
-	 * @param recruit_no
+	 * @param recruit
 	 */
-	public void deleteByrecruitno(int recruit_no);
+	public void deleteByrecruitno(Recruit recruit);
 	
 	/**
 	 * 	게시글 첨부파일 삭제
