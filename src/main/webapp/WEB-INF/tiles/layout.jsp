@@ -38,8 +38,10 @@
 
 #footer{
 
+
 position: relative;
 bottom: 0;
+
 width: 100%;
 
 border-top: 1px solid #ccc;

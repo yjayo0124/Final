@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
-    
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	//홈페이지지원 버튼 동작
-	$("#btnSubmit").click(function() {
+	$("#btnCor").click(function() {
 		$(location).attr("href", "#");
 	});
 	
@@ -49,8 +50,10 @@ button {
 
 
 <table class="table table-bordered">
+
 <tr>
-<td> 기업명</td><td colspan="3">${viewRecruit.recruit_name }</td>
+<td> 공고번호</td><td>${viewRecruit.recruit_no }</td>
+<td> 기업명</td><td colspan="2">${viewRecruit.recruit_name }</td>
 </tr>
 
 <tr>
@@ -101,7 +104,7 @@ button {
 
 </table>
 <div class="text-center">
-	<button id="btnSubmit" class="btn btn-primary">홈페이지지원</button>
+	<button id="btnCor" class="btn btn-primary">기업정보</button>
 	<button id="btnScrab" class="btn btn-primary">스크랩</button>
 </div>
 
@@ -109,10 +112,13 @@ button {
 
 
 <div class="text-right">
-<%-- <c:if test="${member_no eq viewRecruit.member_no }"> --%>
-	<button id="btnUpdate" >수정</button>
-	<button id="btnDelete" class="btn btn-danger">삭제</button>
-<%-- </c:if> --%>
+	<a href="/recruitment/main"><button class="btn btn-default">목록</button></a>
+<%-- 	<c:if test="${member_no eq viewRecruit.member_no }"> --%>
+<%-- 	<sec:authentication property="principal"> --%>
+		<button id="btnUpdate" >수정</button>
+		<button id="btnDelete" class="btn btn-danger">삭제</button>
+<%-- 	</sec:authentication> --%>
+<%-- 	</c:if> --%>
 </div>
 
 </div>

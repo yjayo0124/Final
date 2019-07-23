@@ -54,6 +54,7 @@ public class RecruitmentController {
 	public void recruitView(HttpServletRequest req, Model model) {
 		
 		logger.info("채용공고 상세페이지");
+		
 		int recruit_no = recruitmentService.getRecruitno(req);
 		model.addAttribute("recruit_no",recruit_no);
 		
@@ -75,8 +76,10 @@ public class RecruitmentController {
 			) {
 	
 		logger.info("글쓰기");
+		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
-
+		//객체에 담겨있는 회원번호 가져오기
+		recruit.setMember_no(member.getMember_no());
 		
 		logger.info("파일업로드 처리");
 		logger.info("파일 : " + fileupload.getOriginalFilename());
@@ -110,10 +113,10 @@ public class RecruitmentController {
 		
 	}
 	@RequestMapping(value = "/recruitment/delete", method = RequestMethod.GET) 
-	public String recruitDelete(int recruit_no) {
+	public String recruitDelete(Recruit recruit, Model model) {
 		logger.info("채용공고 삭제");
 		
-		recruitmentService.delete(recruit_no);
+		recruitmentService.delete(recruit);
 		
 		return "redirect:"+"/recruitment/main";
 	}

@@ -9,18 +9,21 @@ public class Recruit {
 	private String recruit_certificate;
 	private String recruit_major;
 	private String recruit_type;
-	private String recruit_sal;
+	private int recruit_sal;
 	private String recruit_time;
 	private String recruit_position;
+	private String recruit_content;
 	private int member_no;
-	
+
+
 	@Override
 	public String toString() {
-		return "Recruitment [recruit_no=" + recruit_no + ", recruit_name=" + recruit_name + ", recruit_title="
+		return "Recruit [recruit_no=" + recruit_no + ", recruit_name=" + recruit_name + ", recruit_title="
 				+ recruit_title + ", recruit_career=" + recruit_career + ", recruit_educareer=" + recruit_educareer
 				+ ", recruit_certificate=" + recruit_certificate + ", recruit_major=" + recruit_major
 				+ ", recruit_type=" + recruit_type + ", recruit_sal=" + recruit_sal + ", recruit_time=" + recruit_time
-				+ ", recruit_position=" + recruit_position + ", member_no=" + member_no + "]";
+				+ ", recruit_position=" + recruit_position + ", recruit_content=" + recruit_content + ", member_no="
+				+ member_no + "]";
 	}
 
 	public int getRecruit_no() {
@@ -87,11 +90,11 @@ public class Recruit {
 		this.recruit_type = recruit_type;
 	}
 
-	public String getRecruit_sal() {
+	public int getRecruit_sal() {
 		return recruit_sal;
 	}
 
-	public void setRecruit_sal(String recruit_sal) {
+	public void setRecruit_sal(int recruit_sal) {
 		this.recruit_sal = recruit_sal;
 	}
 
@@ -105,6 +108,14 @@ public class Recruit {
 
 	public String getRecruit_position() {
 		return recruit_position;
+	}
+
+	public String getRecruit_content() {
+		return recruit_content;
+	}
+
+	public void setRecruit_content(String recruit_content) {
+		this.recruit_content = recruit_content;
 	}
 
 	public void setRecruit_position(String recruit_position) {

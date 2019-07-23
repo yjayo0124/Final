@@ -92,11 +92,8 @@ public class RecruimentServiceImpl implements RecruitmentService{
 				recruit_file.setRecruit_file_originname(file.getOriginalFilename());
 				recruit_file.setRecruit_file_storedname(name);
 						
-				Date recruit_file_upload_date = null;
-				recruit_file.setRecruit_file_upload_date(recruit_file_upload_date);
-						
-						
-				recruitmentDao.insertFile(recruit_file);			
+				recruitmentDao.insertFile(recruit_file);	
+				
 				recruitmentDao.write(recruit);
 	}
 
@@ -132,10 +129,7 @@ public class RecruimentServiceImpl implements RecruitmentService{
 //		recruit_file.setRecruit_file_originname(file.getOriginalFilename());
 //		recruit_file.setRecruit_file_storedname(name);
 //		
-//		Date recruit_file_upload_date = null;
-//		recruit_file.setRecruit_file_upload_date(recruit_file_upload_date);
-//		
-//		
+//				
 //		recruitmentDao.insertFile(recruit_file);		
 //	}
 
@@ -154,10 +148,10 @@ public class RecruimentServiceImpl implements RecruitmentService{
 	}
 
 	@Override
-	public void delete(int recruit_no) {
-		recruitmentDao.deleteByrecruitno(recruit_no);
+	public void delete(Recruit recruit) {
+		recruitmentDao.deleteByrecruitno(recruit);
 		
 	}
 
-	
+
 }
