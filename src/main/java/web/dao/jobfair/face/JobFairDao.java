@@ -1,14 +1,15 @@
 package web.dao.jobfair.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import web.dto.JobFair;
 
 public interface JobFairDao {
 	
-	public List<JobFair> selectAll();
+	public List<HashMap<String, Object>> selectAll();
 	
-	public List<JobFair> selectByJobfairNo(int jobfair_no);
+	public List<HashMap<String, Object>> selectByJobfairNo(int jobfair_no);
 	
 	public String selectByJobfairTitle(String title);
 	
