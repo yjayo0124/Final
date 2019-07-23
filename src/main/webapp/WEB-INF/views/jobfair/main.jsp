@@ -13,58 +13,33 @@
 
 
 <script type="text/javascript">
+
 $(document).ready(function() {
 	
 	$('#calendar').fullCalendar({
-		plugins: [ 'interaction', 'dayGrid'],
 		header: {
 			left: 'prev',
 			center: 'title',
 			right: 'next, today'
 		},
-		//데이터 가져오기
-		events: function(start, end, timezone, callback) {
-			$.ajax({
-				type: "POST",
-				url: "/jobfair/main",
-				dataType: "json",
-				success: function( data ) {
-					console.log("성공");
-					console.log(data);
-					
-					var events = [];
-					$.each(data, function(index, value) {
-						events.push({
-							title: value.jobfair_name,
-							start: value.jobfair_start,
-							end: value.jobfair_end
-						});
-					});
-					
-					callback(events);
-				},
-				error: function() {
-					console.log("실패");
-				}
-			});
-		},
-// 		eventClick: function(event) {
-//			$()
-//		},
 		momonthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
-		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], 
-		dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
- 		buttonText: {today: 'today', month: '월', week: '주', day: '일'}
+ 		buttonText: {today: 'today'},
+ 		events: [
+			{
+				title: 'jobfair_name',
+				start: '2019-07-23',
+				end: '2019-07-27'		
+			},
+			{
+				title: 'jobfair_name2',
+				start: '2019-07-16',
+				end: '2019-07-25'		
+			}
+		]
 	});
 	
-// 	$("#calendar").fullCalendar('renderEvent', {
-// 		title: 'jobfair_name',
-// 		start: '2019-07-23',
-// 		end: '2019-07-27'
-// 	});
-	
-	
+
 	$('#btnSearch').click(function() {
 		
 	});
@@ -91,6 +66,7 @@ $(document).ready(function() {
 
 </style>
 
+<div class="wrap">
 
 <div class="body">
 
@@ -101,14 +77,16 @@ $(document).ready(function() {
 	<button id="btnSearch" class="btn btn-outline-secondary">검색</button>
 </div>
 
-<c:if test="${login eq admin }">
-<button id="btnRegister" class="btn pull-right">등록</button>
+<c:if test="${member_id eq 'admin' }">
+	<button id="btnRegister" class="btn pull-right">등록</button>
 </c:if>
 </div>
 <br>
 <br>
 
 <div id="calendar">
+</div>
+
 </div>
 </div>
 
