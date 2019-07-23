@@ -33,12 +33,17 @@
 
 
 .body{
-	height: 800px;
-} 
+
+
+}
+
 
 #footer{
 
-bottom: 0px;
+
+position: relative;
+bottom: 0;
+
 width: 100%;
 
 border-top: 1px solid #ccc;

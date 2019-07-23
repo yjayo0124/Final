@@ -48,6 +48,11 @@ public class MypageController {
 		
 	}
 	
+	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
+	public void introductionWriteProc() {
+		
+	}
+	
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)
 	public void introductionDetail() {
 		
