@@ -25,22 +25,22 @@
 }
 
 
+.container{
 
-.body{
-
-	
-	margin-bottom: 50px;
+	min-height: 700px;
+	position: relative;
+	padding-bottom: 120px;
 }
 
 
 
+.l-footer{
 
-#footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 
-
-position: relative;
-bottom: 0;
-width: 100%;
 border-top: 1px solid #ccc;
 background: #fff;
 
@@ -48,11 +48,21 @@ background: #fff;
 }
 
 
+
+.l-wrap{
+    min-width: 1080px;
+    min-height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
 </style>
 
 </head>
 <body>
 
+
+<div class="l-wrap">
 <!-- HEADER -->
 <tiles:insertAttribute name="header"/>
 <hr>
@@ -63,11 +73,11 @@ background: #fff;
 </div>
 
 <!-- FOOTER -->
-<div id="footer">
+<div class="l-footer">
 <tiles:insertAttribute name="footer" />
 </div>
 
-
+</div>
 
 </body>
 </html>

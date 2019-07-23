@@ -87,6 +87,10 @@ $(document).ready(function() {
 	
 	
 
+
+
+
+
 <%-- <p>
 로그인 객체 id : <sec:authentication property="principal"/><br>
 로그인 객체 pw : <sec:authentication property="credentials"/> [null보이는거면 보안처리O, 빈칸로 보이면 비로그인]<br>
