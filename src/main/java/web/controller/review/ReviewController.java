@@ -3,7 +3,6 @@ package web.controller.review;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Cor;
 import web.dto.Review;
@@ -100,41 +100,29 @@ public class ReviewController {
 	
 	// 리뷰 페이지 이동
 	@RequestMapping(value = "/review/list", method = RequestMethod.GET) 
-	public void review(HttpServletRequest request, Model model, Map map) {
+	public void review(HttpServletRequest request, Model model, @RequestParam String tag) {
 		logger.info("리뷰 페이지");
 		Paging paging = reviewService.getCurPage(request);
-
-		List<HashMap<String, Object>> reviewlist = reviewService.getReviewList(paging);
-//		System.out.println(reviewlist);
+		String selectTag = reviewService.getTag(tag);
+		System.out.println(selectTag);
+		paging.setTag(selectTag);
+		
+		List<HashMap<String, Object>> reviewlist = reviewService.tagSearch(paging);
+		System.out.println(reviewlist);
 		
 		model.addAttribute("paging", paging);
 		model.addAttribute("reviewlist", reviewlist);
+		model.addAttribute("tag", selectTag);
 	}
 	
-	// tag 선택시 리스트 불러오기
-	@RequestMapping(value = "/review/tagsearch", method = RequestMethod.GET) 
-	public void tagSearch(HttpServletRequest request, HttpServletResponse resp, Model model) {
-		String result = request.getParameter("selectTag");
-		System.out.println(result);
+	// 검색 값 받기
+	@RequestMapping(value = "/review/list", method = RequestMethod.POST) 
+	public void reviewSearch(HttpServletRequest request, Model model, String keyword) {
+		logger.info("검색값 받기");
+		System.out.println(keyword);
 		Paging paging = reviewService.getCurPage(request);
 		
-		List<HashMap<String, Object>> tagSearch = reviewService.tagSearch(result);
-		System.out.println(tagSearch);
-		
-		JSONArray array = new JSONArray();
-		for(int i  = 0; i <tagSearch.size(); i++) {
-			JSONObject obj = new JSONObject();
-			obj.put("data", tagSearch.get(i));
-			array.add(obj);
-		}
-        resp.setContentType("application/json ; charset=UTF-8");
-        resp.setCharacterEncoding("UTF-8");
-        try {
-			resp.getWriter().write(array.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("taglist", tagSearch);
+		List<HashMap<String, Object>> reviewlist = reviewService.reviewSearch(paging, keyword);
+		System.out.println(reviewlist);
 	}
 }

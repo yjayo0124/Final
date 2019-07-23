@@ -18,7 +18,9 @@ public interface ReviewDao {
 
 	public int selectCntAll();
 
-	public List<HashMap<String, Object>> selectReviewByTag(String result);
+	public List<HashMap<String, Object>> selectReviewByTag(Paging paging);
+
+	public List<HashMap<String, Object>> searchReview(Paging paging, String keyword);
 
 
 }
