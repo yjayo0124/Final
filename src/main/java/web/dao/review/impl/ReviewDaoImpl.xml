@@ -29,7 +29,7 @@
 	
 	<select id="selectReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title FROM review, cor
+			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title, review.review_tag FROM review, cor
 			WHERE review.cor_no = cor.cor_no
 			ORDER BY rnum
 		)
@@ -37,7 +37,22 @@
 	</select>
 	
 	<select id="selectReviewByTag" resultType="hashmap">
-		SELECT review.review_no, cor.cor_name, review.review_title FROM review, cor
-		WHERE review.cor_no = cor.cor_no AND review.review_tag = #{result }
+		SELECT * FROM (
+			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title, review.review_tag FROM review, cor
+			WHERE review.cor_no = cor.cor_no AND review_tag = #{tag }
+			ORDER BY rnum
+		)
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="searchReview" resultType="hashmap">
+		SELECT * FROM (
+			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title, review.review_tag FROM review, cor
+			WHERE review.cor_no = cor.cor_no AND review.review_tag LIKE '%' || #{keyword } || '%' 
+			OR review.review_title LIKE '%' || #{keyword } || '%' 
+			OR review.review_content LIKE '%' || #{keyword } || '%'
+			ORDER BY rnum
+		)
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 </mapper>

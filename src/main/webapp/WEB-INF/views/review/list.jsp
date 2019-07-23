@@ -10,7 +10,11 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
-$(document).ready(function() {	
+var tagvalue = '${tag }';
+
+$(document).ready(function() {
+	$('input[name=selectTag]').attr('value','전체');
+	
 	// 검색 자동완성 기능
 	$('#keyword').autocomplete({
 		source:function(request,response){
@@ -35,7 +39,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$('#tag1').click(function() {
+	if(tagvalue == '전체') {
 		$('#tag1').css({
 			color: "#4B89DC"
 		});
@@ -48,12 +52,9 @@ $(document).ready(function() {
 		$('#tag4').css({
 			color: "black"
 		});
-		
-		$('input[name=selectTag]').attr('value','전체');
-		tagsearch();
-	});
-	
-	$('#tag2').click(function() {
+	}
+
+	if(tagvalue == '강추') {
 		$('#tag2').css({
 			color: "#4B89DC"
 		});
@@ -66,12 +67,9 @@ $(document).ready(function() {
 		$('#tag4').css({
 			color: "black"
 		});
-		
-		$('input[name=selectTag]').attr('value','강추');
-		tagsearch();
-	});
-	
-	$('#tag3').click(function() {
+	}
+
+	if(tagvalue == '비추') {
 		$('#tag3').css({
 			color: "#4B89DC"
 		});
@@ -84,12 +82,9 @@ $(document).ready(function() {
 		$('#tag4').css({
 			color: "black"
 		});
-		
-		$('input[name=selectTag]').attr('value','비추');
-		tagsearch();
-	});
-	
-	$('#tag4').click(function() {
+	}
+
+	if(tagvalue == '취업고민') {
 		$('#tag4').css({
 			color: "#4B89DC"
 		});
@@ -101,36 +96,17 @@ $(document).ready(function() {
 		});
 		$('#tag3').css({
 			color: "black"
-		});
-		
-		$('input[name=selectTag]').attr('value','취업고민');
-		tagsearch();
-	});
-	
-	function tagsearch() {
-		$.ajax({
-			url: "/review/tagsearch",
-			type: "get",
-			dataType: "json",
-			data: { selectTag : $('#selectTag').val()},
-			success: function(data) {
-				for(var i = 0; i < data.length; i++) {
-					console.log(data[i]);
-				}
-			},
-			error : function(data) {
-				alert("에러가 발생하였습니다.")
-			}
 		});
 	}
 });
+
+function writePop(){
+	window.open("http://localhost:8088/review/writePop", "글쓰기", "width=1000, height=650");
+}
+
 </script>
 
 <style type="text/css">
-body {
-	width: 1200px;
-	margin: 0 auto;
-}
 
 h1 {
 	font-size: 50px;
@@ -138,9 +114,13 @@ h1 {
 	margin: 0;
 }
 
-#keyword ul, li {
+.ui-menu-item, .ui-autocomplete, .ui-menu, .ui-widget, .ui-widget-content, .ui-corner-all {
 	width: 300px;
 	font-size: 12px;
+}
+
+a {
+	color: black;
 }
 
 table {
@@ -196,29 +176,38 @@ td {
 	position: relative;
 }
 
+#reviewBtn {
+	float:right;
+}
 </style>
 
 
 <body>
+
+<c:set var="pagingTag" value="전체"/>
 
 <br>
 <h1>기업리뷰</h1>
 <br>
 <hr class="review-hr">
 <div class="search">
-	<h5>*기업을 검색해 주세요</h5>
-	<input type="text" name="keyword" id="keyword"/>
-	<button type="button" id="searchBtn">검색</button>
+	<h5>*태그와 게시글을 검색해 주세요</h5>
+	<form action="/review/list?tag=${tag }" method="post">
+		<input type="text" name="keyword" id="keyword"/>
+		<input type="submit" id="searchBtn" value="검색">
+	</form>
+	<button id="reviewBtn" onclick="writePop()">글쓰기</button>
 </div>
 <br><br>
 <div id="tag">
-	<label class="tag" id="tag1">전체</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag2">강추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag3">비추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag4">취업고민</label>
+	<a href="/review/list?tag=전체" id="tag1"><label class="tag">전체</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="/review/list?tag=강추" id="tag2"><label class="tag">강추</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="/review/list?tag=비추" id="tag3"><label class="tag">비추</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="/review/list?tag=취업고민" id="tag4"><label class="tag">취업고민</label></a>
 </div>
 <br>
-<table>
+
+<table id="tbl">
 	<tr>
 		<th>No</th>
 		<th>기업이름</th>
@@ -230,14 +219,19 @@ td {
 			<td id = "tagcor">${i.COR_NAME }</td>
 			<td id = "tagtitle">${i.REVIEW_TITLE }</td>
 		</tr>
+		<input type="hidden" value="${pagingTag = i.REVIEW_TAG}"/> 
+<!-- 	<tr> -->
+<!-- 		<td id = "tagno"></td> -->
+<!-- 		<td id = "tagcor"></td> -->
+<!-- 		<td id = "tagtitle"></td> -->
+<!-- 	</tr> -->
 	</c:forEach>
 </table>
 
-<input type="hidden" id="selectTag" name="selectTag" value="강추"></input> <!-- tag 선택시 저장되는 곳 -->
+<input type="hidden" id="selectTag" name="selectTag" value="전체"></input> <!-- tag 선택시 저장되는 곳 -->
 
 <div id="pagingBox">
 	<c:import url="/WEB-INF/views/layout/reviewPaging/paging.jsp" />
 </div>
-
 </body>
 
