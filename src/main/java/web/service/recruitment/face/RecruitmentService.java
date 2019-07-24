@@ -19,7 +19,7 @@ public interface RecruitmentService {
 
 	public int getRecruitno(HttpServletRequest req);
 
-	public Recruit view(int recruit_no);
+	public Recruit view(Recruit recruit);
 	
 	public void write(Recruit recruit, MultipartFile file, ServletContext context);
 	

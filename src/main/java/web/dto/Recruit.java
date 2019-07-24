@@ -10,10 +10,10 @@ public class Recruit {
 	private String recruit_major;
 	private String recruit_type;
 	private int recruit_sal;
-	private String recruit_time;
 	private String recruit_position;
 	private String recruit_content;
 	private int member_no;
+
 
 
 	@Override
@@ -21,9 +21,8 @@ public class Recruit {
 		return "Recruit [recruit_no=" + recruit_no + ", recruit_name=" + recruit_name + ", recruit_title="
 				+ recruit_title + ", recruit_career=" + recruit_career + ", recruit_educareer=" + recruit_educareer
 				+ ", recruit_certificate=" + recruit_certificate + ", recruit_major=" + recruit_major
-				+ ", recruit_type=" + recruit_type + ", recruit_sal=" + recruit_sal + ", recruit_time=" + recruit_time
-				+ ", recruit_position=" + recruit_position + ", recruit_content=" + recruit_content + ", member_no="
-				+ member_no + "]";
+				+ ", recruit_type=" + recruit_type + ", recruit_sal=" + recruit_sal + ", recruit_position="
+				+ recruit_position + ", recruit_content=" + recruit_content + ", member_no=" + member_no + "]";
 	}
 
 	public int getRecruit_no() {
@@ -96,14 +95,6 @@ public class Recruit {
 
 	public void setRecruit_sal(int recruit_sal) {
 		this.recruit_sal = recruit_sal;
-	}
-
-	public String getRecruit_time() {
-		return recruit_time;
-	}
-
-	public void setRecruit_time(String recruit_time) {
-		this.recruit_time = recruit_time;
 	}
 
 	public String getRecruit_position() {

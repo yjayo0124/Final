@@ -7,7 +7,7 @@
 	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.Recruit">
 		SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 			SELECT recruit_no, recruit_name,recruit_title,recruit_career,recruit_educareer, recruit_certificate,
-			recruit_major, recruit_type, recruit_sal, recruit_time, recruit_position, member_no 
+			recruit_major, recruit_type, recruit_sal, recruit_position, recruit_content, member_no 
 	 		FROM Recruit	
 	 		ORDER BY recruit_no DESC ) B
 			ORDER BY rnum ) WHERE rnum BETWEEN #{startNo} and #{endNo}
@@ -31,9 +31,9 @@
 							recruit_certificate,
 							recruit_major,
 							recruit_type,
-							recruit_sal, 
-							recruit_time,
+							recruit_sal,							
 							recruit_position, 
+							recruit_content,
 							member_no )
 		VALUES	(recruit_seq.nextval, 
 				#{recruit_name},
@@ -44,8 +44,8 @@
 				 #{recruit_major},
 				 #{recruit_type}, 
 				 #{recruit_sal}, 
-				 #{recruit_time},
 				 #{recruit_position}, 
+				 #{recruit_content},
 				 #{member_no} )
 	</insert>
 	
@@ -59,18 +59,7 @@
 				#{recruit_file_originname}) 
 	</insert>
 	
-<!-- 	<select id="selectFile"  resultType="web.dto.Recruit"> -->
-<!-- 		SELECT * FROM recruit_file -->
-<!-- 		WHERE recruit_no = #{recruit_no} -->
-<!-- 	</select> -->
 
-<!-- 	<select id="selectByfileno"  -->
-<!-- 		parameterType="web.dto.Recruit_file" -->
-<!-- 		resultType="web.dto.Recruit_file"> -->
-<!-- 		SELECT * FROM recruit_file  -->
-<!-- 		WHERE recruit_file_no =#{recruit_file_no} -->
-<!-- 	</select> -->
-	
 	<select id="selectByMemberNo" parameterType="int" resultType="web.dto.Recruit">
 		SELECT * FROM recruit 
 		WHERE member_no = #{member_no} 
@@ -86,9 +75,9 @@
 			recruit_certificate = #{recruit_certificate},
 			recruit_major = #{recruit_major}, 
 			recruit_type = #{recruit_type},
-			recruit_sal = #{recruit_sal}, 
-			recruit_time = #{recruit_time},
+			recruit_sal = #{recruit_sal},
 			recruit_position = #{recruit_position}
+			recruit_content = #{recruit_content}
 		WHERE recruit_no = #{recruit_no}
 	</update>
 	

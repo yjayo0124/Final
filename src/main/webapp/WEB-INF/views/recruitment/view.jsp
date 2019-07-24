@@ -44,12 +44,12 @@ button {
 </style>
 
 
-<div class="container">
+<div class="container" >
 
 <h2>채용정보</h2><hr>
 
 
-<table class="table table-bordered">
+<table class="table table-bordered" >
 
 <tr>
 <td> 공고번호</td><td>${viewRecruit.recruit_no }</td>
@@ -61,7 +61,7 @@ button {
 </tr>
 
 <tr>
-<td>지원자격</td><td></td><td>기업 형태</td><td></td>
+<td colspan="2">지원자격</td><td></td><td>기업 형태</td><td></td>
 </tr>
 
 <tr>
@@ -83,7 +83,7 @@ button {
 </tr>
 
 <tr>
-<td>근무자격</td><td colspan="3"></td>
+<td colspan="2" text ="bold">근무자격</td><td colspan="3"></td>
 </tr>
 
 <tr>
@@ -92,10 +92,6 @@ button {
 
 <tr>
 <td>급여</td><td>${viewRecruit.recruit_sal }</td><td colspan="3"></td>
-</tr>
-
-<tr>
-<td>요일 및 시간</td><td>${viewRecruit.recruit_time }</td><td colspan="3"></td>
 </tr>
 
 <tr>
@@ -109,7 +105,11 @@ button {
 </div>
 
 <h2>상세요강</h2><hr>
+<div>
+<!-- <img src="/webapp/upload"> -->
 
+${viewRecruit.recruit_content }
+</div>
 
 <div class="text-right">
 	<a href="/recruitment/main"><button class="btn btn-default">목록</button></a>
@@ -118,8 +118,8 @@ button {
 	
 	<sec:authorize access="isAuthenticated()">
 		<c:if test="${member.member_no eq viewRecruit.member_no }" >
-		<button id="btnUpdate" >수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+			<button id="btnUpdate" >수정</button>
+			<button id="btnDelete" class="btn btn-danger">삭제</button>
 		</c:if>
 	</sec:authorize>
 

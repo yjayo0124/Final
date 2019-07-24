@@ -25,7 +25,7 @@ public interface RecruitmentDao {
 	 * @param recruit_no
 	 * @return 게시글 조회 결과
 	 */
-	public Recruit select(int recruit_no);
+	public Recruit select(Recruit recruit);
 
 	/**
 	 * 게시글 작성
