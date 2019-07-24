@@ -116,6 +116,7 @@ $(document).ready(function() {
 	padding:0;
     width: 1200px;
     zoom: 1;
+    margin-bottom: 100px;
 }
 .top_container {
 	width:1200px;
