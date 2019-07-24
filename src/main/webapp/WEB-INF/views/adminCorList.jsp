@@ -2,11 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$("#btnSearch").click(function() {
+			location.href="/adminCorList?search="+$("#search").val();
+		});
+		
+	})
+
+</script>
+
 <div style="margin-top:50px;">
 <h2>회원관리</h2>
 <hr>
 <div style="width: 1050px; margin: 0 auto; margin-top: 30px;">
-	<button onclick="location='/admin'">회원리스트</button>
+	<button onclick="location='/admin'">모든회원리스트</button>
+	<button onclick="location='/adminCorList'">기업회원리스트</button>
 <table class="table table-hover table-condensed" >
 	<thead>
 		<tr >
@@ -38,10 +52,6 @@
 <c:import url="/WEB-INF/views/layout/adminPaging/CorPaging.jsp"/>
 
 <div class="form-inline text-center">
-<select class="form-control form-control-sm" name="select" id="select">
-	<option value="buy_board_title" selected>회원이름</option>
-	<option value="buy_board_content">회원아이디</option>
-</select>
-	<input class="form-control" type="text" id="search" />
-	<button id="btnSearch" class="btn">검색</button>
+		<input class="form-control" type="text" id="search" name="search" placeholder="회원 이름 검색"/>
+		<button id="btnSearch" class="btn">검색</button>
 </div> 

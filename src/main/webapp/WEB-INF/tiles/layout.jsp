@@ -4,17 +4,13 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js" >
-
-</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js" ></script>
 
 <style type="text/css">
 
