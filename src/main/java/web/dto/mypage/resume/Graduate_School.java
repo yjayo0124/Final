@@ -11,12 +11,12 @@ public class Graduate_School {
 	private Date admission_date;
 	private Date graduation_date;
 	private Date graduation_status;
+	private String transfer_status;
 	private String major_name;
 	private int credit;
 	private int total_score;
-	private String transfer_status;
-	private String sub_major;
 	private String sub_major_status;
+	private String sub_major;
 	private String sub_major_name;
 	private String graduation_thesis_status;
 	private String graduation_thesis_content;

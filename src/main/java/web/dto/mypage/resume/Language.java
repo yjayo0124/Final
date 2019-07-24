@@ -7,9 +7,9 @@ public class Language {
 	private int resume_no;
 	private String language_classification;
 	private String language_name;
-	private String conversation_ability;
 	private String standardized_tests;
 	private String language_score;
+	private String conversation_ability;
 	private Date acquisition_date;
 	
 	@Override
