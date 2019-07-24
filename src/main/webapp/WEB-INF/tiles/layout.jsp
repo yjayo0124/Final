@@ -4,17 +4,13 @@
 <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js" >
-
-</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js" ></script>
 
 <style type="text/css">
 
@@ -25,22 +21,22 @@
 }
 
 
+.container{
 
-.body{
-
-	
-	margin-bottom: 50px;
+	min-height: 700px;
+	position: relative;
+	padding-bottom: 120px;
 }
 
 
 
+.l-footer{
 
-#footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 
-
-position: relative;
-bottom: 0;
-width: 100%;
 border-top: 1px solid #ccc;
 background: #fff;
 
@@ -48,11 +44,21 @@ background: #fff;
 }
 
 
+
+.l-wrap{
+    min-width: 1080px;
+    min-height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
 </style>
 
 </head>
 <body>
 
+
+<div class="l-wrap">
 <!-- HEADER -->
 <tiles:insertAttribute name="header"/>
 <hr>
@@ -63,11 +69,11 @@ background: #fff;
 </div>
 
 <!-- FOOTER -->
-<div id="footer">
+<div class="l-footer">
 <tiles:insertAttribute name="footer" />
 </div>
 
-
+</div>
 
 </body>
 </html>

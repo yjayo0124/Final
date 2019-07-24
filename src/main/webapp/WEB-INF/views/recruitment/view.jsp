@@ -113,12 +113,17 @@ button {
 
 <div class="text-right">
 	<a href="/recruitment/main"><button class="btn btn-default">목록</button></a>
-<%-- 	<c:if test="${member_no eq viewRecruit.member_no }"> --%>
-<%-- 	<sec:authentication property="principal"> --%>
+
+<sec:authentication property="details" var="member"/>
+	
+	<sec:authorize access="isAuthenticated()">
+		<c:if test="${member.member_no eq viewRecruit.member_no }" >
 		<button id="btnUpdate" >수정</button>
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
-<%-- 	</sec:authentication> --%>
-<%-- 	</c:if> --%>
+		</c:if>
+	</sec:authorize>
+
+
 </div>
 
 </div>

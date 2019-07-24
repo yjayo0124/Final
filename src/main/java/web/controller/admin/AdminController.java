@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,50 +25,46 @@ public class AdminController {
 	AdminService adminService;
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public ModelAndView main(
-			ModelAndView mav, 
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = " ") String select,
-			@RequestParam(defaultValue = " ") String search
-			) {
-		
-	//	logger.info("search : "+search);
-	//	logger.info("select : "+select);
-		
-		Paging paging = adminService.getCurPage(curPage, select, search);
-		
-		paging.setSearch(search);
-		
-		List<Member> list = adminService.getList(paging);
-		
-		
-		mav.addObject("paging", paging);
+	public String main(
+			Model model,
+			@RequestParam(defaultValue = "0") int curPage, 
+			Paging search, String select
+			) {	
 	
-	logger.info(paging.toString());
+		int totalcount = adminService.getTotal(search);
+
+		Paging paging = new Paging(totalcount, curPage);
 		
-		mav.addObject("list", list);
-				
-	logger.info("list" + list);
-		return mav;
+		paging.setSearch(search.getSearch());
+		
+		model.addAttribute("paging", paging);
+		
+		List<Member> list = adminService.getSearchPagingList(paging);		
+
+		model.addAttribute("list", list);
+		
+		return "/admin";
 	}
 	
 	@RequestMapping(value = "/adminCorList", method = RequestMethod.GET)
-	public ModelAndView mainCor(
-			ModelAndView mav, 
-			@RequestParam(defaultValue = "1") int curPage,
-			@RequestParam(defaultValue = " ") String select,
-			@RequestParam(defaultValue = " ") String search
+	public String mainCor(
+			Model model, 
+			@RequestParam(defaultValue = "0") int curPage,
+			Paging search, String select
 			) {
 		
-		Paging paging = adminService.getCurPage(curPage, select, search);
+		int totalcount = adminService.getCorTotal(search);
 		
-		List<Member> list = adminService.getCorList(paging);
-	
-		mav.addObject("paging", paging);
-	
-		mav.addObject("list", list);
+		Paging paging = new Paging(totalcount, curPage);
+		paging.setSearch(search.getSearch());
+		
+		model.addAttribute("paging", paging);
+		
+		List<Member> list = adminService.getSearchPagingCorList(paging);
+		
+		model.addAttribute("list", list);
 				
-		return mav;
+		return "/adminCorList";
 	}
 	
 }
