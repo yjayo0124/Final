@@ -20,7 +20,11 @@ public interface ReviewDao {
 
 	public List<HashMap<String, Object>> selectReviewByTag(Paging paging);
 
-	public List<HashMap<String, Object>> searchReview(Paging paging, String keyword);
+	public List<HashMap<String, Object>> searchReview(Paging paging);
+
+	public List<Review> selectViewList(int reviewno);
+
+	public void addHit(int reviewno);
 
 
 }

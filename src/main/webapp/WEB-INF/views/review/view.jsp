@@ -10,7 +10,23 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
-var tagvalue = '${tag }';
+
+function getParam(sname) {
+    // 현재 페이지의 url
+    var url = decodeURIComponent(location.href);
+    // url이 encodeURIComponent 로 인코딩 되었을때는 다시 디코딩 해준다.
+    url = decodeURIComponent(url);
+    
+    var params = url.substr(url.indexOf("?") + 1);
+    var sval = "";
+    params = params.split("&");
+    for (var i = 0; i < params.length; i++) {
+        temp = params[i].split("=");
+        if ([temp[0]] == sname) { sval = temp[1]; }
+    }
+    return sval;
+}
+console.log(getParam("tag"));
 
 $(document).ready(function() {
 	$('input[name=selectTag]').attr('value','전체');
@@ -59,24 +75,7 @@ $(document).ready(function() {
 		 });
 	});
 	
-	$("#like").click(function() {
-		
-		 $.ajax({
-			 url: "/review/addlike",
-			 type: "post",
-			 dataType: "json",
-			 data: { like : $('#recommended').val()},
-			 success: function(data) {
-				 console.log(data);
-			 },
-			 error : function(data) {
-				 alert("에러가 발생하였습니다.")
-			 }
-		 });
-		
-	});
-	
-	if(tagvalue == '전체') {
+	if(getParam("tag") == '전체') {
 		$('#tag1').css({
 			color: "#4B89DC"
 		});
@@ -91,7 +90,7 @@ $(document).ready(function() {
 		});
 	}
 
-	if(tagvalue == '강추') {
+	if(getParam("tag") == '강추') {
 		$('#tag2').css({
 			color: "#4B89DC"
 		});
@@ -106,7 +105,7 @@ $(document).ready(function() {
 		});
 	}
 
-	if(tagvalue == '비추') {
+	if(getParam("tag") == '비추') {
 		$('#tag3').css({
 			color: "#4B89DC"
 		});
@@ -121,7 +120,7 @@ $(document).ready(function() {
 		});
 	}
 
-	if(tagvalue == '취업고민') {
+	if(getParam("tag") == '취업고민') {
 		$('#tag4').css({
 			color: "#4B89DC"
 		});
@@ -144,19 +143,10 @@ function writePop(){
 </script>
 
 <style type="text/css">
-
 h1 {
 	font-size: 50px;
 	font-weight: bold;
 	margin: 0;
-}
-
-h6 {
-	float: right;
-}
-
-a {
-	color: black;
 }
 
 table {
@@ -183,10 +173,6 @@ td {
 	padding: 10px;
 }
 
-a:link {
-	text-decoration: none;
-}
-
 .review-hr {
 	border: solid 2px #e9e9e9;
 	background-color: #e9e9e9;
@@ -207,10 +193,6 @@ a:link {
 	font-size: 12px;
 }
 
-.like {
-	width: 13px;
-}
-
 #tag1 {
 	color: #4B89DC;
 }
@@ -222,32 +204,65 @@ a:link {
 	border-radius: 8px;
 }
 
-#pagingBox {
-	position: relative;
-}
-
 #reviewBtn {
 	float:right;
 }
 
-#tagno, #thno {
-	width: 5%;
+#thtitle, #threcommended, #thwrittendate, #thhit {
+	width: 10%;
 }
 
-#tagcor, #thcor {
-	width: 30%;
+#tdtitle, #tdrecommended, #tdwrittendate, #tdhit {
+	width: 40%;
 }
 
-#tagtitle, #thtitle {
-	width: 85%;
+#cmt {
+	font-weight: bold;
 }
+
+#content {
+	margin: 3px;
+	border: 3px solid #dddddd;
+	padding: 5px;
+	width: 100%;
+	border-radius: 8px;
+	height: 500px;
+}
+
+#cmtnick {
+	width: 12%;
+	font-size: 13px;
+	margin-top: 7px;
+	border: 3px solid #dddddd;
+	padding: 5px;
+	border-radius: 8px;
+}
+
+#cmtcontent {
+	width: 69%;
+	font-size: 13px;
+	margin-top: 7px;
+	border: 3px solid #dddddd;
+	padding: 5px;
+	border-radius: 8px;
+}
+
+#cmtpassword {
+	width: 10%;
+	font-size: 13px;
+	margin-top: 7px;
+	border: 3px solid #dddddd;
+	padding: 5px;
+	border-radius: 8px;
+}
+
+#writecmt {
+	width: 7%;
+}
+
 </style>
 
-
 <body>
-
-<c:set var="pagingTag" value="전체"/>
-<c:set var="recommended" value=""/>
 
 <br>
 <h1>기업리뷰</h1>
@@ -259,45 +274,54 @@ a:link {
 		<input type="text" name="keyword" id="keyword"/>
 		<input type="button" id="searchBtn" value="검색">
 	</form>
-	<c:if test="${not empty pageContext.request.userPrincipal }">
-		<button id="reviewBtn" onclick="writePop()">글쓰기</button>
-	</c:if>
-		
+	<button id="reviewBtn" onclick="writePop()">글쓰기</button>
 </div>
 <br><br>
 <div id="tag">
-	<a href="/review/list?tag=전체" id="tag1"><label class="tag">전체</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="/review/list?tag=강추" id="tag2"><label class="tag">강추</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="/review/list?tag=비추" id="tag3"><label class="tag">비추</label></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="/review/list?tag=취업고민" id="tag4"><label class="tag">취업고민</label></a>
+	<label class="tag" id="tag1">전체</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="tag" id="tag2">강추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="tag" id="tag3">비추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label class="tag" id="tag4">취업고민</label>
 </div>
-<br>
 
-<table id="tbl">
-	<tr>
-		<th id="thno">No</th>
-		<th id="thcor">기업이름</th>
-		<th id="thtitle">제목</th>
-	</tr>
-	<c:forEach items="${reviewlist }" var="i">
+<c:forEach items="${viewlist }" var="i">
+	<table>
 		<tr>
-			<td id="tagno">${i.REVIEW_NO }</td>
-			<td id="tagcor">${i.COR_NAME }</td>
-			<td id="tagtitle"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
-				<h6><img id="like" class="like" src="/resources/images/beforelike.png">&nbsp;${i.REVIEW_RECOMMENDED }&nbsp;&nbsp;&nbsp;
-					조회수&nbsp;${i.REVIEW_HIT }&nbsp;&nbsp;&nbsp;
-					작성일&nbsp;<fmt:formatDate value="${i.REVIEW_WRITTEN_DATE}" pattern="yyyy-MM-dd"/>
-				</h6>
-			</td>
+			<th id="thtitle">제목</th>
+			<td id="tdtitle">${i.review_title }</td>
+			<th id="threcommended">추천수</th>
+			<td id="tdrecommended">${i.review_recommended }</td>
 		</tr>
-		<input type="hidden" value="${pagingTag = i.REVIEW_TAG}"/> 
-		<input type="hidden" id="recommended" name="recommended" value="${recommended = i.REVIEW_RECOMMENDED }"/>
-	</c:forEach>
-</table>
+		<tr>
+			<th id="thwrittendate">작성일</th>
+			<td id="tdwrittendate"><fmt:formatDate value="${i.review_written_date }" pattern="yyyy-MM-dd"/></td>
+			<th id="thhit">조회수</th>
+			<td id="tdhit">${i.review_hit }</td>
+		</tr>
+	</table>
+	<br><br>
+	
+	<div id="content">
+		${i.review_content }
+	</div>
+	
+	<sec:authentication property="details" var="member"/>   
+    <sec:authorize access="isAuthenticated()">
+    	<c:if test="${member.member_no eq i.mem_no }" >
+    		<button id="btnUpdate">수정</button>
+    		<button id="btnDelete" class="btn btn-danger">삭제</button>
+    	</c:if>
+   	</sec:authorize>
+</c:forEach>
 
-<input type="hidden" id="selectTag" name="selectTag" value="전체"></input> <!-- tag 선택시 저장되는 곳 -->
+<br>
+<hr class="review-hr">
+<label id="cmt">댓글</label>
+<div id="writtencmt"></div>
 
-<div id="pagingBox">
-	<c:import url="/WEB-INF/views/layout/reviewPaging/paging.jsp" />
-</div>
+<input type="text" id="cmtnick" name="cmtnick" maxlength="10" placeholder="닉네임(10자리까지)"/>
+<input type="text" id="cmtcontent" name="cmtcontent" placeholder="내용을 입력해 주세요"/>
+<input type="password" id="cmtpassword" name="cmtpassword" maxlength="4" placeholder="비밀번호(4자리)"/>
+<input type="button" id="writecmt" name="writecmt" value="댓글 입력"/>
+<br><br><br><br><br>
 </body>
