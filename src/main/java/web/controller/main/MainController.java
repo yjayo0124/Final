@@ -1,9 +1,8 @@
 package web.controller.main;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,14 +12,15 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Cor;
-import web.dto.Member;
+import web.dto.Recruit;
+import web.dto.Review;
+import web.service.main.face.MainService;
 import web.service.main.face.SearchMainService;
 
 @Controller
@@ -30,11 +30,18 @@ public class MainController {
 
 	
 	@Autowired SearchMainService searchmainService;
+	@Autowired MainService mainService;
+	
 	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public void main() {
-			
-		logger.info("main");
+	public void main(Model model) {
+		
+		List<Recruit> recruit = mainService.getRecruitList();
+		List review =  mainService.getReviewList();
+		
+		
+		model.addAttribute("recruit", recruit);
+		model.addAttribute("review", review);
 		
 	}
 	

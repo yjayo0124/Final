@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="web.dao.main.face.MainDao">
+
+	<select id="selectRecruitList" resultType="web.dto.Recruit">
+	select * FROM 
+    ( select rownum rnum, B.* FROM
+        ( SELECT  *  FROM recruit order by recruit_no desc)
+    B ORDER BY rnum)
+	WHERE  rnum between 1 and 7
+	</select>
+
+
+	<select id="selectReviewList" resultType="Hashmap">
+	SELECT * FROM 
+    ( SELECT rownum rnum, B.* FROM
+        ( SELECT  
+            review.review_no as review_no,
+            review.review_tag as review_tag,
+            review.review_title as review_title,
+            cor.cor_name as company_name
+        FROM review, cor WHERE cor.cor_no = review.cor_no order by review_no desc)
+    B ORDER BY rnum)
+	WHERE  rnum between 1 and 7
+	</select>
+
+</mapper>

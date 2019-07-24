@@ -6,12 +6,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Cor;
+import web.dto.Member;
+import web.dto.Recruit;
 import web.dto.Review;
 import web.service.main.face.SearchMainService;
 import web.service.review.face.ReviewService;
@@ -57,10 +61,8 @@ public class ReviewController {
 	public void autocompleteText(Model model, HttpServletRequest request, HttpServletResponse resp) {
 		String result = request.getParameter("keyword");
 
-		System.out.println(result);
 		List<Cor> list = searchmainService.autocomplete(result);
-		
-//		System.out.println(list);
+
 		JSONArray array = new JSONArray();
 		for(int i  = 0; i <list.size(); i++) {
 			JSONObject obj = new JSONObject();
@@ -80,11 +82,9 @@ public class ReviewController {
 	@RequestMapping(value = "/review/scantable", method = RequestMethod.GET) 
 	public void scanTable(HttpServletRequest request, HttpServletResponse resp) {
 		String result = request.getParameter("keyword");
-//		System.out.println(result);
-		
+
 		logger.info("테이블 스캔 중...");
 		String scanResult = reviewService.scanTable(result);
-		System.out.println(scanResult);
 
 		JSONObject obj = new JSONObject();
 		obj.put("data", scanResult);
@@ -100,29 +100,54 @@ public class ReviewController {
 	
 	// 리뷰 페이지 이동
 	@RequestMapping(value = "/review/list", method = RequestMethod.GET) 
-	public void review(HttpServletRequest request, Model model, @RequestParam String tag) {
+	public void review(HttpServletRequest request, Model model, @RequestParam String tag, String keyword, Authentication auth) {
 		logger.info("리뷰 페이지");
 		Paging paging = reviewService.getCurPage(request);
 		String selectTag = reviewService.getTag(tag);
-		System.out.println(selectTag);
 		paging.setTag(selectTag);
 		
 		List<HashMap<String, Object>> reviewlist = reviewService.tagSearch(paging);
-		System.out.println(reviewlist);
-		
-		model.addAttribute("paging", paging);
 		model.addAttribute("reviewlist", reviewlist);
+		model.addAttribute("paging", paging);
 		model.addAttribute("tag", selectTag);
+
+		//인증된 객체의 상세정보 가져오기
+		if(auth == null) {
+			return;
+		} else {
+			Member member = (Member) auth.getDetails();
+			model.addAttribute("member_no", member.getMember_no());
+		}
 	}
 	
 	// 검색 값 받기
 	@RequestMapping(value = "/review/list", method = RequestMethod.POST) 
 	public void reviewSearch(HttpServletRequest request, Model model, String keyword) {
 		logger.info("검색값 받기");
-		System.out.println(keyword);
 		Paging paging = reviewService.getCurPage(request);
+		paging.setTag(keyword);
 		
-		List<HashMap<String, Object>> reviewlist = reviewService.reviewSearch(paging, keyword);
-		System.out.println(reviewlist);
+		List<HashMap<String, Object>> reviewlist = reviewService.reviewSearch(paging);
+
+		model.addAttribute("paging", paging);
+		model.addAttribute("reviewlist", reviewlist);
+	}
+	
+	// 뷰 페이지
+	@RequestMapping(value = "/review/view", method = RequestMethod.GET)
+	public void view(int reviewno, Model model) {
+		logger.info("뷰 페이지");
+
+		reviewService.upHit(reviewno);
+		List<Review> viewlist = reviewService.getViewList(reviewno);
+		model.addAttribute("viewlist", viewlist);
+	}
+	
+	@RequestMapping(value="/review/addlike", method=RequestMethod.POST)
+	public void addlike(Model model, HttpServletRequest request, HttpServletResponse resp) {
+		String result = request.getParameter("like");
+		System.out.println(result);
+		
+
 	}
 }
