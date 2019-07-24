@@ -6,56 +6,73 @@
 
 <mapper namespace="web.dao.admin.face.AdminDao">
 
-<select id="selectAll" parameterType="web.util.admin.Paging" resultType="web.dto.Member" >
-	SELECT * FROM 
-	( SELECT rownum rnum, B.* FROM 
-	( SELECT * FROM MEMBER 
-	<where>
-	<if test="search != null">
-	MEMBER_ID LIKE #{search}
-	</if>
-	</where>
-	ORDER by MEMBER_NO desc) 
-	
-	B ORDER by rnum ) WHERE rnum between #{startNo} and #{endNo}
-	</select>
+<sql id="selectMember">
+SELECT member_no, member_id, member_name, member_phone, member_email, member_auth, enab FROM member
+</sql>
 
-
-	<select id="selectCntAll"  resultType="int" parameterType="map">
-	SELECT count(*) FROM MEMBER
-	<trim prefix="WHERE" prefixOverrides="OR">
-		<if test="select != null and select =='member_name' and search != null">
-		member_name = #{search}
-		</if>
-		<if test="select != null and select =='member_id' and search != null ">
-		member_id = #{search}
-		</if>
-	</trim>
-	
-	</select>
-
-
-<select id="selectCorAll" parameterType="web.util.admin.Paging" resultType="web.dto.Member" >
-SELECT * FROM 
-( SELECT rownum rnum, B.* 
+<sql id="selectCorMember">
+SELECT 
+	member.member_no, 
+	member.member_id, 
+	member.member_name, 
+	member.member_phone, 
+	member.member_email, 
+	member.member_auth, 
+	cor.cor_name as company_name
 FROM 
-( SELECT 
-    member.member_no, 
-    member.member_id, 
-    member.member_name, 
-    member.member_phone, 
-    member.member_email, 
-    member.member_auth, 
-    cor.cor_name as company_name
-    FROM 
-    MEMBER, cor 
-	WHERE 
-	<if test="search != null">
-	MEMBER_ID LIKE '%#{search}%' 
-	</if>
-	and member.company_no = cor.cor_no
-	ORDER by MEMBER_NO desc)
-	B ORDER by rnum ) WHERE rnum between #{startNo} and #{endNo}
-	</select>
+	member, cor
+</sql>
+
+
+<select id="countSearch" parameterType="web.util.admin.Paging" resultType="int">
+	SELECT COUNT(*) FROM (
+	<include refid="selectSearch"/>
+	) CNT
+</select>
+
+<sql id="selectSearch">
+	SELECT rownum rnum, B.* FROM (
+	<include refid="selectMember"/>
+	WHERE 1=1
+	<if test="search != null and search != ''"> AND MEMBER_NAME LIKE '%' || #{search } || '%' </if>
+	ORDER BY member_no DESC ) B ORDER BY rnum
+</sql>
+
+
+
+
+<select id="countCorSearch" parameterType="web.util.admin.Paging" resultType="int">
+	SELECT COUNT(*) FROM (
+	<include refid="selectCorSearch"/>
+	) CNT
+</select>
+
+
+<sql id="selectCorSearch">
+	SELECT rownum rnum, B.* FROM (
+	<include refid="selectCorMember"/>
+	WHERE 1=1
+	<if test="search != null and search != ''"> AND MEMBER_NAME LIKE '%' || #{search } || '%' </if>
+	AND member.company_no = cor.cor_no
+	AND member_auth = 'ROLE_COR' ORDER BY member_no DESC ) B ORDER BY rnum
+</sql>
+
+
+
+<select id="selectPageSearch" parameterType="web.util.admin.Paging" resultType="web.dto.Member">
+SELECT * FROM (
+<include refid="selectSearch"/>
+) R WHERE rnum BETWEEN #{startNo } AND #{endNo }
+</select>
+
+
+<select id="selectCorPageSearch" parameterType="web.util.admin.Paging" resultType="web.dto.Member">
+SELECT * FROM (
+<include refid="selectCorSearch"/>
+) R WHERE rnum BETWEEN #{startNo } AND #{endNo }
+</select>
+
+
+
 
 </mapper>

@@ -18,41 +18,67 @@ public class AdminServiceImpl implements AdminService {
 		@Autowired
 		AdminDao adminDao;
 		
+//		@Override
+//		public Paging getCurPage(int curPage, String select, String search) {
+//			
+//			HashMap<String, Object> map = new HashMap<String, Object>();
+//			
+//			map.put("select", select);
+//			map.put("search", search);
+//			
+//			int totalCount = adminDao.selectCntAll(map);
+//			
+//			
+//			Paging paging = new Paging(totalCount, curPage);
+//			
+//			
+//			paging.setSearch(search);
+//			
+//			return paging;
+//			
+//		}
+//
+//		
+//		@Override
+//		public List<Member> getList(Paging paging) {
+//			
+//			System.out.println("paging" + paging);
+//			
+//			return adminDao.selectAll(paging);
+//			
+//			
+//			
+//		}
+//
+//		@Override
+//		public List getCorList(Paging paging) {
+//			return adminDao.selectCorAll(paging);
+//		}
+
+
 		@Override
-		public Paging getCurPage(int curPage, String select, String search) {
+		public int getTotal(Paging paging) {
 			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("select", select);
-			map.put("search", search);
-			
-			int totalCount = adminDao.selectCntAll(map);
-			
-			
-			Paging paging = new Paging(totalCount, curPage);
-			
-			
-			paging.setSearch(search);
-			
-			return paging;
-			
+			return adminDao.countSearch(paging);
 		}
 
+		@Override
+		public int getCorTotal(Paging paging) {
+			
+			return adminDao.countCorSearch(paging);
+		}
+
+
+		@Override
+		public List getSearchPagingList(Paging search) {
 		
-		@Override
-		public List<Member> getList(Paging paging) {
-			
-			System.out.println("paging" + paging);
-			
-			return adminDao.selectAll(paging);
-			
-			
-			
-		}
-
-		@Override
-		public List getCorList(Paging paging) {
-			return adminDao.selectCorAll(paging);
+			return adminDao.selectPageSearch(search);
 		}
 	
+		@Override
+		public List getSearchPagingCorList(Paging search) {
+		
+			return adminDao.selectCorPageSearch(search);
+		}
+
 }

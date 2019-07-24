@@ -24,6 +24,10 @@ public interface ReviewService {
 
 	public String getTag(String review_tag);
 
-	public List<HashMap<String, Object>> reviewSearch(Paging paging, String keyword);
+	public List<HashMap<String, Object>> reviewSearch(Paging paging);
+
+	public List<Review> getViewList(int reviewno);
+
+	public void upHit(int reviewno);
 
 }

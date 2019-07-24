@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
 
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js">
-</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.7.js"	type="text/javascript"></script>
 <script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
@@ -30,13 +30,50 @@ $(document).ready(function() {
 								value : item.data
 							}
 						})
-						)
+					)
 				},
 				error : function(data) {
 					alert("에러가 발생하였습니다.")
 				}
 			});
 		}
+	});
+	
+	$("#searchBtn").click(function() {
+		 $.ajax({
+			 url: "/review/scantable",
+			 type: "get",
+			 dataType: "json",
+			 data: { keyword : $('#keyword').val()},
+			 success: function(data) {
+				 console.log(data);
+				 if(data.data == null) {
+					 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
+				 } else {
+					 $("form").submit();
+				 }
+			 },
+			 error : function(data) {
+				 alert("에러가 발생하였습니다.")
+			 }
+		 });
+	});
+	
+	$("#like").click(function() {
+		
+		 $.ajax({
+			 url: "/review/addlike",
+			 type: "post",
+			 dataType: "json",
+			 data: { like : $('#recommended').val()},
+			 success: function(data) {
+				 console.log(data);
+			 },
+			 error : function(data) {
+				 alert("에러가 발생하였습니다.")
+			 }
+		 });
+		
 	});
 	
 	if(tagvalue == '전체') {
@@ -114,9 +151,8 @@ h1 {
 	margin: 0;
 }
 
-.ui-menu-item, .ui-autocomplete, .ui-menu, .ui-widget, .ui-widget-content, .ui-corner-all {
-	width: 300px;
-	font-size: 12px;
+h6 {
+	float: right;
 }
 
 a {
@@ -138,6 +174,7 @@ th {
 	border-bottom: 1px solid gray;
 	padding: 10px;
 	background-color: #e9e9e9;
+	width: auto;
 }
 
 td {
@@ -146,10 +183,14 @@ td {
 	padding: 10px;
 }
 
+a:link {
+	text-decoration: none;
+}
 
 .review-hr {
 	border: solid 2px #e9e9e9;
 	background-color: #e9e9e9;
+	margin: 5px;
 }
 
 .search {
@@ -159,6 +200,15 @@ td {
 .tag {
 	font-size: 17px;
 	font-weight: bold;
+}
+
+.ui-menu-item, .ui-autocomplete, .ui-menu, .ui-widget, .ui-widget-content, .ui-corner-all {
+	width: 300px;
+	font-size: 12px;
+}
+
+.like {
+	width: 13px;
 }
 
 #tag1 {
@@ -179,24 +229,40 @@ td {
 #reviewBtn {
 	float:right;
 }
+
+#tagno, #thno {
+	width: 5%;
+}
+
+#tagcor, #thcor {
+	width: 30%;
+}
+
+#tagtitle, #thtitle {
+	width: 85%;
+}
 </style>
 
 
 <body>
 
 <c:set var="pagingTag" value="전체"/>
+<c:set var="recommended" value=""/>
 
 <br>
 <h1>기업리뷰</h1>
 <br>
 <hr class="review-hr">
 <div class="search">
-	<h5>*태그와 게시글을 검색해 주세요</h5>
+	<h5>*기업을 검색해 주세요</h5>
 	<form action="/review/list?tag=${tag }" method="post">
 		<input type="text" name="keyword" id="keyword"/>
-		<input type="submit" id="searchBtn" value="검색">
+		<input type="button" id="searchBtn" value="검색">
 	</form>
-	<button id="reviewBtn" onclick="writePop()">글쓰기</button>
+	<c:if test="${not empty pageContext.request.userPrincipal }">
+		<button id="reviewBtn" onclick="writePop()">글쓰기</button>
+	</c:if>
+		
 </div>
 <br><br>
 <div id="tag">
@@ -209,22 +275,23 @@ td {
 
 <table id="tbl">
 	<tr>
-		<th>No</th>
-		<th>기업이름</th>
-		<th>제목</th>
+		<th id="thno">No</th>
+		<th id="thcor">기업이름</th>
+		<th id="thtitle">제목</th>
 	</tr>
 	<c:forEach items="${reviewlist }" var="i">
 		<tr>
-			<td id = "tagno">${i.REVIEW_NO }</td>
-			<td id = "tagcor">${i.COR_NAME }</td>
-			<td id = "tagtitle">${i.REVIEW_TITLE }</td>
+			<td id="tagno">${i.REVIEW_NO }</td>
+			<td id="tagcor">${i.COR_NAME }</td>
+			<td id="tagtitle"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
+				<h6><img id="like" class="like" src="/resources/images/beforelike.png">&nbsp;${i.REVIEW_RECOMMENDED }&nbsp;&nbsp;&nbsp;
+					조회수&nbsp;${i.REVIEW_HIT }&nbsp;&nbsp;&nbsp;
+					작성일&nbsp;<fmt:formatDate value="${i.REVIEW_WRITTEN_DATE}" pattern="yyyy-MM-dd"/>
+				</h6>
+			</td>
 		</tr>
 		<input type="hidden" value="${pagingTag = i.REVIEW_TAG}"/> 
-<!-- 	<tr> -->
-<!-- 		<td id = "tagno"></td> -->
-<!-- 		<td id = "tagcor"></td> -->
-<!-- 		<td id = "tagtitle"></td> -->
-<!-- 	</tr> -->
+		<input type="hidden" id="recommended" name="recommended" value="${recommended = i.REVIEW_RECOMMENDED }"/>
 	</c:forEach>
 </table>
 
@@ -234,4 +301,3 @@ td {
 	<c:import url="/WEB-INF/views/layout/reviewPaging/paging.jsp" />
 </div>
 </body>
-

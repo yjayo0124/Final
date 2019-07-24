@@ -66,7 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
 				paging.getTag().equalsIgnoreCase("취업고민")) {
 			return reviewDao.selectReviewByTag(paging);
 		} else {
-			return reviewDao.selectReview(paging);
+			return reviewDao.searchReview(paging);
 		}
 	}
 
@@ -78,7 +78,17 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> reviewSearch(Paging paging, String keyword) {
-		return reviewDao.searchReview(paging, keyword);
+	public List<HashMap<String, Object>> reviewSearch(Paging paging) {
+		return reviewDao.searchReview(paging);
+	}
+
+	@Override
+	public List<Review> getViewList(int reviewno) {
+		return reviewDao.selectViewList(reviewno);
+	}
+
+	@Override
+	public void upHit(int reviewno) {
+		reviewDao.addHit(reviewno);
 	}
 }
