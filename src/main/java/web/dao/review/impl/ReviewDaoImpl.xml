@@ -29,30 +29,43 @@
 	
 	<select id="selectReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title, review.review_tag FROM review, cor
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, review.review_recommended, review.review_hit, review.review_written_date 
+			FROM review, cor
 			WHERE review.cor_no = cor.cor_no
-			ORDER BY rnum
+			ORDER BY review_no DESC
 		)
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY review_no DESC
 	</select>
 	
 	<select id="selectReviewByTag" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title, review.review_tag FROM review, cor
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, review.review_recommended, review.review_hit, review.review_written_date 
+			FROM review, cor
 			WHERE review.cor_no = cor.cor_no AND review_tag = #{tag }
-			ORDER BY rnum
+			ORDER BY review_no DESC
 		)
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
 	<select id="searchReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, cor.cor_name, review.review_title, review.review_tag FROM review, cor
-			WHERE review.cor_no = cor.cor_no AND review.review_tag LIKE '%' || #{keyword } || '%' 
-			OR review.review_title LIKE '%' || #{keyword } || '%' 
-			OR review.review_content LIKE '%' || #{keyword } || '%'
-			ORDER BY rnum
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, review.review_recommended, review.review_hit, review.review_written_date 
+			FROM review, cor
+			WHERE review.cor_no = cor.cor_no AND cor.cor_name = #{tag }
+			ORDER BY review_no DESC
 		)
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
+	
+	<select id="selectViewList" parameterType="int" resultType="web.dto.Review">
+		SELECT * FROM review
+		WHERE review_no = #{reviewno }
+	</select>
+	
+	<update id="addHit">
+		UPDATE review
+		SET review_hit = review_hit + 1
+		WHERE review_no = #{reviewno }
+	</update>
 </mapper>
