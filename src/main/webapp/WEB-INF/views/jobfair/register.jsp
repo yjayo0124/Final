@@ -14,7 +14,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 <!-- include summernote-ko-KR -->
-<script src="lang/summernote-ko-KR.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
 
 <script type="text/javascript">

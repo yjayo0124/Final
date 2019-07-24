@@ -15,7 +15,7 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 <!-- include summernote-ko-KR -->
-<script src="lang/summernote-ko-KR.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
 
 <script type="text/javascript">
@@ -56,12 +56,12 @@ $(document).ready(function() {
 <div class="container">
 <h3>채용공고등록</h3>
 
-<form action="/recruitment/write" method="POST" enctype="multipart/form-data">
+<form action="/recruitment/write" method="post" enctype="multipart/form-data">
 <div>
-<p>글쓴이 회원번호: ${member_no }</p>
-<label>●기업명</label>
-<input type="text" name="recruit_name" id="recruit_name" placeholder="내용을 입력해 주세요">
+<label>●기업명 </label>
+<input type="text" name="recruit_name" id="recruit_name" value=${cor.cor_name }>
 </div>
+
 &nbsp;
 <div>
 <label>●공고 제목</label>
@@ -107,47 +107,9 @@ $(document).ready(function() {
 &nbsp;
 <div>
 <label>급여</label>
-<input type="number" name="recruit_sal" placeholder="내용을 입력해 주세요">원
+<input type="number" name="recruit_sal" >원
 </div>
-&nbsp;
-<div>
-<label>요일및 시간</label>
-<input type="checkbox" name="recruit_time" value="mon">월
-<input type="checkbox" name="recruit_time" value="tue">화
-<input type="checkbox" name="recruit_time" value="weds">수
-<input type="checkbox" name="recruit_time" value="tur">목
-<input type="checkbox" name="recruit_time" value="fri">금
-<input type="checkbox" name="recruit_time" value="sat">토
-<input type="checkbox" name="recruit_time" value="sun">일
-
-<select name="recruit_time">
-	<option value="0900">09:00</option>
-	<option value="1000">10:00</option>
-	<option value="1100">11:00</option>
-	<option value="1200">12:00</option>
-	<option value="1300">13:00</option>
-	<option value="1400">14:00</option>
-	<option value="1500">15:00</option>
-	<option value="1600">16:00</option>
-	<option value="1700">17:00</option>
-	<option value="1800">18:00</option>
-	<option value="etc">기타</option>
-</select> 부터
-<select name="recruit_time">
-	<option value="0900">09:00</option>
-	<option value="1000">10:00</option>
-	<option value="1100">11:00</option>
-	<option value="1200">12:00</option>
-	<option value="1300">13:00</option>
-	<option value="1400">14:00</option>
-	<option value="1500">15:00</option>
-	<option value="1600">16:00</option>
-	<option value="1700">17:00</option>
-	<option value="1800">18:00</option>
-	<option value="etc">기타</option>
-</select> 까지
-</div>
-&nbsp;
+&nbsp;&nbsp;
 <div>
 <label>직급</label>
 <input type="text" name="recruit_position" placeholder="내용을 입력해 주세요">
@@ -155,9 +117,11 @@ $(document).ready(function() {
 &nbsp;
 <div>
 <label>상세요강 이미지파일</label>
-<input type="file" name="recruit_file" id="recruit_file"/>
-
-<label>상세요강 글</label>
+<input type="file" name="file" id="file"/>
+</div>
+&nbsp;
+<div>
+<label>추가할 상세요강 글</label>
 <textarea  id="summernote" name="recruit_content"></textarea>
 </div>
 &nbsp;&nbsp;&nbsp;

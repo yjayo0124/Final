@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Member;
 import web.dto.Recruit;
+import web.service.cor.face.CorService;
 import web.service.recruitment.face.RecruitmentService;
 import web.util.Paging;
 
@@ -28,7 +29,7 @@ public class RecruitmentController {
 
 	@Autowired ServletContext context;
 	@Autowired RecruitmentService recruitmentService;
-	
+	@Autowired CorService corService;
 	private static final Logger logger = LoggerFactory.getLogger(RecruitmentController.class);
 	
 	@RequestMapping(value = "/recruitment/main", method = RequestMethod.GET) 
@@ -51,14 +52,11 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value = "/recruitment/view", method = RequestMethod.GET) 
-	public void recruitView(HttpServletRequest req, Model model) {
+	public void recruitView(Recruit recruit, Model model) {
 		
 		logger.info("채용공고 상세페이지");
 		
-		int recruit_no = recruitmentService.getRecruitno(req);
-		model.addAttribute("recruit_no",recruit_no);
-		
-		Recruit recruit = recruitmentService.view(recruit_no);
+		recruit = recruitmentService.view(recruit);
 		model.addAttribute("viewRecruit", recruit);
 		
 	}
@@ -71,6 +69,7 @@ public class RecruitmentController {
 	@RequestMapping(value="/recruitment/write", method= RequestMethod.POST)
 	public String recruitWriteProc(
 			Recruit recruit,
+			Model model,
 			Authentication auth,
 			@RequestParam(value="file") MultipartFile fileupload
 			) {
@@ -80,13 +79,13 @@ public class RecruitmentController {
 		Member member = (Member) auth.getDetails();
 		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
+		// 기업회원의 기업번호 가져오기
+		model.addAttribute("cor", corService.select(member.getCompany_no()));
 		
 		logger.info("파일업로드 처리");
 		logger.info("파일 : " + fileupload.getOriginalFilename());
 		logger.info(context.getRealPath("upload"));
-		
-		//첨부파일 저장
-//		recruitmentService.filesave( fileupload, context);
+
 	
 		//글 저장
 		recruitmentService.write(recruit, fileupload, context);
@@ -95,11 +94,11 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value = "/recruitment/update", method = RequestMethod.GET) 
-	public ModelAndView recruitUpdate(int recruit_no, ModelAndView mav) {
+	public String recruitUpdate(Recruit recruit, Model model) {
 		
-		mav.addObject("recruit", recruitmentService.view(recruit_no));
-		
-		return mav;
+		recruit = recruitmentService.view(recruit);
+		model.addAttribute("view", recruit);
+		return "board/update";
 		
 	}
 	
