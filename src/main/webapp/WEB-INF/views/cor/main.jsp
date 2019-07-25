@@ -22,21 +22,21 @@
 <div class="list" style="margin-top: 120px;">
 <h4><u>${cor.cor_name }</u>에서 지금까지 올린 공고</h4>
 
-<div style="border: 1px solid #ccc; height: 300px;">
+<div style="border: 1px solid #ccc; height: 300px; overflow: auto;">
 <table class="table table-hover table-condensed" style="width: 90%; margin: 0 auto;" >
 	<thead>
 		<tr >
-			<th style="width: 25%; text-align: center;">공고번호</th>	
-			<th style="width: 55%; text-align: center;">공고 제목</th>
-			<th style="width: 20%; text-align: center;">기간</th>	
+			<th style="width: 15%; text-align: center;">공고번호</th>	
+			<th style="width: 65%; text-align: center;">공고 제목</th>
+			<th style="width: 20%; text-align: center;">채용타입</th>	
 		</tr>
 	</thead>
 	<tbody>
 <c:forEach items="${list }" var="i">
 	<tr>
 		<td style="text-align: center;">${i.recruit_no }</td>
-		<td><a href="/recruitment/view?recruit_no=${i.recruit_title }">${i.recruit_title }</a></td>
-		<td>${i.recruit_time }</td>
+		<td style="text-align: center;"><a href="/recruitment/view?recruit_no=${i.recruit_title }">${i.recruit_title }</a></td>
+		<td>${i.recruit_type }</td>
 	</tr>
 </c:forEach>
 </tbody>

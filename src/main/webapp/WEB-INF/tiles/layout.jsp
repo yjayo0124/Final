@@ -12,27 +12,28 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.js" ></script>
 
+
+
 <style type="text/css">
 
 .header{
 	width: 100%;
 	height: 30px;
-
+	position: absolute;
+	z-index: 100;
 }
 
 
 .container{
 
-	min-height: 700px;
-	position: relative;
-	padding-bottom: 120px;
+	min-height: 850px;
+	padding-bottom: 50px;
 }
 
 
 
 .l-footer{
 
-    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -46,8 +47,8 @@ background: #fff;
 
 
 .l-wrap{
-    min-width: 1080px;
-    min-height: 100%;
+    min-width: 1100px;
+  
     position: relative;
     overflow: hidden;
 }
@@ -60,8 +61,10 @@ background: #fff;
 
 <div class="l-wrap">
 <!-- HEADER -->
+
 <tiles:insertAttribute name="header"/>
 <hr>
+
 
 <!-- BODY -->
 <div class="container">

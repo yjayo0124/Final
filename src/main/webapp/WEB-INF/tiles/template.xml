@@ -13,7 +13,7 @@
 		<put-attribute name="body" />
 		<put-attribute name="footer" value="/WEB-INF/tiles/layout/footer.jsp"/>
 	</definition>
-	
+
 	<definition name="review/writePop" template="/WEB-INF/views/review/writePop.jsp">
 	</definition>
 	

@@ -55,8 +55,10 @@ $(document).ready(function() {
     	  autoplaySpeed:3000, 
     	  slidesToShow: 1,
     	  slidesToScroll: 1, 
-    	  arrows: true,
-    	  dots: true
+          prevArrow: $('.prev'),
+          nextArrow: $('.next'),
+    	  dots: false
+    	 
     });
 
  
@@ -111,31 +113,36 @@ font-size: 13px;
 /* 화살표 */ 
 .slick-arrow{ 
 	z-index: 2; /* prev버튼은 위치 이동시 이미지 뒤로 숨겨짐 */ 
-	position:absolute; /* 원하는 위치에 지정 */ 
-	top: 50%; 
 	width: 50px; 
 	height: 50px; 
 	transform: translateY(-25px); 
+	border: none;
+	outline: none;
+	background: transparent;
+	cursor: pointer;
+
 } 
 
 
-.slick-prev.slick-arrow{ /* prev 이전 */ 
-	left: 0; 
-} 
 
-.slick-next.slick-arrow{ /* next 다음 */ 
-	right: 0; 
-} 
+
+
 
 /* 아래점 */ 
 .slick-dots{ 
-	text-align: center; 
+	text-align: center;
+
+
 } 
 
 .slick-dots li{ 
 	display: inline-block; 
 	margin: 0 5px; 
+
+	
 }
+
+
 
 .slider_container{
 	margin: 0 auto;
@@ -148,11 +155,17 @@ font-size: 13px;
 }
 
 
-img{
+
+.slider img{
 	max-width: 100%;
 	height: auto;
 
 }
+
+
+
+
+
 
 </style>
 
@@ -175,12 +188,12 @@ img{
 	
 <div class="slider_container">
 
-<div class="slider">
-  <div><img src="/resources/images/images1.png"/></div>
-  <div><img src="/resources/images/images2.png"/></div>
-  <div><img src="/resources/images/bn1.png" width="100%"/></div>
-  <div><img src="/resources/images/bn2.png" width="100%"/></div>
-</div>
+	<div class="slider">
+	  <div><img src="/resources/images/images1.png"/></div>
+	  <div><img src="/resources/images/images2.png"/></div>
+	  <div><img src="/resources/images/bn1.png" width="100%"/></div>
+	  <div><img src="/resources/images/bn2.png" width="100%"/></div>
+	</div>
 
 </div>
 	
@@ -200,7 +213,7 @@ img{
 <c:forEach items="${recruit }" var="i">
 	<tr>
 		<td style="width:20%">${i.recruit_name }</td>
-		<td style="width:60%"><a href="/recruitment/view?recruit_no=${i.recruit_title }">${i.recruit_title }</a></td>
+		<td style="width:60%"><a href="/recruitment/view?recruit_no=${i.recruit_no }">${i.recruit_title }</a></td>
 		<td style="width:20%">${i.recruit_position }</td>
 	</tr>
 </c:forEach>
@@ -221,7 +234,7 @@ img{
 <c:forEach items="${review }" var="i">
 	<tr>
 		<td style="width: 15%">${i.REVIEW_TAG }</td>
-		<td style="width: 65%; text-align: center;"><a href="/recruitment/view?review_no=${i.REVIEW_NO }">${i.REVIEW_TITLE }</a></td>
+		<td style="width: 65%; text-align: center;"><a href="/review/view?review_no=${i.REVIEW_NO }">${i.REVIEW_TITLE }</a></td>
 		<td style="width: 20%">${i.COMPANY_NAME }</td>
 	</tr>
 </c:forEach>

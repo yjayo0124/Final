@@ -143,11 +143,28 @@ public class ReviewController {
 		model.addAttribute("viewlist", viewlist);
 	}
 	
+	// 추천수 
 	@RequestMapping(value="/review/addlike", method=RequestMethod.POST)
 	public void addlike(Model model, HttpServletRequest request, HttpServletResponse resp) {
-		String result = request.getParameter("like");
-		System.out.println(result);
+		String result = request.getParameter("reviewno");
+		String change  = request.getParameter("change");
+		String mem = request.getParameter("memno");
+		int reviewno = Integer.parseInt(result);
+		int changeno = Integer.parseInt(change);
+		int memno = Integer.parseInt(mem);
 		
-
+		reviewService.updateLike(reviewno, changeno, memno);
+		int uplike = reviewService.selectLike(reviewno);
+		
+		JSONObject obj = new JSONObject();
+		obj.put("data", uplike);
+        resp.setContentType("application/json ; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        
+        try {
+			resp.getWriter().write(obj.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

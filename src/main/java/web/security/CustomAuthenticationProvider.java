@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -31,6 +32,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String input_id = authentication.getName();
 		String input_password = (String) authentication.getCredentials();
 	
+		String msg = null;
+		
 	//	logger.info("authentication : "+authentication );
 
 		Member member = new Member();
@@ -43,27 +46,33 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 				throw new BadCredentialsException("비밀번호 불일치");
 			
 			}else if( member.getEnab() != '1') {
-				throw new BadCredentialsException("탈퇴한 회원입니다. ");
+				throw new DisabledException("탈퇴한 회원입니다. ");
+			}else if( member == null) {	
+				throw new UsernameNotFoundException("입력한 회원을 찾을 수 없습니다.");
 			}
 			
-			
+
 		 } catch(UsernameNotFoundException e) {
 	            e.printStackTrace();
-	            throw new UsernameNotFoundException(e.getMessage());
+	            throw new UsernameNotFoundException(msg);
 		 } catch(BadCredentialsException e) {
 	            e.printStackTrace();
-	            throw new BadCredentialsException(e.getMessage());
+	            throw new BadCredentialsException(msg);
+		 } catch(DisabledException e) {
+			 	e.printStackTrace();
+			 	throw new DisabledException(msg);
+		 
 		 } catch(Exception e) {
 	            e.printStackTrace();
 	            throw new RuntimeException(e.getMessage());
-	     }
+		 }
 		
 	
 
         UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(member.getMember_id(), member.getMember_pw(), member.getAuthorities() );
         result.setDetails(member);
 		
-    	logger.info(result.toString());
+    //	logger.info(result.toString());
 		
 		return result;
 	}
