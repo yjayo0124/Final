@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,19 +51,27 @@ public class MemberController {
 	@Autowired MemberService memberService;
 	@Autowired ReviewService reviewService;
 	
-	
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET) 
 	public void join() {
-		logger.info("join form");
+	//	logger.info("join form");
 		
 	}
 	
 	@RequestMapping(value = "/member/join", method = RequestMethod.POST) 
 	public String joinProc(Member member) {
 		
-		logger.info(member.toString());
+		String pw = passwordEncoder.encode(member.getMember_pw());
+		
+		member.setMember_pw(pw);
+		
+		//logger.info(member.toString());
+		
+		
 		memberService.join(member);
+		
 		
 		return "redirect:"+"/main";
 	}
@@ -73,7 +82,7 @@ public class MemberController {
 		
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 	
-		System.out.println("naver authUrl : " + naverAuthUrl);
+	//	System.out.println("naver authUrl : " + naverAuthUrl);
 
 		model.addAttribute("url", naverAuthUrl);
 		
@@ -176,6 +185,11 @@ public class MemberController {
 		int corno = reviewService.getCorno(selectCor);
 
 		member.setCompany_no(corno);
+		
+		String pw = passwordEncoder.encode(member.getMember_pw());
+		
+		member.setMember_pw(pw);
+		
 		
 		memberService.corJoin(member);
 		

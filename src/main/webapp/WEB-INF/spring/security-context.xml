@@ -15,14 +15,14 @@
 <security:http auto-config="true" use-expressions="true">
 
 		<!--  권한은  ROLE_ADMIN (관리자) / ROLE_COR(기업회원) /ROLE_IDV(개인회원) 세 가지 밖에 없습니다.  -->
-		
+<!-- 	<security:intercept-url pattern="/***" requires-channel="https"/>-->	
+
 	<security:intercept-url pattern="/resume/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_COR')"/>
 	<security:intercept-url pattern="/jobfair/register" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/cor/info**" access="permitAll"/>
 	<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/cor/**" access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/recruitment/write" access="hasRole('ROLE_COR')"/>
-
 
 	<security:form-login login-page="/member/login" login-processing-url="/member/login" 
 	default-target-url="/main"
@@ -33,16 +33,18 @@
 	<security:logout logout-url="/member/logout"/>
 	<security:access-denied-handler error-page="/accessError"/>
 	<security:csrf disabled="true"/>
+	
 </security:http>
 
 
-	<security:authentication-manager>
-	
-	<security:authentication-provider ref="customOAuthenticationProvider">
-	</security:authentication-provider>
-		<security:authentication-provider ref="customAuthenticationProvider" >	
+	<security:authentication-manager >
+
+		<security:authentication-provider ref="customOAuthenticationProvider" >
 		</security:authentication-provider>
 		
+		<security:authentication-provider ref="customAuthenticationProvider" >	
+		</security:authentication-provider>
+			
 	</security:authentication-manager>
 
 	<bean id="customOAuthenticationProvider" class="web.security.CustomOAuthenticationProvider"/> 

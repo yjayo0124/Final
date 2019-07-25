@@ -68,13 +68,27 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
+
+
 /* 메인 검색엔진 css */
 .search {
-	padding-right: 10px;
+	text-align: center;
+
 }
+
+#searchBtn{
+
+	background-color: #181842;
+	border: 2px solid #181842;
+	color: white;
+}
+
+
 #keyword {
-	width: 630px;
+	width: 430px;
 }
+
+
 
 .main_container{
 	float: right;
@@ -146,11 +160,11 @@ font-size: 13px;
 
 .slider_container{
 	margin: 0 auto;
-	width: 650px;
-	min-width: 600px;
+	width: 550px;
+	min-width: 550px;
 	
-	height: 420px;
-	min-height: 420px;
+	height: 330px;
+	min-height: 300px;
 
 }
 
@@ -159,6 +173,7 @@ font-size: 13px;
 .slider img{
 	max-width: 100%;
 	height: auto;
+	overflow: hidden;
 
 }
 
@@ -167,15 +182,11 @@ font-size: 13px;
 
 
 
+
 </style>
 
-
-<div class="row">
-	<div class="col-md-3">
-		
-	</div>
 	
-	<div class="col-md-9">
+	<div class="search_container">
 		<!-- 검색기능 -->
 		<form action="/main/search" method="get">
 			<div class="search">
@@ -184,7 +195,7 @@ font-size: 13px;
 			</div>
 		</form>
 	</div>
-</div>
+
 	
 <div class="slider_container">
 

@@ -20,7 +20,7 @@ public class CustomOAuthenticationProvider  implements AuthenticationProvider {
 	
 	public Authentication authenticate(String member_id, String token) throws AuthenticationException{
 
-		logger.info("social_id : "+member_id);
+		//logger.info("social_id : "+member_id);
 	
 		Member member = new Member();
 		
