@@ -101,14 +101,12 @@ $(document).ready(function() {
 			~ <input type="date" name="jobfair_limit" id="jobfair_limit" /></td>
 		<td><input type="hidden" name="member_no" id="member_no" value="${member.member_no }" /></td>
 	</tr>
-	
-		
-	
 </tbody>
 </table>
 
 <div>
-<button id="btnFile">파일첨부</button>
+<label for="file">파일첨부</label>
+<input type="file" name="file" id="file" />
 </div>
 <br>
 <br>
