@@ -30,4 +30,7 @@ public interface ReviewService {
 
 	public void upHit(int reviewno);
 
+	public void updateLike(int reviewno, int changeno, int memno);
+
+	public int selectLike(int reviewno);
 }

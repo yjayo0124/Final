@@ -59,15 +59,38 @@ $(document).ready(function() {
 		 });
 	});
 	
-	$("#like").click(function() {
+	$(document).on('click', '#like', function(){
+		// 현재 클릭된 Row(<tr>)
+		var tr = $(this).parent().parent().parent();
+		var td = tr.children();
 		
+		var like =  $(this).parent().parent().children();
+		var image = event.target;
+		var change = like.eq(1).children().val();
+		var memno = $(this).parent().parent().parent().children();
+		console.log("클릭 값 : "+ memno.eq(0).children().val());
 		 $.ajax({
 			 url: "/review/addlike",
 			 type: "post",
 			 dataType: "json",
-			 data: { like : $('#recommended').val()},
+			 data: { reviewno : td.eq(0).text(), change : like.eq(1).children().val(), memno : memno.eq(0).children().val()},
 			 success: function(data) {
-				 console.log(data);
+				 if(${empty pageContext.request.userPrincipal }) {
+					 alert("로그인 하세요");
+				 } else {
+					 if(change == 0) {
+						 like.eq(1).children().html(data.data);
+						 image.src = "/resources/images/afterlike.png";
+						 $(like.eq(1).children().val(1));
+						 console.log("after_change : " + change);
+					 } else if(change == 1) {
+						 like.eq(1).children().html(data.data);
+						 console.log(data.data);
+						 image.src = "/resources/images/beforelike.png";
+						 $(like.eq(1).children().val(0));
+						 console.log("before_change : " + change);
+					 }
+				 }
 			 },
 			 error : function(data) {
 				 alert("에러가 발생하였습니다.")
@@ -247,7 +270,6 @@ a:link {
 <body>
 
 <c:set var="pagingTag" value="전체"/>
-<c:set var="recommended" value=""/>
 
 <br>
 <h1>기업리뷰</h1>
@@ -281,17 +303,17 @@ a:link {
 	</tr>
 	<c:forEach items="${reviewlist }" var="i">
 		<tr>
-			<td id="tagno">${i.REVIEW_NO }</td>
+			<td id="tagno"><input type="hidden" id="memno" name="memno" value="${i.MEM_NO }"/>${i.REVIEW_NO }</td>
 			<td id="tagcor">${i.COR_NAME }</td>
 			<td id="tagtitle"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
-				<h6><img id="like" class="like" src="/resources/images/beforelike.png">&nbsp;${i.REVIEW_RECOMMENDED }&nbsp;&nbsp;&nbsp;
+				<h6><input type="hidden" id="change" name="change" value="${i.REVIEW_CHECK }"/>
+					<img id="like" src="/resources/images/beforelike.png"/>&nbsp;<label id="uplike">${i.REVIEW_RECOMMENDED }</label>&nbsp;&nbsp;&nbsp;
 					조회수&nbsp;${i.REVIEW_HIT }&nbsp;&nbsp;&nbsp;
 					작성일&nbsp;<fmt:formatDate value="${i.REVIEW_WRITTEN_DATE}" pattern="yyyy-MM-dd"/>
 				</h6>
 			</td>
 		</tr>
 		<input type="hidden" value="${pagingTag = i.REVIEW_TAG}"/> 
-		<input type="hidden" id="recommended" name="recommended" value="${recommended = i.REVIEW_RECOMMENDED }"/>
 	</c:forEach>
 </table>
 
