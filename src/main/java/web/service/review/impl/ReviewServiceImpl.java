@@ -91,4 +91,20 @@ public class ReviewServiceImpl implements ReviewService {
 	public void upHit(int reviewno) {
 		reviewDao.addHit(reviewno);
 	}
+
+	@Override
+	public void updateLike(int reviewno, int changeno, int memno) {
+		if(changeno == 0) {
+			reviewDao.addLike(reviewno);
+//			reviewDao.insertRecommend(reviewno, changeno, memno);
+		} else {
+			reviewDao.minLike(reviewno);
+		}
+	}
+
+	@Override
+	public int selectLike(int reviewno) {
+		return reviewDao.selectLike(reviewno);
+	}
+
 }

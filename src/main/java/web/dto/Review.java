@@ -13,13 +13,14 @@ public class Review {
 	private int review_recommended;
 	private int review_hit;
 	private Date review_written_date;
+	private int review_check;
 	
 	@Override
 	public String toString() {
 		return "Review [review_no=" + review_no + ", cor_no=" + cor_no + ", mem_no=" + mem_no + ", review_tag="
 				+ review_tag + ", review_title=" + review_title + ", review_content=" + review_content
 				+ ", review_recommended=" + review_recommended + ", review_hit=" + review_hit + ", review_written_date="
-				+ review_written_date + "]";
+				+ review_written_date + ", review_check=" + review_check + "]";
 	}
 
 	public int getReview_no() {
@@ -92,6 +93,14 @@ public class Review {
 
 	public void setReview_written_date(Date review_written_date) {
 		this.review_written_date = review_written_date;
+	}
+
+	public int getReview_check() {
+		return review_check;
+	}
+
+	public void setReview_check(int review_check) {
+		this.review_check = review_check;
 	}
 	
 }

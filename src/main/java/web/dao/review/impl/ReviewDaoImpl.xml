@@ -29,7 +29,8 @@
 	
 	<select id="selectReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, review.review_recommended, review.review_hit, review.review_written_date 
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, 
+					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no 
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no
 			ORDER BY review_no DESC
@@ -40,7 +41,8 @@
 	
 	<select id="selectReviewByTag" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, review.review_recommended, review.review_hit, review.review_written_date 
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, 
+					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no 
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no AND review_tag = #{tag }
 			ORDER BY review_no DESC
@@ -50,7 +52,8 @@
 	
 	<select id="searchReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, review.review_recommended, review.review_hit, review.review_written_date 
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, 
+					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no AND cor.cor_name = #{tag }
 			ORDER BY review_no DESC
@@ -68,4 +71,26 @@
 		SET review_hit = review_hit + 1
 		WHERE review_no = #{reviewno }
 	</update>
+	
+	<update id="addLike">
+		UPDATE review
+		SET review_recommended = review_recommended + 1
+		WHERE review_no = #{reviewno }
+	</update>
+	
+	<update id="minLike">
+		UPDATE review
+		SET review_recommended = review_recommended - 1
+		WHERE review_no = #{reviewno }
+	</update>
+	
+	<insert id="insertRecommend">
+		INSERT INTO recommend
+		VALUES(#{reviewno }, #{changeno }, #{memno })
+	</insert>
+	
+	<select id="selectLike" parameterType="int" resultType="int">
+		SELECT review_recommended FROM review
+		WHERE review_no = #{reviewno }
+	</select>
 </mapper>
