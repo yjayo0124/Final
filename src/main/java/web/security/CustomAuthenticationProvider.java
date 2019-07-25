@@ -34,15 +34,20 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 		String msg = null;
 		
-	//	logger.info("authentication : "+authentication );
-
+//		logger.info("authentication : "+authentication );
+		logger.info("입력한 pw"+input_password);
+		
 		Member member = new Member();
+		
 		
 		try {
 			member = (Member) customServiceImpl.loadUserByUsername(input_id );
+			logger.info("member : "+member);	
 			
-			
-			if( !input_password.equals(member.getMember_pw())) {
+//			if( !input_password.equals(member.getMember_pw())) {
+//				throw new BadCredentialsException("비밀번호 불일치");
+
+			if( !passwordEncoder.matches(input_password, member.getMember_pw())) {
 				throw new BadCredentialsException("비밀번호 불일치");
 			
 			}else if( member.getEnab() != '1') {
