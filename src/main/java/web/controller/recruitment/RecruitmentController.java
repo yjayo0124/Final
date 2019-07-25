@@ -85,7 +85,7 @@ public class RecruitmentController {
 		recruit.setMember_no(member.getMember_no());
 //		// 기업회원의 기업번호 가져오기
 
-		//		model.addAttribute("cor", corService.select(member.getCompany_no()));
+		//model.addAttribute("cor", corService.select(member.getCompany_no()));
 		
 		logger.info("파일업로드 처리");
 		logger.info("파일 : " + fileupload.getOriginalFilename());
