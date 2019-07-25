@@ -3,6 +3,14 @@
 
 - 50 만 건 이상 기업 정보 조회
 
+## 사용기술 및 버전
+- Java 1.8
+- Spring Framework 5.1.8
+- Spring Security 5.1.5
+- ORACLE XE 11g 
+- Apache Tomcat 9.0
+- JavaScript, Ajax, Oracle Sql, XML, JSON ...
+
 ## Contributor
 - <a href="https://github.com/minjiD" >김민지</a>
 - <a href="https://github.com/yjayo0124">민선홍</a>
