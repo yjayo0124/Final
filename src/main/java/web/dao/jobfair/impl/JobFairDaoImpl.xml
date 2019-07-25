@@ -57,7 +57,7 @@
 			jobfair_loc = #{jobfair_loc, jdbcType=VARCHAR },
 			jobfair_content = #{jobfiar_content, jdbcType=VARCHAR },
 			jobfiar_limit = #{jobfair_limit, jdbcType=VARCHAR }
-		WHERE jobfiar_no = #{jobfair_no }
+		WHERE jobfair_no = #{jobfair_no }
 	</update>
 	
 	<delete id="delete" parameterType="web.dto.JobFair">

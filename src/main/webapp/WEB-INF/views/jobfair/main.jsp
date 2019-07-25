@@ -25,18 +25,26 @@ $(document).ready(function() {
 		momonthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
  		buttonText: {today: 'today'},
- 		events: [
-			{
-				title: 'jobfair_name',
-				start: '2019-07-23',
-				end: '2019-07-27'		
-			},
-			{
-				title: 'jobfair_name2',
-				start: '2019-07-16',
-				end: '2019-07-25'		
-			}
-		]
+ 		events:
+ 			function(start, end, callback){
+ 			$.ajax({
+ 				url: '/jobfair/main',
+ 				cache: false,
+ 				type: 'POST',
+ 				contextType: 'applicatoin/json; charset=utf-8',
+ 				dataType: 'json',
+ 				success: function(data){
+ 					console.log("성공");
+					
+ 				},
+ 				error: function(jqXHR, status, error){
+ 					console.log("실패");
+ 					console.log("jqXHR: " + jqXHR);
+ 					console.log("status: " + status);
+ 					console.log("error: " + error);
+ 				}
+ 			});
+ 		}
 	});
 	
 
