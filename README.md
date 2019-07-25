@@ -1,9 +1,9 @@
 # KHOB
-- 구인구직 기능과 기업 상세 정보를 조회할 수 있는 통합 채용 사이트
+- An integrated recruitment site that lets you look up job search capabilities and corporate details.
 
-- 50 만 건 이상 기업 정보 조회
+- More than 500,000 corporate in Korea information searching available.
 
-## 사용기술 및 버전
+## Skills
 - Java 1.8
 - Spring Framework 5.1.8
 - Spring Security 5.1.5
