@@ -28,7 +28,8 @@
 	default-target-url="/main"
 	always-use-default-target="false"
 	username-parameter="member_id"
-	password-parameter="member_pw"/>	     
+	password-parameter="member_pw"
+	authentication-failure-handler-ref="LoginFailureHandler"/>	     
 	<security:logout logout-url="/member/logout"/>
 	<security:access-denied-handler error-page="/accessError"/>
 	<security:csrf disabled="true"/>
@@ -41,7 +42,7 @@
 	</security:authentication-provider>
 		<security:authentication-provider ref="customAuthenticationProvider" >	
 		</security:authentication-provider>
-		<security:authentication-provider user-service-ref="securityService"/>
+		
 	</security:authentication-manager>
 
 	<bean id="customOAuthenticationProvider" class="web.security.CustomOAuthenticationProvider"/> 
@@ -49,6 +50,11 @@
     <bean id="securityService" class="web.security.CustomServiceImpl"/>
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"  />
 
-
+	<bean id="LoginFailureHandler" class="web.security.LoginFailureHandler">
+		<property name="loginIdName" value="member_id" />
+		<property name="loginPwName" value="member_pw" />
+		<property name="errormsgname" value="ERRORMSG"/>
+		<property name="defaultFailureUrl" value="/member/login?error" />
+	</bean>
 
 </beans>

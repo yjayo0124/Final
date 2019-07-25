@@ -70,6 +70,16 @@ ul,li{
 }
 
 
+.header-logo{
+	
+	height: 40px;
+}
+
+.menu span, .userMenu span{
+	display: inline-block;
+	margin-top: 8px;
+}
+
 </style>    
     
    
@@ -77,7 +87,7 @@ ul,li{
 
 <div class="header-home">
 		<ul class="menu">
-		<li><a style="margin-right: 20px;" href="/main">khob image logo</a></li>
+		<li><a style="margin-right: 20px;" href="/main"><img class="header-logo" src="/resources/images/logo.png"></a></li>
 		<li><a href="/recruitment/main"><span>채용</span></a></li>
 
 		<li><a href="/review/list?tag=전체"><span>리뷰</span></a></li>
@@ -107,10 +117,10 @@ ul,li{
 				
 		
 			<sec:authorize access="hasRole('ROLE_IDV')">
-			<li><a href="/mypage/main">마이페이지</a></li>
+			<li><a href="/mypage/main"><span>마이페이지</span></a></li>
 			</sec:authorize>
 		
-			<li><a href="/member/logout">로그아웃</a></li>
+			<li><a href="/member/logout"><span>로그아웃</span></a></li>
 		</sec:authorize> 
 	</ul>
 </div>

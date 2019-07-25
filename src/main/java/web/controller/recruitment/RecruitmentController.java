@@ -62,8 +62,12 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value = "/recruitment/write", method = RequestMethod.GET) 
-	public void recruitWriteForm() {
+	public void recruitWriteForm(Authentication auth, Model model) {
 		logger.info("글쓰기 폼");
+		Member member = (Member) auth.getDetails();
+		model.addAttribute("cor", corService.select(member.getCompany_no()));
+		
+		
 	}
 	
 	@RequestMapping(value="/recruitment/write", method= RequestMethod.POST)
@@ -75,12 +79,13 @@ public class RecruitmentController {
 			) {
 	
 		logger.info("글쓰기");
-		//인증된 객체의 상세정보 가져오기
+//		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
-		//객체에 담겨있는 회원번호 가져오기
+//		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
-		// 기업회원의 기업번호 가져오기
-		model.addAttribute("cor", corService.select(member.getCompany_no()));
+//		// 기업회원의 기업번호 가져오기
+
+		//		model.addAttribute("cor", corService.select(member.getCompany_no()));
 		
 		logger.info("파일업로드 처리");
 		logger.info("파일 : " + fileupload.getOriginalFilename());

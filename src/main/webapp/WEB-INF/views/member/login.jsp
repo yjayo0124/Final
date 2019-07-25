@@ -5,6 +5,24 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+function loginException(){
+	
+	if($("#member_id").val().length < 1	){
+		alert("아이디를 정확히 입력해주세요.");	
+	}else if($("#member_pw").val().length < 1){
+		alert("비밀번호를 입력하세요.")
+	}
+	
+	
+}
+
+
+
+</script >
+
+
 
 <style>
 #btnLogin {
@@ -136,9 +154,15 @@
 
 <div class="login-container">
 
-<h2 style="margin-bottom: 55px;">KHOB</h2>
+<h2 style="margin-bottom: 45px;">KHOB</h2>
 
-<form action="/member/login" method="POST">
+<c:if test="${not empty ERRORMSG }">
+	<font color = "red" style="position: absolute; margin-top: -29px; font-style: italic; left: 37%">
+	<strong><p>${ERRORMSG }</p></strong>
+	</font>
+</c:if>
+
+<form action="/member/login" method="POST" id="form">
 		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }"/>
 <div class="content" style="margin: 0 auto;">
 
@@ -146,7 +170,7 @@
 
 		<input class="inputstyle" type="text" id="member_id" name="member_id" placeholder="아이디를 입력하세요" />
 		<input class="inputstyle" type="password" id="member_pw" name="member_pw" placeholder="비밀번호를 입력하세요" />
-		<button type="submit" class="btLogin">로그인</button>
+		<button type="submit" class="btLogin" id="btLogin" onclick="loginException()">로그인</button>
 
 	</div>
 </div>
