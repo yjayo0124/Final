@@ -26,5 +26,13 @@ public interface ReviewDao {
 
 	public void addHit(int reviewno);
 
+	public int addLike(int reviewno);
+
+	public int selectLike(int reviewno);
+
+	public int minLike(int reviewno);
+
+	public void insertRecommend(int reviewno, int changeno, int memno);
+
 
 }
