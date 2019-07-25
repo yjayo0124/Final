@@ -3,6 +3,7 @@ package web.dao.review.face;
 import java.util.HashMap;
 import java.util.List;
 
+import web.dto.Recommend;
 import web.dto.Review;
 import web.util.Paging;
 
@@ -32,7 +33,13 @@ public interface ReviewDao {
 
 	public int minLike(int reviewno);
 
-	public void insertRecommend(int reviewno, int changeno, int memno);
+	public void insertRecommend(Recommend recommend);
+
+	public void deleteRecommend(Recommend recommend);
+
+	public List<Recommend> scanRecommend(int memno);
+
+	public void addRecommend(Recommend recommend);
 
 
 }

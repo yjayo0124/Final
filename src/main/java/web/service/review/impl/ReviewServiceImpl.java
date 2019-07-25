@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.review.face.ReviewDao;
+import web.dto.Recommend;
 import web.dto.Review;
 import web.service.review.face.ReviewService;
 import web.util.Paging;
@@ -21,7 +22,6 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int getCorno(String selectCor) {
 		return reviewDao.selectCorno(selectCor);
-		
 	}
 	
 	@Override
@@ -93,7 +93,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void updateLike(int reviewno, int changeno, int memno) {
+	public void updateLike(int reviewno, int changeno) {
 		if(changeno == 0) {
 			reviewDao.addLike(reviewno);
 //			reviewDao.insertRecommend(reviewno, changeno, memno);
@@ -107,4 +107,38 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.selectLike(reviewno);
 	}
 
+	@Override
+	public List<Recommend> updateRecommend(Recommend recommend, int reviewno, int changeno, int memno) {
+		int checkResult = 0;
+		List<Recommend> check = reviewDao.scanRecommend(memno);
+		System.out.println(check);
+		System.out.println(reviewno);
+		for(int i = 0; i < check.size(); i++) {
+			if(check.get(i).getReview_no() == reviewno && check.get(i).getMem_no() == memno) {
+				checkResult = 1;
+			} else if(check.get(i).getReview_no() != reviewno && check.get(i).getMem_no() == memno) {
+				checkResult = 2;
+			}  else if(check.get(i).getReview_no() != reviewno && check.get(i).getMem_no() != memno) {
+				checkResult = 2;
+			}
+		}
+		if(check.isEmpty()) {
+			checkResult = 2;
+		}
+		System.out.println(checkResult);
+		recommend.setMem_no(memno);
+		recommend.setReview_no(reviewno);
+		recommend.setRecommend_check(changeno);
+		
+		if(checkResult == 2) {
+			reviewDao.insertRecommend(recommend);
+			return check;
+		} else if(checkResult == 1 && changeno == 0){
+			reviewDao.addRecommend(recommend);
+			return check;
+		} else {
+			reviewDao.deleteRecommend(recommend);
+			return check;
+		}
+	}
 }
