@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     
 <link href='https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.css' rel='stylesheet' />
@@ -25,26 +26,55 @@ $(document).ready(function() {
 		momonthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
  		buttonText: {today: 'today'},
- 		events:
- 			function(start, end, callback){
- 			$.ajax({
- 				url: '/jobfair/main',
- 				cache: false,
- 				type: 'POST',
- 				contextType: 'applicatoin/json; charset=utf-8',
- 				dataType: 'json',
- 				success: function(data){
- 					console.log("성공");
-					
- 				},
- 				error: function(jqXHR, status, error){
- 					console.log("실패");
- 					console.log("jqXHR: " + jqXHR);
- 					console.log("status: " + status);
- 					console.log("error: " + error);
- 				}
- 			});
- 		}
+ 		events: function(start, end, timezone, callback){
+	 			$.ajax({
+	 				url: '/jobfair/list', 
+	 				cache: false,
+	 				type: 'GET',
+	 				dataType: 'json',
+	 				success:
+
+	 					function(data){
+	 					console.log("성공");
+	 					console.log(data);
+	 					
+	 					var events = [];
+	 					$.each(data, function(idx, val) { 
+	 						console.log(idx + " " + val.JOBFAIR_NAME);
+	 						
+	 						events.push({ 
+	 							title: val.JOBFAIR_NAME,
+	 							start: val.JOBFAIR_START,
+	 							end: val.JOBFAIR_START
+	 						})
+	 						
+	 					});
+
+	 					callback(events);
+	 				}
+	 				, error: function(jqXHR, status, error){
+	 					console.log("실패");
+	 					console.log("--jqXHR--")
+	 					console.log(jqXHR);
+	 					console.log("--status--")
+	 					console.log(status);
+	 					console.log("--error: ")
+	 					console.log(error);
+	 				}
+	 			});
+ 			},
+		eventClick: function (calEvent, jsEvent, view) {
+
+            $("#modal").dialog({
+                autoOpen: false,
+            });
+
+            $("#title").val(calEvent.title);
+
+            $("#start").val(calEvent.start);
+
+            $('#dialog').dialog('open');
+        }
 	});
 	
 
@@ -85,16 +115,22 @@ $(document).ready(function() {
 	<button id="btnSearch" class="btn btn-outline-secondary">검색</button>
 </div>
 
-<c:if test="${member_id eq 'admin' }">
+
+
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button id="btnRegister" class="btn pull-right">등록</button>
-</c:if>
+</sec:authorize>
 </div>
 <br>
 <br>
 
-<div id="calendar">
+
+<div id="calendar"></div>
+<div id="modal" class="modal fade">
+
 </div>
 
 </div>
 </div>
+
 
