@@ -1,6 +1,9 @@
 package web.controller.mypage;
 
 import java.util.List;
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import web.dto.Member;
+
 import web.dto.Review;
+import web.dto.mypage.resume.Resume;
+import web.dto.mypage.resume.University;
 import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
@@ -55,8 +61,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
-	public void introductionWriteProc() {
-		
+	public void introductionWriteProc(HttpServletRequest request) {
+		Enumeration params = request.getParameterNames();
+		System.out.println("----------------------------");
+		while (params.hasMoreElements()){
+		    String name = (String)params.nextElement();
+		    System.out.println(name + " : " +request.getParameter(name));
+		}
+		System.out.println("----------------------------");
+
 	}
 	
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)

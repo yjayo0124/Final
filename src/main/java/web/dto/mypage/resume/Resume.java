@@ -10,7 +10,7 @@ public class Resume {
 	private String resume_title;
 	private String resume_stored_name;
 	private String resume_name;
-	private Date resume_birth;
+	private String resume_birth;
 	private String resume_gender;
 	private String resume_email;
 	private String resume_phone;
@@ -62,10 +62,10 @@ public class Resume {
 	public void setResume_name(String resume_name) {
 		this.resume_name = resume_name;
 	}
-	public Date getResume_birth() {
+	public String getResume_birth() {
 		return resume_birth;
 	}
-	public void setResume_birth(Date resume_birth) {
+	public void setResume_birth(String resume_birth) {
 		this.resume_birth = resume_birth;
 	}
 	public String getResume_gender() {
