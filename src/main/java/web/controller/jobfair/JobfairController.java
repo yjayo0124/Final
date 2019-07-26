@@ -1,7 +1,7 @@
 package web.controller.jobfair;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.member.face.MemberDao;
@@ -36,6 +37,7 @@ public class JobfairController {
 	@RequestMapping(value="/jobfair/main")
 	public void jobfair(
 			Model model
+			, ArrayList<HashMap<String, Object>> map
 		) {
 		logger.info("메인");
 		
@@ -47,12 +49,26 @@ public class JobfairController {
 		model.addAttribute("member_id", member_id);
 		
 		
-		List<HashMap<String, Object>> list = jobfairService.calList();
+		map = (ArrayList<HashMap<String, Object>>) jobfairService.calList();
+		System.out.println(map);
+		
+		model.addAttribute("map", map);
+	}
+
+	@RequestMapping(value="/jobfair/list") 
+	@ResponseBody
+	public ArrayList<HashMap<String, Object>> jobfairlist(
+			Model model
+			, ArrayList<HashMap<String, Object>> list
+		) {
+		logger.info("리스트");
+		
+		list = (ArrayList<HashMap<String, Object>>) jobfairService.calList();
 		System.out.println(list);
 		
-		model.addAttribute("list", list);
+		return list;
 	}
-	
+
 	@RequestMapping(value="/jobfair/register", method=RequestMethod.GET)
 	public void register(
 			Model model,
