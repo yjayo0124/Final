@@ -109,8 +109,9 @@ button {
 <h2>상세요강</h2><hr>
 <div>
 ${viewRecruit.recruit_content }
-<img src="/upload/${file.recruit_file_storedName }" style="width: 1000px; height: 3000px;">
-
+<c:if test="${file ne null }">
+<img src="/upload/${file}" style="width: 100%; height: auto;">
+</c:if>
 </div>
 
 <div class="text-right">
