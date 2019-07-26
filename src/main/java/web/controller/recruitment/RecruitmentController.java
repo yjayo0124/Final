@@ -92,8 +92,11 @@ public class RecruitmentController {
 		logger.info(context.getRealPath("upload"));
 
 	
+			
+		
 		//글 저장
 		recruitmentService.write(recruit, fileupload, context);
+	
 		
 		return "redirect:/recruitment/main";
 	}

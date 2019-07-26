@@ -1,11 +1,14 @@
 package web.service.member.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.member.face.MemberDao;
 import web.dto.Member;
 import web.dto.Oauth;
+import web.dto.Review;
 import web.service.member.face.MemberService;
 
 @Service
@@ -83,6 +86,13 @@ public class MemberServiceImpl implements MemberService {
 	public void withdraw(int member_no) {
 		
 		memberDao.getWithdrawByNo(member_no);
+		
+	}
+
+	@Override
+	public List<Review> getList(int member_no) {
+		
+		return memberDao.getMyReviewList(member_no);
 		
 	}
 

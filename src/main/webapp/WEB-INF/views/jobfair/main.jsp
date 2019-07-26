@@ -25,7 +25,10 @@ $(document).ready(function() {
 		momonthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
  		buttonText: {today: 'today'},
+ 		
+ 		
  		events:
+ 			
  			function(start, end, callback){
  			$.ajax({
  				url: '/jobfair/main',
@@ -35,7 +38,6 @@ $(document).ready(function() {
  				dataType: 'json',
  				success: function(data){
  					console.log("성공");
-					
  				},
  				error: function(jqXHR, status, error){
  					console.log("실패");
@@ -45,6 +47,7 @@ $(document).ready(function() {
  				}
  			});
  		}
+ 		
 	});
 	
 
@@ -85,9 +88,10 @@ $(document).ready(function() {
 	<button id="btnSearch" class="btn btn-outline-secondary">검색</button>
 </div>
 
-<c:if test="${member_id eq 'admin' }">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button id="btnRegister" class="btn pull-right">등록</button>
-</c:if>
+</sec:authorize>
+
 </div>
 <br>
 <br>

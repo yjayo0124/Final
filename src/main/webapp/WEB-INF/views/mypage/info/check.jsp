@@ -1,40 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <script type="text/javascript">
 
-$(function() {
-	$("body").on({			
-		click: function() {		// click 이벤트가 발생했을 때
-			$("#text").html("<a class='btn btn-danger' id='withdraw' href='/mypage/withdrawProc'>>탈퇴하기<</a>");
-		}
-	}, "#btnWithdraw");		// id가 "btn"인 요소에 이벤트 핸들러를 등록함.
-});
+
+
+
 </script>
+
+
 
 <style type="text/css">
 .container {
 	margin: 0 auto;
 	padding:0;
     width: 1200px;
+
     zoom: 1;
 }
-
+.top_container {
+	width:1200px;
+	height: 190px;
+}
 .bottom_container{
 	width:1200px;
 	margin-top:10px;
 	height: auto;
 	display: inline;
 }
-.profile {
-	width:190px;
-	height: 190px;
-	border: 1px solid #dce1eb;
-	float: left;
-	margin-right: 10px;
-}
+
 .page_list{
 	width:190px;
 	float: left;
@@ -94,13 +87,39 @@ $(function() {
     margin:0;
 }
 
-.withdraw_container{
-	text-align: center;
-	margin-top: 15%;
+.form-group{
+	height: 30px;
 }
 
-#withdraw{
-	margin-top: 10px;
+
+#btnCheck{
+
+	border: none;
+	background-color: #a6172d;
+	color: white;
+	width: 60px;
+	height: 32px;
+}
+
+
+
+.pw_container{
+
+
+}
+
+
+
+#member_pw{
+
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 auto;
+    display: inherit;
+    height: 32px;
+    
 }
 
 </style>
@@ -136,13 +155,31 @@ $(function() {
 					<li><a href="/mypage/withdraw/confirm">회원 탈퇴</a></li>
 				</ul>
 			</div>
+		</div>    
+	<div class="info_container" style="margin-left: 250px; width: 700px;">
+		
+		<h3>회원정보 수정</h3>
+		<hr>
+		<form action="/mypage/info/check" method="POST" class="form-horizontal">
+
+		<div class="pw_container">
+
+		<div class="input">
+		<input type="password" id="member_pw" name="member_pw"maxlength="20"  placeholder="비밀번호 입력"/>
 		</div>
-		<div class="withdraw_container" style="margin-left: 250px; width: 700px;">
-			<h3>버튼을 누르시면 더이상 KHOB의 서비스를 이용하실 수 없습니다.</h3>
-			
-		 	<button id="btnWithdraw" type="button" class="btn btn-warning btn-lg">정말 탈퇴하시겠습니까?</button>
-		 	<div id="text">
-		 	</div>
+		
+		<div style="margin-top: -32px; margin-left: 420px;">
+			<button  id="btnCheck" class="btn_type" type="submit">
+			<span>확인</span>
+			</button>
 		</div>
+		
+		</div>
+		</form>
+
+		
 	</div>
+	
+	</div>
+
 </div>

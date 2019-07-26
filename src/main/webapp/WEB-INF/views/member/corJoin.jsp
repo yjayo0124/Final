@@ -303,6 +303,7 @@ function clause(){
 	margin: 30px 0 9px;
 }
 .btn_type {
+	color: white;
 	margin-top: -19px;
 	display: inline-block;
 	width: 100%;
