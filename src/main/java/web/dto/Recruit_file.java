@@ -4,7 +4,7 @@ public class Recruit_file {
 	private int recruit_file_no;
 	private String recruit_file_storedname;
 	private String recruit_file_originname;
-	private String recruit_no;
+	private int recruit_no;
 	
 	@Override
 	public String toString() {
@@ -30,10 +30,10 @@ public class Recruit_file {
 	public void setRecruit_file_originname(String recruit_file_originname) {
 		this.recruit_file_originname = recruit_file_originname;
 	}
-	public String getRecruit_no() {
+	public int getRecruit_no() {
 		return recruit_no;
 	}
-	public void setRecruit_no(String recruit_no) {
+	public void setRecruit_no(int recruit_no) {
 		this.recruit_no = recruit_no;
 	}
 

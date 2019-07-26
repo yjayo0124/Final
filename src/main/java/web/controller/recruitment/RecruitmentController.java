@@ -33,9 +33,9 @@ public class RecruitmentController {
 	private static final Logger logger = LoggerFactory.getLogger(RecruitmentController.class);
 	
 	@RequestMapping(value = "/recruitment/main", method = RequestMethod.GET) 
-	public void recruitList(HttpServletRequest req, Model model) {
+	public void recruitList( HttpServletRequest req, Model model) {
 //		logger.info("채용공고 리스트페이지");
-	
+		
 		//요청 파라미터에서 curPage 얻어오기
 		Paging paging = recruitmentService.getCurPage(req);
 		
@@ -58,13 +58,20 @@ public class RecruitmentController {
 		
 		recruit = recruitmentService.view(recruit);
 		model.addAttribute("viewRecruit", recruit);
+
+		String recruit_file = recruitmentService.getFilename(recruit.getRecruit_no());
+		logger.info("db"+recruit_file);
+		model.addAttribute("file", recruit_file);
 		
 	}
-	
+
+
 	@RequestMapping(value = "/recruitment/write", method = RequestMethod.GET) 
 	public void recruitWriteForm(Authentication auth, Model model) {
 		logger.info("글쓰기 폼");
+		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
+		
 		model.addAttribute("cor", corService.select(member.getCompany_no()));
 		
 		
@@ -72,28 +79,32 @@ public class RecruitmentController {
 	
 	@RequestMapping(value="/recruitment/write", method= RequestMethod.POST)
 	public String recruitWriteProc(
-			Recruit recruit,
-			Model model,
 			Authentication auth,
+			Recruit recruit,
 			@RequestParam(value="file") MultipartFile fileupload
 			) {
 	
 		logger.info("글쓰기");
-//		//인증된 객체의 상세정보 가져오기
+		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
-//		//객체에 담겨있는 회원번호 가져오기
+				
+		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
-//		// 기업회원의 기업번호 가져오기
-
-		//model.addAttribute("cor", corService.select(member.getCompany_no()));
-		
-		logger.info("파일업로드 처리");
+		logger.info("사용자가 입력한 recruit"+recruit);
 		logger.info("파일 : " + fileupload.getOriginalFilename());
 		logger.info(context.getRealPath("upload"));
 
 	
 		//글 저장
-		recruitmentService.write(recruit, fileupload, context);
+		if( fileupload != null) { //파일 있ㄲ는 업로드 insert 
+			recruitmentService.write(recruit);
+			
+			recruitmentService.filesave( fileupload, context);
+			
+		}else {// 파일 업로드 안할 때 insert 
+				
+		recruitmentService.write(recruit);
+		}
 		
 		return "redirect:/recruitment/main";
 	}
@@ -108,14 +119,23 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value="/recruitment/update", method=RequestMethod.POST)
-	public String updateProc(Recruit recruit) {
+	public String updateProc(
+			Recruit recruit,
+			Authentication auth,
+			@RequestParam(value="file") MultipartFile fileupload
+			) {
+		//인증된 객체의 상세정보 가져오기
+		Member member = (Member) auth.getDetails();
+						
+		//객체에 담겨있는 회원번호 가져오기
+		recruit.setMember_no(member.getMember_no());
 		
-		//logger.info(board.toString());
 		recruitmentService.update(recruit);
 		
 		return "redirect:"+"/recruitment/view?recruit_no="+recruit.getRecruit_no();
 		
 	}
+	
 	@RequestMapping(value = "/recruitment/delete", method = RequestMethod.GET) 
 	public String recruitDelete(Recruit recruit, Model model) {
 		logger.info("채용공고 삭제");

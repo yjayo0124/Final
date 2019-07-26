@@ -63,41 +63,47 @@ public class RecruimentServiceImpl implements RecruitmentService{
 	}
 	
 	@Override
-	public void write(Recruit recruit, MultipartFile file, ServletContext context) {
-		//파일이 저장될 경로
-				String storedPath = context.getRealPath("upload");
-
-				//UUID
-				String uId = UUID.randomUUID().toString().split("-")[4];
-						
-				//저장될 파일의 이름 (원본이름 + UUID)
-				String name = file.getOriginalFilename()+"_"+uId;
-
-				//저장될 파일 객체
-				File dest = new File(storedPath, name);
-						
-								
-				//파일 저장
-				try {
-					file.transferTo(dest); //실제 저장
-									
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-						
-				//DB에저장 (업로드 정보 기록)
-				Recruit_file recruit_file = new Recruit_file();
-				recruit_file.setRecruit_file_originname(file.getOriginalFilename());
-				recruit_file.setRecruit_file_storedname(name);
-						
-				recruitmentDao.insertFile(recruit_file);	
-				
-				recruitmentDao.write(recruit);
+	public void write(Recruit recruit) {
+		recruitmentDao.write(recruit);
 	}
 
-	
+	@Override
+	public void filesave(MultipartFile file, ServletContext context) {
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+
+		//UUID
+		String uId = UUID.randomUUID().toString().split("-")[4];
+				
+		//저장될 파일의 이름 (원본이름 + UUID)
+		String name = file.getOriginalFilename()+"_"+uId;
+
+		//저장될 파일 객체
+		File dest = new File(storedPath, name);
+				
+						
+		//파일 저장
+		try {
+			file.transferTo(dest); //실제 저장
+							
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+				
+		//DB에저장 (업로드 정보 기록)
+		Recruit_file recruit_file = new Recruit_file();
+		Recruit recruit = new Recruit();
+		
+		recruit_file.setRecruit_file_originname(file.getOriginalFilename());
+		recruit_file.setRecruit_file_storedname(name);
+		//recruit_file.setRecruit_no(recruit_no);	
+		
+		recruitmentDao.insertFile(recruit_file);	
+		
+		
+	}
 	@Override
 	public List<Recruit> getListByMemberNo(int member_no) {
 		
@@ -113,9 +119,24 @@ public class RecruimentServiceImpl implements RecruitmentService{
 
 	@Override
 	public void delete(Recruit recruit) {
+		
+		Recruit_file recruit_file = new Recruit_file();
+		
+		recruit_file.setRecruit_no(recruit.getRecruit_no());
+		recruitmentDao.deleteFile(recruit_file);
 		recruitmentDao.deleteByrecruitno(recruit);
 		
 	}
+
+	@Override
+	public String getFilename(int recruit_no) {
+
+		return	recruitmentDao.selectFilename(recruit_no);
+	
+	
+	}
+
+	
 
 
 }
