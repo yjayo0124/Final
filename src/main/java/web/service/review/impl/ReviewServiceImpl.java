@@ -112,13 +112,15 @@ public class ReviewServiceImpl implements ReviewService {
 		int checkResult = 0;
 		List<Recommend> check = reviewDao.scanRecommend(memno);
 		System.out.println(check);
-		System.out.println(reviewno);
+		System.out.println("reviewno : " +reviewno);
+		System.out.println("changeno : " +changeno);
+		System.out.println("memno : " +memno);
 		for(int i = 0; i < check.size(); i++) {
 			if(check.get(i).getReview_no() == reviewno && check.get(i).getMem_no() == memno) {
 				checkResult = 1;
-			} else if(check.get(i).getReview_no() != reviewno && check.get(i).getMem_no() == memno) {
+			} else if(check.get(i).getReview_no() != reviewno && check.get(i).getMem_no() == memno && changeno == 0) {
 				checkResult = 2;
-			}  else if(check.get(i).getReview_no() != reviewno && check.get(i).getMem_no() != memno) {
+			}  else if(check.get(i).getReview_no() != reviewno && check.get(i).getMem_no() != memno && changeno == 0) {
 				checkResult = 2;
 			}
 		}
@@ -131,6 +133,7 @@ public class ReviewServiceImpl implements ReviewService {
 		recommend.setRecommend_check(changeno);
 		
 		if(checkResult == 2) {
+			reviewDao.deleteRecommend(recommend);
 			reviewDao.insertRecommend(recommend);
 			return check;
 		} else if(checkResult == 1 && changeno == 0){
@@ -140,5 +143,10 @@ public class ReviewServiceImpl implements ReviewService {
 			reviewDao.deleteRecommend(recommend);
 			return check;
 		}
+	}
+
+	@Override
+	public List<Recommend> getRecommend() {
+		return reviewDao.selectRecommend();
 	}
 }

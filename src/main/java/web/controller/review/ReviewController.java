@@ -106,6 +106,9 @@ public class ReviewController {
 		paging.setTag(selectTag);
 		
 		List<HashMap<String, Object>> reviewlist = reviewService.tagSearch(paging);
+		List<Recommend> recommendlist = reviewService.getRecommend();
+
+		model.addAttribute("reclist", recommendlist);
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("paging", paging);
 		model.addAttribute("tag", selectTag);
@@ -154,12 +157,14 @@ public class ReviewController {
 		
 		reviewService.updateLike(reviewno, changeno);
 		List<Recommend> rec = reviewService.updateRecommend(recommend, reviewno, changeno, memno);
-		System.out.println(rec);
-		model.addAttribute("rec", rec);
+		System.out.println("rec : " + rec);
 		int uplike = reviewService.selectLike(reviewno);
 		
+
 		JSONObject obj = new JSONObject();
 		obj.put("data", uplike);
+
+
         resp.setContentType("application/json ; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
         

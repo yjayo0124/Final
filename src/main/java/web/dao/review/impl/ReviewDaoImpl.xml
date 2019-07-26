@@ -86,12 +86,12 @@
 	
 	<insert id="insertRecommend">
 		INSERT INTO recommend
-		VALUES(#{review_no }, #{mem_no }, #{recommend_check } + 1)
+		VALUES(#{review_no }, #{mem_no }, 1)
 	</insert>
 	
 	<update id="addRecommend">
 		UPDATE recommend
-		SET recommend_check = recommend_check + 1
+		SET recommend_check = 1
 		WHERE mem_no = #{mem_no } AND review_no = #{review_no }
 	</update>
 	
@@ -108,5 +108,9 @@
 	<select id="scanRecommend" parameterType="int" resultType="web.dto.Recommend">
 		SELECT mem_no, review_no FROM recommend
 		WHERE mem_no = #{mem_no }
+	</select>
+	
+	<select id="selectRecommend" resultType="web.dto.Recommend">
+		SELECT * FROM recommend
 	</select>
 </mapper>
