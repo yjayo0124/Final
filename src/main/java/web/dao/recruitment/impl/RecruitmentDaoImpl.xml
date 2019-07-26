@@ -19,7 +19,7 @@
 		SELECT count(*) FROM recruit
 	</select>
 	
-	<select id="select" parameterType="int" resultType="web.dto.Recruit">
+	<select id="select" parameterType="int" resultType="hashmap">
 		SELECT * FROM recruit
 		WHERE recruit_no = #{recruit_no}
 	</select>

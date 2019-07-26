@@ -353,14 +353,14 @@ td {
 			<div class="listGroup">
 				<h2 class="list_title">활동 관리</h2>
 				<ul>
-					<li>내 스크랩</li>
-					<li>내가 쓴 리뷰</li>
+					<li><a href="/mypage/scrab">내 스크랩</a></li>
+					<li><a href="/mypage/myReview">내가 쓴 리뷰</a></li>
 				</ul>
 			</div>
 			<div class="listGroup">
 				<h2 class="list_title">회원정보 관리</h2>
 				<ul>
-					<li><a href="/mypage/info/update">회원정보 수정</a></li>
+					<li><a href="/mypage/info/check">회원정보 수정</a></li>
 					<li><a href="/mypage/withdraw/confirm">회원 탈퇴</a></li>
 				</ul>
 			</div>

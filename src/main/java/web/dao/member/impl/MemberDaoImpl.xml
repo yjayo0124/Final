@@ -52,4 +52,10 @@
 	</update>
 
 
+
+	<select id="getMyReviewList" parameterType="int" resultType="Hashmap">
+	SELECT * FROM review WHERE mem_no = #{member_no}
+	</select>
+
+
 </mapper>

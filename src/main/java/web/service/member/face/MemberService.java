@@ -1,6 +1,9 @@
 package web.service.member.face;
 
+import java.util.List;
+
 import web.dto.Member;
+import web.dto.Review;
 
 public interface MemberService {
 
@@ -19,4 +22,6 @@ public interface MemberService {
 	
 	public void withdraw(int member_no);
 	
+	
+	public List<Review> getList(int member_no);
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script type="text/javascript">
 
 
@@ -160,6 +162,15 @@ $(document).ready(function() {
 	height: 30px;
 }
 
+
+#btnUpdate{
+	
+	background-color: #a6172d;
+	border: none;
+	color: white;
+
+}
+
 </style>
     
 <div class="container">
@@ -182,8 +193,8 @@ $(document).ready(function() {
 			<div class="listGroup">
 				<h2 class="list_title">활동 관리</h2>
 				<ul>
-					<li>내 스크랩</li>
-					<li>내가 쓴 리뷰</li>
+					<li><a href="/mypage/scrab">내 스크랩</a></li>
+					<li><a href="/mypage/myReview">내가 쓴 리뷰</a></li>
 				</ul>
 			</div>
 			<div class="listGroup">
@@ -213,7 +224,7 @@ $(document).ready(function() {
 		
 		<div class="form-group has-error">
 		<label for="member_pw" class="col-sm-2">비밀번호</label>
-		<div class="col-sm-4"><input type="password" id="member_pw" name="member_pw" class="inputtext form-control" maxlength="20" value="${member.member_pw }" /></div>
+		<div class="col-sm-4"><input type="password" id="member_pw" name="member_pw" class="inputtext form-control" maxlength="20"  /></div>
 		</div>
 			
 		<div class="form-group has-error">
@@ -233,10 +244,11 @@ $(document).ready(function() {
 		<div class="col-sm-4"><input type="text" class="form-control" id="member_email" name="member_email" value="${member.member_email }"/></div>
 		</div>
 
+	<div style="margin-left: 121px;">
 		<button  id="btnUpdate" class="btn_type">
 		<span>변경하기</span>
 		</button>
-
+	</div>
 
 		</form>
 		

@@ -95,7 +95,7 @@ public class RecruitmentController {
 		logger.info(context.getRealPath("upload"));
 
 	
-		//글 저장
+
 		if( fileupload != null) { //파일 있ㄲ는 업로드 insert 
 			recruitmentService.write(recruit);
 			
@@ -105,6 +105,7 @@ public class RecruitmentController {
 				
 		recruitmentService.write(recruit);
 		}
+
 		
 		return "redirect:/recruitment/main";
 	}
