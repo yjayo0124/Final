@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-
-$(function() {
-	$("body").on({			
-		click: function() {		// click 이벤트가 발생했을 때
-			$("#text").html("<a class='btn btn-danger' id='withdraw' href='/mypage/withdrawProc'>>탈퇴하기<</a>");
-		}
-	}, "#btnWithdraw");		// id가 "btn"인 요소에 이벤트 핸들러를 등록함.
-});
-</script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <style type="text/css">
 .container {
@@ -103,6 +92,14 @@ $(function() {
 	margin-top: 10px;
 }
 
+
+.table{
+	
+	background-color: #a6172d;
+	color: white;
+
+}
+
 </style>
     
 <div class="container">
@@ -137,12 +134,36 @@ $(function() {
 				</ul>
 			</div>
 		</div>
-		<div class="withdraw_container" style="margin-left: 250px; width: 700px;">
-			<h3>버튼을 누르시면 더이상 KHOB의 서비스를 이용하실 수 없습니다.</h3>
-			
-		 	<button id="btnWithdraw" type="button" class="btn btn-warning btn-lg">정말 탈퇴하시겠습니까?</button>
-		 	<div id="text">
-		 	</div>
+		<div class="reviewList" style="margin-left: 250px; width: 700px;">
+
+<h3>내가 쓴 리뷰</h3>
+<hr>
+<div class="review_table" style="border: 1px solid #ccc; height: 400px;">
+<table class="table table-hover table-condensed" >
+	<thead>
+		<tr >
+			<th style="width: 10%">글번호</th>
+			<th style="width: 10%">태그</th>
+			<th style="width: 55%; text-align: center;">제목</th>	
+			<th style="width: 10%">조회수</th>
+			<th style="width: 15%">작성일</th>
+		</tr>
+	</thead>
+	<tbody>
+<c:forEach items="${list }" var="i">
+	<tr>
+		<td style="width: 10%">${i.REVIEW_NO }</td>
+		<td style="width: 10%">${i.REVIEW_TAG }</td>
+		<td style="width: 55%; text-align: center;"><a href="/review/view?review_no=${i.REVIEW_NO }">${i.REVIEW_TITLE }</a></td>
+		<td style="width: 10%">${i.REVIEW_HIT }</td>
+		<td style="width: 15%"><fmt:formatDate value="${i.REVIEW_WRITTEN_DATE }" pattern="yy-MM-dd" /></td>
+	</tr>
+</c:forEach>
+</tbody>
+</table>
+</div>
+
+
 		</div>
 	</div>
 </div>

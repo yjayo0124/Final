@@ -235,6 +235,7 @@ function clause(){
 	margin: 30px 0 9px;
 }
 .btn_type {
+color: white;	
 	display: block;
 	width: 100%;
 	background-color : #c03546;
@@ -341,11 +342,14 @@ a{
 			</span> 
 			
 
-			<span class="intext"> <input type="text" id="member_phone"
-				name="member_phone" class="inputtext" maxlength="16" placeholder="휴대폰 번호*"/><span class="error" id="phoneMsg"> 필수 정보입니다 </span>
+			<span class="intext"> 
+			<input type="text" id="member_phone"
+				name="member_phone" class="inputtext" maxlength="11" placeholder="휴대폰 번호*  -하이폰 빼고 입력"/><span class="error" id="phoneMsg"> 필수 정보입니다 </span>
 			</span> 
 		</div>	
 			<input type="hidden" id="member_auth" name="member_auth" value="ROLE_IDV" />
+
+
 	
 	
 			<div class="checkbox" style="text-align: center; font-size: 18px; border: 1px solid #ccc; height: 37px; margin: 0 auto;">

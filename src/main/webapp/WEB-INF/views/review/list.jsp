@@ -12,6 +12,7 @@
 <script type="text/javascript">
 var tagvalue = '${tag }';
 
+
 $(document).ready(function() {
 	$('input[name=selectTag]').attr('value','전체');
 	
@@ -69,8 +70,6 @@ $(document).ready(function() {
 		var change = like.eq(1).children().val();
 		var memno = $(this).parent().parent().parent().children();
 		
-		var rec = $('#reccheck').val()
-		console.log(rec);
 		console.log("클릭 값 : "+ memno.eq(0).children().val());
 
 		 $.ajax({
@@ -79,6 +78,9 @@ $(document).ready(function() {
 			 dataType: "json",
 			 data: { reviewno : td.eq(0).text(), change : like.eq(1).children().val(), memno : memno.eq(0).children().val()},
 			 success: function(data) {
+				 console.log("data : " + data.data);
+				 console.log("member : " + memno);
+	
 				 if(${empty pageContext.request.userPrincipal }) {
 					 alert("로그인 하세요");
 				 } else {
@@ -97,7 +99,7 @@ $(document).ready(function() {
 				 }
 			 },
 			 error : function(data) {
-				 alert("에러가 발생하였습니다.")
+				 alert("로그인 하세요");
 			 }
 		 });
 		
@@ -261,8 +263,12 @@ a:link {
 	width: 5%;
 }
 
+#reviewtag, #thtag {
+	width: 10%;
+}
+
 #tagcor, #thcor {
-	width: 30%;
+	width: 20%;
 }
 
 #tagtitle, #thtitle {
@@ -276,20 +282,10 @@ a:link {
 <c:set var="pagingTag" value="전체"/>
 <sec:authentication property="details" var="member"/>   
     <sec:authorize access="isAuthenticated()">
-<%--     	<c:forEach items="${rec }" var="i"> --%>
-<%--     		<c:if test="${member.meber_no eq rec.mem_no }"> --%>
-<!-- 				<input type="hidden" id="reccheck" name="reccheck" value="0"/> -->
-<%--     		</c:if> --%>
-<%--     	</c:forEach> --%>
 		<c:set var="mem" value="${member.member_no }"/>
-		${rec.mem_no }
 </sec:authorize>
 
-    	<c:forEach items="${rec }" var="i">
-				<input type="hidden" id="reccheck" name="reccheck" value="${i.MEM_NO }"/>
-				${i.MEM_NO }
-    	</c:forEach>
-    	
+
 <br>
 <h1>기업리뷰</h1>
 <br>
@@ -317,16 +313,31 @@ a:link {
 <table id="tbl">
 	<tr>
 		<th id="thno">No</th>
+		<th id="thtag">Tag</th>
 		<th id="thcor">기업이름</th>
 		<th id="thtitle">제목</th>
 	</tr>
 	<c:forEach items="${reviewlist }" var="i">
+	<c:set var="src" value="/resources/images/beforelike.png"/>
+	<input type="hidden" value="${i.REVIEW_CHECK = 0}"/>
+		<c:forEach items="${reclist }" var="j">
+			<c:if test="${j.mem_no eq  mem}">
+				<c:set var="recno" value="${j.review_no }"/>
+			</c:if>
+			<c:choose>
+				<c:when test="${recno eq i.REVIEW_NO }">
+					<c:set var="src" value="/resources/images/afterlike.png"/>
+					<input type="hidden" value="${i.REVIEW_CHECK = 1}"/>
+				</c:when>
+			</c:choose>
+		</c:forEach>
 		<tr>
 			<td id="tagno"><input type="hidden" id="memno" name="memno" value="${mem }"/>${i.REVIEW_NO }</td>
-			<td id="tagcor">${i.COR_NAME }</td>
+			<td id="reviewtag">${i.REVIEW_TAG }</td>
+			<td id="tagcor"><a href="/cor/info?cor_no=${i.COR_NO }&cor_type=${i.COR_TYPE }">${i.COR_NAME }</a></td>
 			<td id="tagtitle"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
 				<h6><input type="hidden" id="change" name="change" value="${i.REVIEW_CHECK }"/>
-					<img id="like" src="/resources/images/beforelike.png"/>&nbsp;<label id="uplike">${i.REVIEW_RECOMMENDED }</label>&nbsp;&nbsp;&nbsp;
+					<img id="like" src="${src }"/>&nbsp;<label id="uplike">${i.REVIEW_RECOMMENDED }</label>&nbsp;&nbsp;&nbsp;
 					조회수&nbsp;${i.REVIEW_HIT }&nbsp;&nbsp;&nbsp;
 					작성일&nbsp;<fmt:formatDate value="${i.REVIEW_WRITTEN_DATE}" pattern="yyyy-MM-dd"/>
 				</h6>

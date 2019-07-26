@@ -220,7 +220,7 @@ public class MemberController {
 		boolean check = memberService.memChk(member_id);
 		//if false== id create ok , if true == id create false;.
 		
-		logger.info("check: "+check);
+	//	logger.info("check: "+check);
 		
 		return check;
 	}

@@ -116,7 +116,6 @@ $(document).ready(function() {
 </div>
 
 
-
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button id="btnRegister" class="btn pull-right">등록</button>
 </sec:authorize>

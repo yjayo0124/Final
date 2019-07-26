@@ -134,7 +134,7 @@ function loginException(){
 	width: 100px;
 	height: 96px;
 	min-height: 55px;
-	background: #c03546;
+	background: #252c41;
 	border: 1px;
 	color: white;
 }
@@ -147,6 +147,17 @@ function loginException(){
 	
 }
 
+.error_container{
+
+	height: 22px;
+    width: 400px;
+    position: absolute;
+    margin-left: -1px;
+    margin-top: -32px;
+    background-color: #ee2560;
+    color: white;
+}
+
 </style>
 
 <h2><c:out value="${error }" /></h2>
@@ -157,9 +168,9 @@ function loginException(){
 <h2 style="margin-bottom: 45px;">KHOB</h2>
 
 <c:if test="${not empty ERRORMSG }">
-	<font color = "red" style="position: absolute; margin-top: -29px; font-style: italic; left: 37%">
+	<div class="error_container">
 	<strong><p>${ERRORMSG }</p></strong>
-	</font>
+	</div>
 </c:if>
 
 <form action="/member/login" method="POST" id="form">

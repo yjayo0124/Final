@@ -1,18 +1,27 @@
 package web.controller.mypage;
 
+import java.util.List;
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import web.dto.Cor;
 import web.dto.Member;
+
+import web.dto.Review;
+import web.dto.mypage.resume.Resume;
+import web.dto.mypage.resume.University;
 import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
@@ -32,6 +41,9 @@ public class MypageController {
 	
 	@Autowired MemberService memberService;
 	
+	@Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
 	@RequestMapping(value = "/mypage/main", method = RequestMethod.GET) 
 	public void mypage() {
 		logger.info("마이페이지 메인 접속");
@@ -49,8 +61,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
-	public void introductionWriteProc() {
-		
+	public void introductionWriteProc(HttpServletRequest request) {
+		Enumeration params = request.getParameterNames();
+		System.out.println("----------------------------");
+		while (params.hasMoreElements()){
+		    String name = (String)params.nextElement();
+		    System.out.println(name + " : " +request.getParameter(name));
+		}
+		System.out.println("----------------------------");
+
 	}
 	
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)
@@ -161,15 +180,37 @@ public class MypageController {
 	}
 	
 	
+	@RequestMapping(value="/mypage/info/check", method=RequestMethod.GET)
+	public void check(Authentication auth, Model model) {
 
+	}
+	
+	@RequestMapping(value="/mypage/info/check", method=RequestMethod.POST)
+	public String checkProc(Authentication auth, String member_pw) {
+		
+		Member member = (Member) auth.getDetails();
+		
+		if( passwordEncoder.matches(member_pw, member.getMember_pw())) {
+			
+			return "redirect: /mypage/info/update";			
+		}else { 
+			
+			return "redirect: /mypage/info/check";
+		}
+		
+		
+	}
+	
+	
 	
 	@RequestMapping(value="/mypage/info/update", method=RequestMethod.GET)
 	public void memUpdate(Authentication auth, Model model) {
 		
 		Member member = (Member) auth.getDetails();
 		
-		Member memberRes = memberService.selectById(member.getMember_id());
 		
+		Member memberRes = memberService.selectById(member.getMember_id());
+	
 		model.addAttribute("member", memberRes);
 		
 		
@@ -179,15 +220,40 @@ public class MypageController {
 	@RequestMapping(value="/mypage/info/update", method=RequestMethod.POST)
 	public String memUpdateProc(Member member, Model model) {
 		
-		logger.info(member.toString());
+		logger.info("변경될 회원 정보 : " + member.toString());
+		
+		String incode_pw = passwordEncoder.encode(member.getMember_pw());
+		
+		member.setMember_pw(incode_pw);
+		
 		memberService.update(member);
 		
 		Member memberRes = memberService.selectById(member.getMember_id());
 
-		
 		model.addAttribute("member", memberRes);
 		
 		return "redirect: /mypage/info/update";
 	
 	}
+	
+	
+	
+	@RequestMapping(value="/mypage/myReview", method=RequestMethod.GET)
+	public void myReview(Authentication auth, Model model) {
+		
+		Member member = (Member) auth.getDetails();
+		
+		List<Review> res = memberService.getList(member.getMember_no());
+		
+		model.addAttribute("list", res);
+		
+	}
+	
+	
+	@RequestMapping(value="/mypage/scrab", method=RequestMethod.GET)
+	public void myScrab(Authentication auth, Model model) {
+		
+		
+	}
+	
 }

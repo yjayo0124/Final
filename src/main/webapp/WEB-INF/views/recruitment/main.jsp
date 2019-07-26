@@ -61,7 +61,7 @@ table, th {
 <tbody>
 <c:forEach items="${recruitList }" var="i">
 <tr>
-	<td><a href="#">${i.recruit_name }</a></td>
+	<td><a href="/cor/info?cor_no=${cor.cor_no }">${i.recruit_name }</a></td>
 	<td><a href="/recruitment/view?recruit_no=${i.recruit_no }">${i.recruit_title }</a></td>
 </tr>
 </c:forEach>
