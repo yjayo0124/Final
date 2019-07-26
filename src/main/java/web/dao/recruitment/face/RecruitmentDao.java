@@ -73,4 +73,7 @@ public interface RecruitmentDao {
 	 * @param recruit_file
 	 */
 	public void deleteFile(Recruit_file recruit_file);
+
+	public String selectFilename(int recruit_no);
+
 }

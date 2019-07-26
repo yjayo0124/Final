@@ -12,9 +12,8 @@ public class Recruit {
 	private int recruit_sal;
 	private String recruit_position;
 	private String recruit_content;
+	private String recruit_loc;
 	private int member_no;
-
-
 
 	@Override
 	public String toString() {
@@ -22,7 +21,8 @@ public class Recruit {
 				+ recruit_title + ", recruit_career=" + recruit_career + ", recruit_educareer=" + recruit_educareer
 				+ ", recruit_certificate=" + recruit_certificate + ", recruit_major=" + recruit_major
 				+ ", recruit_type=" + recruit_type + ", recruit_sal=" + recruit_sal + ", recruit_position="
-				+ recruit_position + ", recruit_content=" + recruit_content + ", member_no=" + member_no + "]";
+				+ recruit_position + ", recruit_content=" + recruit_content + ", recruit_loc=" + recruit_loc
+				+ ", member_no=" + member_no + "]";
 	}
 
 	public int getRecruit_no() {
@@ -111,6 +111,14 @@ public class Recruit {
 
 	public void setRecruit_position(String recruit_position) {
 		this.recruit_position = recruit_position;
+	}
+
+	public String getRecruit_loc() {
+		return recruit_loc;
+	}
+
+	public void setRecruit_loc(String recruit_loc) {
+		this.recruit_loc = recruit_loc;
 	}
 
 	public int getMember_no() {
