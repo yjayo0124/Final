@@ -85,7 +85,9 @@ button {
 <tr>
 <td colspan="2" text ="bold">근무자격</td><td colspan="3"></td>
 </tr>
-
+<tr>
+<td>근무지역</td><td >${viewRecruit.recruit_loc }</td><td colspan="3"></td>
+</tr>
 <tr>
 <td>고용형태</td><td >${viewRecruit.recruit_type }</td><td colspan="3"></td>
 </tr>
@@ -106,9 +108,9 @@ button {
 
 <h2>상세요강</h2><hr>
 <div>
-<!-- <img src="/webapp/upload"> -->
-
 ${viewRecruit.recruit_content }
+<img src="/upload/${file.recruit_file_storedName }" style="width: 1000px; height: 3000px;">
+
 </div>
 
 <div class="text-right">

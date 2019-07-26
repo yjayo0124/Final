@@ -21,12 +21,13 @@ public interface RecruitmentService {
 
 	public Recruit view(Recruit recruit);
 	
-	public void write(Recruit recruit, MultipartFile file, ServletContext context);
+	public void write(Recruit recruit);
 	
-//	public void filesave(
-//			MultipartFile file, //첨부파일
-//			ServletContext context //서블릿컨텍스트
-//			);
+	public void filesave(
+			
+			MultipartFile file, //첨부파일
+			ServletContext context //서블릿컨텍스트
+			);
 
 
 	public List<Recruit> getListByMemberNo(int member_no);
@@ -34,6 +35,8 @@ public interface RecruitmentService {
 	public void update(Recruit recruit);
 
 	public void delete(Recruit recruit);
+
+	public String getFilename(int recruit_no);
 
 	
 

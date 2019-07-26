@@ -4,10 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper  namespace="web.dao.recruitment.face.RecruitmentDao" >
+
+
 	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.Recruit">
 		SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 			SELECT recruit_no, recruit_name,recruit_title,recruit_career,recruit_educareer, recruit_certificate,
-			recruit_major, recruit_type, recruit_sal, recruit_position, recruit_content, member_no 
+			recruit_major, recruit_type, recruit_sal, recruit_position, recruit_content, recruit_loc,member_no 
 	 		FROM Recruit	
 	 		ORDER BY recruit_no DESC ) B
 			ORDER BY rnum ) WHERE rnum BETWEEN #{startNo} and #{endNo}
@@ -34,6 +36,7 @@
 							recruit_sal,							
 							recruit_position, 
 							recruit_content,
+							recruit_loc,
 							member_no )
 		VALUES	(recruit_seq.nextval, 
 				#{recruit_name},
@@ -46,17 +49,24 @@
 				 #{recruit_sal}, 
 				 #{recruit_position}, 
 				 #{recruit_content},
+				 #{recruit_loc},
 				 #{member_no} )
 	</insert>
 	
 	<insert id="insertFile" parameterType="web.dto.Recruit_file">
+	
+	<selectKey resultType="int" keyProperty="recruit_no" order="BEFORE">
+	select recruit_seq.currval FROM dual
+	</selectKey>
 		INSERT INTO recruit_file
 			 	(recruit_file_no,
 			 	recruit_file_storedname,
-			 	recruit_file_originname)
+			 	recruit_file_originname,
+			 	recruit_no)
 		VALUES (recruit_file_seq.nextval,
 				#{recruit_file_storedname},
-				#{recruit_file_originname}) 
+				#{recruit_file_originname}
+				#{recruit_no}) 
 	</insert>
 	
 
@@ -78,6 +88,7 @@
 			recruit_sal = #{recruit_sal},
 			recruit_position = #{recruit_position}
 			recruit_content = #{recruit_content}
+			recruit_loc =#{recruit_loc}
 		WHERE recruit_no = #{recruit_no}
 	</update>
 	
@@ -90,4 +101,10 @@
 		DELETE FROM recruit_file
 		WHERE recruit_no = #{recruit_no}
 	</delete>
+	
+	<select id="selectFilename" resultType="web.dto.Recruit_file">
+		SELECT recruit_file_storedname FROM recruit_file
+		WHERE recruit_no =#{recruit_no}
+	</select>
+	
 </mapper> 
