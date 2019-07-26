@@ -25,13 +25,13 @@ public interface RecruitmentDao {
 	 * @param recruit_no
 	 * @return 게시글 조회 결과
 	 */
-	public Recruit select(Recruit recruit);
+	public Recruit select(int recruit_no);
 
 	/**
 	 * 게시글 작성
 	 * @param recruit
 	 */
-	public void write(Recruit recruit);
+	public int write(Recruit recruit);
 	
 	/**
 	 * 첨부파일 삽입
@@ -75,5 +75,8 @@ public interface RecruitmentDao {
 	public void deleteFile(Recruit_file recruit_file);
 
 	public String selectFilename(int recruit_no);
+	
+	
+	public int selectRecruitSeqCurrval();
 
 }

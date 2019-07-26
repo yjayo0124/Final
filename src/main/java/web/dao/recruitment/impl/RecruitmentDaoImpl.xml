@@ -19,12 +19,18 @@
 		SELECT count(*) FROM recruit
 	</select>
 	
-	<select id="select" parameterType="int" resultType="hashmap">
+	<select id="select" parameterType="int" resultType="web.dto.Recruit">
 		SELECT * FROM recruit
 		WHERE recruit_no = #{recruit_no}
 	</select>
 	
 	<insert id="write" parameterType="web.dto.Recruit">
+		
+		<selectKey resultType="int" keyProperty="recruit_no" order="AFTER">
+		select recruit_seq.currval FROM dual
+		</selectKey>
+		
+		
 		INSERT INTO recruit( recruit_no, 
 							recruit_name, 
 							recruit_title,
@@ -54,10 +60,6 @@
 	</insert>
 	
 	<insert id="insertFile" parameterType="web.dto.Recruit_file">
-	
-	<selectKey resultType="int" keyProperty="recruit_no" order="BEFORE">
-	select recruit_seq.currval FROM dual
-	</selectKey>
 		INSERT INTO recruit_file
 			 	(recruit_file_no,
 			 	recruit_file_storedname,
@@ -65,7 +67,7 @@
 			 	recruit_no)
 		VALUES (recruit_file_seq.nextval,
 				#{recruit_file_storedname},
-				#{recruit_file_originname}
+				#{recruit_file_originname},
 				#{recruit_no}) 
 	</insert>
 	
@@ -102,9 +104,12 @@
 		WHERE recruit_no = #{recruit_no}
 	</delete>
 	
-	<select id="selectFilename" resultType="web.dto.Recruit_file">
+	<select id="selectFilename" resultType="String" parameterType="int">
 		SELECT recruit_file_storedname FROM recruit_file
 		WHERE recruit_no =#{recruit_no}
 	</select>
+	
+
+	
 	
 </mapper> 
