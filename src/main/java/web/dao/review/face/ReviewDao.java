@@ -41,5 +41,7 @@ public interface ReviewDao {
 
 	public void addRecommend(Recommend recommend);
 
+	public List<Recommend> selectRecommend();
+
 
 }
