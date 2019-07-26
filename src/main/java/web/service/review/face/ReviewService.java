@@ -36,4 +36,6 @@ public interface ReviewService {
 	public int selectLike(int reviewno);
 
 	public List<Recommend> updateRecommend(Recommend recommend, int reviewno, int changeno, int memno);
+
+	public List<Recommend> getRecommend();
 }
