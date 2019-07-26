@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import web.dto.Cor;
 import web.dto.Member;
-import web.dto.Recruit;
+import web.dto.Recommend;
 import web.dto.Review;
 import web.service.main.face.SearchMainService;
 import web.service.review.face.ReviewService;
@@ -145,7 +144,7 @@ public class ReviewController {
 	
 	// 추천수 
 	@RequestMapping(value="/review/addlike", method=RequestMethod.POST)
-	public void addlike(Model model, HttpServletRequest request, HttpServletResponse resp) {
+	public void addlike(Model model, HttpServletRequest request, HttpServletResponse resp, Recommend recommend) {
 		String result = request.getParameter("reviewno");
 		String change  = request.getParameter("change");
 		String mem = request.getParameter("memno");
@@ -153,7 +152,10 @@ public class ReviewController {
 		int changeno = Integer.parseInt(change);
 		int memno = Integer.parseInt(mem);
 		
-		reviewService.updateLike(reviewno, changeno, memno);
+		reviewService.updateLike(reviewno, changeno);
+		List<Recommend> rec = reviewService.updateRecommend(recommend, reviewno, changeno, memno);
+		System.out.println(rec);
+		model.addAttribute("rec", rec);
 		int uplike = reviewService.selectLike(reviewno);
 		
 		JSONObject obj = new JSONObject();

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import web.dto.Recommend;
 import web.dto.Review;
 import web.util.Paging;
 
@@ -30,7 +31,9 @@ public interface ReviewService {
 
 	public void upHit(int reviewno);
 
-	public void updateLike(int reviewno, int changeno, int memno);
+	public void updateLike(int reviewno, int changeno);
 
 	public int selectLike(int reviewno);
+
+	public List<Recommend> updateRecommend(Recommend recommend, int reviewno, int changeno, int memno);
 }

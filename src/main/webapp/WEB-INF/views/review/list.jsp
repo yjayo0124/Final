@@ -68,7 +68,11 @@ $(document).ready(function() {
 		var image = event.target;
 		var change = like.eq(1).children().val();
 		var memno = $(this).parent().parent().parent().children();
+		
+		var rec = $('#reccheck').val()
+		console.log(rec);
 		console.log("클릭 값 : "+ memno.eq(0).children().val());
+
 		 $.ajax({
 			 url: "/review/addlike",
 			 type: "post",
@@ -270,7 +274,22 @@ a:link {
 <body>
 
 <c:set var="pagingTag" value="전체"/>
+<sec:authentication property="details" var="member"/>   
+    <sec:authorize access="isAuthenticated()">
+<%--     	<c:forEach items="${rec }" var="i"> --%>
+<%--     		<c:if test="${member.meber_no eq rec.mem_no }"> --%>
+<!-- 				<input type="hidden" id="reccheck" name="reccheck" value="0"/> -->
+<%--     		</c:if> --%>
+<%--     	</c:forEach> --%>
+		<c:set var="mem" value="${member.member_no }"/>
+		${rec.mem_no }
+</sec:authorize>
 
+    	<c:forEach items="${rec }" var="i">
+				<input type="hidden" id="reccheck" name="reccheck" value="${i.MEM_NO }"/>
+				${i.MEM_NO }
+    	</c:forEach>
+    	
 <br>
 <h1>기업리뷰</h1>
 <br>
@@ -303,7 +322,7 @@ a:link {
 	</tr>
 	<c:forEach items="${reviewlist }" var="i">
 		<tr>
-			<td id="tagno"><input type="hidden" id="memno" name="memno" value="${i.MEM_NO }"/>${i.REVIEW_NO }</td>
+			<td id="tagno"><input type="hidden" id="memno" name="memno" value="${mem }"/>${i.REVIEW_NO }</td>
 			<td id="tagcor">${i.COR_NAME }</td>
 			<td id="tagtitle"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
 				<h6><input type="hidden" id="change" name="change" value="${i.REVIEW_CHECK }"/>
@@ -318,7 +337,7 @@ a:link {
 </table>
 
 <input type="hidden" id="selectTag" name="selectTag" value="전체"></input> <!-- tag 선택시 저장되는 곳 -->
-
+		
 <div id="pagingBox">
 	<c:import url="/WEB-INF/views/layout/reviewPaging/paging.jsp" />
 </div>
