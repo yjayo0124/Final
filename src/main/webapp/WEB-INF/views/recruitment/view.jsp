@@ -99,7 +99,7 @@ button {
 
 <tr>
 <td>직급</td><td>${viewRecruit.recruit_position }</td>
-<td>회사 주소</td><td>${cor.cor_addr }</td>
+<td>회사 주소</td><td>${cor }</td>
 </tr>
 
 </table>

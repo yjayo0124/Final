@@ -8,6 +8,7 @@
 button {
 	float:right;
 	margin-left : 100px;
+	padding: 20px;
 }
 col-md-2 {
 	width: 100px;
@@ -20,6 +21,7 @@ table, th {
 }
 #pagingBox {
 	position: relative;
+	margin-top: 20px;
 }
 
 .content {
@@ -80,12 +82,11 @@ table, th {
 
 </table>
 
-<sec:authorize access="hasRole('ROLE_COR')">
-<button onclick="location.href='/recruitment/write'">공고등록하기</button>
-</sec:authorize>
-
 <div id="pagingBox">
 <c:import url="/WEB-INF/views/recruitment/paging.jsp"/>
 </div>
 
+<sec:authorize access="hasRole('ROLE_COR')">
+<button onclick="location.href='/recruitment/write'" class="btn btn-default btn-sm">공고등록하기</button>
+</sec:authorize>
 </div>
