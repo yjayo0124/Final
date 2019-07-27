@@ -79,4 +79,6 @@ public interface RecruitmentDao {
 	
 	public int selectRecruitSeqCurrval();
 
+	public String selectCornoBytwoMemno(int recruit_no);
+
 }

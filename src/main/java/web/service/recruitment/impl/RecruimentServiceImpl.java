@@ -143,6 +143,11 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		return recruitmentDao.selectRecruitSeqCurrval();
 	}
 
+	@Override
+	public String getCor_no(int recruit_no) {
+		return recruitmentDao.selectCornoBytwoMemno(recruit_no);
+	}
+
 	
 
 

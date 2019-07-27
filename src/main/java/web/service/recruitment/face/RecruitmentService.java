@@ -41,6 +41,8 @@ public interface RecruitmentService {
 	
 	public int recruitSeqCurr();
 
+	public String getCor_no(int recruit_no);
+
 	
 
 

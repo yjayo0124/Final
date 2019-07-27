@@ -53,7 +53,7 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value = "/recruitment/view", method = RequestMethod.GET) 
-	public void recruitView(int recruit_no, Model model) {
+	public void recruitView(Recruit recruit, int recruit_no, Model model) {
 		
 		logger.info("채용공고 상세페이지 :: 조회할 recruit_no --> "+recruit_no);
 		
@@ -64,6 +64,9 @@ public class RecruitmentController {
 		String file_name = recruitmentService.getFilename(recruit_no);
 	//	logger.info("db에서 조회한 파일 이름  : "+file_name);
 		model.addAttribute("file", file_name);
+		
+		String cor_no = recruitmentService.getCor_no(recruit_no);
+		model.addAttribute("cor", cor_no);
 		
 	}
 

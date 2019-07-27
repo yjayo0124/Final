@@ -109,7 +109,13 @@
 		WHERE recruit_no =#{recruit_no}
 	</select>
 	
-
+	<select id="selectCornoBytwoMemno" resultType="String" parameterType="int" >
+	SELECT DISTINCT cor_addr FROM cor C
+		INNER JOIN member M
+			ON C.cor_no = M.company_no
+			INNER JOIN recruit R
+       			ON M.member_no = R.member_no
+	</select>
 	
 	
 </mapper> 
