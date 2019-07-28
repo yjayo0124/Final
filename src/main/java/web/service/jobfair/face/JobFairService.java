@@ -15,6 +15,8 @@ public interface JobFairService {
 	
 	public void updateFair(JobFair jobfair);
 	
+	public void deleteFair(JobFair jobfair);
+	
 	public String jobFairSearch(String title); 
 
 }

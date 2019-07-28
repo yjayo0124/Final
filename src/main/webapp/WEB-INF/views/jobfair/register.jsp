@@ -60,6 +60,9 @@ $(document).ready(function() {
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value='${now }' pattern="yyyyMMdd" var="nowDate"/>
 
+<h4>등록 페이지</h4>
+<hr>
+
 <form action="/jobfair/register" method="post" enctype="multipart/form-data">
 
 <table class="table  table-bordered table-striped table-hover table-condensed">

@@ -23,7 +23,7 @@ $(document).ready(function() {
 			center: 'title',
 			right: 'next, today'
 		},
-		momonthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
+		monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] ,
  		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
  		buttonText: {today: 'today'},
  		events: function(start, end, timezone, callback){
@@ -43,6 +43,7 @@ $(document).ready(function() {
 	 						console.log(idx + " " + val.JOBFAIR_NAME);
 	 						
 	 						events.push({ 
+	 							no: val.JOBFAIR_NO,
 	 							title: val.JOBFAIR_NAME,
 	 							start: val.JOBFAIR_START,
 	 							end: val.JOBFAIR_START
@@ -58,23 +59,16 @@ $(document).ready(function() {
 	 					console.log(jqXHR);
 	 					console.log("--status--")
 	 					console.log(status);
-	 					console.log("--error: ")
+	 					console.log("--error-- ")
 	 					console.log(error);
 	 				}
 	 			});
  			},
-		eventClick: function (calEvent, jsEvent, view) {
-
-            $("#modal").dialog({
-                autoOpen: false,
-            });
-
-            $("#title").val(calEvent.title);
-
-            $("#start").val(calEvent.start);
-
-            $('#dialog').dialog('open');
-        }
+		eventClick: function(){
+			$(location).attr('href', '/jobfair/adminview?jobfair_no=${list.jobfair_no }');
+// 			$(location).attr('href', '/jobfair/adminview');
+		}
+			
 	});
 	
 
@@ -119,13 +113,11 @@ $(document).ready(function() {
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 	<button id="btnRegister" class="btn pull-right">등록</button>
 </sec:authorize>
-</div>
 <br>
 <br>
 
 
 <div id="calendar"></div>
-<div id="modal" class="modal fade">
 
 </div>
 
