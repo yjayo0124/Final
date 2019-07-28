@@ -3,8 +3,10 @@ package web.dao.review.face;
 import java.util.HashMap;
 import java.util.List;
 
+import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
+import web.dto.Review_comment;
 import web.util.Paging;
 
 public interface ReviewDao {
@@ -23,7 +25,7 @@ public interface ReviewDao {
 
 	public List<HashMap<String, Object>> searchReview(Paging paging);
 
-	public List<Review> selectViewList(int reviewno);
+	public List<HashMap<String, Object>> selectViewList(int reviewno);
 
 	public void addHit(int reviewno);
 
@@ -43,5 +45,10 @@ public interface ReviewDao {
 
 	public List<Recommend> selectRecommend();
 
+	public void InsertComment(Review_comment comment);
+
+	public List<Review_comment> getComment(int reviewno);
+
+	public List<Review_comment> getNewComment(int reviewno);
 
 }

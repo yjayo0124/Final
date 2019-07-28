@@ -1,6 +1,7 @@
 package web.controller.review;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import web.dto.Cor;
 import web.dto.Member;
 import web.dto.Recommend;
 import web.dto.Review;
+import web.dto.Review_comment;
 import web.service.main.face.SearchMainService;
 import web.service.review.face.ReviewService;
 import web.util.Paging;
@@ -44,14 +46,16 @@ public class ReviewController {
 	
 	// review table insert
 	@RequestMapping(value = "/review/writePop", method = RequestMethod.POST) 
-	public void writeProc(String selectCor, String selectTag, String title, String content, Review review) {
+	public void writeProc(String selectCor, String selectTag, int selectMem, String title, String content, Review review) {
 		int corno = reviewService.getCorno(selectCor);
-		
+
+		review.setMem_no(selectMem);
 		review.setCor_no(corno);
 		review.setReview_tag(selectTag);
 		review.setReview_title(title);
 		review.setReview_content(content);
 		
+		System.out.println(review);
 		reviewService.write(review);
 	}
 	
@@ -107,7 +111,7 @@ public class ReviewController {
 		
 		List<HashMap<String, Object>> reviewlist = reviewService.tagSearch(paging);
 		List<Recommend> recommendlist = reviewService.getRecommend();
-
+		
 		model.addAttribute("reclist", recommendlist);
 		model.addAttribute("reviewlist", reviewlist);
 		model.addAttribute("paging", paging);
@@ -141,7 +145,10 @@ public class ReviewController {
 		logger.info("뷰 페이지");
 
 		reviewService.upHit(reviewno);
-		List<Review> viewlist = reviewService.getViewList(reviewno);
+		List<HashMap<String, Object>> viewlist = reviewService.getViewList(reviewno);
+		List<Review_comment> getcomment = reviewService.getComment(reviewno);
+		System.out.println(getcomment);
+		
 		model.addAttribute("viewlist", viewlist);
 	}
 	
@@ -173,5 +180,37 @@ public class ReviewController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// view 댓글
+	@RequestMapping(value="/review/comment", method=RequestMethod.POST)
+	public void comment(Model model, HttpServletRequest request, HttpServletResponse resp, Review_comment commentParam) {
+		Review_comment comment = reviewService.getCommentParameter(request, commentParam);
+
+		reviewService.InsertComment(comment);
+		int reviewno = comment.getReview_no();
+		
+		List<Review_comment> newcomment = reviewService.getNewComment(reviewno);
+		SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("newcomment : " + newcomment);
+		
+		JSONArray array = new JSONArray();
+		for(int i  = 0; i <newcomment.size(); i++) {
+			JSONObject obj = new JSONObject();
+			obj.put("nick", newcomment.get(i).getComment_nick());
+			obj.put("content", newcomment.get(i).getComment_content());
+			obj.put("pw", newcomment.get(i).getComment_password());
+			obj.put("recommend", newcomment.get(i).getComment_recommend());
+			obj.put("date",formatdate.format(newcomment.get(i).getComment_written_date()));
+			array.add(obj);
+		}
+        resp.setContentType("application/json ; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        try {
+			resp.getWriter().write(array.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
 	}
 }

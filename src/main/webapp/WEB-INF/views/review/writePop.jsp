@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js">
 </script>
@@ -232,6 +231,10 @@ ul, li {
 </head>
 
 <body>
+<sec:authentication property="details" var="member"/>   
+    <sec:authorize access="isAuthenticated()">
+		<c:set var="mem" value="${member.member_no }"/>
+</sec:authorize>
 
 <br>
 <h1>리뷰작성</h1>
@@ -268,7 +271,7 @@ ul, li {
 	
 	<input type="hidden" name="selectTag"></input> <!-- tag 선택시 저장되는 곳 -->
 	<input type="hidden" name="selectCor"></input> <!-- 기업 선택시 저장되는 곳 -->
-	
+	<input type="hidden" name="selectMem" value="${mem }"></input> <!-- 현재 로그인한 멤버no -->
 	<button type="button" id="writeBtn">글쓰기</button>
 </form>
 

@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.review.face.ReviewDao;
+import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
+import web.dto.Review_comment;
 import web.service.review.face.ReviewService;
 import web.util.Paging;
 
@@ -83,7 +85,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getViewList(int reviewno) {
+	public List<HashMap<String, Object>> getViewList(int reviewno) {
 		return reviewDao.selectViewList(reviewno);
 	}
 
@@ -149,4 +151,37 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Recommend> getRecommend() {
 		return reviewDao.selectRecommend();
 	}
+
+	@Override
+	public Review_comment getCommentParameter(HttpServletRequest request, Review_comment commentParam) {
+		String reviewno = request.getParameter("reviewno");
+		String cmtnick = request.getParameter("cmtnick");
+		String cmtcontent  = request.getParameter("cmtcontent");
+		String cmtpassword = request.getParameter("cmtpassword");
+		int no = Integer.parseInt(reviewno);
+		int password = Integer.parseInt(cmtpassword);
+
+		commentParam.setReview_no(no);
+		commentParam.setComment_nick(cmtnick);
+		commentParam.setComment_content(cmtcontent);
+		commentParam.setComment_password(password);
+		
+		return commentParam;
+	}
+
+	@Override
+	public void InsertComment(Review_comment comment) {
+		reviewDao.InsertComment(comment);
+	}
+
+	@Override
+	public List<Review_comment> getComment(int reviewno) {
+		return reviewDao.getComment(reviewno);
+	}
+
+	@Override
+	public List<Review_comment> getNewComment(int reviewno) {
+		return reviewDao.getNewComment(reviewno);
+	}
+
 }
