@@ -28,7 +28,7 @@ $(document).ready(function() {
 	});
 	
 	$("#btnCancel").click(function() {
-		history.go(-1);
+		$(location).attr("href", "/jobfair/main");
 	});
 	
 	
@@ -55,8 +55,8 @@ $(document).ready(function() {
 
 <div class="body">
 
-<jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value='${now }' pattern="yyyyMMdd" var="nowDate"/>
+<h4>뷰 페이지</h4>
+<hr>
 
 <form action="/jobfair/register" method="post" enctype="multipart/form-data">
 
@@ -67,42 +67,44 @@ $(document).ready(function() {
 <tbody>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="jobfair_name" id="jobfair_name" /></td>
+		<td><input type="text" name="jobfair_name" id="jobfair_name" value="${map.jobfair_name }"/></td>
 	</tr>
 	<tr>
-		<td>아이디</td>
-		<td>${member }</td>
+		<td>글쓴이</td>
+		<td>관리자</td>
 	</tr>
 	<tr>
 		<td>날짜</td>
-		<td><c:out value="${nowDate }" /></td>
+		<td><input type="text" name="jobfair_date" id="jobfair_date" value="${map.jobfair_date }"/></td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea id="summernote" name="jobfair_content"></textarea></td>
+		<td><textarea id="summernote" name="jobfair_content">${map.jobfair_content }</textarea></td>
 	</tr>
 	<tr>
 		<td>시작일</td>
-		<td><input type="date" name="jobfair_start" id="jobfair_start" /></td>
+		<td><input type="date" name="jobfair_start" id="jobfair_start" value="${map.jobfair_start }" /></td>
 	</tr>
 	<tr>
 		<td>종료일</td>
-		<td><input type="date" name="jobfair_end" id="jobfair_end" /></td>
+		<td><input type="date" name="jobfair_end" id="jobfair_end" value="${map.jobfair_end }" /></td>
 	</tr>
 	<tr>
 		<td>장소</td>
-		<td><input type="text" name="jobfair_loc" id="jobfair_loc" /></td>
+		<td><input type="text" name="jobfair_loc" id="jobfair_loc" value="${map.jobfair_loc }" /></td>
+		<!-- 지도 api 사용 -->
 	</tr>
 	<tr>
 		<td>신청기간</td>
-		<td><input type="date" name="jobfair_limit" id="jobfair_limit" />
-			~ <input type="date" name="jobfair_limit" id="jobfair_limit" /></td>
+		<td><input type="date" name="jobfair_limit" id="jobfair_limit" value="${map.jobfair_limit }" />
+			~ <input type="date" name="jobfair_limit" id="jobfair_limit" value="${map.jobfair_limit }" /></td>
 	</tr>
 </tbody>
 </table>
 
 <div>
-<button id="btnFile">파일첨부</button>
+<label for="file">파일첨부</label>
+<input type="file" name="file" id="file" />
 </div>
 <br>
 <br>

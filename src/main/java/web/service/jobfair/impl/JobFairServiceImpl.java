@@ -34,6 +34,11 @@ public class JobFairServiceImpl implements JobFairService {
 	public void updateFair(JobFair jobfair) {
 		jobfairDao.update(jobfair);
 	}
+	
+	@Override
+	public void deleteFair(JobFair jobfair) {
+		jobfairDao.delete(jobfair);
+	}
 
 	@Override
 	public String jobFairSearch(String title) {
