@@ -6,6 +6,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,16 +53,20 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value = "/recruitment/view", method = RequestMethod.GET) 
-	public void recruitView(Recruit recruit, Model model) {
+	public void recruitView(Recruit recruit, int recruit_no, Model model) {
 		
-		logger.info("채용공고 상세페이지");
+		logger.info("채용공고 상세페이지 :: 조회할 recruit_no --> "+recruit_no);
 		
-		recruit = recruitmentService.view(recruit);
-		model.addAttribute("viewRecruit", recruit);
+		Recruit res = recruitmentService.view(recruit_no);
+		logger.info("조회한 데이터 :" + res.toString());
+		model.addAttribute("viewRecruit", res);
 
-		String recruit_file = recruitmentService.getFilename(recruit.getRecruit_no());
-		logger.info("db"+recruit_file);
-		model.addAttribute("file", recruit_file);
+		String file_name = recruitmentService.getFilename(recruit_no);
+	//	logger.info("db에서 조회한 파일 이름  : "+file_name);
+		model.addAttribute("file", file_name);
+		
+		String cor_no = recruitmentService.getCor_no(recruit_no);
+		model.addAttribute("cor", cor_no);
 		
 	}
 
@@ -81,7 +86,8 @@ public class RecruitmentController {
 	public String recruitWriteProc(
 			Authentication auth,
 			Recruit recruit,
-			@RequestParam(value="file") MultipartFile fileupload
+			@RequestParam(value="file") MultipartFile fileupload,
+			HttpServletRequest request
 			) {
 	
 		logger.info("글쓰기");
@@ -93,17 +99,23 @@ public class RecruitmentController {
 		logger.info("사용자가 입력한 recruit"+recruit);
 		logger.info("파일 : " + fileupload.getOriginalFilename());
 		logger.info(context.getRealPath("upload"));
+		
+		
+		//파일 업로드를 하지 않았다면 
+		if( fileupload.getOriginalFilename().equals("") ) { 
 
-	
-
-		if( fileupload != null) { //파일 있ㄲ는 업로드 insert 
 			recruitmentService.write(recruit);
 			
-			recruitmentService.filesave( fileupload, context);
+			return "redirect: /recruitment/main";
 			
-		}else {// 파일 업로드 안할 때 insert 
+			
+		}else {// 파일 업로드가 있다면 
 				
-		recruitmentService.write(recruit);
+			recruitmentService.write(recruit);
+			
+			int recruit_no = recruit.getRecruit_no();   //write메소드가 리턴해주는 값이 select key에서 추출한 값. 
+			
+			recruitmentService.filesave(recruit_no, fileupload, context);
 		}
 
 		
@@ -113,8 +125,8 @@ public class RecruitmentController {
 	@RequestMapping(value = "/recruitment/update", method = RequestMethod.GET) 
 	public String recruitUpdate(Recruit recruit, Model model) {
 		
-		recruit = recruitmentService.view(recruit);
-		model.addAttribute("view", recruit);
+		Recruit res = recruitmentService.view(recruit.getRecruit_no());
+		model.addAttribute("view", res);
 		return "board/update";
 		
 	}

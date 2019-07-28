@@ -58,17 +58,17 @@ public class RecruimentServiceImpl implements RecruitmentService{
 	}
 
 	@Override
-	public Recruit view(Recruit recruit) {
-		return recruitmentDao.select(recruit);
+	public Recruit view(int recruit_no) {
+		return recruitmentDao.select(recruit_no);
 	}
 	
 	@Override
-	public void write(Recruit recruit) {
-		recruitmentDao.write(recruit);
+	public int write(Recruit recruit) {
+		return recruitmentDao.write(recruit);
 	}
 
 	@Override
-	public void filesave(MultipartFile file, ServletContext context) {
+	public void filesave(int recruit_no, MultipartFile file, ServletContext context) {
 		//파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
 
@@ -98,7 +98,7 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		
 		recruit_file.setRecruit_file_originname(file.getOriginalFilename());
 		recruit_file.setRecruit_file_storedname(name);
-		//recruit_file.setRecruit_no(recruit_no);	
+		recruit_file.setRecruit_no(recruit_no);	
 		
 		recruitmentDao.insertFile(recruit_file);	
 		
@@ -134,6 +134,18 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		return	recruitmentDao.selectFilename(recruit_no);
 	
 	
+	}
+
+
+	@Override
+	public int recruitSeqCurr() {
+		
+		return recruitmentDao.selectRecruitSeqCurrval();
+	}
+
+	@Override
+	public String getCor_no(int recruit_no) {
+		return recruitmentDao.selectCornoBytwoMemno(recruit_no);
 	}
 
 	

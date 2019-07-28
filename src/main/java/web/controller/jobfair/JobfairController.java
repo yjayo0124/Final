@@ -2,6 +2,7 @@ package web.controller.jobfair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -35,24 +36,8 @@ public class JobfairController {
 	private static final Logger logger = LoggerFactory.getLogger(JobfairController.class);
 	
 	@RequestMapping(value="/jobfair/main")
-	public void jobfair(
-			Model model
-			, ArrayList<HashMap<String, Object>> map
-		) {
+	public void jobfair() {
 		logger.info("메인");
-		
-		//member_id 가져오기
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String member_id = auth.getName();
-//		System.out.println(member_id);
-		
-		model.addAttribute("member_id", member_id);
-		
-		
-		map = (ArrayList<HashMap<String, Object>>) jobfairService.calList();
-		System.out.println(map);
-		
-		model.addAttribute("map", map);
 	}
 
 	@RequestMapping(value="/jobfair/list") 
@@ -112,8 +97,16 @@ public class JobfairController {
 	}
 	
 	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.GET)
-	public void adminView() {
+	public void adminView(
+			int jobfair_no,
+			Model model
+		) {
 		logger.info("adminview 폼");
+		
+		List<HashMap<String, Object>> map = jobfairService.adminView(jobfair_no);
+		
+		model.addAttribute("map", map);
+		
 	}
 	
 	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)

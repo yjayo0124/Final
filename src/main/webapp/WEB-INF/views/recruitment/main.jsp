@@ -4,16 +4,33 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
 
 <style type="text/css">
+
+button {
+	float:right;
+	margin-left : 100px;
+	padding: 20px;
+}
+col-md-2 {
+	width: 100px;
+	padding: 20px;
+	margin-botton: 20px;
+	float :left;
+}
 table, th {
 	text-align: center;
 }
 #pagingBox {
 	position: relative;
+	margin-top: 20px;
 }
 
 .content {
 	border-left: 1px solid #eee;
 	border-right: 1px solid #eee;
+	width: 900px;
+	padding: 20px;
+	margin-botton:20px;
+	float: left;
 }
 </style>
 
@@ -47,10 +64,6 @@ table, th {
 
 <div class="content">
 
-<sec:authorize access="hasRole('ROLE_COR')">
-<button onclick="location.href='/recruitment/write'">공고등록하기</button>
-</sec:authorize>
-
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
@@ -61,18 +74,19 @@ table, th {
 <tbody>
 <c:forEach items="${recruitList }" var="i">
 <tr>
-	<td><a href="/cor/info?cor_no=${cor.cor_no }">${i.recruit_name }</a></td>
-	<td><a href="/recruitment/view?recruit_no=${i.recruit_no }">${i.recruit_title }</a></td>
+	<td>${i.recruit_name }</a></td>
+	<td><a href="/recruitment/view?recruit_no=${i.recruit_no}">${i.recruit_title }</a></td>
 </tr>
 </c:forEach>
 </tbody>
 
 </table>
 
-</div>
-
 <div id="pagingBox">
 <c:import url="/WEB-INF/views/recruitment/paging.jsp"/>
 </div>
 
-
+<sec:authorize access="hasRole('ROLE_COR')">
+<button onclick="location.href='/recruitment/write'" class="btn btn-default btn-sm">공고등록하기</button>
+</sec:authorize>
+</div>

@@ -19,12 +19,13 @@ public interface RecruitmentService {
 
 	public int getRecruitno(HttpServletRequest req);
 
-	public Recruit view(Recruit recruit);
+	public Recruit view(int recruit_no);
 	
-	public void write(Recruit recruit);
+	public int write(Recruit recruit);
 	
 	public void filesave(
 			
+			int recruit_no,
 			MultipartFile file, //첨부파일
 			ServletContext context //서블릿컨텍스트
 			);
@@ -37,6 +38,10 @@ public interface RecruitmentService {
 	public void delete(Recruit recruit);
 
 	public String getFilename(int recruit_no);
+	
+	public int recruitSeqCurr();
+
+	public String getCor_no(int recruit_no);
 
 	
 

@@ -21,14 +21,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#summernote").summernote({
+ 	$("#summernote").summernote({
 		tabsize: 2,
 		height: 370,
 		minHeight: null,
 		maxHeight: null,
 		focus: true,
 		lang: 'ko-KR'
-	});
+	}); 
 	
 	//작성버튼 동작
 	$("#btnWrite").click(function() {
