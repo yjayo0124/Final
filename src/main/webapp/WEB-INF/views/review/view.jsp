@@ -75,6 +75,82 @@ $(document).ready(function() {
 		 });
 	});
 	
+	$("#writecmt").click(function() {
+		 $.ajax({
+			 url: "/review/comment",
+			 type: "post",
+			 dataType: "json",
+			 data: { cmtnick : $('#cmtnick').val(), cmtcontent : $('#cmtcontent').val(), cmtpassword : $('#cmtpassword').val(), reviewno : $('#reviewno').val()},
+			 success: function(data) {
+				 $.map(data, function(item) {
+					 var $div = $('<div></div>');
+					 var div = document.createElement('div');
+					 var div2 = document.createElement('div');
+					 var div3 = document.createElement('div');
+					 var div4 = document.createElement('div');
+					 var div5 = document.createElement('div');
+					 
+					 var text = document.createTextNode(item.nick);
+					 var content = document.createTextNode(item.content);
+					 var date = document.createTextNode(item.date);
+					 var recommend = document.createTextNode('추천수' + '\u00a0'+ item.recommend);
+					 
+					 var writtencmt = document.getElementById("writtencmt");
+
+					 writtencmt.style.width = 100 + '%';
+					 writtencmt.style.border = '3px solid #dddddd';
+					 writtencmt.style.padding = 5 + 'px';
+					 writtencmt.style.radius = 8 + 'px';
+					 writtencmt.style.background = '#dddddd';
+
+					 div.style.width = 130 + 'px';
+					 div.style.padding = 5 + 'px';
+					 div.style.display = 'inline-block';
+					 
+					 div2.style.width = 650 + 'px';
+					 div2.style.padding = 5 + 'px';
+					 div2.style.display = 'inline-block';
+					 
+					 div3.style.width = 150 + 'px';
+					 div3.style.padding = 5 + 'px';
+					 div3.style.display = 'inline-block';
+					 
+					 div4.style.width = 80 + 'px';
+					 div4.style.padding = 5 + 'px';
+					 div4.style.display = 'inline-block';
+					 
+					 div5.style.width = 90 + 'px';
+					 div5.style.padding = 5 + 'px';
+					 div5.style.display = 'inline-block';
+					 
+					 div.appendChild(text);
+					 div2.appendChild(content);
+					 div3.appendChild(date);
+					 div4.appendChild(recommend);
+					 div5.innerHTML = "<input type='button' id='deletecmt' name='deletecmt' value='댓글 삭제'/>";
+					 
+					 $('#writtencmt').prepend($div);
+					 $div.prependTo($('#writtencmt'));
+					 document.getElementById('writtencmt').insertBefore(div5, document.getElementById('writtencmt').firstChild);
+					 document.getElementById('writtencmt').insertBefore(div4, document.getElementById('writtencmt').firstChild);
+					 document.getElementById('writtencmt').insertBefore(div3, document.getElementById('writtencmt').firstChild);
+					 document.getElementById('writtencmt').insertBefore(div2, document.getElementById('writtencmt').firstChild);
+					 document.getElementById('writtencmt').insertBefore(div, document.getElementById('writtencmt').firstChild);
+				 });
+				 
+				 $(document).on("click","#deletecmt",function() {
+					 var jbResult = prompt( '비밀번호를 입력하세요', '4자리' );
+				 });
+			 },
+			 error : function(data) {
+				 alert("에러가 발생하였습니다.")
+			 }
+				
+		 });
+	});
+	
+
+	
 	if(getParam("tag") == '전체') {
 		$('#tag1').css({
 			color: "#4B89DC"
@@ -157,6 +233,7 @@ table {
 	border-right: 0px solid white;
 	border-collapse: collapse;
 	margin: auto;
+	border-radius: 8px;
 }
 
 th {
@@ -165,12 +242,14 @@ th {
 	padding: 10px;
 	background-color: #e9e9e9;
 	width: auto;
+	border-radius: 8px;
 }
 
 td {
 	text-align: center;
 	border-bottom: 1px solid gray;
 	padding: 10px;
+	border-radius: 8px;
 }
 
 .review-hr {
@@ -260,6 +339,9 @@ td {
 	width: 7%;
 }
 
+#writtencmt {
+	border-radius: 8px;
+}
 </style>
 
 <body>
@@ -285,24 +367,25 @@ td {
 </div>
 
 <c:forEach items="${viewlist }" var="i">
+	<h3><b>${i.COR_NAME }</b></h3>
 	<table>
 		<tr>
 			<th id="thtitle">제목</th>
-			<td id="tdtitle">${i.review_title }</td>
+			<td id="tdtitle">${i.REVIEW_TITLE }</td>
 			<th id="threcommended">추천수</th>
-			<td id="tdrecommended">${i.review_recommended }</td>
+			<td id="tdrecommended">${i.REVIEW_RECOMMENDED }</td>
 		</tr>
 		<tr>
 			<th id="thwrittendate">작성일</th>
-			<td id="tdwrittendate"><fmt:formatDate value="${i.review_written_date }" pattern="yyyy-MM-dd"/></td>
+			<td id="tdwrittendate"><fmt:formatDate value="${i.REVIEW_WRITTEN_DATE }" pattern="yyyy-MM-dd"/></td>
 			<th id="thhit">조회수</th>
-			<td id="tdhit">${i.review_hit }</td>
+			<td id="tdhit">${i.REVIEW_HIT }</td>
 		</tr>
 	</table>
 	<br><br>
 	
 	<div id="content">
-		${i.review_content }
+		${i.REVIEW_CONTENT }
 	</div>
 	
 	<sec:authentication property="details" var="member"/>   
@@ -312,12 +395,16 @@ td {
     		<button id="btnDelete" class="btn btn-danger">삭제</button>
     	</c:if>
    	</sec:authorize>
+   	
+   	<input type="hidden" id="reviewno" name="reviewno" value="${i.REVIEW_NO }"/>
 </c:forEach>
 
 <br>
 <hr class="review-hr">
-<label id="cmt">댓글</label>
-<div id="writtencmt"></div>
+<label id="cmt">댓글</label><br>
+
+<div id="writtencmt">
+</div>
 
 <input type="text" id="cmtnick" name="cmtnick" maxlength="10" placeholder="닉네임(10자리까지)"/>
 <input type="text" id="cmtcontent" name="cmtcontent" placeholder="내용을 입력해 주세요"/>

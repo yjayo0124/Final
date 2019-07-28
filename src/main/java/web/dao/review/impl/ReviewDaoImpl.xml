@@ -13,7 +13,7 @@
 
 	<insert id="insertReview" parameterType="web.dto.Review">
 		INSERT INTO review
-		 VALUES (review_no_seq.nextval, #{cor_no }, 0, #{review_tag }, #{review_title }, #{review_content }, 0, 0, SYSDATE)
+		 VALUES (review_no_seq.nextval, #{cor_no }, #{mem_no }, #{review_tag }, #{review_title }, #{review_content }, 0, 0, SYSDATE, 0)
 	</insert>
 	
 	<select id="selectCor" parameterType="String" resultType="String">
@@ -29,7 +29,7 @@
 	
 	<select id="selectReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, 
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, cor.cor_type, review.review_title, review.review_tag, 
 					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no 
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no
@@ -41,7 +41,7 @@
 	
 	<select id="selectReviewByTag" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, 
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, cor.cor_type, review.review_title, review.review_tag, 
 					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no 
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no AND review_tag = #{tag }
@@ -52,7 +52,7 @@
 	
 	<select id="searchReview" resultType="hashmap">
 		SELECT * FROM (
-			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, review.review_title, review.review_tag, 
+			SELECT rownum AS rnum, review.review_no, review.cor_no, cor.cor_name, cor.cor_type, review.review_title, review.review_tag, 
 					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no AND cor.cor_name = #{tag }
@@ -61,9 +61,9 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectViewList" parameterType="int" resultType="web.dto.Review">
-		SELECT * FROM review
-		WHERE review_no = #{reviewno }
+	<select id="selectViewList" parameterType="int" resultType="hashmap">
+		SELECT * FROM review, cor
+		WHERE review.cor_no = cor.cor_no AND review.review_no = #{reviewno }
 	</select>
 	
 	<update id="addHit">
@@ -112,5 +112,24 @@
 	
 	<select id="selectRecommend" resultType="web.dto.Recommend">
 		SELECT * FROM recommend
+	</select>
+	
+	<insert id="InsertComment">
+		INSERT INTO review_comment
+		VALUES(comment_no_seq.nextval, #{review_no }, #{comment_nick }, #{comment_content }, #{comment_password }, sysdate, 0)
+	</insert>
+	
+	<select id="getComment" parameterType="int" resultType="web.dto.Review_comment">
+		SELECT * FROM review_comment
+		WHERE review_no = #{reviewno }
+	</select>
+	
+	<select id="getNewComment" parameterType="int" resultType="web.dto.Review_comment">
+		SELECT * FROM (
+			SELECT * FROM review_comment 
+			WHERE review_no = #{reviewno }
+			ORDER BY ROWNUM DESC
+		)
+		WHERE ROWNUM = 1
 	</select>
 </mapper>

@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
+import web.dto.Review_comment;
 import web.util.Paging;
 
 public interface ReviewService {
@@ -27,7 +29,7 @@ public interface ReviewService {
 
 	public List<HashMap<String, Object>> reviewSearch(Paging paging);
 
-	public List<Review> getViewList(int reviewno);
+	public List<HashMap<String, Object>> getViewList(int reviewno);
 
 	public void upHit(int reviewno);
 
@@ -38,4 +40,13 @@ public interface ReviewService {
 	public List<Recommend> updateRecommend(Recommend recommend, int reviewno, int changeno, int memno);
 
 	public List<Recommend> getRecommend();
+
+	public Review_comment getCommentParameter(HttpServletRequest request, Review_comment commentParam);
+
+	public void InsertComment(Review_comment comment);
+
+	public List<Review_comment> getComment(int reviewno);
+
+	public List<Review_comment> getNewComment(int reviewno);
+
 }
