@@ -93,11 +93,15 @@
 }
 
 
-.table{
+.table th{
 	
 	background-color: #a6172d;
 	color: white;
 
+}
+.table a{
+
+	color: black;
 }
 
 </style>
@@ -134,30 +138,30 @@
 				</ul>
 			</div>
 		</div>
-		<div class="reviewList" style="margin-left: 250px; width: 700px;">
+		<div class="reviewList" style="margin-left: 250px; width: 800px;">
 
-<h3>내 스크랩</h3>
+<h3>내 스크랩<img src="/resources/images/like.png" height="20px" style="margin-left:4px; margin-bottom: 1px;"></h3>
 <hr>
 <div class="review_table" style="border: 1px solid #ccc; height: 400px;">
 <table class="table table-hover table-condensed" >
 	<thead>
 		<tr >
-			<th style="width: 15%; text-align: center;">기업명</th>
-			<th style="width: 55%; text-align: center;">제목</th>	
-			<th style="width: 15%; text-align: center; ">형태</th>
-			<th style="width: 15%; text-align: center;">직급</th>
+			<th style="width: 25%; text-align: center;">기업명</th>
+			<th style="width: 50%; text-align: center;">제목</th>	
+			<th style="width: 12.5%; text-align: center; ">형태</th>
+			<th style="width: 12.5%; text-align: center;">직급</th>
 		</tr>
 	</thead>
 	<tbody>
-<%-- <c:forEach items="${list }" var="i">
-	<tr>
-		<td style="width: 10%">${i.REVIEW_NO }</td>
-		<td style="width: 10%">${i.REVIEW_TAG }</td>
-		<td style="width: 55%; text-align: center;"><a href="/review/view?review_no=${i.REVIEW_NO }">${i.REVIEW_TITLE }</a></td>
-		<td style="width: 10%">${i.REVIEW_HIT }</td>
-		<td style="width: 15%"><fmt:formatDate value="${i.REVIEW_WRITTEN_DATE }" pattern="yy-MM-dd" /></td>
+	
+ <c:forEach items="${list }" var="i">
+	<tr onclick="location.href='/recruitment/view?recruit_no=${i.RECRUIT_NO }'">
+		<td style="width: 25%; font-size: 14px; text-align: center;">${i.RECRUIT_NAME }</td>
+		<td style="width: 50%; text-align: center;">${i.RECRUIT_TITLE }</td>
+		<td style="width: 12.5%; text-align: center;" >${i.RECRUIT_TYPE }</td>
+		<td style="width: 12.5%; text-align: center;">${i.RECRUIT_POSITION }</td>
 	</tr>
-</c:forEach> --%>
+</c:forEach>
 </tbody>
 </table>
 </div>

@@ -93,11 +93,15 @@
 }
 
 
-.table{
+.table th{
 	
 	background-color: #a6172d;
 	color: white;
 
+}
+.table a{
+
+	color: black;
 }
 
 </style>
@@ -134,7 +138,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="reviewList" style="margin-left: 250px; width: 700px;">
+		<div class="reviewList" style="margin-left: 250px; width: 800px;">
 
 <h3>내가 쓴 리뷰</h3>
 <hr>
@@ -142,20 +146,20 @@
 <table class="table table-hover table-condensed" >
 	<thead>
 		<tr >
-			<th style="width: 10%">글번호</th>
+			<th style="width: 10%; text-align: center;">글번호</th>
 			<th style="width: 10%">태그</th>
 			<th style="width: 55%; text-align: center;">제목</th>	
-			<th style="width: 10%">조회수</th>
-			<th style="width: 15%">작성일</th>
+			<th style="width: 10%; text-align: center;">조회수</th>
+			<th style="width: 15%; text-align: center;">작성일</th>
 		</tr>
 	</thead>
 	<tbody>
 <c:forEach items="${list }" var="i">
-	<tr>
+	<tr onclick="location.href='/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }'">
 		<td style="width: 10%">${i.REVIEW_NO }</td>
 		<td style="width: 10%">${i.REVIEW_TAG }</td>
-		<td style="width: 55%; text-align: center;"><a href="/review/view?review_no=${i.REVIEW_NO }">${i.REVIEW_TITLE }</a></td>
-		<td style="width: 10%">${i.REVIEW_HIT }</td>
+		<td style="width: 55%; text-align: center;">${i.REVIEW_TITLE }</td>
+		<td style="width: 10%; text-align: center;">${i.REVIEW_HIT }</td>
 		<td style="width: 15%"><fmt:formatDate value="${i.REVIEW_WRITTEN_DATE }" pattern="yy-MM-dd" /></td>
 	</tr>
 </c:forEach>
