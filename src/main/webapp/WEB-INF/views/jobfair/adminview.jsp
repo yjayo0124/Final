@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -14,15 +15,12 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 <!-- include summernote-ko-KR -->
-<script src="lang/summernote-ko-KR.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#btnFile").click(function() {
-		
-	});
-	
+
 	$("#btnGoUpdate").click(function() {
 		$(location).attr("href", "/jobfair/update");
 	});
@@ -58,7 +56,8 @@ $(document).ready(function() {
 <h4>뷰 페이지</h4>
 <hr>
 
-<form action="/jobfair/register" method="post" enctype="multipart/form-data">
+<form action="/jobfair/adminview" method="post" enctype="multipart/form-data">
+<input type="hidden" name="jobfair_no" value="${viewmap.JOBFAIR_NO }" />
 
 <table class="table  table-bordered table-striped table-hover table-condensed">
 <thead>
@@ -67,7 +66,7 @@ $(document).ready(function() {
 <tbody>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="jobfair_name" id="jobfair_name" value="${map.jobfair_name }"/></td>
+		<td><input type="text" name="jobfair_name" id="jobfair_name" value="${viewmap.JOBFAIR_NAME }"/></td>
 	</tr>
 	<tr>
 		<td>글쓴이</td>
@@ -75,29 +74,29 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td>날짜</td>
-		<td><input type="text" name="jobfair_date" id="jobfair_date" value="${map.jobfair_date }"/></td>
+		<td><input type="text" name="jobfair_date" id="jobfair_date" value="${viewmap.JOBFAIR_DATE }"/></td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea id="summernote" name="jobfair_content">${map.jobfair_content }</textarea></td>
+		<td><textarea id="summernote" name="jobfair_content">${viewmap.JOBFAIR_CONTENT }</textarea></td>
 	</tr>
 	<tr>
 		<td>시작일</td>
-		<td><input type="date" name="jobfair_start" id="jobfair_start" value="${map.jobfair_start }" /></td>
+		<td><input type="date" name="jobfair_start" id="jobfair_start" value="${viewmap.JOBFAIR_START }" /></td>
 	</tr>
 	<tr>
 		<td>종료일</td>
-		<td><input type="date" name="jobfair_end" id="jobfair_end" value="${map.jobfair_end }" /></td>
+		<td><input type="date" name="jobfair_end" id="jobfair_end" value="${viewmap.JOBFAIR_END }" /></td>
 	</tr>
 	<tr>
 		<td>장소</td>
-		<td><input type="text" name="jobfair_loc" id="jobfair_loc" value="${map.jobfair_loc }" /></td>
+		<td><input type="text" name="jobfair_loc" id="jobfair_loc" value="${viewmap.JOBFAIR_LOC }" /></td>
 		<!-- 지도 api 사용 -->
 	</tr>
 	<tr>
 		<td>신청기간</td>
-		<td><input type="date" name="jobfair_limit" id="jobfair_limit" value="${map.jobfair_limit }" />
-			~ <input type="date" name="jobfair_limit" id="jobfair_limit" value="${map.jobfair_limit }" /></td>
+		<td><input type="date" name="jobfair_limit" id="jobfair_limit" value="${viewmap.JOBFAIR_LIMIT }" />
+			~ <input type="date" name="jobfair_limit" id="jobfair_limit" value="${viewmap.JOBFAIR_LIMIT }" /></td>
 	</tr>
 </tbody>
 </table>
@@ -110,8 +109,12 @@ $(document).ready(function() {
 <br>
 
 <div class="text-center">
-<button id="btnGoUpdate">수정하기</button>
-<button id="btnCancel">취소</button>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<a href="/jobfair/update?jobfair_no=${viewmap.JOBFAIR_NO }">
+		<button id="btnGoUpdate">수정하기</button>
+	</a>
+</sec:authorize>
+<input id="btnCancel" type="reset" value="확인"/>
 </div>
 
 </form>

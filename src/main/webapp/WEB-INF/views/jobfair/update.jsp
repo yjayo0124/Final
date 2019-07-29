@@ -14,15 +14,12 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 
 <!-- include summernote-ko-KR -->
-<script src="lang/summernote-ko-KR.js"></script>
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#btnFile").click(function() {
-		
-	});
-	
+
 	$("#btnUpdate").click(function() {
 		$("form").submit();
 	});
@@ -62,7 +59,7 @@ $(document).ready(function() {
 <h4>수정 페이지</h4>
 <hr>
 
-<form action="/jobfair/register" method="post" enctype="multipart/form-data">
+<form action="/jobfair/update" method="post" enctype="multipart/form-data">
 
 <table class="table  table-bordered table-striped table-hover table-condensed">
 <thead>
@@ -115,7 +112,7 @@ $(document).ready(function() {
 <div class="text-center">
 <button id="btnUpdate">수정</button>
 <button id="btnDelete">삭제</button>
-<button id="btnCancel">취소</button>
+<input id="btnCancel" type="reset" value="취소"/>
 </div>
 
 </form>

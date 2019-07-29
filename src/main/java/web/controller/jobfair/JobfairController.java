@@ -98,14 +98,15 @@ public class JobfairController {
 	
 	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.GET)
 	public void adminView(
-			int jobfair_no,
+			JobFair jobfair,
 			Model model
 		) {
 		logger.info("adminview 폼");
 		
-		List<HashMap<String, Object>> map = jobfairService.adminView(jobfair_no);
+		List<HashMap<String, Object>> viewmap = jobfairService.adminView(jobfair);
+		System.out.println("viewmap: " + viewmap);
 		
-		model.addAttribute("map", map);
+		model.addAttribute("viewmap", viewmap);
 		
 	}
 	

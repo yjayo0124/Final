@@ -64,9 +64,10 @@ $(document).ready(function() {
 	 				}
 	 			});
  			},
-		eventClick: function(){
-			$(location).attr('href', '/jobfair/adminview?jobfair_no=${list.jobfair_no }');
-// 			$(location).attr('href', '/jobfair/adminview');
+		eventClick: function(event){
+			console.log(event);
+			console.log(event.id);
+			location.href='/jobfair/adminview?jobfair_no=' + event.id;
 		}
 			
 	});

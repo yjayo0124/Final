@@ -19,10 +19,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#btnFile").click(function() {
-		
-	});
-	
+
 	$("#btnRegister").click(function() {
 		$("form").submit();
 	});
@@ -116,7 +113,7 @@ $(document).ready(function() {
 
 <div class="text-center">
 <button id="btnRegister">등록</button>
-<button id="btnCancel">취소</button>
+<input id="btnCancel" type="reset" value="취소"/>
 </div>
 
 </form>

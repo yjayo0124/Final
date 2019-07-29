@@ -9,7 +9,7 @@ public interface JobFairDao {
 	
 	public List<HashMap<String, Object>> selectAll();
 	
-	public List<HashMap<String, Object>> selectByJobfairNo(int jobfair_no);
+	public List<HashMap<String, Object>> selectByJobfairNo(JobFair jobfair);
 	
 	public String selectByJobfairTitle(String title);
 	

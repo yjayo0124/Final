@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="selectByJobfairNo" 
-	parameterType="int"
+	parameterType="web.dto.JobFair"
 	resultType="hashmap">
 		SELECT * FROM jobfair
 		WHERE jobfair_no = #{jobfair_no }
