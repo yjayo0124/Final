@@ -1,11 +1,12 @@
 package web.controller.mypage;
 
+
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,15 +18,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.dto.Member;
-
+import web.dto.Recruit;
 import web.dto.Review;
+
 import web.dto.mypage.resume.School;
+
+
 import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
-import web.service.mypage.face.MyScrapService;
 import web.service.mypage.face.MypageService;
 import web.service.mypage.face.ResumeService;
 
@@ -37,7 +41,6 @@ public class MypageController {
 	@Autowired IntroductionService introductionService;
 	@Autowired ResumeService resumeService;
 	@Autowired MyCommentService myCommentService;
-	@Autowired MyScrapService myScrapService;
 	
 	@Autowired MemberService memberService;
 	
@@ -286,11 +289,81 @@ public class MypageController {
 		
 	}
 	
-	
-	@RequestMapping(value="/mypage/scrab", method=RequestMethod.GET)
-	public void myScrab(Authentication auth, Model model) {
+	@ResponseBody
+	@RequestMapping(value="/mypage/scrabCheck", method=RequestMethod.GET)
+	public boolean myScrabCheck(Authentication auth, int recruit_no) {
+						//view페이지에서 스크랩버튼을 눌렀을 때 넘어오는 값 
 		
+		Member member = (Member) auth.getDetails();
+
+		int member_no = member.getMember_no();
+		
+		HashMap map = new HashMap(); 
+		map.put("member_no", member_no);
+		map.put("recruit_no", recruit_no);
+		
+		//스크랩 성공 여부 및 메소드 실행 
+		boolean res = mypageService.scrabCheck(map);
+		logger.info("scrab Check : "+ res );
+		
+		return res;
 		
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/mypage/scrabInsert", method=RequestMethod.POST)
+	public boolean myScrab(Authentication auth, int recruit_no) {
+						//view페이지에서 스크랩버튼을 눌렀을 때 넘어오는 값 
+		
+		Member member = (Member) auth.getDetails();
+
+		int member_no = member.getMember_no();
+		
+		HashMap map = new HashMap(); 
+		map.put("member_no", member_no);
+		map.put("recruit_no", recruit_no);
+		
+		//스크랩 성공 여부 및 메소드 실행 
+		boolean res = mypageService.myScrab(map);
+
+		return res;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/mypage/scrabCancel", method=RequestMethod.POST) 
+	public boolean scrabCancel(Authentication auth, int recruit_no) {
+	
+		Member member = (Member) auth.getDetails();
+		
+		int member_no = member.getMember_no();
+		
+		HashMap map = new HashMap();
+		map.put("member_no", member_no);
+		map.put("recruit_no", recruit_no);
+		
+		boolean res = false;
+		
+		res = mypageService.myScrabCancel(map);
+		//취소 성공하면 true, 실패하면 false
+		
+		return res;
+		
+	}
+	
+	
+	@RequestMapping(value="/mypage/scrab", method=RequestMethod.GET)
+	public void scrab(Authentication auth, Model model) {
+		
+		Member member = (Member) auth.getDetails();
+		int member_no = member.getMember_no();
+		
+		List<Recruit> list = mypageService.getScrabList(member_no);
+		
+		model.addAttribute("list", list);
+		
+	}
+	
 	
 }

@@ -33,6 +33,13 @@ public class MainController {
 	@Autowired MainService mainService;
 	
 	
+	
+	@RequestMapping(value="/", method=RequestMethod.GET)
+	public String main() {
+		
+		return "redirect: /main";
+	}
+	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public void main(Model model) {
 		

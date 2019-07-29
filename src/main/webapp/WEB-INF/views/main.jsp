@@ -160,10 +160,10 @@ font-size: 13px;
 
 .slider_container{
 	margin: 0 auto;
-	width: 550px;
+	width: 650px;
 	min-width: 550px;
 	
-	height: 330px;
+	height:400px;
 	min-height: 300px;
 
 }
@@ -180,7 +180,18 @@ font-size: 13px;
 
 
 
+.table{
 
+	height: 330px;
+	overflow: auto;
+	display: inherit;
+}
+
+
+.table a{
+
+	color: black;
+}
 
 
 </style>
@@ -213,7 +224,7 @@ font-size: 13px;
 <div class="main_container">
  
  
-<div class="recruit_table" style="border: 1px solid #ccc; height: 260px;">
+<div class="recruit_table" style="border: 1px solid #ccc; height: 330px;">
 <table class="table table-hover table-condensed" >
 	<thead>
 		<tr>
@@ -222,9 +233,9 @@ font-size: 13px;
 	</thead>
 	<tbody>
 <c:forEach items="${recruit }" var="i">
-	<tr>
+	<tr onclick="location.href='/recruitment/view?recruit_no=${i.recruit_no }'">
 		<td style="width:20%">${i.recruit_name }</td>
-		<td style="width:60%"><a href="/recruitment/view?recruit_no=${i.recruit_no }">${i.recruit_title }</a></td>
+		<td style="width:60%; text-align: center;">${i.recruit_title }</td>
 		<td style="width:20%">${i.recruit_position }</td>
 	</tr>
 </c:forEach>
@@ -234,7 +245,7 @@ font-size: 13px;
 
  
 
-<div class="review_table" style="border: 1px solid #ccc; height: 260px;">
+<div class="review_table" style="border: 1px solid #ccc; height: 330px;">
 <table class="table table-hover table-condensed" >
 	<thead>
 		<tr >
@@ -243,9 +254,9 @@ font-size: 13px;
 	</thead>
 	<tbody>
 <c:forEach items="${review }" var="i">
-	<tr>
+	<tr onclick="location.href='/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }'">
 		<td style="width: 15%">${i.REVIEW_TAG }</td>
-		<td style="width: 65%; text-align: center;"><a href="/review/view?review_no=${i.REVIEW_NO }">${i.REVIEW_TITLE }</a></td>
+		<td style="width: 65%; text-align: center;">${i.REVIEW_TITLE }</td>
 		<td style="width: 20%">${i.COMPANY_NAME }</td>
 	</tr>
 </c:forEach>

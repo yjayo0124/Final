@@ -5,4 +5,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper  namespace="web.dao.mypage.face.MypageDao" >
+
+	<select id="scrabCheck" parameterType="hashMap" resultType="int">
+	SELECT count(*) FROM scrab 
+	WHERE member_no = #{member_no} and recruit_no = #{recruit_no}
+	</select>
+	
+	<insert id="insertScrab" parameterType="hashMap">
+	INSERT into scrab(member_no, recruit_no)
+	VALUES( #{member_no}, #{recruit_no} )
+	</insert>
+	
+	<delete id="myScrabDelete" parameterType="hashMap">
+	DELETE from scrab 
+	WHERE member_no = #{member_no} and recruit_no = #{recruit_no}
+	</delete>
+	
+
+	<select id="selectScrabList" parameterType="int" resultType="hashMap">
+	SELECT recruit.* 
+	FROM scrab, recruit 
+	WHERE scrab.recruit_no = recruit.recruit_no and scrab.member_no = #{member_no} 
+	</select>
+
+
 </mapper>

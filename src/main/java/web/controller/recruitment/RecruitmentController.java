@@ -1,12 +1,11 @@
 package web.controller.recruitment;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import web.dto.Member;
 import web.dto.Recruit;
 import web.service.cor.face.CorService;
+import web.service.mypage.face.MypageService;
 import web.service.recruitment.face.RecruitmentService;
 import web.util.Paging;
 
@@ -31,6 +30,8 @@ public class RecruitmentController {
 	@Autowired ServletContext context;
 	@Autowired RecruitmentService recruitmentService;
 	@Autowired CorService corService;
+	@Autowired MypageService mypageService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(RecruitmentController.class);
 	
 	@RequestMapping(value = "/recruitment/main", method = RequestMethod.GET) 
@@ -66,7 +67,7 @@ public class RecruitmentController {
 		model.addAttribute("file", file_name);
 		
 		String cor_no = recruitmentService.getCor_no(recruit_no);
-		model.addAttribute("cor", cor_no);
+		model.addAttribute("cor", cor_no);	
 		
 	}
 
