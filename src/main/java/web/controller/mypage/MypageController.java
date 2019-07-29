@@ -1,6 +1,8 @@
 package web.controller.mypage;
 
-import java.util.Enumeration;
+
+import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,6 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import web.dto.Member;
 import web.dto.Recruit;
 import web.dto.Review;
+
+import web.dto.mypage.resume.School;
+
+
 import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
@@ -58,15 +64,52 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
-	public void introductionWriteProc(HttpServletRequest request) {
-		Enumeration params = request.getParameterNames();
-		System.out.println("----------------------------");
-		while (params.hasMoreElements()){
-		    String name = (String)params.nextElement();
-		    System.out.println(name + " : " +request.getParameter(name));
+	public void introductionWriteProc(
+			HttpServletRequest request,
+			String[] school,
+			String[] career,
+			String[] activities,
+			String[] education,
+			String[] certificate,
+			String[] award,
+			String[] overseas_Experience,
+			String[] language,
+			String[] preferential
+			)
+	{
+		ArrayList<HashMap<String,String>> listSchool = new ArrayList<HashMap<String,String>>();
+		
+		
+		if(school != null) {
+			for(int i=0; i<school.length; i++) {
+				HashMap<String,String> map = new HashMap<String,String>();
+				String splitArr[] = school[i].split(",");	
+				System.out.println(splitArr[1]);
+				if(splitArr[0].equals("고등학교")) {
+//					map.put("School_classification", splitArr[0]);
+//					map.put("School_name", splitArr[1]);
+//					map.put("Graduation_date", splitArr[2]);
+//					map.put("Graduation_status", splitArr[3]);
+//					map.put("Ged_status", splitArr[4]);
+//					
+//					listSchool.add(map);
+					
+				} else if(splitArr[0].equals("대학") || splitArr[0].equals("대학교")) {
+					System.out.println("2");
+				} else if(splitArr[0].equals("대학원")) {
+					System.out.println("3");
+				}
+			}
+			System.out.println(listSchool.toString());
 		}
-		System.out.println("----------------------------");
-
+		
+//		if(career != null) {
+//			for(int i=0; i<career.length; i++) {
+//				System.out.println(career[i]);
+//			}
+//		}
+			
+			
 	}
 	
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)
