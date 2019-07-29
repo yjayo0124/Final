@@ -5,6 +5,33 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
+
+	$.ajax({
+		type : 'GET',
+		url : '/mypage/scrabCheck',
+		data : {
+			"recruit_no" : ${viewRecruit.recruit_no}
+		},
+		dataType: 'json',
+		success : function(data){
+			console.log(data);
+		
+			if(data) {//true ==> 스크랩 가능 하게 만들어야함 
+				
+				$('#btnScrab').show();
+				$('#btnCancelScrab').hide();
+						
+			}else{
+				$('#btnScrab').hide();
+				$('#btnCancelScrab').show();
+				
+			}
+		}
+	
+	});
+	
+	
 	$("#btnCor").click(function() {
 		$(location).attr("href", "#");
 	});
@@ -18,7 +45,54 @@ $(document).ready(function() {
 		$(location).attr("href","/recruitment/delete?recruit_no="+${viewRecruit.getRecruit_no() });
 	});
 	
+	
+	//스크랩 하기
+	$("#btnScrab").click(function(){
+	 	$.ajax({
+			type : 'POST',
+			url : '/mypage/scrabInsert',
+			data : {
+				"recruit_no" : ${viewRecruit.recruit_no }
+			},
+			dataType: 'json',
+			success : function(data){
+				
+				$('#btnScrab').hide();
+				$('#btnCancelScrab').show();	
+				
+				$('#scrabResult').html('스크랩 성공♬ <a href="/mypage/scrab/">마이페이지</a>에서 모아볼 수 있어요.').fadeToggle(3000);
+			}
+		}) 		
+		
+	})
+	
+	//스크랩 취소
+	$("#btnCancelScrab").click(function(){
+	 	$.ajax({
+			type : 'POST',
+			url : '/mypage/scrabCancel',
+			data : {
+				"recruit_no" : ${viewRecruit.recruit_no }
+			},
+			dataType: 'json',
+			success : function(data){
+				
+				$('#btnScrab').show();
+				$('#btnCancelScrab').hide();
+				
+				$('#scrabResult').html('스크랩 취소 성공♬').fadeToggle(3000);
+				
+			}
+		}) 		
+		
+	})
+	
+	
+	
 });
+
+
+
 </script>
 
 <style type="text/css">
@@ -103,9 +177,14 @@ button {
 </tr>
 
 </table>
-<div class="text-center">
-	<button id="btnCor" class="btn btn-primary">기업정보</button>
-	<button id="btnScrab" class="btn btn-primary">스크랩</button>
+<div style="padding-left: 41%">
+	<button id="btnCor" class="btn btn-default">기업정보 상세보기</button>
+	
+	<sec:authorize access="hasRole('ROLE_IDV')">
+	<button id="btnScrab" class="btn btn-default" onclick=""><img src="/resources/images/like_empty.png" height="20px"></button>
+	<button id="btnCancelScrab" class="btn btn-default" onclick=""><img src="/resources/images/like.png" height="20px"></button>
+	<span id="scrabResult"></span>
+	</sec:authorize>
 </div>
 
 <h2>상세요강</h2><hr>
