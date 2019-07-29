@@ -122,14 +122,25 @@
 	<select id="getComment" parameterType="int" resultType="web.dto.Review_comment">
 		SELECT * FROM review_comment
 		WHERE review_no = #{reviewno }
+		ORDER BY comment_no DESC
 	</select>
 	
 	<select id="getNewComment" parameterType="int" resultType="web.dto.Review_comment">
 		SELECT * FROM (
-			SELECT * FROM review_comment 
+			SELECT * FROM review_comment
 			WHERE review_no = #{reviewno }
-			ORDER BY ROWNUM DESC
+			ORDER BY comment_no DESC
 		)
 		WHERE ROWNUM = 1
 	</select>
+	
+	<delete id="deleteNewComment">
+		DELETE review_comment
+		WHERE comment_no = #{comment_no } AND comment_password = #{comment_password }
+	</delete>
+	
+	<delete id="deleteComment">
+		DELETE review_comment
+		WHERE comment_no = #{comment_no } AND comment_password = #{comment_password }
+	</delete>
 </mapper>

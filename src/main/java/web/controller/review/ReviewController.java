@@ -147,9 +147,9 @@ public class ReviewController {
 		reviewService.upHit(reviewno);
 		List<HashMap<String, Object>> viewlist = reviewService.getViewList(reviewno);
 		List<Review_comment> getcomment = reviewService.getComment(reviewno);
-		System.out.println(getcomment);
-		
+
 		model.addAttribute("viewlist", viewlist);
+		model.addAttribute("comment", getcomment);
 	}
 	
 	// 추천수 
@@ -197,6 +197,7 @@ public class ReviewController {
 		JSONArray array = new JSONArray();
 		for(int i  = 0; i <newcomment.size(); i++) {
 			JSONObject obj = new JSONObject();
+			obj.put("commentno", newcomment.get(i).getComment_no());
 			obj.put("nick", newcomment.get(i).getComment_nick());
 			obj.put("content", newcomment.get(i).getComment_content());
 			obj.put("pw", newcomment.get(i).getComment_password());
@@ -212,5 +213,20 @@ public class ReviewController {
 			e.printStackTrace();
 		}
         
+	}
+	
+	@RequestMapping(value="/review/deleteNewComment", method=RequestMethod.POST)
+	public void deleteNewComment(Model model, HttpServletRequest request, HttpServletResponse resp, Review_comment commentParam) {
+			Review_comment deletecomment = reviewService.getDeleteParameter(request, commentParam);
+			
+			reviewService.deleteNewComment(deletecomment);
+	}
+	
+	@RequestMapping(value="/review/deleteComment", method=RequestMethod.POST)
+	public void deleteComment(Model model, HttpServletRequest request, HttpServletResponse resp, Review_comment commentParam) {
+			Review_comment deletecomment = reviewService.getDeleteParameter(request, commentParam);
+			System.out.println("deletecomment : " + deletecomment);
+			
+			reviewService.deleteComment(deletecomment);
 	}
 }

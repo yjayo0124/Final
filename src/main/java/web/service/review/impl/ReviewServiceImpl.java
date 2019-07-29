@@ -184,4 +184,31 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.getNewComment(reviewno);
 	}
 
+	@Override
+	public Review_comment getDeleteParameter(HttpServletRequest request, Review_comment commentParam) {
+		String deletecommentno = request.getParameter("commentno");
+		String deletepw = request.getParameter("pw");
+		
+		int commentno = Integer.parseInt(deletecommentno);
+		int pw = Integer.parseInt(deletepw);
+		
+		System.out.println("commentno : " + commentno);
+		System.out.println("deletepw : " + deletepw);
+		commentParam.setComment_no(commentno);
+		commentParam.setComment_password(pw);
+		
+		return commentParam;
+		
+	}
+
+	@Override
+	public void deleteNewComment(Review_comment deletecomment) {
+		reviewDao.deleteNewComment(deletecomment);
+	}
+
+	@Override
+	public void deleteComment(Review_comment deletecomment) {
+		reviewDao.deleteComment(deletecomment);
+	}
+
 }

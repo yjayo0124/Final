@@ -51,4 +51,8 @@ public interface ReviewDao {
 
 	public List<Review_comment> getNewComment(int reviewno);
 
+	public void deleteNewComment(Review_comment deletecomment);
+
+	public void deleteComment(Review_comment deletecomment);
+
 }
