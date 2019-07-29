@@ -26,8 +26,8 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 
 	@Override
-	public List<HashMap<String, Object>> adminView(int jobfair_no) {
-		return jobfairDao.selectByJobfairNo(jobfair_no);
+	public List<HashMap<String, Object>> adminView(JobFair jobfair) {
+		return jobfairDao.selectByJobfairNo(jobfair);
 	}
 
 	@Override
