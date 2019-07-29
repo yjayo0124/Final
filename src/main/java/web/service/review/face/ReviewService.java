@@ -49,4 +49,10 @@ public interface ReviewService {
 
 	public List<Review_comment> getNewComment(int reviewno);
 
+	public Review_comment getDeleteParameter(HttpServletRequest request, Review_comment commentParam);
+
+	public void deleteNewComment(Review_comment deletecomment);
+
+	public void deleteComment(Review_comment deletecomment);
+
 }
