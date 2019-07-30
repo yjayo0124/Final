@@ -8,7 +8,7 @@
 $(function() {
 	$("body").on({			
 		click: function() {		// click 이벤트가 발생했을 때
-			$("#text").html("<a class='btn btn-danger' id='withdraw' href='/mypage/withdrawProc'>>탈퇴하기<</a>");
+			$("#text").html("<a class='btn' id='withdraw' href='/mypage/withdrawProc'>탈퇴하기</a>");
 		}
 	}, "#btnWithdraw");		// id가 "btn"인 요소에 이벤트 핸들러를 등록함.
 });
@@ -99,7 +99,15 @@ $(function() {
 	margin-top: 15%;
 }
 
+
+#btnWithdraw{
+	
+}
+
 #withdraw{
+	
+	background-color: #E71D36;
+	color: white;
 	margin-top: 10px;
 }
 
@@ -137,10 +145,10 @@ $(function() {
 				</ul>
 			</div>
 		</div>
-		<div class="withdraw_container" style="margin-left: 250px; width: 700px;">
-			<h3>버튼을 누르시면 더이상 KHOB의 서비스를 이용하실 수 없습니다.</h3>
+		<div class="withdraw_container" style="margin-left: 250px; width: 710px;">
+			<h3>버튼을 누르시면 더이상 <img src="/resources/images/logo.png" height="26px" style="margin-bottom: 3px;">의 서비스를 이용하실 수 없습니다.</h3>
 			
-		 	<button id="btnWithdraw" type="button" class="btn btn-warning btn-lg">정말 탈퇴하시겠습니까?</button>
+		 	<button id="btnWithdraw" type="button" class="btn btn-lg btn-default">정말 탈퇴하시겠습니까?</button>
 		 	<div id="text">
 		 	</div>
 		</div>

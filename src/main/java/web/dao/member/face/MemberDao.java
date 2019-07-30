@@ -26,4 +26,6 @@ public interface MemberDao {
 	
 	public List<Review> getMyReviewList(int member_no);
 	
+	public void updateMemberInfoExceptPw(Member member);
+	
 }

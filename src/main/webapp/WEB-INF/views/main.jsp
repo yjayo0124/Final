@@ -10,6 +10,7 @@
 <script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean" rel="stylesheet">  
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 
@@ -73,19 +74,26 @@ $(document).ready(function() {
 /* 메인 검색엔진 css */
 .search {
 	text-align: center;
-
+	padding: 4px;
 }
 
 #searchBtn{
-
-	background-color: #181842;
-	border: 2px solid #181842;
+	
+	margin-left: -10px;
+	height: 40px;
+	width: 60px;
+	background-color: #011627;
+	border: 2px solid #011627;
 	color: white;
 }
 
 
 #keyword {
-	width: 430px;
+	border-radius: 5px;
+    width: 430px;
+    height: 40px;
+    background: white;
+    border: 1px double;
 }
 
 
@@ -185,8 +193,18 @@ font-size: 13px;
 	height: 330px;
 	overflow: auto;
 	display: inherit;
+
+	font-family: 'Nanum Gothic Coding', monospace; 
 }
 
+
+table th{
+
+	background-color: #011627;
+	color: white;
+	border: 1px solid #011627;
+
+}
 
 .table a{
 
@@ -201,7 +219,7 @@ font-size: 13px;
 		<!-- 검색기능 -->
 		<form action="/main/search" method="get">
 			<div class="search">
-				<input type="text" name="keyword" id="keyword" width="90%">
+				<input type="text" name="keyword" id="keyword" width="90%" placeholder="기업을 검색해보세요♬">
 				<button type="button" id="searchBtn">검색</button>
 			</div>
 		</form>
@@ -225,7 +243,7 @@ font-size: 13px;
  
  
 <div class="recruit_table" style="border: 1px solid #ccc; height: 330px;">
-<table class="table table-hover table-condensed" >
+<table class="table table-hover table-condensed table-responsive" >
 	<thead>
 		<tr>
 			<th colspan="3" style=" text-align: center;">최신 채용공고</th>	
@@ -246,7 +264,7 @@ font-size: 13px;
  
 
 <div class="review_table" style="border: 1px solid #ccc; height: 330px;">
-<table class="table table-hover table-condensed" >
+<table class="table table-hover table-condensed table-responsive" >
 	<thead>
 		<tr >
 			<th colspan="3" style="text-align: center;">최신 기업리뷰</th>	
@@ -255,8 +273,8 @@ font-size: 13px;
 	<tbody>
 <c:forEach items="${review }" var="i">
 	<tr onclick="location.href='/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }'">
-		<td style="width: 15%">${i.REVIEW_TAG }</td>
-		<td style="width: 65%; text-align: center;">${i.REVIEW_TITLE }</td>
+		<td style="width: 20%">${i.REVIEW_TAG }</td>
+		<td style="width: 60%; text-align: center;">${i.REVIEW_TITLE }</td>
 		<td style="width: 20%">${i.COMPANY_NAME }</td>
 	</tr>
 </c:forEach>

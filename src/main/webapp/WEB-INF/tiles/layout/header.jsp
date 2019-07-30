@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<link href="https://fonts.googleapis.com/css?family=Gothic+A1:500&display=swap&subset=korean" rel="stylesheet">
     
 <style type="text/css">
 #btnCorGo{
@@ -19,12 +20,13 @@
 	width: 1020px;
 	height: 45px;
 	margin: 0 auto;
-
+font-family: 'Gothic A1', sans-serif;
 }
 
 
 .header-home{
-	margin-left: -11px;
+	
+	
 }
 
 .userMenu{
@@ -35,14 +37,14 @@
 
 .userMenu li{
 float: left;
-margin-left: 10px;
+margin-left: 14px;
 }
 
 .userMenu li a{
 	display: block;
 	height: 23px;
 	color: #333;
-	font-size: 15px;
+	font-size: 17px;
 	line-height: 23px;
 }
 
@@ -51,6 +53,7 @@ ul,li{
 }
 
 .menu{
+	margin-left: -64px;
 	position: absolute;
 	top: 11px;
 }
@@ -61,11 +64,11 @@ ul,li{
 }
 
 .menu li a{
-	margin-left: 7px;
+	margin-right: 15px;
 	display: block;
 	height: 23px;
 	color: #333;
-	font-size: 15px;
+	font-size: 17px;
 	line-height: 23px;
 }
 
@@ -93,7 +96,10 @@ ul,li{
 		<li><a href="/review/list?tag=전체"><span>리뷰</span></a></li>
 
 		<li><a href="/jobfair/main"><span>취준</span></a></li>
-	
+		
+		<sec:authorize access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')">
+		<li><a href="/resume/list"><span>인재게시판</span></a></li>
+		</sec:authorize>
 	</ul>
 	
 </div> 
@@ -107,8 +113,8 @@ ul,li{
 			
 		<sec:authorize access="isAuthenticated()"> 
 		
-			<sec:authorize access="hasAnyRole('ROLE_COR')">
-			<li><a href="/cor/main"><span>기업회원 홈</span></a></li>
+			<sec:authorize access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')">
+			<li><a href="/cor/main"><span>기업회원홈</span></a></li>
 			</sec:authorize>
 		
 			<sec:authorize access="hasRole('ROLE_ADMIN')">

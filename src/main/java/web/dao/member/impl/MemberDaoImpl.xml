@@ -44,6 +44,12 @@
 	WHERE member_no = #{member_no}
 	</update>
 	
+	<update id="updateMemberInfoExceptPw" parameterType="web.dto.Member">
+	UPDATE member
+	SET member_phone = #{member_phone}, member_email = #{member_email}
+	WHERE member_no = #{member_no}
+	</update>
+	
 	
 	<update id="getWithdrawByNo" parameterType="int">
 	UPDATE member
