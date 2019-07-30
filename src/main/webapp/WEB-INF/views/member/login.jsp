@@ -182,7 +182,9 @@ function loginException(){
 		<input class="inputstyle" type="text" id="member_id" name="member_id" placeholder="아이디를 입력하세요" />
 		<input class="inputstyle" type="password" id="member_pw" name="member_pw" placeholder="비밀번호를 입력하세요" />
 		<button type="submit" class="btLogin" id="btLogin" onclick="loginException()">로그인</button>
-
+		<div>
+		<label name="remember-me" for="remember-me"><input type="checkbox" id="remember-me" name="remember-me">   로그인 상태 유지</label>
+		</div>
 	</div>
 </div>
 
