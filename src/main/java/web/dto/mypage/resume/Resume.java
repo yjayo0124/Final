@@ -16,6 +16,9 @@ public class Resume {
 	private String resume_phone;
 	private String resume_cellphone;
 	private String resume_addr;
+	private String forms_employment;
+	private String desired_work_place;
+	private String salary;
 	private Date resume_writendate;
 	
 	@Override
@@ -24,7 +27,27 @@ public class Resume {
 				+ ", resume_title=" + resume_title + ", resume_stored_name=" + resume_stored_name + ", resume_name="
 				+ resume_name + ", resume_birth=" + resume_birth + ", resume_gender=" + resume_gender
 				+ ", resume_email=" + resume_email + ", resume_phone=" + resume_phone + ", resume_cellphone="
-				+ resume_cellphone + ", resume_addr=" + resume_addr + ", resume_writendate=" + resume_writendate + "]";
+				+ resume_cellphone + ", resume_addr=" + resume_addr + ", forms_employment=" + forms_employment
+				+ ", desired_work_place=" + desired_work_place + ", salary=" + salary + ", resume_writendate="
+				+ resume_writendate + "]";
+	}
+	public String getForms_employment() {
+		return forms_employment;
+	}
+	public void setForms_employment(String forms_employment) {
+		this.forms_employment = forms_employment;
+	}
+	public String getSalary() {
+		return salary;
+	}
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+	public String getDesired_work_place() {
+		return desired_work_place;
+	}
+	public void setDesired_work_place(String desired_work_place) {
+		this.desired_work_place = desired_work_place;
 	}
 	public int getResume_no() {
 		return resume_no;

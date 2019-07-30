@@ -155,23 +155,60 @@
 		var countLanguage = $("#form_Language .add").size();
 		var countPreferential = $("#form_Preferential .add").size();
 		
-		var listSchool = new Array();
-		var listCareer = new Array();
-		var listActivities = new Array();
-		var listEducation = new Array();
-		var listCertificate = new Array();
-		var listAward = new Array();
-		var listOverseas_Experience = new Array();
-		var listLanguage = new Array();
-		var listPreferential = new Array();
+		var listSchool = new Array();	listSchool.push(0);
+		var listCareer = new Array();	listCareer.push(0);
+		var listActivities = new Array();	listActivities.push(0);
+		var listEducation = new Array();	listEducation.push(0);
+		var listCertificate = new Array();	listCertificate.push(0);
+		var listAward = new Array();		listAward.push(0);
+		var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
+		var listLanguage = new Array();	listLanguage.push(0);
+		var listPreferential = new Array();	listPreferential.push(0);
+		
+		var resume_title = $('.resume_title').find("input[name='resume_title']").val();
+		var resume_name = $('#user_info').find("input[name='resume_name']").val();
+		var resume_birth = $('#user_info').find("input[name='resume_birth']").val();
+		var resume_gender = $('#user_info').find("select[name='resume_gender']").val();
+		var resume_email = $('#user_info').find("input[name='resume_email']").val();
+		var resume_phone = $('#user_info').find("input[name='resume_phone']").val();
+		var resume_cellphone = $('#user_info').find("input[name='resume_cellphone']").val();
+		var resume_addr = $('#user_info').find("input[name='resume_addr']").val();
+		
+		var forms_employment = $('.Preferential').find("select[name='forms_employment']").val();
+		var desired_work_place = $('.Preferential').find("select[name='desired_work_place']").val();
+		var salary = $('.Preferential').find("input[name='salary']").val();
+		
+		
+		
+		$.ajax({
+            url: "/mypage/introduction/write",
+            type: "POST",
+            data: {
+            		resume_title : resume_title,
+            		resume_name	: resume_name,
+            		resume_birth : resume_birth,
+            		resume_gender : resume_gender,
+            		resume_email : resume_email,
+            		resume_phone : resume_phone,
+            		resume_cellphone : resume_cellphone,
+            		resume_addr : resume_addr,
+            		forms_employment : forms_employment,
+            		desired_work_place : desired_work_place,
+            		salary : salary
+            		},
+            success: function(data){
+            },
+            error: function(){
+                alert("error");
+            }
+        });
 		
 		if(countSchool != "0") {
 			for(var i=0; i<countSchool; i++) {
 				var School = new Array();
-				var graduation_date = $("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val();
 				School.push($("#div_School").children("div.add").eq(i).find("select[name='school_classification']").val());
 				School.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
-				School.push(graduation_date);
+				School.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
 				School.push($("#div_School").children("div.add").eq(i).find("select[name='graduation_status']").val());
 				School.push($("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked"));
 				School.push($("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val());
@@ -193,7 +230,7 @@
 	            data: {school : listSchool},
 	            traditional : true,
 	            success: function(data){
-	            	console.log(listSchool[0].length);
+	            	console.log(listSchool);
 	            },
 	            error: function(){
 	                alert("error");
@@ -331,7 +368,7 @@
 			$.ajax({
 	            url: "/mypage/introduction/write",
 	            type: "POST",
-	            data: {award : listAwarde},
+	            data: {award : listAward},
 	            traditional : true,
 	            success: function(data){
 	            	console.log(listAward);
@@ -546,7 +583,7 @@
 	function focusSalary() {
 		thisEle = event.target;
 		before = thisEle.getAttribute("placeholder");
-		var after ="숫자만 입력해주세요."
+		var after ="만원 이상( , 제외 입력)"
 		
 			thisEle.setAttribute("placeholder", after);
 		
@@ -1367,7 +1404,7 @@ function dynamic_change() {
 		
 				"<div class='row'>"+
 				"<div class='info_form normal' style='margin: 0;'>"+
-					"<select class='selecter_full' name='conversation_ability' onchange='dynamic_change();'>"+
+					"<select class='selecter_full' name='language_classification' onchange='dynamic_change();'>"+
 						"<option value='구분'>구분</option>"+
 						"<option value='회화능력'>회화능력</option>"+
 						"<option value='공인시험' selected='selected'>공인시험</option>"+
@@ -1821,10 +1858,10 @@ input {
 
 				<div class="form">
 					<h4 style="font-weight: bold;">인적사항</h4>
-					<div class="info">
+					<div class="info" id="user_info">
 						<div class="photo info_form">
-							<img id="myImg" alt="" src=""> <input
-								style="display: none;" type="file" name="imgfile">
+							<img id="myImg" alt="" src="">
+							<input	style="display: none;" type="file" name="imgfile">
 						</div>
 						<div
 							style="width: 827px; height: 50px; margin-right: 10px; margin-bottom: 10px;">
@@ -1945,7 +1982,7 @@ input {
 					<h4 class="head">희망근무조건</h4>
 					<div class="new">
 						<div class="row">
-							<div class="info_form normal" style="width: 200px;">
+							<div class="info_form normal Preferential" style="width: 200px;">
 								<select class="selecter_full" name="forms_employment">
 									<option value="0" selected="selected">고용형태</option>
 									<option value="정규직">정규직</option>
@@ -1957,46 +1994,46 @@ input {
 									<option value="인턴직">인턴직</option>
 								</select>
 							</div>
-							<div class="info_form normal" style="width: 200px;">
+							<div class="info_form normal Preferential" style="width: 200px;">
 								<select class="selecter_full" name="desired_work_place">
 									<option value="0" selected="selected">희망근무지</option>
-									<option value="">전국</option>
-									<option value="">서울</option>
-									<option value="">경기</option>
-									<option value="">인천</option>
-									<option value="">대전</option>
-									<option value="">세종</option>
-									<option value="">충남</option>
-									<option value="">충북</option>
-									<option value="">광주</option>
-									<option value="">전남</option>
-									<option value="">전북</option>
-									<option value="">대구</option>
-									<option value="">경북</option>
-									<option value="">부산</option>
-									<option value="">울산</option>
-									<option value="">경남</option>
-									<option value="">강원</option>
-									<option value="">제주</option>
-									<option value="">중국,홍콩</option>
-									<option value="">미국</option>
-									<option value="">일본</option>
-									<option value="">아시아,중동</option>
-									<option value="">북아메리카</option>
-									<option value="">남아메리카</option>
-									<option value="">유럽</option>
-									<option value="">오세아니아</option>
-									<option value="">아프리카</option>
+									<option value="전국">전국</option>
+									<option value="서울">서울</option>
+									<option value="경기">경기</option>
+									<option value="인천">인천</option>
+									<option value="대전">대전</option>
+									<option value="세종">세종</option>
+									<option value="충남">충남</option>
+									<option value="충북">충북</option>
+									<option value="광주">광주</option>
+									<option value="전남">전남</option>
+									<option value="전북">전북</option>
+									<option value="대구">대구</option>
+									<option value="경북">경북</option>
+									<option value="부산">부산</option>
+									<option value="울산">울산</option>
+									<option value="경남">경남</option>
+									<option value="강원">강원</option>
+									<option value="제주">제주</option>
+									<option value="중국,홍콩">중국,홍콩</option>
+									<option value="미국">미국</option>
+									<option value="일본">일본</option>
+									<option value="아시아,중동">아시아,중동</option>
+									<option value="북아메리카">북아메리카</option>
+									<option value="남아메리카">남아메리카</option>
+									<option value="유럽">유럽</option>
+									<option value="오세아니아">오세아니아</option>
+									<option value="아프리카">아프리카</option>
 								</select>
 							</div>
-							<div class="info_form normal" style="width: 200px;">
+							<div class="info_form normal Preferential" style="width: 200px;">
 								<input type="text" name="salary" placeholder="희망연봉"
 									onblur="blurSalary();" onfocus="focusSalary();">
 							</div>
 							<div class="checkbox">
 								<p>
 									<input class="input_checkbox" type="checkbox"
-										name="less_than_high"><label
+										name="after_interview"><label
 										style="padding-left: 5px;">면접 후 결정</label>
 								</p>
 							</div>

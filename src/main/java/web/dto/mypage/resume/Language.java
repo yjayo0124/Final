@@ -10,7 +10,7 @@ public class Language {
 	private String standardized_tests;
 	private String language_score;
 	private String conversation_ability;
-	private Date acquisition_date;
+	private String acquisition_date;
 	
 	@Override
 	public String toString() {
@@ -55,10 +55,10 @@ public class Language {
 	public void setLanguage_score(String language_score) {
 		this.language_score = language_score;
 	}
-	public Date getAcquisition_date() {
+	public String getAcquisition_date() {
 		return acquisition_date;
 	}
-	public void setAcquisition_date(Date acquisition_date) {
+	public void setAcquisition_date(String acquisition_date) {
 		this.acquisition_date = acquisition_date;
 	}
 	

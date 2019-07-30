@@ -7,7 +7,7 @@ public class Award {
 	private int resume_no;
 	private String award_name;
 	private String award_service;
-	private Date award_date;
+	private String award_date;
 	private String award_content;
 	
 	@Override
@@ -33,10 +33,10 @@ public class Award {
 	public void setAward_service(String award_service) {
 		this.award_service = award_service;
 	}
-	public Date getAward_date() {
+	public String getAward_date() {
 		return award_date;
 	}
-	public void setAward_date(Date award_date) {
+	public void setAward_date(String award_date) {
 		this.award_date = award_date;
 	}
 	public String getAward_content() {
