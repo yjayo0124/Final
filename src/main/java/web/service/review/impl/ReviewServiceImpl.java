@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import web.dao.review.face.ReviewDao;
-import web.dto.Cor;
+import web.dto.Comment_recommend;
 import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
@@ -192,8 +192,6 @@ public class ReviewServiceImpl implements ReviewService {
 		int commentno = Integer.parseInt(deletecommentno);
 		int pw = Integer.parseInt(deletepw);
 		
-		System.out.println("commentno : " + commentno);
-		System.out.println("deletepw : " + deletepw);
 		commentParam.setComment_no(commentno);
 		commentParam.setComment_password(pw);
 		
@@ -209,6 +207,103 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteComment(Review_comment deletecomment) {
 		reviewDao.deleteComment(deletecomment);
+	}
+
+	@Override
+	public Comment_recommend commentRecommed(HttpServletRequest request, Comment_recommend recommendParam) {
+		String recommendno = request.getParameter("recommendno");
+		String memno = request.getParameter("memno");
+		String recommend = request.getParameter("recommend");
+		
+		int no = Integer.parseInt(recommendno);
+		int mem = Integer.parseInt(memno);
+		int rcmd = Integer.parseInt(recommend);
+		
+		recommendParam.setComment_no(no);
+		recommendParam.setMem_no(mem);
+		recommendParam.setRecommend_check(rcmd);
+		
+		return recommendParam;
+	}
+
+	@Override
+	public Review_comment Recommed(HttpServletRequest request, Review_comment commentParam) {
+		String recommendno = request.getParameter("recommendno");
+		String recommend = request.getParameter("recommend");
+		
+		int no = Integer.parseInt(recommendno);
+		int rcmd = Integer.parseInt(recommend);
+		
+		commentParam.setComment_no(no);
+		commentParam.setComment_recommend(rcmd);
+		
+		return commentParam;
+	}
+	
+	@Override
+	public void updateCommentRecommend(Review_comment commentRecommend) {
+		int recommend = commentRecommend.getComment_recommend();
+		int recommendno = commentRecommend.getComment_no();
+				
+		if(recommend == 0) {
+			reviewDao.addCommentRecommend(recommendno);
+		} else {
+			reviewDao.minCommentRecommend(recommendno);
+		}
+	}
+
+	@Override
+	public List<Comment_recommend> checkCommentRecommend(Comment_recommend recommend) {
+		int checkResult = 0;
+		int commentno = recommend.getComment_no();
+		int checkno = recommend.getRecommend_check();
+		int memno = recommend.getMem_no();
+		
+		List<Comment_recommend> check = reviewDao.scanCommentRecommend(memno);
+		System.out.println(check);
+		System.out.println("commentno : " +commentno);
+		System.out.println("checkno : " +checkno);
+		System.out.println("memno : " +memno);
+		for(int i = 0; i < check.size(); i++) {
+			if(check.get(i).getComment_no() == commentno && check.get(i).getMem_no() == memno) {
+				checkResult = 1;
+			} else if(check.get(i).getComment_no() != commentno && check.get(i).getMem_no() == memno && checkno == 0) {
+				checkResult = 2;
+			}  else if(check.get(i).getComment_no() != commentno && check.get(i).getMem_no() != memno && checkno == 0) {
+				checkResult = 2;
+			}
+		}
+		if(check.isEmpty()) {
+			checkResult = 2;
+		}
+		System.out.println(checkResult);
+		recommend.setMem_no(memno);
+		recommend.setComment_no(commentno);;
+		recommend.setRecommend_check(checkno);
+		
+		if(checkResult == 2) {
+			reviewDao.deleteCmtRecommend(recommend);
+			reviewDao.insertCmtRecommend(recommend);
+			return check;
+		} else if(checkResult == 1 && checkno == 0){
+			reviewDao.addCmtRecommend(recommend);
+			return check;
+		} else {
+			reviewDao.deleteCmtRecommend(recommend);
+			return check;
+		}
+
+	}
+
+	@Override
+	public int selectCommentLike(Review_comment commentRecommend) {
+		int commentno = commentRecommend.getComment_no();
+		return reviewDao.selectCommentLike(commentno);
+	}
+
+	@Override
+	public List<Comment_recommend> getCommentRecommend() {
+		return reviewDao.getCommentRecommend();
 	}
 
 }
