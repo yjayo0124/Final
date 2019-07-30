@@ -43,6 +43,8 @@ public interface RecruitmentService {
 
 	public String getCor_no(int recruit_no);
 
+	public List getListnotpaging();
+
 	
 
 
