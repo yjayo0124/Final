@@ -3,6 +3,7 @@ package web.dao.review.face;
 import java.util.HashMap;
 import java.util.List;
 
+import web.dto.Comment_recommend;
 import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
@@ -54,5 +55,21 @@ public interface ReviewDao {
 	public void deleteNewComment(Review_comment deletecomment);
 
 	public void deleteComment(Review_comment deletecomment);
+
+	public void addCommentRecommend(int recommendno);
+
+	public void minCommentRecommend(int recommendno);
+
+	public List<Comment_recommend> scanCommentRecommend(int memno);
+
+	public void deleteCmtRecommend(Comment_recommend recommend);
+
+	public void insertCmtRecommend(Comment_recommend recommend);
+
+	public void addCmtRecommend(Comment_recommend recommend);
+
+	public int selectCommentLike(int commentno);
+
+	public List<Comment_recommend> getCommentRecommend();
 
 }

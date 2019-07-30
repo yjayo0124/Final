@@ -116,7 +116,7 @@
 	
 	<insert id="InsertComment">
 		INSERT INTO review_comment
-		VALUES(comment_no_seq.nextval, #{review_no }, #{comment_nick }, #{comment_content }, #{comment_password }, sysdate, 0)
+		VALUES(comment_no_seq.nextval, #{review_no }, #{comment_nick }, #{comment_content }, #{comment_password }, sysdate, 0, 0)
 	</insert>
 	
 	<select id="getComment" parameterType="int" resultType="web.dto.Review_comment">
@@ -143,4 +143,46 @@
 		DELETE review_comment
 		WHERE comment_no = #{comment_no } AND comment_password = #{comment_password }
 	</delete>
+	
+	<update id="addCommentRecommend">
+		UPDATE review_comment
+		SET comment_recommend = comment_recommend + 1
+		WHERE comment_no = #{recommendno }
+	</update>
+	
+	<update id="minCommentRecommend">
+		UPDATE review_comment
+		SET comment_recommend = comment_recommend - 1
+		WHERE comment_no = #{recommendno }
+	</update>
+	
+	<select id="scanCommentRecommend" parameterType="int" resultType="web.dto.Comment_recommend">
+		SELECT mem_no, comment_no FROM comment_recommend
+		WHERE mem_no = #{memno }
+	</select>
+	
+	<insert id="insertCmtRecommend">
+		INSERT INTO comment_recommend
+		VALUES(#{comment_no }, #{mem_no }, 1)
+	</insert>
+	
+	<update id="addCmtRecommend">
+		UPDATE comment_recommend
+		SET recommend_check = 1
+		WHERE mem_no = #{mem_no } AND comment_no = #{comment_no }
+	</update>
+	
+	<update id="deleteCmtRecommend">
+		DELETE FROM comment_recommend
+		WHERE mem_no = #{mem_no } AND comment_no = #{comment_no }
+	</update>
+	
+	<select id="selectCommentLike" parameterType="int" resultType="int">
+		SELECT comment_recommend FROM review_comment
+		WHERE comment_no = #{comment_no }
+	</select>
+	
+	<select id="getCommentRecommend" resultType="web.dto.Comment_recommend">
+		SELECT * FROM comment_recommend
+	</select>
 </mapper>

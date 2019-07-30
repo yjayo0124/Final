@@ -71,7 +71,6 @@ $(document).ready(function() {
 		var memno = $(this).parent().parent().parent().children();
 		
 		console.log("클릭 값 : "+ memno.eq(0).children().val());
-
 		 $.ajax({
 			 url: "/review/addlike",
 			 type: "post",
@@ -342,7 +341,7 @@ a:link {
 			<td id="tagcor"><a href="/cor/info?cor_no=${i.COR_NO }&cor_type=${i.COR_TYPE }">${i.COR_NAME }</a></td>
 			<td id="tagtitle"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
 				<h6><input type="hidden" id="change" name="change" value="${i.REVIEW_CHECK }"/>
-					<img id="like" src="${src }"/>&nbsp;<label id="uplike">${i.REVIEW_RECOMMENDED }</label>&nbsp;&nbsp;&nbsp;
+					<img id="like" src="${src }" style="cursor:pointer"/>&nbsp;<label id="uplike">${i.REVIEW_RECOMMENDED }</label>&nbsp;&nbsp;&nbsp;
 					조회수&nbsp;${i.REVIEW_HIT }&nbsp;&nbsp;&nbsp;
 					작성일&nbsp;<fmt:formatDate value="${i.REVIEW_WRITTEN_DATE}" pattern="yyyy-MM-dd"/>
 				</h6>

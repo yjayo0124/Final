@@ -20,6 +20,7 @@ var newcontent;
 var newdate;
 var newrecommend;
 var newno;
+var newcheck;
 
 var thisno;
 var thispw;
@@ -103,6 +104,12 @@ $(document).ready(function() {
 	});
 	
 	$(document).on("click","#writecmt",function() {
+		<c:set var="pagingTag" value="전체"/>
+		<sec:authentication property="details" var="member"/>   
+		    <sec:authorize access="isAuthenticated()">
+				<c:set var="mem" value="${member.member_no }"/>
+		</sec:authorize>
+			
 		 ajax = $.ajax({
 			 url: "/review/comment",
 			 type: "post",
@@ -116,11 +123,11 @@ $(document).ready(function() {
 					 var div3 = document.createElement('div');
 					 var div4 = document.createElement('div');
 					 var div5 = document.createElement('div');
-					 
+
 					 var text = document.createTextNode(item.nick);
 					 var content = document.createTextNode(item.content);
 					 var date = document.createTextNode(item.date);
-					 var recommend = document.createTextNode('추천수' + '\u00a0'+ item.recommend);
+					 var recommend = document.createTextNode('\u00a0'+ item.recommend);
 					 
 					 var writtencmt = document.getElementById("writtencmt");
 
@@ -158,7 +165,12 @@ $(document).ready(function() {
 					 div.appendChild(text);
 					 div2.appendChild(content);
 					 div3.appendChild(date);
-					 div4.appendChild(recommend);
+					 div4.innerHTML = "<input type='hidden' id='newrecommendno' name='newrecommendno'/>";
+					 div4.innerHTML += "<input type='hidden' id='newmemno' name='newmemno'/>";
+					 div4.innerHTML += "<input type='hidden' id='newchange' name='newchange'/>";
+					 div4.innerHTML += "<img id='like1' src='/resources/images/beforelike.png' style='cursor:pointer'/>";
+					 div4.innerHTML += '<label>' + '\u00a0' + item.recommend + '</label>';
+					 
 					 div5.innerHTML = "<input type='hidden' id='deletecmtno' name='deletecmtno'/>";
 					 div5.innerHTML += "<input type='hidden' id='deletecmtpw' name='deletecmtpw'/>";
 					 div5.innerHTML += "<input type='hidden' id='deletecmtnick' name='deletecmtnick'/>";
@@ -183,15 +195,19 @@ $(document).ready(function() {
 					 newdate = item.commentno + item.date;
 					 newrecommend = item.commentno + item.pw;
 					 newno = item.commentno + item.commentno + item.content;
+					 newcheck = item.check;
 				 });
-					document.getElementById('deletecmtno').value = newcommentno;
-					document.getElementById('deletecmtpw').value = newpw;
-					document.getElementById('deletecmtnick').value = newnick;
-					document.getElementById('deletecmtcontent').value = newcontent;
-					document.getElementById('deletecmtdate').value = newdate;
-					document.getElementById('deletecmtrecommend').value = newrecommend;
-					document.getElementById('deletecmtBtn').value = newno;
-					
+				 document.getElementById('newrecommendno').value = newcommentno;
+				 document.getElementById('newmemno').value = ${mem };
+				 document.getElementById('newchange').value = newcheck;
+				 
+				 document.getElementById('deletecmtno').value = newcommentno;
+				 document.getElementById('deletecmtpw').value = newpw;
+				 document.getElementById('deletecmtnick').value = newnick;
+				 document.getElementById('deletecmtcontent').value = newcontent;
+				 document.getElementById('deletecmtdate').value = newdate;
+				 document.getElementById('deletecmtrecommend').value = newrecommend;
+				 document.getElementById('deletecmtBtn').value = newno;
 			 },
 			 error : function(data) {
 				 alert("에러가 발생하였습니다.")
@@ -295,6 +311,85 @@ $(document).ready(function() {
 			 }
 		 });
 	}
+	
+	$(document).on('click', '#like', function(){
+		var image = event.target;
+		var change = $(this).parent();
+		
+		console.log($(this).parent().children().val());
+		console.log($(this).parent().children().eq(1).val());
+		console.log("like : " + change.children().eq(4).html());
+		 $.ajax({
+			 url: "/review/commentlike",
+			 type: "post",
+			 dataType: "json",
+			 data: { recommendno : $(this).parent().children().val(), memno : $(this).parent().children().eq(1).val(), recommend : change.children().eq(2).val()},
+			 success: function(data) {
+				 console.log("data : " + data.data);
+				 if(${empty pageContext.request.userPrincipal }) {
+					 alert("로그인 하세요");
+				 } else {
+					 if(change.children().eq(2).val() == 0) {
+						 change.children().eq(4).html(data.data);
+						 image.src = "/resources/images/afterlike.png";
+						 change.children().eq(2).val(1);
+						 console.log("change : " + change.children().eq(2).val());
+						 console.log("after_change : " + change);
+					 } else if(change.children().eq(2).val() == 1) {
+						 change.children().eq(4).html(data.data);
+						 console.log(data.data);
+						 image.src = "/resources/images/beforelike.png";
+						 change.children().eq(2).val(0);
+						 console.log("change : " + change.children().eq(2).val());
+						 console.log("before_change : " + change);
+					 }
+				 }
+			 },
+			 error : function(data) {
+				 alert("에러 입니다.");
+			 }
+		 });
+		
+	});
+	
+	$(document).on('click', '#like1', function(){
+		var image = event.target;
+		var change = $(this).parent();
+		
+		console.log($(this).parent().children().val());
+		console.log($(this).parent().children().eq(1).val());
+		console.log("like : " + change.children().eq(3).html());
+		 $.ajax({
+			 url: "/review/commentlike",
+			 type: "post",
+			 dataType: "json",
+			 data: { recommendno : $(this).parent().children().val(), memno : $(this).parent().children().eq(1).val(), recommend : change.children().eq(2).val()},
+			 success: function(data) {
+				 console.log("data : " + data.data);
+				 if(${empty pageContext.request.userPrincipal }) {
+					 alert("로그인 하세요");
+				 } else {
+					 if(change.children().eq(2).val() == 0) {
+						 change.children().eq(4).html('\u00a0' + data.data);
+						 image.src = "/resources/images/afterlike.png";
+						 change.children().eq(2).val(1);
+						 console.log("change : " + change.children().eq(2).val());
+						 console.log("after_change : " + change);
+					 } else if(change.children().eq(2).val() == 1) {
+						 change.children().eq(4).html('\u00a0' + data.data);
+						 console.log(data.data);
+						 image.src = "/resources/images/beforelike.png";
+						 change.children().eq(2).val(0);
+						 console.log("change : " + change.children().eq(2).val());
+						 console.log("before_change : " + change);
+					 }
+				 }
+			 },
+			 error : function(data) {
+				 alert("에러 입니다.");
+			 }
+		 });
+	});
 	
 	if(getParam("tag") == '전체') {
 		$('#tag1').css({
@@ -527,6 +622,12 @@ td {
 
 <body>
 
+<c:set var="pagingTag" value="전체"/>
+<sec:authentication property="details" var="member"/>   
+    <sec:authorize access="isAuthenticated()">
+		<c:set var="mem" value="${member.member_no }"/>
+</sec:authorize>
+
 <br>
 <h1>기업리뷰</h1>
 <br>
@@ -586,6 +687,20 @@ td {
 
 <div id="writtencmt">
 	<c:forEach items="${comment }" var="i">
+	<c:set var="src" value="/resources/images/beforelike.png"/>
+	<input type="hidden" value="${i.comment_check_recommend = 0}"/>
+		<c:forEach items="${recommend }" var="j">
+			<c:if test="${j.mem_no eq  mem}">
+				<c:set var="recno" value="${j.comment_no }"/>
+			</c:if>
+			<c:choose>
+				<c:when test="${recno eq i.comment_no }">
+					<c:set var="src" value="/resources/images/afterlike.png"/>
+					<input type="hidden" value="${i.comment_check_recommend = 1}"/>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		
 		<div id="commentnick${i.comment_nick }" class="commentnick">
 			${i.comment_nick }
 		</div>
@@ -596,7 +711,10 @@ td {
 			<fmt:formatDate value="${i.comment_written_date }" pattern="yyyy-MM-dd"/>
 		</div>
 		<div id="commentrecommend${i.comment_nick }" class="commentrecommend">
-			추천수 ${i.comment_recommend }
+			<input type="hidden" id="recommendno" name="recommendno" value="${i.comment_no }"/>
+			<input type="hidden" id="memno" name="memno" value="${mem }"/>
+			<input type="hidden" id="change" name="change" value="${i.comment_check_recommend }"/>
+			<img id="like" src="${src }" style="cursor:pointer"/>&nbsp;<label id="uplike">${i.comment_recommend }</label>
 		</div>
 		<div id="commentBtn${i.comment_nick }" class="commentBtn">
 			<input type="hidden" id="deletecmtno" name="deletecmtno" value="${i.comment_no }"/>
