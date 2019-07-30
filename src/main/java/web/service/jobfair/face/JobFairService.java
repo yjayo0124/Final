@@ -11,7 +11,7 @@ public interface JobFairService {
 	
 	public void registerFair(JobFair jobfair);
 	
-	public List<HashMap<String, Object>> adminView(JobFair jobfair);
+	public JobFair adminView(JobFair jobfair);
 	
 	public void updateFair(JobFair jobfair);
 	

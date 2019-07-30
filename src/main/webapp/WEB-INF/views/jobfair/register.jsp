@@ -55,7 +55,7 @@ $(document).ready(function() {
 <div class="body">
 
 <jsp:useBean id="now" class="java.util.Date" />
-<fmt:formatDate value='${now }' pattern="yyyyMMdd" var="nowDate"/>
+<fmt:formatDate value='${now }' pattern="yyyy-MM-dd" var="nowDate"/>
 
 <h4>등록 페이지</h4>
 <hr>
@@ -76,7 +76,7 @@ $(document).ready(function() {
 		<td>${member_id }/${member.member_no }</td>
 	</tr>
 	<tr>
-		<td>날짜</td>
+		<td>등록일</td>
 		<td><c:out value="${nowDate }" /></td>
 	</tr>
 	<tr>
@@ -112,8 +112,8 @@ $(document).ready(function() {
 <br>
 
 <div class="text-center">
-<button id="btnRegister">등록</button>
-<input id="btnCancel" type="reset" value="취소"/>
+<button id="btnRegister" class="btn">등록</button>
+<input id="btnCancel" type="reset" value="취소" class="btn"/>
 </div>
 
 </form>

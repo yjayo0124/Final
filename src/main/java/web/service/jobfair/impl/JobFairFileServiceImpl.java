@@ -10,17 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import web.dao.jobfair.face.JobFairFileDao;
+import web.dao.jobfair.face.JobFairDao;
+import web.dto.JobFair;
 import web.dto.JobFairFile;
 import web.service.jobfair.face.JobFairFileService;
 
 @Service
 public class JobFairFileServiceImpl implements JobFairFileService {
 	
-	@Autowired JobFairFileDao jobfairfileDao;
+	@Autowired JobFairDao jobfairDao;
 
 	@Override
-	public void filesave(String title, MultipartFile file, ServletContext context) {
+	public void filesave(int jobfair_no, MultipartFile file, ServletContext context) {
 		
 		String storedPath = context.getRealPath("upload");
 		
@@ -43,10 +44,24 @@ public class JobFairFileServiceImpl implements JobFairFileService {
 		
 		jobfairfile.setJobfair_file_storedname(name);
 		jobfairfile.setJobfair_file_originname(file.getOriginalFilename());
+		jobfairfile.setJobfair_no(jobfair_no);
 		
-		jobfairfileDao.insertFile(jobfairfile);
+		jobfairDao.insertFile(jobfairfile);
 		
+	}
+	
+	@Override
+	public String getFilename(int jobfair_no) {
+		return jobfairDao.selectFilename(jobfair_no);
+	}
+	
+	@Override
+	public void deleteFile(JobFairFile jobfairfile) {
 		
+//		JobFair jobfair = new JobFair();
+		
+//		jobfairfile.setJobfair_no(jobfair.getJobfair_no());
+		jobfairDao.deleteFile(jobfairfile);
 	}
 
 }
