@@ -17,6 +17,7 @@ public interface MemberService {
 	public boolean memChk(String member_id);
 	
 	public void update(Member member);
+	public void updateMemberInfoExceptPw(Member member);
 	
 	public Member selectById(String member_id);
 	

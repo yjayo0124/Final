@@ -115,6 +115,7 @@
 			ON C.cor_no = M.company_no
 			INNER JOIN recruit R
        			ON M.member_no = R.member_no
+      			WHERE recruit_no = #{recruit_no}
 	</select>
 	
 	
