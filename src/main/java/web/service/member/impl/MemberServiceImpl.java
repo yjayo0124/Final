@@ -96,6 +96,12 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void updateMemberInfoExceptPw(Member member) {
+		memberDao.updateMemberInfoExceptPw(member);
+		
+	}
+
 	
 
 }

@@ -1,5 +1,6 @@
 package web.controller.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import web.dto.Member;
 import web.service.admin.face.AdminService;
@@ -66,5 +67,32 @@ public class AdminController {
 				
 		return "/adminCorList";
 	}
+	
+	
+	@RequestMapping(value= "/admin/idvDelete", method= RequestMethod.POST)
+	public String idvDelete(int[] checked) {
+
+		for(int member_no : checked) {
+			
+			//해당 member_no를 가진 회원 enab를 0으로 바꿈.
+			adminService.withdrawMember(member_no);
+		}
+		
+
+		
+		return "redirect: /admin";
+	}
+	
+	@RequestMapping(value= "/admin/corDelete", method= RequestMethod.POST)
+	public String corDelete(int[] checked) {
+		
+		for(int member_no : checked) {
+			
+			adminService.withdrawMember(member_no);
+		}
+		
+		return "redirect: /adminCorList";
+	}
+	
 	
 }
