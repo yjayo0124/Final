@@ -57,9 +57,10 @@ $(document).ready(function(){
 
 <form action="/recruitment/write" method="post" enctype="multipart/form-data">
 
-<input type="hidden" name="recruit_no" value="${recruit.recruit_no }" />
+<input type="hidden" name="recruit_no" value=${viewRecruit.recruit_no } />
 
 <div>
+
 <label>●기업명 </label>
 <input type="text" name="recruit_name" id="recruit_name" value=${cor.cor_name }>
 </div>
@@ -68,7 +69,7 @@ $(document).ready(function(){
 &nbsp;
 <div>
 <label>●공고 제목</label>
-<input type="text" name="recruit_title" id="recruit_title" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_title" id="recruit_title" value=${viewRecruit.recruit_title }>
 </div>
 &nbsp;&nbsp;&nbsp;
 <div>
@@ -77,22 +78,22 @@ $(document).ready(function(){
 &nbsp;
 <div>
 <label>경력</label>
-<input type="text" name="recruit_career" id="recruit_career" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_career" id="recruit_career" value=${viewRecruit.recruit_career }>
 </div>
 &nbsp;
 <div>
 <label>학력</label>
-<input type="text" name="recruit_educareer" id="recruit_educareer" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_educareer" id="recruit_educareer" value=${viewRecruit.recruit_educareer }>
 </div>
 &nbsp;
 <div>
 <label>우대 자격증</label>
-<input type="text" name="recruit_certificate" id="recruit_certificate" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_certificate" id="recruit_certificate" value=${viewRecruit.recruit_certificate }>
 </div>
 &nbsp;
 <div>
 <label>우대 전공</label>
-<input type="text" name="recruit_major" id="recruit_major" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_major" id="recruit_major" value=${viewRecruit.recruit_major }>
 </div>
 &nbsp;&nbsp;&nbsp;
 <div>
@@ -101,7 +102,7 @@ $(document).ready(function(){
 &nbsp;
 <div>
 <label>근무지역</label>
-<select name="recruit_loc">
+<select name="recruit_loc" >
      <option value="서울">서울</option>
       <option value="부산">부산</option>
       <option value="대구">대구</option>
@@ -131,22 +132,23 @@ $(document).ready(function(){
 &nbsp;
 <div>
 <label>급여</label>
-<input type="number" name="recruit_sal" >원
+<input type="number" name="recruit_sal" value=${viewRecruit.recruit_sal }>원
 </div>
 &nbsp;&nbsp;
 <div>
 <label>직급</label>
-<input type="text" name="recruit_position" placeholder="내용을 입력해 주세요">
+<input type="text" name="recruit_position" value=${viewRecruit.recruit_position }>
 </div>
 &nbsp;
 <div>
 <label>상세요강 이미지파일</label>
+<label>기존 첨부파일: </label>${file.originname } 
 <input type="file" name="file" id="file"/>
 </div>
 &nbsp;
 <div>
 <label>추가할 상세요강 글</label>
-<textarea  id="summernote" name="recruit_content"></textarea>
+<textarea  id="summernote" name="recruit_content">${viewRecruit.recruit_content }</textarea>
 </div>
 &nbsp;&nbsp;&nbsp;
 <div class="text-center">

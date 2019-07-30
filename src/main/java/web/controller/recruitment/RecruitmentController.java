@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dto.Member;
 import web.dto.Recruit;
+import web.dto.Recruit_file;
 import web.service.cor.face.CorService;
 import web.service.mypage.face.MypageService;
 import web.service.recruitment.face.RecruitmentService;
@@ -124,12 +125,22 @@ public class RecruitmentController {
 	}
 	
 	@RequestMapping(value = "/recruitment/update", method = RequestMethod.GET) 
-	public String recruitUpdate(Recruit recruit, Model model) {
+	public String recruitUpdate(Recruit recruit, int recruit_no, Model model) {
 		
+		// 게시글 전달
 		Recruit res = recruitmentService.view(recruit.getRecruit_no());
-		model.addAttribute("view", res);
-		return "board/update";
+		model.addAttribute("viewRecruit", res);
 		
+		//첨부파일 전달
+		String file_name = recruitmentService.getFilename(recruit_no);
+		model.addAttribute("file", file_name);
+
+		//기업정보 전달
+		String cor_no = recruitmentService.getCor_no(recruit_no);
+		model.addAttribute("cor", cor_no);	
+		
+		return "board/update";
+				
 	}
 	
 	@RequestMapping(value="/recruitment/update", method=RequestMethod.POST)
@@ -144,8 +155,23 @@ public class RecruitmentController {
 		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
 		
-		recruitmentService.update(recruit);
-		
+		//파일 업로드를 하지 않았다면 
+			if( fileupload.getOriginalFilename().equals("") ) { 
+
+				recruitmentService.update(recruit);
+					
+				return "redirect: /recruitment/main";
+					
+					
+			}else {// 파일 업로드가 있다면 
+						
+				recruitmentService.update(recruit);
+					
+				int recruit_no = recruit.getRecruit_no();   //update 메소드가 리턴해주는 값이 select key에서 추출한 값. 
+					
+				recruitmentService.filesave(recruit_no, fileupload, context);
+			}
+
 		return "redirect:"+"/recruitment/view?recruit_no="+recruit.getRecruit_no();
 		
 	}
@@ -159,5 +185,127 @@ public class RecruitmentController {
 		return "redirect:"+"/recruitment/main";
 	}
 	
-
+	@RequestMapping(value="/recruitment/category/seoul",method=RequestMethod.GET)
+	public void seoul( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	
+	@RequestMapping(value="/recruitment/category/busan",method=RequestMethod.GET)
+	public void busan( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	
+	@RequestMapping(value="/recruitment/category/daegu",method=RequestMethod.GET)
+	public void daegu( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	
+	@RequestMapping(value="/recruitment/category/incheon",method=RequestMethod.GET)
+	public void incheon( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/gwangju",method=RequestMethod.GET)
+	public void gwangju( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/daejeon",method=RequestMethod.GET)
+	public void daejeon( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/ulsan",method=RequestMethod.GET)
+	public void ulsan( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/sejong",method=RequestMethod.GET)
+	public void sejong( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/gyeonggi",method=RequestMethod.GET)
+	public void gyeonggi( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/gangwon",method=RequestMethod.GET)
+	public void gangwon( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/northChungcheong",method=RequestMethod.GET)
+	public void northChungcheong( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/northJeonla",method=RequestMethod.GET)
+	public void northJeonla( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/southJeonla",method=RequestMethod.GET)
+	public void southJeonla( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/southgyeongsang",method=RequestMethod.GET)
+	public void southChungcheong( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
+	@RequestMapping(value="/recruitment/category/jeju",method=RequestMethod.GET)
+	public void jeju( HttpServletRequest req, Model model) {
+		//테이블 전체 조회 결과 얻기
+		List list = recruitmentService.getListnotpaging();
+		
+		//Model로 조회결과 넣기
+		model.addAttribute("List", list);		
+	}
 }

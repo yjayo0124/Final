@@ -81,4 +81,6 @@ public interface RecruitmentDao {
 
 	public String selectCornoBytwoMemno(int recruit_no);
 
+	public List selectAllnotpaging();
+
 }
