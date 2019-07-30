@@ -5,4 +5,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper  namespace="web.dao.mypage.face.ResumeDao" >
+
+	<insert id="insertResume" parameterType="web.dto.mypage.resume.Resume">
+		INSERT INTO resume
+		(resume_no, member_no, resume_title, resume_name, resume_gender,resume_email,resume_phone,resume_cellphone,resume_addr,forms_employment,desired_work_place,salary)
+		VALUES
+		(resume_seq.nextval, #{member_no}, #{resume_title}, #{resume_name}, #{resume_gender}, #{resume_email}, #{resume_phone}, #{resume_cellphone}, #{resume_addr}, #{forms_employment}, #{desired_work_place}, #{salary})
+		 
+		<selectKey keyProperty="resume_no" resultType="Integer" order="AFTER">
+
+			 SELECT LAST_INSERT_ID()
+
+		</selectKey>
+	
+	</insert>
+
 </mapper>

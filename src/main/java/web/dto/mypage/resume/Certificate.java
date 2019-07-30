@@ -1,13 +1,12 @@
 package web.dto.mypage.resume;
 
-import java.util.Date;
 
 public class Certificate {
 
 	private int resume_no;
 	private String certificate_name;
 	private String place_issue;
-	private Date acquisition_date;
+	private String acquisition_date;
 	
 	@Override
 	public String toString() {
@@ -32,10 +31,10 @@ public class Certificate {
 	public void setPlace_issue(String place_issue) {
 		this.place_issue = place_issue;
 	}
-	public Date getAcquisition_date() {
+	public String getAcquisition_date() {
 		return acquisition_date;
 	}
-	public void setAcquisition_date(Date acquisition_date) {
+	public void setAcquisition_date(String acquisition_date) {
 		this.acquisition_date = acquisition_date;
 	}
 	

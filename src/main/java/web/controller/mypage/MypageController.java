@@ -1,8 +1,5 @@
 package web.controller.mypage;
 
-
-import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,10 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import web.dto.Member;
 import web.dto.Recruit;
 import web.dto.Review;
-
-import web.dto.mypage.resume.School;
-
-
+import web.dto.mypage.resume.Resume;
 import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
@@ -35,7 +29,7 @@ import web.service.mypage.face.ResumeService;
 
 @Controller
 public class MypageController {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	@Autowired MypageService mypageService;
 	@Autowired IntroductionService introductionService;
@@ -74,40 +68,205 @@ public class MypageController {
 			String[] award,
 			String[] overseas_Experience,
 			String[] language,
-			String[] preferential
+			String[] preferential,
+			Resume resume
 			)
-	{
-		ArrayList<HashMap<String,String>> listSchool = new ArrayList<HashMap<String,String>>();
-		
+	{		
+		System.out.println(resume);
+		resumeService.insertResume(resume);
+		int num = resume.getResume_no();
+		System.out.println(num);
 		
 		if(school != null) {
-			for(int i=0; i<school.length; i++) {
+			for(int i=1; i<school.length; i++) {
 				HashMap<String,String> map = new HashMap<String,String>();
-				String splitArr[] = school[i].split(",");	
-				System.out.println(splitArr[1]);
+				String splitArr[] = school[i].split(",",-1);	
+				System.out.println(school[i]);
 				if(splitArr[0].equals("고등학교")) {
-//					map.put("School_classification", splitArr[0]);
-//					map.put("School_name", splitArr[1]);
-//					map.put("Graduation_date", splitArr[2]);
-//					map.put("Graduation_status", splitArr[3]);
-//					map.put("Ged_status", splitArr[4]);
-//					
-//					listSchool.add(map);
+					map.put("school_classification", splitArr[0]);
+					map.put("school_name", splitArr[1]);
+					map.put("graduation_date", splitArr[2]);
+					map.put("graduation_status", splitArr[3]);
+					map.put("ged_status", splitArr[4]);
+					
+					System.out.println(map);
 					
 				} else if(splitArr[0].equals("대학") || splitArr[0].equals("대학교")) {
-					System.out.println("2");
+					map.put("school_classification", splitArr[0]);
+					map.put("school_name", splitArr[1]);
+					map.put("graduation_date", splitArr[2]);
+					map.put("graduation_status", splitArr[3]);
+					map.put("admission_date", splitArr[6]);
+					map.put("transfer_status", splitArr[7]);
+					map.put("major_name", splitArr[8]);
+					map.put("credit", splitArr[9]);
+					map.put("total_score", splitArr[10]);
+					map.put("sub_major_status", splitArr[11]);
+					map.put("sub_major_name", splitArr[12]);
+					map.put("graduation_thesis_content", splitArr[13]);
+					
+					System.out.println(map);
+					
 				} else if(splitArr[0].equals("대학원")) {
-					System.out.println("3");
+					map.put("school_classification", splitArr[0]);
+					map.put("school_name", splitArr[1]);
+					map.put("graduation_date", splitArr[2]);
+					map.put("graduation_status", splitArr[3]);
+					map.put("academic_degree", splitArr[5]);
+					map.put("admission_date", splitArr[6]);
+					map.put("transfer_status", splitArr[7]);
+					map.put("major_name", splitArr[8]);
+					map.put("credit", splitArr[9]);
+					map.put("total_score", splitArr[10]);
+					map.put("sub_major_status", splitArr[11]);
+					map.put("sub_major_name", splitArr[12]);
+					map.put("graduation_thesis_content", splitArr[13]);
+					
+					System.out.println(map);
 				}
 			}
-			System.out.println(listSchool.toString());
 		}
 		
-//		if(career != null) {
-//			for(int i=0; i<career.length; i++) {
-//				System.out.println(career[i]);
-//			}
-//		}
+		if(career != null) {
+			for(int i=1; i<career.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = career[i].split(",",-1);
+					
+					map.put("company_name", splitArr[0]);
+					map.put("department_name", splitArr[1]);
+					map.put("hire_date", splitArr[2]);
+					map.put("retirement_date", splitArr[3]);
+					map.put("served_status", splitArr[4]);
+					map.put("position", splitArr[5]);
+					map.put("job_work", splitArr[6]);
+					map.put("salary", splitArr[7]);
+					map.put("assigned_task", splitArr[8]);
+					
+					System.out.println(map);
+			}
+			
+		}
+		
+		
+		if(activities != null) {
+			for(int i=1; i<activities.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = activities[i].split(",",-1);
+					
+					map.put("activity_classification", splitArr[0]);
+					map.put("institution_name", splitArr[1]);
+					map.put("start_date", splitArr[2]);
+					map.put("end_date", splitArr[3]);
+					map.put("activity_content", splitArr[4]);
+					
+					System.out.println(map);
+			}
+			
+		}
+		
+		
+		if(education != null) {
+			for(int i=1; i<education.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = education[i].split(",",-1);
+					
+					map.put("training_title", splitArr[0]);
+					map.put("education_facilities", splitArr[1]);
+					map.put("start_date", splitArr[2]);
+					map.put("end_date", splitArr[3]);
+					map.put("training_content", splitArr[4]);
+					
+					System.out.println(map);
+			}
+			
+		}
+		
+		
+		if(certificate != null) {
+			for(int i=1; i<certificate.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = certificate[i].split(",",-1);
+					map.put("certificate_name", splitArr[0]);
+					map.put("place_issue", splitArr[1]);
+					map.put("acquisition_date", splitArr[2]);
+					
+					System.out.println(map);
+			}
+			
+		}
+		
+		
+		if(award != null) {
+			for(int i=1; i<award.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = award[i].split(",",-1);
+					
+					map.put("award_name", splitArr[0]);
+					map.put("award_service", splitArr[1]);
+					map.put("award_date", splitArr[2]);
+					map.put("award_content", splitArr[3]);
+					
+					System.out.println(map);
+			}
+			
+		}
+		
+		
+		if(overseas_Experience != null) {
+			for(int i=1; i<overseas_Experience.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = overseas_Experience[i].split(",",-1);
+					
+					map.put("country_name", splitArr[0]);
+					map.put("start_date", splitArr[1]);
+					map.put("end_date", splitArr[2]);
+					map.put("overseas_experience_content", splitArr[3]);
+					
+					System.out.println(map);
+			}
+			
+		}
+		
+		if(language != null) {
+			for(int i=1; i<language.length; i++) {
+				HashMap<String,String> map = new HashMap<String,String>();
+				String splitArr[] = language[i].split(",",-1);	
+				System.out.println(language[i]);
+				if(splitArr[0].equals("회화능력")) {
+					map.put("language_classification", splitArr[0]);
+					map.put("language_name", splitArr[1]);
+					map.put("conversation_ability", splitArr[3]);
+					
+					System.out.println(map);
+					
+				} else if(splitArr[0].equals("공인시험")) {
+					map.put("language_classification", splitArr[0]);
+					map.put("language_name", splitArr[1]);
+					map.put("language_score", splitArr[2]);
+					map.put("conversation_ability", splitArr[3]);
+					map.put("acquisition_date", splitArr[4]);
+					
+					System.out.println(map);
+				}
+			}
+		}
+		
+		
+		if(preferential != null) {
+			for(int i=1; i<preferential.length; i++) {
+					HashMap<String,String> map = new HashMap<String,String>();
+					String splitArr[] = preferential[i].split(",",-1);
+					
+					map.put("veterans", splitArr[0]);
+					map.put("protect", splitArr[1]);
+					map.put("funding", splitArr[2]);
+					map.put("disorder", splitArr[3]);
+					map.put("military", splitArr[4]);
+					
+					System.out.println(map);
+			}
+			
+		}
 			
 			
 	}

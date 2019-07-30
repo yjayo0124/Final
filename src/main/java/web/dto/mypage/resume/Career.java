@@ -1,17 +1,15 @@
 package web.dto.mypage.resume;
 
-import java.util.Date;
 
 public class Career {
 	
 	private int resume_no;
 	private String company_name;
 	private String department_name;
-	private Date hire_date;
-	private Date retirement_date;
+	private String hire_date;
+	private String retirement_date;
 	private String served_status;
 	private String position;
-	private String responsibilities;
 	private String job_work;
 	private int salary;
 	private String assigned_task;
@@ -20,8 +18,8 @@ public class Career {
 	public String toString() {
 		return "Career [resume_no=" + resume_no + ", company_name=" + company_name + ", department_name="
 				+ department_name + ", hire_date=" + hire_date + ", retirement_date=" + retirement_date
-				+ ", served_status=" + served_status + ", position=" + position + ", responsibilities="
-				+ responsibilities + ", job_work=" + job_work + ", salary=" + salary + ", assigned_task="
+				+ ", served_status=" + served_status + ", position=" + position + ", "
+				+ ", job_work=" + job_work + ", salary=" + salary + ", assigned_task="
 				+ assigned_task + "]";
 	}
 	public int getResume_no() {
@@ -42,16 +40,16 @@ public class Career {
 	public void setDepartment_name(String department_name) {
 		this.department_name = department_name;
 	}
-	public Date getHire_date() {
+	public String getHire_date() {
 		return hire_date;
 	}
-	public void setHire_date(Date hire_date) {
+	public void setHire_date(String hire_date) {
 		this.hire_date = hire_date;
 	}
-	public Date getRetirement_date() {
+	public String getRetirement_date() {
 		return retirement_date;
 	}
-	public void setRetirement_date(Date retirement_date) {
+	public void setRetirement_date(String retirement_date) {
 		this.retirement_date = retirement_date;
 	}
 	public String getServed_status() {
@@ -65,12 +63,6 @@ public class Career {
 	}
 	public void setPosition(String position) {
 		this.position = position;
-	}
-	public String getResponsibilities() {
-		return responsibilities;
-	}
-	public void setResponsibilities(String responsibilities) {
-		this.responsibilities = responsibilities;
 	}
 	public String getJob_work() {
 		return job_work;
