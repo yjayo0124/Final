@@ -95,7 +95,8 @@
 
 .table th{
 	
-	background-color: #a6172d;
+	border: 1px solid #011627;
+	background-color: #011627;
 	color: white;
 
 }
@@ -140,7 +141,7 @@
 		</div>
 		<div class="reviewList" style="margin-left: 250px; width: 800px;">
 
-<h3>내가 쓴 리뷰</h3>
+<h3>내가 쓴 리뷰<img src="/resources/images/rating.png" height="24px" style="margin-left:4px; margin-bottom: 1px;"></h3>
 <hr>
 <div class="review_table" style="border: 1px solid #ccc; height: 400px;">
 <table class="table table-hover table-condensed" >
@@ -160,7 +161,7 @@
 		<td style="width: 10%">${i.REVIEW_TAG }</td>
 		<td style="width: 55%; text-align: center;">${i.REVIEW_TITLE }</td>
 		<td style="width: 10%; text-align: center;">${i.REVIEW_HIT }</td>
-		<td style="width: 15%"><fmt:formatDate value="${i.REVIEW_WRITTEN_DATE }" pattern="yy-MM-dd" /></td>
+		<td style="width: 15%; text-align: center;"><fmt:formatDate value="${i.REVIEW_WRITTEN_DATE }" pattern="yy-MM-dd" /></td>
 	</tr>
 </c:forEach>
 </tbody>

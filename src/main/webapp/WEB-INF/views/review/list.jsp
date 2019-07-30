@@ -256,6 +256,11 @@ a:link {
 
 #reviewBtn {
 	float:right;
+	background-color: #011627;
+	border: 1px solid #011627;
+	color: white;
+	border-radius: 4px;
+	margin-bottom: 1.5px;
 }
 
 #tagno, #thno {

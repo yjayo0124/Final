@@ -165,8 +165,10 @@ $(document).ready(function() {
 
 #btnUpdate{
 	
+	
 	background-color: #a6172d;
 	border: none;
+	border-radius: 4px;
 	color: white;
 
 }
@@ -244,7 +246,7 @@ $(document).ready(function() {
 		<div class="col-sm-4"><input type="text" class="form-control" id="member_email" name="member_email" value="${member.member_email }"/></div>
 		</div>
 
-	<div style="margin-left: 121px;">
+	<div style="margin-left: 190px;">
 		<button  id="btnUpdate" class="btn_type">
 		<span>변경하기</span>
 		</button>

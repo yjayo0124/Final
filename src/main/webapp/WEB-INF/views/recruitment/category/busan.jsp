@@ -58,7 +58,7 @@ table, th {
       <li class="list-group-item"><a href="/recruitment/category/northJeonla">전북</a></li>
       <li class="list-group-item"><a href="/recruitment/category/southJeonla">전남</a></li>
       <li class="list-group-item"><a href="/recruitment/category/southgyeongsang">경남</a></li>
-      <li class="list-group-item"><a href="#/recruitment/category/jeju">제주</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/jeju">제주</a></li>
     </ul>
 </div>
 
@@ -73,20 +73,18 @@ table, th {
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${recruitList }" var="i">
+<c:forEach items="${List }" var="i">
+<c:if test="${i.recruit_loc eq '부산'}">
 <tr>
 	<td>${i.recruit_no }</td>
 	<td>${i.recruit_name }</td>
 	<td><a href="/recruitment/view?recruit_no=${i.recruit_no}">${i.recruit_title }</a></td>
 </tr>
+</c:if>
 </c:forEach>
 </tbody>
 
 </table>
-
-<div id="pagingBox">
-<c:import url="/WEB-INF/views/recruitment/paging.jsp"/>
-</div>
 
 <sec:authorize access="hasRole('ROLE_COR')">
 <button onclick="location.href='/recruitment/write'" class="btn btn-default btn-sm">공고등록하기</button>
