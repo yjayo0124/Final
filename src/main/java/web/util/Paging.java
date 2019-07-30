@@ -18,8 +18,8 @@ public class Paging {
 	
 	// 총 게시글 수만 입력하는 생성자
 	//	curPage == 1
-	//	pageCount == 10
-	//	listCount == 10
+	//	pageCount == 20
+	//	listCount == 20
 	public Paging(int totalCount) {
 		this.setTotalCount(totalCount);
 		
@@ -27,8 +27,8 @@ public class Paging {
 	}
 
 	// 총 게시글 수와 현재 페이지를 입력하는 생성자
-	//	pageCount == 10
-	//	listCount == 10
+	//	pageCount == 20
+	//	listCount == 20
 	public Paging(int totalCount, int curPage) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
@@ -37,7 +37,7 @@ public class Paging {
 	}
 
 	// 총 게시글 수와 현재 페이지, 보여지는 게시글 수를 입력하는 생성자
-	//	pageCount == 10
+	//	pageCount == 20
 	public Paging(int totalCount, int curPage, int listCount) {
 		this.setTotalCount(totalCount);
 		this.setCurPage(curPage);
@@ -62,8 +62,8 @@ public class Paging {
 		
 		// 기본값 설정
 		if(curPage == 0)	setCurPage(1);	//기본값으로 첫 페이지(1) 세팅
-		if(listCount == 0)	setListCount(10); //한 화면에 보이는 게시글수 기본값(10) 세팅
-		if(pageCount == 0)	setPageCount(10); //한 화면에 보이는 페이지수 기본값(10) 세팅
+		if(listCount == 0)	setListCount(20); //한 화면에 보이는 게시글수 기본값(20) 세팅
+		if(pageCount == 0)	setPageCount(20); //한 화면에 보이는 페이지수 기본값(20) 세팅
 		
 		// 총 페이지수 계산
 		totalPage = totalCount / listCount;

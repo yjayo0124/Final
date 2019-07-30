@@ -10,12 +10,14 @@ public class Review_comment {
 	private int comment_password;
 	private Date comment_written_date;
 	private int comment_recommend;
+	private int comment_check_recommend;
 	
 	@Override
 	public String toString() {
 		return "Review_comment [comment_no=" + comment_no + ", review_no=" + review_no + ", comment_nick="
 				+ comment_nick + ", comment_content=" + comment_content + ", comment_password=" + comment_password
-				+ ", comment_written_date=" + comment_written_date + ", comment_recommend=" + comment_recommend + "]";
+				+ ", comment_written_date=" + comment_written_date + ", comment_recommend=" + comment_recommend
+				+ ", comment_check_Recommend=" + comment_check_recommend + "]";
 	}
 
 	public int getComment_no() {
@@ -74,4 +76,12 @@ public class Review_comment {
 		this.comment_recommend = comment_recommend;
 	}
 
+	public int getComment_check_recommend() {
+		return comment_check_recommend;
+	}
+
+	public void setComment_check_recommend(int comment_check_recommend) {
+		this.comment_check_recommend = comment_check_recommend;
+	}
+	
 }

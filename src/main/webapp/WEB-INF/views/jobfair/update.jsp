@@ -19,19 +19,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-	$("#btnUpdate").click(function() {
-		$("form").submit();
-	});
-	
-	$("#btnDelete").click(function() {
-
-	});
-	
-	$("#btnCancel").click(function() {
-		$(location).attr("href", "/jobfair/main");
-	});
-	
 	
 	$("#summernote").summernote({
 		tabsize: 2,
@@ -42,13 +29,21 @@ $(document).ready(function() {
 		lang: 'ko-KR'
 	});
 
-	var string = 
-	'<div><label>일시:  </label><br> <label>장소:  </label><br>'
-	 + '<label>참가 대상:  </label><br> <label>행사 구성:  </label><br>'
-	 + '<label>개인 신청 기간:  </label><br> <label>기업 신청 기간:  </label><br>'
-	 + '<label>담당자:  </label><br> <label>사이트(출처):  </label><br></div>';
-	
 	$("#summernote").summernote('pasteHTML', string);
+	
+	$("#btnUpdate").click(function() {
+		$("form").submit();
+	});
+	
+	$("#btnDelete").click(function(update) {
+		consolo.log(update.jobfair_no);
+		$(location).attr("href","/jobfair/delete?jobfair_no=" + update.jobfair_no);
+	});
+	
+	$("#btnCancel").click(function() {
+		$(location).attr("href", "/jobfair/main");
+	});
+	
 });
 
 </script>
@@ -60,6 +55,7 @@ $(document).ready(function() {
 <hr>
 
 <form action="/jobfair/update" method="post" enctype="multipart/form-data">
+<input type="hidden" name="jobfair_no" value="${update.jobfair_no }" />
 
 <table class="table  table-bordered table-striped table-hover table-condensed">
 <thead>
@@ -68,51 +64,52 @@ $(document).ready(function() {
 <tbody>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="jobfair_name" id="jobfair_name" value="${map.jobfair_name }"/></td>
+		<td><input type="text" name="jobfair_name" id="jobfair_name" value="${update.jobfair_name }"/></td>
 	</tr>
 	<tr>
 		<td>글쓴이</td>
 		<td>관리자</td>
 	</tr>
 	<tr>
-		<td>날짜</td>
-		<td><input type="text" name="jobfair_date" id="jobfair_date" value="${map.jobfair_date }"/></td>
+		<td>등록일</td>
+		<td>${update.jobfair_date }</td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea id="summernote" name="jobfair_content">${map.jobfair_content }</textarea></td>
+		<td>
+			<textarea id="summernote" name="jobfair_content">${update.jobfair_content }	</textarea>	</td>
 	</tr>
 	<tr>
 		<td>시작일</td>
-		<td><input type="date" name="jobfair_start" id="jobfair_start" value="${map.jobfair_start }" /></td>
+		<td><input type="date" name="jobfair_start" id="jobfair_start" value="${update.jobfair_start }" /></td>
 	</tr>
 	<tr>
 		<td>종료일</td>
-		<td><input type="date" name="jobfair_end" id="jobfair_end" value="${map.jobfair_end }" /></td>
+		<td><input type="date" name="jobfair_end" id="jobfair_end" value="${update.jobfair_end }" /></td>
 	</tr>
 	<tr>
 		<td>장소</td>
-		<td><input type="text" name="jobfair_loc" id="jobfair_loc" value="${map.jobfair_loc }" /></td>
+		<td><input type="text" name="jobfair_loc" id="jobfair_loc" value="${update.jobfair_loc }" /></td>
 	</tr>
 	<tr>
 		<td>신청기간</td>
-		<td><input type="date" name="jobfair_limit" id="jobfair_limit" value="${map.jobfair_limit }" />
-			~ <input type="date" name="jobfair_limit" id="jobfair_limit" value="${map.jobfair_limit }" /></td>
+		<td><input type="date" name="jobfair_limit" id="jobfair_limit" value="${update.jobfair_limit }" />
+			~ <input type="date" name="jobfair_limit" id="jobfair_limit" value="${update.jobfair_limit }" /></td>
 	</tr>
 </tbody>
 </table>
 
 <div>
 <label for="file">파일첨부</label>
-<input type="file" name="file" id="file" />
+<input type="file" name="file" id="file"/>
 </div>
 <br>
 <br>
 
 <div class="text-center">
-<button id="btnUpdate">수정</button>
-<button id="btnDelete">삭제</button>
-<input id="btnCancel" type="reset" value="취소"/>
+<button id="btnUpdate" class="btn">수정</button>
+<button id="btnDelete" class="btn">삭제</button>
+<input id="btnCancel" type="reset" value="취소" class="btn"/>
 </div>
 
 </form>

@@ -421,11 +421,17 @@ public class MypageController {
 		
 		logger.info("변경될 회원 정보 : " + member.toString());
 		
-		String incode_pw = passwordEncoder.encode(member.getMember_pw());
+		if(member.getMember_pw() != null && !member.getMember_pw().isEmpty()) {
+			String incode_pw = passwordEncoder.encode(member.getMember_pw());
+			
+			member.setMember_pw(incode_pw);
+			
+			memberService.update(member);
+			
+		}else {
+			memberService.updateMemberInfoExceptPw(member);
+		}
 		
-		member.setMember_pw(incode_pw);
-		
-		memberService.update(member);
 		
 		Member memberRes = memberService.selectById(member.getMember_id());
 

@@ -95,7 +95,7 @@
 
 .table th{
 	
-	background-color: #a6172d;
+	background-color: #011627;
 	color: white;
 
 }
@@ -140,7 +140,7 @@
 		</div>
 		<div class="reviewList" style="margin-left: 250px; width: 800px;">
 
-<h3>내 스크랩<img src="/resources/images/like.png" height="20px" style="margin-left:4px; margin-bottom: 1px;"></h3>
+<h3>내 스크랩<img src="/resources/images/like.png" height="24px" style="margin-left:4px; margin-bottom: 1px;"></h3>
 <hr>
 <div class="review_table" style="border: 1px solid #ccc; height: 400px;">
 <table class="table table-hover table-condensed" >

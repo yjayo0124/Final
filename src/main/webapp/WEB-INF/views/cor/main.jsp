@@ -10,12 +10,12 @@
 <div class="container" style="width: 600px;">
 <div style="margin-top:100px; display: block; ">
 
-<h3><u>${cor.cor_name }</u>의 인사담당자님 안녕하세요?</h3>
+<h3><u>${cor.cor_name }</u>의 <br>인사담당자님 안녕하세요?</h3>
 	<hr>
 	<div class="info" style="width: 500px; height: 100px; margin: 0 auto;">
 	<a class="btn btn-default btn-lg btn-block center" href="/recruitment/write" role="button">공고 등록 하러가기</a>
 	<a class="btn btn-default btn-lg btn-block center" href="/resume/list" role="button">인재 검색</a>
-	<a class="btn btn-default btn-lg btn-block center" href="/cor/infoUpdate" role="button">기업 정보 수정</a>
+	<a class="btn btn-default btn-lg btn-block center" href="/cor/memCheck" role="button">기업 정보 수정</a>
 	</div>
 	 
 
@@ -33,9 +33,9 @@
 	</thead>
 	<tbody>
 <c:forEach items="${list }" var="i">
-	<tr>
+	<tr onclick="location.href='/recruitment/view?recruit_no=${i.recruit_no }'">
 		<td style="text-align: center;">${i.recruit_no }</td>
-		<td style="text-align: center;"><a href="/recruitment/view?recruit_no=${i.recruit_title }">${i.recruit_title }</a></td>
+		<td style="text-align: center;">${i.recruit_title }</td>
 		<td>${i.recruit_type }</td>
 	</tr>
 </c:forEach>

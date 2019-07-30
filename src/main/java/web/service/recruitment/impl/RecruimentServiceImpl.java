@@ -148,6 +148,11 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		return recruitmentDao.selectCornoBytwoMemno(recruit_no);
 	}
 
+	@Override
+	public List getListnotpaging() {
+		return recruitmentDao.selectAllnotpaging();
+	}
+
 	
 
 

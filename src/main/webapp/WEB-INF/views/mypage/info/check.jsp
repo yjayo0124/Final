@@ -93,9 +93,9 @@
 
 
 #btnCheck{
-
+	border-radius: 3px;
 	border: none;
-	background-color: #a6172d;
+	background-color: #011627;
 	color: white;
 	width: 60px;
 	height: 32px;
@@ -111,7 +111,9 @@
 
 
 #member_pw{
-
+	
+	color: #E71D36;
+	padding: 15px;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;

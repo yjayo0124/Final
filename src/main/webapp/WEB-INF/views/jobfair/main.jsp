@@ -43,10 +43,10 @@ $(document).ready(function() {
 	 						console.log(idx + " " + val.JOBFAIR_NAME);
 	 						
 	 						events.push({ 
-	 							no: val.JOBFAIR_NO,
+	 							id: val.JOBFAIR_NO,
 	 							title: val.JOBFAIR_NAME,
 	 							start: val.JOBFAIR_START,
-	 							end: val.JOBFAIR_START
+	 							end: val.JOBFAIR_END
 	 						})
 	 						
 	 					});
@@ -67,7 +67,7 @@ $(document).ready(function() {
 		eventClick: function(event){
 			console.log(event);
 			console.log(event.id);
-			location.href='/jobfair/adminview?jobfair_no=' + event.id;
+			location.href = '/jobfair/adminview?jobfair_no=' + event.id;
 		}
 			
 	});

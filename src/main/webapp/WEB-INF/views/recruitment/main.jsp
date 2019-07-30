@@ -43,22 +43,22 @@ table, th {
     </div>
   
     <ul class="list-group">
-      <li class="list-group-item"><a href="#">전국</a></li>
-      <li class="list-group-item"><a href="#">서울</a></li>
-      <li class="list-group-item"><a href="#">부산</a></li>
-      <li class="list-group-item"><a href="#">대구</a></li>
-      <li class="list-group-item"><a href="#">인천</a></li>
-      <li class="list-group-item"><a href="#">광주</a></li>
-      <li class="list-group-item"><a href="#">대전</a></li>
-      <li class="list-group-item"><a href="#">울산</a></li>
-      <li class="list-group-item"><a href="#">세종</a></li>
-      <li class="list-group-item"><a href="#">경기</a></li>
-      <li class="list-group-item"><a href="#">강원</a></li>
-      <li class="list-group-item"><a href="#">충북</a></li>
-      <li class="list-group-item"><a href="#">전북</a></li>
-      <li class="list-group-item"><a href="#">전남</a></li>
-      <li class="list-group-item"><a href="#">경남</a></li>
-      <li class="list-group-item"><a href="#">제주</a></li>
+      <li class="list-group-item"><a href="/recruitment/main">전국</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/seoul">서울</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/busan">부산</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/daegu">대구</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/incheon">인천</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/gwangju">광주</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/daejeon">대전</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/ulsan">울산</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/sejong">세종</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/gyeonggi">경기</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/gangwon">강원</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/northChungcheong">충북</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/northJeonla">전북</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/southJeonla">전남</a></li>
+      <li class="list-group-item"><a href="/recruitment/category/southgyeongsang">경남</a></li>
+      <li class="list-group-item"><a href="#/recruitment/category/jeju">제주</a></li>
     </ul>
 </div>
 
@@ -67,6 +67,7 @@ table, th {
 <table class="table table-striped table-hover table-condensed">
 <thead>
 	<tr>
+		<th style="width:10%;">공고번호</th>
 		<th style="width:20%;">기업명</th>
 		<th style="width:60%;">채용공고명</th>
 	</tr>
@@ -74,7 +75,8 @@ table, th {
 <tbody>
 <c:forEach items="${recruitList }" var="i">
 <tr>
-	<td>${i.recruit_name }</a></td>
+	<td>${i.recruit_no }</td>
+	<td>${i.recruit_name }</td>
 	<td><a href="/recruitment/view?recruit_no=${i.recruit_no}">${i.recruit_title }</a></td>
 </tr>
 </c:forEach>

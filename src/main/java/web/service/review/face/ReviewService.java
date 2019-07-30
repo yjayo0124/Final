@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import web.dto.Comment_recommend;
 import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
@@ -54,5 +55,17 @@ public interface ReviewService {
 	public void deleteNewComment(Review_comment deletecomment);
 
 	public void deleteComment(Review_comment deletecomment);
+
+	public Comment_recommend commentRecommed(HttpServletRequest request, Comment_recommend recommendParam);
+	
+	public Review_comment Recommed(HttpServletRequest request, Review_comment commentParam);
+
+	public void updateCommentRecommend(Review_comment commentRecommend);
+
+	public List<Comment_recommend> checkCommentRecommend(Comment_recommend recommend);
+
+	public int selectCommentLike(Review_comment commentRecommend);
+
+	public List<Comment_recommend> getCommentRecommend();
 
 }

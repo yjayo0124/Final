@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import web.dto.Comment_recommend;
 import web.dto.Cor;
 import web.dto.Member;
 import web.dto.Recommend;
@@ -147,9 +148,11 @@ public class ReviewController {
 		reviewService.upHit(reviewno);
 		List<HashMap<String, Object>> viewlist = reviewService.getViewList(reviewno);
 		List<Review_comment> getcomment = reviewService.getComment(reviewno);
-
+		List<Comment_recommend> getrecommend = reviewService.getCommentRecommend();
+		
 		model.addAttribute("viewlist", viewlist);
 		model.addAttribute("comment", getcomment);
+		model.addAttribute("recommend", getrecommend);
 	}
 	
 	// 추천수 
@@ -203,6 +206,7 @@ public class ReviewController {
 			obj.put("pw", newcomment.get(i).getComment_password());
 			obj.put("recommend", newcomment.get(i).getComment_recommend());
 			obj.put("date",formatdate.format(newcomment.get(i).getComment_written_date()));
+			obj.put("check", newcomment.get(i).getComment_check_recommend());
 			array.add(obj);
 		}
         resp.setContentType("application/json ; charset=UTF-8");
@@ -229,4 +233,30 @@ public class ReviewController {
 			
 			reviewService.deleteComment(deletecomment);
 	}
+	
+	@RequestMapping(value="/review/commentlike", method=RequestMethod.POST)
+	public void commentLike(Model model, HttpServletRequest request, HttpServletResponse resp, Comment_recommend recommendParam, Review_comment commentParam) {
+			Comment_recommend recommend = reviewService.commentRecommed(request, recommendParam);
+			Review_comment commentRecommend = reviewService.Recommed(request, commentParam);
+			
+			reviewService.updateCommentRecommend(commentRecommend);
+			List<Comment_recommend> rec = reviewService.checkCommentRecommend(recommend);
+			System.out.println("rec : " +rec);
+			
+			int uplike = reviewService.selectCommentLike(commentRecommend);
+			
+			JSONObject obj = new JSONObject();
+			obj.put("data", uplike);
+
+
+	        resp.setContentType("application/json ; charset=UTF-8");
+	        resp.setCharacterEncoding("UTF-8");
+	        
+	        try {
+				resp.getWriter().write(obj.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
 }
