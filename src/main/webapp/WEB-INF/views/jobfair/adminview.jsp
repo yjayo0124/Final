@@ -20,32 +20,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
-	$("#btnGoUpdate").click(function() {
-		$(location).attr("href", "/jobfair/update");
-	});
 	
 	$("#btnCancel").click(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
 	
-	
-	$("#summernote").summernote({
-		tabsize: 2,
-		height: 370,
-		minHeight: null,
-		maxHeight: null,
-		focus: true,
-		lang: 'ko-KR'
-	});
-
-	var string = 
-	'<div><label>일시:  </label><br> <label>장소:  </label><br>'
-	 + '<label>참가 대상:  </label><br> <label>행사 구성:  </label><br>'
-	 + '<label>개인 신청 기간:  </label><br> <label>기업 신청 기간:  </label><br>'
-	 + '<label>담당자:  </label><br> <label>사이트(출처):  </label><br></div>';
-	
-	$("#summernote").summernote('pasteHTML', string);
 });
 
 </script>
@@ -56,8 +35,8 @@ $(document).ready(function() {
 <h4>뷰 페이지</h4>
 <hr>
 
-<form action="/jobfair/adminview" method="post" enctype="multipart/form-data">
-<input type="hidden" name="jobfair_no" value="${viewmap.JOBFAIR_NO }" />
+<form action="/jobfair/adminview" method="post">
+<input type="hidden" name="jobfair_no" value="${viewmap.jobfair_no }" />
 
 <table class="table  table-bordered table-striped table-hover table-condensed">
 <thead>
@@ -66,55 +45,50 @@ $(document).ready(function() {
 <tbody>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="jobfair_name" id="jobfair_name" value="${viewmap.JOBFAIR_NAME }"/></td>
+		<td>${viewmap.jobfair_name }</td>
 	</tr>
 	<tr>
 		<td>글쓴이</td>
 		<td>관리자</td>
 	</tr>
 	<tr>
-		<td>날짜</td>
-		<td><input type="text" name="jobfair_date" id="jobfair_date" value="${viewmap.JOBFAIR_DATE }"/></td>
+		<td>등록일</td>
+		<td>${viewmap.jobfair_date }</td>
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea id="summernote" name="jobfair_content">${viewmap.JOBFAIR_CONTENT }</textarea></td>
+		<td>
+			<c:if test="${file ne null }">
+				<img src="/upload/${file }" style="width: 100%; heigth: auto;">
+			</c:if>
+			${viewmap.jobfair_content }
+		</td>
 	</tr>
 	<tr>
 		<td>시작일</td>
-		<td><input type="date" name="jobfair_start" id="jobfair_start" value="${viewmap.JOBFAIR_START }" /></td>
+		<td>${viewmap.jobfair_start }</td>
 	</tr>
 	<tr>
 		<td>종료일</td>
-		<td><input type="date" name="jobfair_end" id="jobfair_end" value="${viewmap.JOBFAIR_END }" /></td>
+		<td>${viewmap.jobfair_end }</td>
 	</tr>
 	<tr>
 		<td>장소</td>
-		<td><input type="text" name="jobfair_loc" id="jobfair_loc" value="${viewmap.JOBFAIR_LOC }" /></td>
+		<td>${viewmap.jobfair_loc }</td>
 		<!-- 지도 api 사용 -->
 	</tr>
 	<tr>
 		<td>신청기간</td>
-		<td><input type="date" name="jobfair_limit" id="jobfair_limit" value="${viewmap.JOBFAIR_LIMIT }" />
-			~ <input type="date" name="jobfair_limit" id="jobfair_limit" value="${viewmap.JOBFAIR_LIMIT }" /></td>
+		<td>${viewmap.jobfair_limit }</td>
 	</tr>
 </tbody>
 </table>
 
-<div>
-<label for="file">파일첨부</label>
-<input type="file" name="file" id="file" />
-</div>
-<br>
-<br>
-
 <div class="text-center">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<a href="/jobfair/update?jobfair_no=${viewmap.JOBFAIR_NO }">
-		<button id="btnGoUpdate">수정하기</button>
-	</a>
+	<button id="btnGoUpdate" class="btn">수정하기</button>
 </sec:authorize>
-<input id="btnCancel" type="reset" value="확인"/>
+<input id="btnCancel" type="reset" value="확인" class="btn"/>
 </div>
 
 </form>

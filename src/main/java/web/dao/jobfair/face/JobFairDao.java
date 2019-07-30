@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import web.dto.JobFair;
+import web.dto.JobFairFile;
 
 public interface JobFairDao {
 	
 	public List<HashMap<String, Object>> selectAll();
 	
-	public List<HashMap<String, Object>> selectByJobfairNo(JobFair jobfair);
+	public JobFair selectByJobfairNo(JobFair jobfair);
 	
 	public String selectByJobfairTitle(String title);
 	
@@ -18,5 +19,11 @@ public interface JobFairDao {
 	public void update(JobFair jobfair);
 	
 	public void delete(JobFair jobfair);
- 
+	
+	public void insertFile(JobFairFile jobfairfile);
+	
+	public String selectFilename(int jobfair_no);
+	
+	public void deleteFile(JobFairFile jobfairfile);
+	
 }

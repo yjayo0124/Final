@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.member.face.MemberDao;
 import web.dto.JobFair;
+import web.dto.JobFairFile;
 import web.dto.Member;
 import web.service.jobfair.face.JobFairFileService;
 import web.service.jobfair.face.JobFairService;
@@ -49,11 +50,12 @@ public class JobfairController {
 		logger.info("리스트");
 		
 		list = (ArrayList<HashMap<String, Object>>) jobfairService.calList();
-		System.out.println(list);
+//		System.out.println(list);
 		
 		return list;
 	}
 
+	
 	@RequestMapping(value="/jobfair/register", method=RequestMethod.GET)
 	public void register(
 			Model model,
@@ -77,52 +79,129 @@ public class JobfairController {
 	@RequestMapping(value="/jobfair/register", method=RequestMethod.POST)
 	public String registerProc(
 			JobFair jobfair,
-			String jobfair_name,
 			@RequestParam(value="file") MultipartFile fileupload
 		) {
-		logger.info("등록 처리");
 		
-		jobfairService.registerFair(jobfair);
-				
-		logger.info("파일업로드 처리");
-		
-		logger.info("제목 : " + jobfair_name);
-		logger.info("파일 : " + fileupload.getOriginalFilename());
-		logger.info(context.getRealPath("upload"));
-		
-		fileService.filesave(jobfair_name, fileupload, context);
+		if( fileupload.getOriginalFilename().equals("") ) {
+
+			logger.info("등록 처리");
+			
+			jobfairService.registerFair(jobfair);
+			
+			return "redirect:/jobfair/main";
+			
+		} else {
+
+			logger.info("파일업로드 처리");
+			
+			logger.info("파일 : " + fileupload.getOriginalFilename());
+			logger.info(context.getRealPath("upload"));
+			
+			jobfairService.registerFair(jobfair);
+			
+			int jobfair_no = jobfair.getJobfair_no();
+//			System.out.println(jobfair_no);
+			
+			fileService.filesave(jobfair_no, fileupload, context);
+			
+		}
 		
 		return "redirect:/jobfair/main";
-		
 	}
+	
 	
 	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.GET)
 	public void adminView(
 			JobFair jobfair,
-			Model model
+			Model model,
+			int jobfair_no
 		) {
 		logger.info("adminview 폼");
 		
-		List<HashMap<String, Object>> viewmap = jobfairService.adminView(jobfair);
-		System.out.println("viewmap: " + viewmap);
+		JobFair viewmap = jobfairService.adminView(jobfair);
+//		System.out.println("viewmap: " + viewmap);
 		
 		model.addAttribute("viewmap", viewmap);
+
+		logger.info("view: " + jobfair_no);
+
+		String file_name = fileService.getFilename(jobfair_no);
+		model.addAttribute("file", file_name);
 		
 	}
 	
 	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
-	public void adminViewProc(JobFair jobfair) {
+	public String adminViewProc(JobFair jobfair) {
 		logger.info("adminview 처리");
+		
+		return "redirect:/jobfair/update?jobfair_no=" + jobfair.getJobfair_no();
 	}
 	
+	
 	@RequestMapping(value="/jobfair/update", method=RequestMethod.GET)
-	public void update() {
+	public void update(
+			JobFair jobfair,
+			Model model,
+			int jobfair_no
+		) {
 		logger.info("업데이트 폼");
+		
+		JobFair update = jobfairService.adminView(jobfair);
+//		System.out.println("update: " + update);
+		
+		model.addAttribute("update", update);
+		
+		logger.info("update: " + jobfair_no);
+		
+		String file_name = fileService.getFilename(jobfair_no);
+		model.addAttribute("file", file_name);
+		
 	}
 	
 	@RequestMapping(value="/jobfair/update", method=RequestMethod.POST)
-	public void updateProc(JobFair jobfair) {
-		logger.info("업데이트 처리");
+	public String updateProc(
+			JobFair jobfair,
+			@RequestParam(value="file") MultipartFile fileupload
+		) {
+		
+		if( fileupload.getOriginalFilename().equals("") ) {
+
+			logger.info("업데이트 처리");
+			
+			jobfairService.updateFair(jobfair);
+			
+			return "redirect:/jobfair/main";
+			
+		} else {
+
+			logger.info("파일업로드 처리");
+			
+			logger.info("파일 : " + fileupload.getOriginalFilename());
+			logger.info(context.getRealPath("upload"));
+			
+			jobfairService.updateFair(jobfair);
+			
+			int jobfair_no = jobfair.getJobfair_no();
+			System.out.println(jobfair_no);
+			
+			fileService.filesave(jobfair_no, fileupload, context);
+			
+		}
+		
+		return "redirect:/jobfair/main";
+	}
+	
+	@RequestMapping(value="/jobfair/delete", method=RequestMethod.GET)
+	public String deleteProc(
+			JobFair jobfair, 
+			JobFairFile jobfairfile
+		) {
+		logger.info("삭제 처리");
+		
+		jobfairService.deleteFair(jobfair);
+		fileService.deleteFile(jobfairfile);
+		
+		return "redirect:/jobfair/main";
 	}
 
 }
