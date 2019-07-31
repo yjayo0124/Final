@@ -83,4 +83,6 @@ public interface RecruitmentDao {
 
 	public List selectAllnotpaging();
 
+	public Recruit_file selectFile(int recruit_no);
+
 }

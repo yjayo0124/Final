@@ -45,6 +45,8 @@ public interface RecruitmentService {
 
 	public List getListnotpaging();
 
+	public Recruit_file viewFile(int recruit_no);
+
 	
 
 

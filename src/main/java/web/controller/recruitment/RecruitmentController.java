@@ -76,12 +76,11 @@ public class RecruitmentController {
 	@RequestMapping(value = "/recruitment/write", method = RequestMethod.GET) 
 	public void recruitWriteForm(Authentication auth, Model model) {
 		logger.info("글쓰기 폼");
+	
 		//인증된 객체의 상세정보 가져오기
-		Member member = (Member) auth.getDetails();
-		
+		Member member = (Member) auth.getDetails();	
 		model.addAttribute("cor", corService.select(member.getCompany_no()));
-		
-		
+	
 	}
 	
 	@RequestMapping(value="/recruitment/write", method= RequestMethod.POST)
@@ -93,53 +92,54 @@ public class RecruitmentController {
 			) {
 	
 		logger.info("글쓰기");
+		
 		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
 				
 		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
+	
 		logger.info("사용자가 입력한 recruit"+recruit);
 		logger.info("파일 : " + fileupload.getOriginalFilename());
-		logger.info(context.getRealPath("upload"));
-		
+		logger.info(context.getRealPath("upload"));	
 		
 		//파일 업로드를 하지 않았다면 
 		if( fileupload.getOriginalFilename().equals("") ) { 
-
 			recruitmentService.write(recruit);
-			
 			return "redirect: /recruitment/main";
-			
-			
+					
 		}else {// 파일 업로드가 있다면 
-				
 			recruitmentService.write(recruit);
-			
 			int recruit_no = recruit.getRecruit_no();   //write메소드가 리턴해주는 값이 select key에서 추출한 값. 
-			
 			recruitmentService.filesave(recruit_no, fileupload, context);
 		}
-
-		
 		return "redirect:/recruitment/main";
 	}
 	
 	@RequestMapping(value = "/recruitment/update", method = RequestMethod.GET) 
-	public String recruitUpdate(Recruit recruit, int recruit_no, Model model) {
+	public String recruitUpdate(
+			HttpServletRequest req,
+			Authentication auth,
+			Recruit recruit, 
+			int recruit_no,
+			Model model) {
 		
-		// 게시글 전달
-		Recruit res = recruitmentService.view(recruit.getRecruit_no());
-		model.addAttribute("viewRecruit", res);
+		//게시글 번호 파싱
+		recruit_no = recruitmentService.getRecruitno(req);
+		
+		//게시글 상세 정보 전달
+		recruit = recruitmentService.view(recruit_no);
+		model.addAttribute("viewRecruit", recruit);
 		
 		//첨부파일 전달
-		String file_name = recruitmentService.getFilename(recruit_no);
-		model.addAttribute("file", file_name);
+		 Recruit_file recruit_file = recruitmentService.viewFile(recruit_no);
+		model.addAttribute("file", recruit_file);
 
-		//기업정보 전달
-		String cor_no = recruitmentService.getCor_no(recruit_no);
-		model.addAttribute("cor", cor_no);	
+		//인증된 객체의 상세정보 가져오기
+		Member member = (Member) auth.getDetails();
+		model.addAttribute("cor", corService.select(member.getCompany_no()));
 		
-		return "board/update";
+		return "recruitment/update";
 				
 	}
 	
@@ -147,28 +147,29 @@ public class RecruitmentController {
 	public String updateProc(
 			Recruit recruit,
 			Authentication auth,
+			HttpServletRequest req,
 			@RequestParam(value="file") MultipartFile fileupload
-			) {
+		) {
+		
 		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
-						
+		
 		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
 		
+		logger.info("사용자가 입력한 recruit"+recruit);
+		logger.info("파일 : " + fileupload.getOriginalFilename());
+		logger.info(context.getRealPath("upload"));	
+					
 		//파일 업로드를 하지 않았다면 
 			if( fileupload.getOriginalFilename().equals("") ) { 
-
 				recruitmentService.update(recruit);
-					
 				return "redirect: /recruitment/main";
-					
-					
+				
 			}else {// 파일 업로드가 있다면 
-						
 				recruitmentService.update(recruit);
-					
 				int recruit_no = recruit.getRecruit_no();   //update 메소드가 리턴해주는 값이 select key에서 추출한 값. 
-					
+//				recruitmentService.filedelete();
 				recruitmentService.filesave(recruit_no, fileupload, context);
 			}
 

@@ -78,7 +78,6 @@ $(document).ready(function() {
 }
 
 #searchBtn{
-	
 	margin-left: -10px;
 	height: 40px;
 	width: 60px;

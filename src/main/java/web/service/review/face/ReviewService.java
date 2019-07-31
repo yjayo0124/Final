@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
+
 import web.dto.Comment_recommend;
 import web.dto.Cor;
 import web.dto.Recommend;
@@ -67,5 +69,15 @@ public interface ReviewService {
 	public int selectCommentLike(Review_comment commentRecommend);
 
 	public List<Comment_recommend> getCommentRecommend();
+
+	public List<Review> getUpdateReviewList(int reviewno);
+
+	public Review getUpdateParam(HttpServletRequest request, Review review);
+
+	public void UpdateReview(Review getParam);
+
+	public void deleteReviewComment(int reviewno);
+	
+	public void deleteReview(int reviewno);
 
 }

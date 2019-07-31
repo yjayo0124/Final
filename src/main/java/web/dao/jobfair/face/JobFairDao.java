@@ -10,6 +10,8 @@ public interface JobFairDao {
 	
 	public List<HashMap<String, Object>> selectAll();
 	
+	public JobFair selectMap();
+	
 	public JobFair selectByJobfairNo(JobFair jobfair);
 	
 	public String selectByJobfairTitle(String title);

@@ -3,6 +3,8 @@ package web.dao.review.face;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import web.dto.Comment_recommend;
 import web.dto.Cor;
 import web.dto.Recommend;
@@ -71,5 +73,13 @@ public interface ReviewDao {
 	public int selectCommentLike(int commentno);
 
 	public List<Comment_recommend> getCommentRecommend();
+
+	public List<Review> getUpdateReviewList(int reviewno);
+
+	public void UpdateReview(@Param("title") String title, @Param("content") String content, @Param("tag") String tag, @Param("reviewno") int reviewno);
+
+	public void deleteReviewComment(int reviewno);
+
+	public void deleteReview(int reviewno);
 
 }

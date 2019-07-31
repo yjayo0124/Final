@@ -185,4 +185,25 @@
 	<select id="getCommentRecommend" resultType="web.dto.Comment_recommend">
 		SELECT * FROM comment_recommend
 	</select>
+	
+	<select id="getUpdateReviewList" parameterType="int" resultType="web.dto.Review">
+		SELECT * FROM review
+		WHERE review_no = #{reviewno }
+	</select>
+	
+	<update id="UpdateReview" parameterType="web.dto.Review">
+		UPDATE review
+		SET review_title = #{title }, review_content = #{content }, review_tag = #{tag }
+		WHERE review_no = #{reviewno }
+	</update>
+	
+	<delete id="deleteReviewComment">
+		DELETE review_comment
+		WHERE review_no = #{reviewno }
+	</delete>
+	
+	<delete id="deleteReview">
+		DELETE review
+		WHERE review_no = #{reviewno }
+	</delete>
 </mapper>
