@@ -16,6 +16,8 @@
 
 		<!--  권한은  ROLE_ADMIN (관리자) / ROLE_COR(기업회원) /ROLE_IDV(개인회원) 세 가지 밖에 없습니다.  -->
 <!-- 	<security:intercept-url pattern="/***" requires-channel="https"/> -->
+
+<!-- 	<security:intercept-url pattern="/mypage/**" access="hasRole('ROLE_IDV')"/> -->	
 	<security:intercept-url pattern="/resume/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_COR')"/>
 	<security:intercept-url pattern="/jobfair/register" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/cor/info**" access="permitAll"/>
