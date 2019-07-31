@@ -24,13 +24,10 @@
 		WHERE recruit_no = #{recruit_no}
 	</select>
 	
-	<insert id="write" parameterType="web.dto.Recruit">
-		
+	<insert id="write" parameterType="web.dto.Recruit">		
 		<selectKey resultType="int" keyProperty="recruit_no" order="AFTER">
 		select recruit_seq.currval FROM dual
 		</selectKey>
-		
-		
 		INSERT INTO recruit( recruit_no, 
 							recruit_name, 
 							recruit_title,
@@ -79,17 +76,20 @@
 	</select>
 	
 	<update id="update" parameterType="web.dto.Recruit">
+<!-- 		<selectKey resultType="int" keyProperty="recruit_no" order="AFTER"> -->
+<!-- 		select recruit_seq.currval FROM dual -->
+<!-- 		</selectKey> -->
+		
 		UPDATE recruit
-		SET recruit_name = #{recruit_name},
-			recruit_title = #{recruit_title}, 
+		SET recruit_title = #{recruit_title}, 
 			recruit_career = #{recruit_career}, 
 			recruit_educareer = #{recruit_educareer}, 
 			recruit_certificate = #{recruit_certificate},
 			recruit_major = #{recruit_major}, 
 			recruit_type = #{recruit_type},
 			recruit_sal = #{recruit_sal},
-			recruit_position = #{recruit_position}
-			recruit_content = #{recruit_content}
+			recruit_position = #{recruit_position},
+			recruit_content = #{recruit_content},
 			recruit_loc =#{recruit_loc}
 		WHERE recruit_no = #{recruit_no}
 	</update>
@@ -105,7 +105,7 @@
 	</delete>
 	
 	<select id="selectFilename" resultType="String" parameterType="int">
-		SELECT recruit_file_storedname FROM recruit_file
+		SELECT recruit_file_storedname,recruit_file_originname FROM recruit_file
 		WHERE recruit_no =#{recruit_no}
 	</select>
 	
@@ -121,6 +121,11 @@
 	
 	<select id="selectAllnotpaging" resultType="web.dto.Recruit">
 		SELECT * FROM recruit
+	</select>
+	
+	<select id="selectFile" resultType="web.dto.Recruit_file" parameterType="int">
+		SELECT * FROM recruit_file
+		WHERE recruit_no = #{recruit_no}
 	</select>
 	
 </mapper> 
