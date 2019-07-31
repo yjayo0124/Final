@@ -55,7 +55,7 @@ $(document).ready(function(){
 <div class="container">
 <h3>채용공고등록</h3>
 
-<form action="/recruitment/write" method="post" enctype="multipart/form-data">
+<form action="/recruitment/update" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="recruit_no" value=${viewRecruit.recruit_no } />
 
@@ -141,8 +141,8 @@ $(document).ready(function(){
 </div>
 &nbsp;
 <div>
-<label>상세요강 이미지파일</label>
-<label>기존 첨부파일: </label>${file.originname } 
+<label>상세요강 기존 첨부파일: </label>
+${file.recruit_file_originname } 
 <input type="file" name="file" id="file"/>
 </div>
 &nbsp;

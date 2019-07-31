@@ -153,6 +153,11 @@ public class RecruimentServiceImpl implements RecruitmentService{
 		return recruitmentDao.selectAllnotpaging();
 	}
 
+	@Override
+	public Recruit_file viewFile(int recruit_no) {
+		return recruitmentDao.selectFile(recruit_no);
+	}
+
 	
 
 
