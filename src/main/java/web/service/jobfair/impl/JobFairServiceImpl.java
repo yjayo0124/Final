@@ -19,6 +19,11 @@ public class JobFairServiceImpl implements JobFairService {
 	public List<HashMap<String, Object>> calList() {
 		return jobfairDao.selectAll();
 	}
+	
+	@Override
+	public JobFair mapList() {
+		return jobfairDao.selectMap();
+	}
 
 	@Override
 	public void registerFair(JobFair jobfair) {
