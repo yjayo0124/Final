@@ -54,14 +54,23 @@ public class MypageController {
 	private BCryptPasswordEncoder passwordEncoder;
 
 	@RequestMapping(value = "/mypage/main", method = RequestMethod.GET) 
-	public void mypage() {
+	public void mypage(Authentication auth, Model model) {
 		logger.info("마이페이지 메인 접속");
 
+		if(auth == null) {
+			return;
+		}
+		
+		Member member = (Member) auth.getDetails();
+		model.addAttribute("member_name", member.getMember_name());
+		//접속 객체 이름 model값으로 보내기
 	}
 
 	@RequestMapping(value="/mypage/introduction/list", method=RequestMethod.GET)
 	public void introductionList() {
-
+		
+		
+		
 	}
 
 	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.GET)
@@ -162,17 +171,6 @@ public class MypageController {
 	public void myCommentDelete() {
 
 	}
-
-	@RequestMapping(value="/mypage/myscrap/list", method=RequestMethod.GET)
-	public void myScrapList() {
-
-	}
-
-	@RequestMapping(value="/mypage/myscrap/delete", method=RequestMethod.GET)
-	public void myScrapDelete() {
-
-	}
-
 
 	//-------------------seonhong------
 

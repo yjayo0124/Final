@@ -113,7 +113,7 @@ ul,li{
 			
 		<sec:authorize access="isAuthenticated()"> 
 		
-			<sec:authorize access="hasAnyRole('ROLE_COR', 'ROLE_ADMIN')">
+			<sec:authorize access="hasAnyRole('ROLE_COR')">
 			<li><a href="/cor/main"><span>기업회원홈</span></a></li>
 			</sec:authorize>
 		

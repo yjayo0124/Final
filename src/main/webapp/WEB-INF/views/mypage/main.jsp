@@ -314,7 +314,7 @@ td {
 		<div class="profile">
 			<div class="profile_img">
 				<img class="img-circle" src="/resources/images/avatar.png">
-				<div class="profile_name"><strong>홍길동</strong>님</div>
+				<div class="profile_name"><strong>${member_name }</strong>님</div>
 				<div class="profile_btn"><button type="button" class="btn_create_resume">이력서 작성하기</button></div>
 			</div>
 		</div>
