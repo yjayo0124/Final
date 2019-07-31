@@ -1,6 +1,8 @@
 package web.controller.review;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -194,7 +196,7 @@ public class ReviewController {
 		int reviewno = comment.getReview_no();
 		
 		List<Review_comment> newcomment = reviewService.getNewComment(reviewno);
-		SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatdate = new SimpleDateFormat("MM-dd HH:mm:ss");
 		System.out.println("newcomment : " + newcomment);
 		
 		JSONArray array = new JSONArray();
@@ -259,4 +261,44 @@ public class ReviewController {
 			}
 	}
 	
+	// 리뷰 수정
+	@RequestMapping(value = "/review/update", method = RequestMethod.GET)
+	public void update(int reviewno, Model model) {
+			List<Review> getReview = reviewService.getUpdateReviewList(reviewno);
+			
+			model.addAttribute("reviewlist", getReview);
+	}
+	
+	// 리뷰 수정
+	@RequestMapping(value = "/review/update", method = RequestMethod.POST)
+	public String updateReview(HttpServletRequest request, Model model, Review review) {
+			Review getParam = reviewService.getUpdateParam(request, review);
+			
+			reviewService.UpdateReview(getParam);
+			
+			String url = "전체";
+			try {
+				url= URLEncoder.encode(url, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+			return "redirect:/review/list?tag=" + url;
+	}
+	
+	// 리뷰 삭제
+	@RequestMapping(value = "/review/delete", method = RequestMethod.GET)
+	public String delete(int reviewno, Model model) {
+			reviewService.deleteReviewComment(reviewno);
+			reviewService.deleteReview(reviewno);
+		
+			String url = "전체";
+			try {
+				url= URLEncoder.encode(url, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			
+			return "redirect:/review/list?tag=" + url;
+	}
 }

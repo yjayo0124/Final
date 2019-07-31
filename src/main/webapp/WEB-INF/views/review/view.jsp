@@ -57,8 +57,6 @@ function getParam(sname) {
 console.log(getParam("tag"));
 
 $(document).ready(function() {
-	$('input[name=selectTag]').attr('value','전체');
-	
 	// 검색 자동완성 기능
 	$('#keyword').autocomplete({
 		source:function(request,response){
@@ -104,116 +102,137 @@ $(document).ready(function() {
 	});
 	
 	$(document).on("click","#writecmt",function() {
-		<c:set var="pagingTag" value="전체"/>
-		<sec:authentication property="details" var="member"/>   
-		    <sec:authorize access="isAuthenticated()">
-				<c:set var="mem" value="${member.member_no }"/>
-		</sec:authorize>
-			
-		 ajax = $.ajax({
-			 url: "/review/comment",
-			 type: "post",
-			 dataType: "json",
-			 data: { cmtnick : $('#cmtnick').val(), cmtcontent : $('#cmtcontent').val(), cmtpassword : $('#cmtpassword').val(), reviewno : $('#reviewno').val()},
-			 success: function(data) {
-				 $.map(data, function(item) {
-					 var $div = $('<div></div>');
-					 var div = document.createElement('div');
-					 var div2 = document.createElement('div');
-					 var div3 = document.createElement('div');
-					 var div4 = document.createElement('div');
-					 var div5 = document.createElement('div');
+		 <c:set var="pagingTag" value="전체"/>
+		 <sec:authentication property="details" var="member"/>   
+		     <sec:authorize access="isAuthenticated()">
+				 <c:set var="mem" value="${member.member_no }"/>
+		 </sec:authorize>
+			 
+		 /* text input null check*/
+		 function isNull(elm) { 
+	         //Null 체크 함수
+	         var elm;
+	         return (elm == null || elm == "" || elm == "undefined" || elm == " ") ? true : false
+		 }
 
-					 var text = document.createTextNode(item.nick);
-					 var content = document.createTextNode(item.content);
-					 var date = document.createTextNode(item.date);
-					 var recommend = document.createTextNode('\u00a0'+ item.recommend);
+        if(isNull($('#cmtnick').val())) {
+            alert("닉네임을 입력해 주세요.");
+            return false;
+         } else if (isNull($('#cmtcontent').val())) {
+            alert("내용을 입력해 주세요.");
+            return false;
+         } else if (isNull($('#cmtpassword').val())) {
+             alert("비밀번호를 입력해 주세요.");
+             return false;
+          } else {
+			 ajax = $.ajax({
+				 url: "/review/comment",
+				 type: "post",
+				 dataType: "json",
+				 data: { cmtnick : $('#cmtnick').val(), cmtcontent : $('#cmtcontent').val(), cmtpassword : $('#cmtpassword').val(), reviewno : $('#reviewno').val()},
+				 success: function(data) {
+					 $.map(data, function(item) {
+						 var $div = $('<div></div>');
+						 var div = document.createElement('div');
+						 var div2 = document.createElement('div');
+						 var div3 = document.createElement('div');
+						 var div4 = document.createElement('div');
+						 var div5 = document.createElement('div');
+						 
+						 var text = document.createTextNode(item.nick);
+						 var content = document.createTextNode(item.content);
+						 var date = document.createTextNode(item.date);
+						 var recommend = document.createTextNode('\u00a0'+ item.recommend);
+						 
+						 var writtencmt = document.getElementById("writtencmt");
+	
+						 writtencmt.style.width = 100 + '%';
+						 writtencmt.style.border = '3px solid #dddddd';
+						 writtencmt.style.padding = 5 + 'px';
+						 writtencmt.style.radius = 8 + 'px';
+						 writtencmt.style.background = '#dddddd';
+	
+						 div.id = item.commentno + item.nick;
+						 div.style.width = 133 + 'px';
+						 div.style.padding = 5 + 'px';
+						 div.style.display = 'inline-block';
+						 
+						 div2.id = item.commentno + item.content;
+						 div2.style.width = 654 + 'px';
+						 div2.style.padding = 5 + 'px';
+						 div2.style.display = 'inline-block';
+						 
+						 div3.id = item.commentno + item.date;
+						 div3.style.width = 154 + 'px';
+						 div3.style.padding = 5 + 'px';
+						 div3.style.display = 'inline-block';
+						 
+						 div4.id = item.commentno + item.pw;
+						 div4.style.width = 80 + 'px';
+						 div4.style.padding = 5 + 'px';
+						 div4.style.display = 'inline-block';
+						 
+						 div5.id = item.commentno + item.commentno + item.content;
+						 div5.style.width = 90 + 'px';
+						 div5.style.padding = 5 + 'px';
+						 div5.style.display = 'inline-block';
+						 
+						 div.appendChild(text);
+						 div2.appendChild(content);
+						 div3.appendChild(date);
+						 div4.innerHTML = "<input type='hidden' id='newrecommendno' name='newrecommendno'/>";
+						 div4.innerHTML += "<input type='hidden' id='newmemno' name='newmemno'/>";
+						 div4.innerHTML += "<input type='hidden' id='newchange' name='newchange'/>";
+						 div4.innerHTML += "<img id='like1' src='/resources/images/beforelike.png' style='cursor:pointer'/>";
+						 div4.innerHTML += '<label>' + '\u00a0' + item.recommend + '</label>';
+						 
+						 div5.innerHTML = "<input type='hidden' id='deletecmtno' name='deletecmtno'/>";
+						 div5.innerHTML += "<input type='hidden' id='deletecmtpw' name='deletecmtpw'/>";
+						 div5.innerHTML += "<input type='hidden' id='deletecmtnick' name='deletecmtnick'/>";
+						 div5.innerHTML += "<input type='hidden' id='deletecmtcontent' name='deletecmtcontent'/>";
+						 div5.innerHTML += "<input type='hidden' id='deletecmtdate' name='deletecmtdate'/>";
+						 div5.innerHTML += "<input type='hidden' id='deletecmtrecommend' name='deletecmtrecommend'/>";
+						 div5.innerHTML += "<input type='hidden' id='deletecmtBtn' name='deletecmtBtn'/>";
+						 div5.innerHTML += "<input type='button' id='deletecmt' name='deletecmt' value='댓글 삭제'/>";
+						 
+						 $('#writtencmt').prepend($div);
+						 $div.prependTo($('#writtencmt'));
+						 document.getElementById('writtencmt').insertBefore(div5, document.getElementById('writtencmt').firstChild);
+						 document.getElementById('writtencmt').insertBefore(div4, document.getElementById('writtencmt').firstChild);
+						 document.getElementById('writtencmt').insertBefore(div3, document.getElementById('writtencmt').firstChild);
+						 document.getElementById('writtencmt').insertBefore(div2, document.getElementById('writtencmt').firstChild);
+						 document.getElementById('writtencmt').insertBefore(div, document.getElementById('writtencmt').firstChild);
+						 
+						 newcommentno = item.commentno;
+						 newnick = item.commentno + item.nick;
+						 newpw = item.pw;
+						 newcontent = item.commentno + item.content;
+						 newdate = item.commentno + item.date;
+						 newrecommend = item.commentno + item.pw;
+						 newno = item.commentno + item.commentno + item.content;
+						 newcheck = item.check;
+					 });
+					 document.getElementById('newrecommendno').value = newcommentno;
+					 document.getElementById('newchange').value = newcheck;
+					 document.getElementById('newmemno').value = ${mem };
+					 document.getElementById('deletecmtno').value = newcommentno;
+					 document.getElementById('deletecmtpw').value = newpw;
+					 document.getElementById('deletecmtnick').value = newnick;
+					 document.getElementById('deletecmtcontent').value = newcontent;
+					 document.getElementById('deletecmtdate').value = newdate;
+					 document.getElementById('deletecmtrecommend').value = newrecommend;
+					 document.getElementById('deletecmtBtn').value = newno;
 					 
-					 var writtencmt = document.getElementById("writtencmt");
-
-					 writtencmt.style.width = 100 + '%';
-					 writtencmt.style.border = '3px solid #dddddd';
-					 writtencmt.style.padding = 5 + 'px';
-					 writtencmt.style.radius = 8 + 'px';
-					 writtencmt.style.background = '#dddddd';
-
-					 div.id = item.commentno + item.nick;
-					 div.style.width = 133 + 'px';
-					 div.style.padding = 5 + 'px';
-					 div.style.display = 'inline-block';
-					 
-					 div2.id = item.commentno + item.content;
-					 div2.style.width = 654 + 'px';
-					 div2.style.padding = 5 + 'px';
-					 div2.style.display = 'inline-block';
-					 
-					 div3.id = item.commentno + item.date;
-					 div3.style.width = 154 + 'px';
-					 div3.style.padding = 5 + 'px';
-					 div3.style.display = 'inline-block';
-					 
-					 div4.id = item.commentno + item.pw;
-					 div4.style.width = 80 + 'px';
-					 div4.style.padding = 5 + 'px';
-					 div4.style.display = 'inline-block';
-					 
-					 div5.id = item.commentno + item.commentno + item.content;
-					 div5.style.width = 90 + 'px';
-					 div5.style.padding = 5 + 'px';
-					 div5.style.display = 'inline-block';
-					 
-					 div.appendChild(text);
-					 div2.appendChild(content);
-					 div3.appendChild(date);
-					 div4.innerHTML = "<input type='hidden' id='newrecommendno' name='newrecommendno'/>";
-					 div4.innerHTML += "<input type='hidden' id='newmemno' name='newmemno'/>";
-					 div4.innerHTML += "<input type='hidden' id='newchange' name='newchange'/>";
-					 div4.innerHTML += "<img id='like1' src='/resources/images/beforelike.png' style='cursor:pointer'/>";
-					 div4.innerHTML += '<label>' + '\u00a0' + item.recommend + '</label>';
-					 
-					 div5.innerHTML = "<input type='hidden' id='deletecmtno' name='deletecmtno'/>";
-					 div5.innerHTML += "<input type='hidden' id='deletecmtpw' name='deletecmtpw'/>";
-					 div5.innerHTML += "<input type='hidden' id='deletecmtnick' name='deletecmtnick'/>";
-					 div5.innerHTML += "<input type='hidden' id='deletecmtcontent' name='deletecmtcontent'/>";
-					 div5.innerHTML += "<input type='hidden' id='deletecmtdate' name='deletecmtdate'/>";
-					 div5.innerHTML += "<input type='hidden' id='deletecmtrecommend' name='deletecmtrecommend'/>";
-					 div5.innerHTML += "<input type='hidden' id='deletecmtBtn' name='deletecmtBtn'/>";
-					 div5.innerHTML += "<input type='button' id='deletecmt' name='deletecmt' value='댓글 삭제'/>";
-					 
-					 $('#writtencmt').prepend($div);
-					 $div.prependTo($('#writtencmt'));
-					 document.getElementById('writtencmt').insertBefore(div5, document.getElementById('writtencmt').firstChild);
-					 document.getElementById('writtencmt').insertBefore(div4, document.getElementById('writtencmt').firstChild);
-					 document.getElementById('writtencmt').insertBefore(div3, document.getElementById('writtencmt').firstChild);
-					 document.getElementById('writtencmt').insertBefore(div2, document.getElementById('writtencmt').firstChild);
-					 document.getElementById('writtencmt').insertBefore(div, document.getElementById('writtencmt').firstChild);
-					 
-					 newcommentno = item.commentno;
-					 newnick = item.commentno + item.nick;
-					 newpw = item.pw;
-					 newcontent = item.commentno + item.content;
-					 newdate = item.commentno + item.date;
-					 newrecommend = item.commentno + item.pw;
-					 newno = item.commentno + item.commentno + item.content;
-					 newcheck = item.check;
-				 });
-				 document.getElementById('newrecommendno').value = newcommentno;
-				 document.getElementById('newmemno').value = ${mem };
-				 document.getElementById('newchange').value = newcheck;
-				 
-				 document.getElementById('deletecmtno').value = newcommentno;
-				 document.getElementById('deletecmtpw').value = newpw;
-				 document.getElementById('deletecmtnick').value = newnick;
-				 document.getElementById('deletecmtcontent').value = newcontent;
-				 document.getElementById('deletecmtdate').value = newdate;
-				 document.getElementById('deletecmtrecommend').value = newrecommend;
-				 document.getElementById('deletecmtBtn').value = newno;
-			 },
-			 error : function(data) {
-				 alert("에러가 발생하였습니다.")
-			 }
-				
-		 });
+					 $('#cmtnick').val("");
+					 $('#cmtcontent').val("");
+					 $('#cmtpassword').val("");
+				 },
+				 error : function(data) {
+					 alert("에러가 발생하였습니다.");
+				 }
+					
+			 });
+          }
 	});
 
 	$(document).on("click","#deletecmt",function() {
@@ -390,70 +409,19 @@ $(document).ready(function() {
 			 }
 		 });
 	});
-	
-	if(getParam("tag") == '전체') {
-		$('#tag1').css({
-			color: "#4B89DC"
-		});
-		$('#tag2').css({
-			color: "black"
-		});
-		$('#tag3').css({
-			color: "black"
-		});
-		$('#tag4').css({
-			color: "black"
-		});
-	}
-
-	if(getParam("tag") == '강추') {
-		$('#tag2').css({
-			color: "#4B89DC"
-		});
-		$('#tag1').css({
-			color: "black"
-		});
-		$('#tag3').css({
-			color: "black"
-		});
-		$('#tag4').css({
-			color: "black"
-		});
-	}
-
-	if(getParam("tag") == '비추') {
-		$('#tag3').css({
-			color: "#4B89DC"
-		});
-		$('#tag1').css({
-			color: "black"
-		});
-		$('#tag2').css({
-			color: "black"
-		});
-		$('#tag4').css({
-			color: "black"
-		});
-	}
-
-	if(getParam("tag") == '취업고민') {
-		$('#tag4').css({
-			color: "#4B89DC"
-		});
-		$('#tag1').css({
-			color: "black"
-		});
-		$('#tag2').css({
-			color: "black"
-		});
-		$('#tag3').css({
-			color: "black"
-		});
-	}
 });
 
-function writePop(){
+function writePop() {
 	window.open("http://localhost:8088/review/writePop", "글쓰기", "width=1000, height=650");
+}
+
+function deleteReview(reviewno) {
+	var ok = confirm("삭제 하시겠습니까?\n삭제하실 경우 작성한글을 포함하여 댓글까지 삭제 됩니다.")
+	
+	if(ok) {
+		alert("삭제 되었습니다.")
+		location.href="/review/delete?reviewno=${i.REVIEW_NO }" + reviewno
+	}
 }
 
 </script>
@@ -474,6 +442,7 @@ table {
 	border-collapse: collapse;
 	margin: auto;
 	border-radius: 8px;
+	margin-top: 25px;
 }
 
 th {
@@ -496,15 +465,12 @@ td {
 	border: solid 2px #e9e9e9;
 	background-color: #e9e9e9;
 	margin: 5px;
+	width: 99%;
+	align: center;
 }
 
 .search {
 	float: right;
-}
-
-.tag {
-	font-size: 17px;
-	font-weight: bold;
 }
 
 .ui-menu-item, .ui-autocomplete, .ui-menu, .ui-widget, .ui-widget-content, .ui-corner-all {
@@ -512,8 +478,11 @@ td {
 	font-size: 12px;
 }
 
-#tag1 {
+#tag {
+	font-size: 20px;
+	font-weight: bold;
 	color: #4B89DC;
+	cursor: pointer;
 }
 
 #keyword {
@@ -523,8 +492,24 @@ td {
 	border-radius: 8px;
 }
 
+#searchBtn {
+	margin-left: -5px;
+	height: 34px;
+	width: 60px;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
+}
+
 #reviewBtn {
-	float:right;
+	float: right;
+	height: 33px;
+	width: 60px;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
 }
 
 #thtitle, #threcommended, #thwrittendate, #thhit {
@@ -541,6 +526,7 @@ td {
 
 #content {
 	margin: 3px;
+	margin-bottom: 7px;
 	border: 3px solid #dddddd;
 	padding: 5px;
 	width: 100%;
@@ -576,7 +562,29 @@ td {
 }
 
 #writecmt {
+	height: 33px;
 	width: 7%;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
+}
+
+#deletecmt {
+	height: 33px;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
+	margin-left: 5px;
+}
+
+#deletecomment {
+	height: 33px;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
 }
 
 #writtencmt {
@@ -586,6 +594,26 @@ td {
 	padding: 5px;
 	radius: 8px;
 	background: #dddddd;
+}
+
+#updateBtn {
+	float: right;
+	height: 33px;
+	background-color: #0080ff;
+	border: 2px solid #0080ff;
+	color: white;
+	border-radius: 8px;
+	margin-right: 2px;
+}
+
+#deleteBtn {
+	float: right;
+	height: 33px;
+	background-color: #FD1447;
+	border: 2px solid #FD1447;
+	color: white;
+	border-radius: 8px;
+	margin-left: 2px;
 }
 
 .commentnick {
@@ -638,17 +666,14 @@ td {
 		<input type="text" name="keyword" id="keyword"/>
 		<input type="button" id="searchBtn" value="검색">
 	</form>
-	<button id="reviewBtn" onclick="writePop()">글쓰기</button>
+	<c:if test="${not empty pageContext.request.userPrincipal }">
+		<button id="reviewBtn" onclick="writePop()">글쓰기</button>
+	</c:if>
 </div>
 <br><br>
-<div id="tag">
-	<label class="tag" id="tag1">전체</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag2">강추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag3">비추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag4">취업고민</label>
-</div>
 
 <c:forEach items="${viewlist }" var="i">
+	<a href="/review/list?tag=${i.REVIEW_TAG }"><label id="tag"># ${i.REVIEW_TAG }</label></a>
 	<h3><b>${i.COR_NAME }</b></h3>
 	<table>
 		<tr>
@@ -672,9 +697,9 @@ td {
 	
 	<sec:authentication property="details" var="member"/>   
     <sec:authorize access="isAuthenticated()">
-    	<c:if test="${member.member_no eq i.mem_no }" >
-    		<button id="btnUpdate">수정</button>
-    		<button id="btnDelete" class="btn btn-danger">삭제</button>
+    	<c:if test="${member.member_no eq i.MEM_NO }" >
+    		<button id="deleteBtn" onclick="deleteReview(${i.REVIEW_NO })">삭제</button>
+    		<a href="/review/update?reviewno=${i.REVIEW_NO }"><button id="updateBtn">수정</button></a>
     	</c:if>
    	</sec:authorize>
    	
@@ -682,7 +707,7 @@ td {
 </c:forEach>
 
 <br>
-<hr class="review-hr">
+<hr class="review-hr" style="margin-top: 20px;">
 <label id="cmt">댓글</label><br>
 
 <div id="writtencmt">
@@ -708,7 +733,7 @@ td {
 			${i.comment_content }
 		</div>
 		<div id="commentdate${i.comment_written_date }" class="commentdate">
-			<fmt:formatDate value="${i.comment_written_date }" pattern="yyyy-MM-dd"/>
+			<fmt:formatDate value="${i.comment_written_date }" pattern="MM-dd HH:mm:ss"/>
 		</div>
 		<div id="commentrecommend${i.comment_nick }" class="commentrecommend">
 			<input type="hidden" id="recommendno" name="recommendno" value="${i.comment_no }"/>
@@ -728,9 +753,11 @@ td {
 	</c:forEach>
 </div>
 
-<input type="text" id="cmtnick" name="cmtnick" maxlength="10" placeholder="닉네임(10자리까지)"/>
-<input type="text" id="cmtcontent" name="cmtcontent" placeholder="내용을 입력해 주세요"/>
-<input type="password" id="cmtpassword" name="cmtpassword" maxlength="4" placeholder="비밀번호(4자리)"/>
-<input type="button" id="writecmt" name="writecmt" value="댓글 입력"/>
+<div id="nullcheck">
+	<input type="text" id="cmtnick" name="cmtnick" maxlength="10" placeholder="닉네임(10자리까지)"/>
+	<input type="text" id="cmtcontent" name="cmtcontent" placeholder="내용을 입력해 주세요"/>
+	<input type="password" id="cmtpassword" name="cmtpassword" maxlength="4" placeholder="비밀번호(4자리)"/>
+	<input type="button" id="writecmt" name="writecmt" value="댓글 입력"/>
+ </div>
 <br><br><br><br><br>
 </body>
