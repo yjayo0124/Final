@@ -195,6 +195,7 @@ table {
 	border-right: 0px solid white;
 	border-collapse: collapse;
 	margin: auto;
+	margin-top: 35px;
 }
 
 th {
@@ -228,6 +229,7 @@ a:link {
 .tag {
 	font-size: 17px;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 .ui-menu-item, .ui-autocomplete, .ui-menu, .ui-widget, .ui-widget-content, .ui-corner-all {
@@ -254,13 +256,24 @@ a:link {
 	position: relative;
 }
 
-#reviewBtn {
-	float:right;
+#searchBtn {
+	margin-left: -5px;
+	height: 34px;
+	width: 60px;
 	background-color: #011627;
-	border: 1px solid #011627;
+	border: 2px solid #011627;
 	color: white;
-	border-radius: 4px;
-	margin-bottom: 1.5px;
+	border-radius: 8px;
+}
+
+#reviewBtn {
+	float: right;
+	height: 33px;
+	width: 60px;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
 }
 
 #tagno, #thno {

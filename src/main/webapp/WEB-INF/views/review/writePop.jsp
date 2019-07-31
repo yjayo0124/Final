@@ -3,14 +3,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js">
-</script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="http://code.jquery.com/jquery-1.7.js"	type="text/javascript"></script>
 <script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+
+<script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
+
 
 <script type="text/javascript">
-$(document).ready(function() {
+$.noConflict();
+var j = jQuery;
+j(document).ready(function() {
+	j.noConflict();
+	
+	j(document).ready(function() {
+	 	j("#summernote").summernote({
+			tabsize: 2,
+			height: 370,
+			minHeight: null,
+			maxHeight: null,
+			focus: true,
+			lang: 'ko-KR'
+		});
+	});
 	
 	$('input[name=selectTag]').attr('value','강추'); // tag default 값
 	
@@ -136,6 +159,7 @@ $(document).ready(function() {
         }
 
 	})
+	
 });
 </script>
 
@@ -144,6 +168,13 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	background-color: #e9e9e9;
+}
+
+hr {
+	border: solid 1px black;
+	background-color: black;
+	width: 100%;
+	align: center;
 }
 
 h1 {
@@ -181,16 +212,16 @@ h5 {
 	border-radius: 8px;
 }
 
-#content {
-	resize: none;
-	width: 100%;
+#content { 
+ 	resize: none;
+ 	width: 100%;
 	height: 200px;
 	font-size: 15px;
 	margin-top: 7px;
 	border: 3px solid #dddddd;
 	padding: 5px;
 	border-radius: 8px;
-}
+} 
 
 #searchBtn, #writeBtn {
 	float: right;
@@ -216,6 +247,11 @@ h5 {
 	color: #4B89DC;
 }
 
+#tagcomment {
+	font-weight: bold;
+	font-size: 12px;
+}
+
 ul, li {
 	width: 300px;
 	font-size: 12px;
@@ -223,6 +259,8 @@ ul, li {
 .tag {
 	font-size: 17px;
 	font-weight: bold;
+	cursor: pointer;
+	margin-top: 30px;
 }
 </style>
 
@@ -248,9 +286,9 @@ ul, li {
 <div id="tag">
 	<label class="tag" id="tag1">강추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<label class="tag" id="tag2">비추</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<label class="tag" id="tag3">취업고민</label>
+	<label class="tag" id="tag3">취업고민</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<label id="tagcomment">* 작성할 태그를 선택해 주세요</label>
 </div>
-<br>
 <hr>
 <label>다른 사람의 인격권을 침해하거나 명예를 훼손하게 하는 글, 불쾌감을 주는 욕설 또는 비방하는 글, 유언비어나 허위사실을 유포하는 글, 도배성 글의 경우 글이 삭제되거나 이용제재를 받을 수 있습니다.</label>
 
@@ -267,7 +305,7 @@ ul, li {
 
 	<br><br>
 	<label>글 내용</label><br>
-	<textarea name="content" id="content" placeholder="내용을 입력해주세요"></textarea>
+	<textarea id="summernote" name="content" placeholder="내용을 입력해주세요"></textarea>
 	
 	<input type="hidden" name="selectTag"></input> <!-- tag 선택시 저장되는 곳 -->
 	<input type="hidden" name="selectCor"></input> <!-- 기업 선택시 저장되는 곳 -->

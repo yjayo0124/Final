@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -304,6 +305,48 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Comment_recommend> getCommentRecommend() {
 		return reviewDao.getCommentRecommend();
+	}
+
+	@Override
+	public List<Review> getUpdateReviewList(int reviewno) {
+		return reviewDao.getUpdateReviewList(reviewno);
+	}
+
+	@Override
+	public Review getUpdateParam(HttpServletRequest request, Review review) {
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String tag = request.getParameter("selectTag");
+		String no = request.getParameter("reviewno");
+		
+		int reviewno = Integer.parseInt(no);
+		
+		review.setReview_title(title);
+		review.setReview_content(content);
+		review.setReview_tag(tag);
+		review.setReview_no(reviewno);
+		
+		return review;
+	}
+
+	@Override
+	public void UpdateReview(Review getParam) {
+		String title = getParam.getReview_title();
+		String content = getParam.getReview_content();
+		String tag = getParam.getReview_tag();
+		int reviewno = getParam.getReview_no();
+		
+		reviewDao.UpdateReview(title, content, tag, reviewno);
+	}
+
+	@Override
+	public void deleteReviewComment(int reviewno) {
+		reviewDao.deleteReviewComment(reviewno);
+	}
+
+	@Override
+	public void deleteReview(int reviewno) {
+		reviewDao.deleteReview(reviewno);
 	}
 
 }
