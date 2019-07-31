@@ -27,6 +27,10 @@
 		SELECT * FROM jobfair
 	</select>
 	
+	<select id="selectMap" resultType="web.dto.JobFair">
+		SELECT * FROM jobfair
+	</select>
+	
 	<select id="selectByJobfairNo" 
 	parameterType="web.dto.JobFair"
 	resultType="web.dto.JobFair">
@@ -37,8 +41,8 @@
 	<select id="selectByJobfairTitle" 
 	parameterType="String"
 	resultType="String">
-		SELECT * FROM jobfair
-		WHERE jobfair_name = #{jobfair_name, jdbcType=VARCHAR }
+		SELECT jobfair_name FROM jobfair
+		WHERE jobfair_name LIKE '%'||#{jobfair_name, jdbcType=VARCHAR }||'%'
 	</select>
 	
 	<insert id="insert" parameterType="web.dto.JobFair">
