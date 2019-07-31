@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
+
 <script type="text/javascript">
 	var sel_file;
 	
@@ -143,28 +146,11 @@
 				
 				 
 			});
+	var resume_no;
 	
-	function submit() {
-		var countSchool = $("#form_School .add").size();
-		var countCareer = $("#form_Career .add").size();
-		var countActivities = $("#form_Activities .add").size();
-		var countEducation = $("#form_Education .add").size();
-		var countCertificate = $("#form_Certificate .add").size();
-		var countAward = $("#form_Award .add").size();
-		var countOverseas_Experience = $("#form_Overseas_Experience .add").size();
-		var countLanguage = $("#form_Language .add").size();
-		var countPreferential = $("#form_Preferential .add").size();
+	function resume() {
 		
-		var listSchool = new Array();	listSchool.push(0);
-		var listCareer = new Array();	listCareer.push(0);
-		var listActivities = new Array();	listActivities.push(0);
-		var listEducation = new Array();	listEducation.push(0);
-		var listCertificate = new Array();	listCertificate.push(0);
-		var listAward = new Array();		listAward.push(0);
-		var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
-		var listLanguage = new Array();	listLanguage.push(0);
-		var listPreferential = new Array();	listPreferential.push(0);
-		
+		var member_no = $('.resume_title').find("input[name='member_no']").val();
 		var resume_title = $('.resume_title').find("input[name='resume_title']").val();
 		var resume_name = $('#user_info').find("input[name='resume_name']").val();
 		var resume_birth = $('#user_info').find("input[name='resume_birth']").val();
@@ -176,14 +162,18 @@
 		
 		var forms_employment = $('.Preferential').find("select[name='forms_employment']").val();
 		var desired_work_place = $('.Preferential').find("select[name='desired_work_place']").val();
-		var salary = $('.Preferential').find("input[name='salary']").val();
+		var salary = $('.Preferential').find("input[name='salary']").val();		
 		
+		if(member_no == "") {
+			member_no = 0;
+		}
 		
 		
 		$.ajax({
             url: "/mypage/introduction/write",
             type: "POST",
             data: {
+            		member_no : member_no,
             		resume_title : resume_title,
             		resume_name	: resume_name,
             		resume_birth : resume_birth,
@@ -197,11 +187,17 @@
             		salary : salary
             		},
             success: function(data){
+            	console.log(data);
             },
             error: function(){
                 alert("error");
             }
         });
+	}
+	
+	function school() {
+		var countSchool = $("#form_School .add").size();
+		var listSchool = new Array();	listSchool.push(0);
 		
 		if(countSchool != "0") {
 			for(var i=0; i<countSchool; i++) {
@@ -237,8 +233,11 @@
 	            }
 	        });
 		}
-		
-		
+	}
+	
+	function career() {
+		var countCareer = $("#form_Career .add").size();
+		var listCareer = new Array();	listCareer.push(0);
 		
 		if(countCareer != "0") {
 			for(var i=0; i<countCareer; i++) {
@@ -271,7 +270,11 @@
 			
 		}
 		
-		
+	}
+	
+	function activities() {
+		var countActivities = $("#form_Activities .add").size();
+		var listActivities = new Array();	listActivities.push(0);
 		
 		if(countActivities  != "0") {
 			for(var i=0; i<countActivities; i++) {
@@ -300,7 +303,11 @@
 	        });
 			
 		}
-		
+	}
+	
+	function education() {
+		var countEducation = $("#form_Education .add").size();
+		var listEducation = new Array();	listEducation.push(0);
 		
 		if(countEducation != "0") {
 			for(var i=0; i<countEducation; i++) {
@@ -328,6 +335,11 @@
 	            }
 	        });
 		}
+	}
+	
+	function certificate() {
+		var countCertificate = $("#form_Certificate .add").size();
+		var listCertificate = new Array();	listCertificate.push(0);
 		
 		if(countCertificate  != "0") {
 			for(var i=0; i<countCertificate; i++) {
@@ -351,8 +363,12 @@
 	                alert("error");
 	            }
 	        });
-			
 		}
+	}
+	
+	function award() {
+		var countAward = $("#form_Award .add").size();
+		var listAward = new Array();		listAward.push(0);
 		
 		if(countAward   != "0") {
 			for(var i=0; i<countAward ; i++) {
@@ -379,9 +395,11 @@
 	        });
 			
 		}
-		
-		
-		
+	}
+	
+	function overseas_Experience() {
+		var countOverseas_Experience = $("#form_Overseas_Experience .add").size();
+		var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
 		
 		if(countOverseas_Experience != "0") {
 			for(var i=0; i<countOverseas_Experience; i++) {
@@ -407,6 +425,11 @@
 	            }
 	        });
 		}
+	}
+	
+	function language() {
+		var countLanguage = $("#form_Language .add").size();
+		var listLanguage = new Array();	listLanguage.push(0);
 		
 		if(countLanguage   != "0") {
 			for(var i=0; i<countLanguage ; i++) {
@@ -432,8 +455,12 @@
 	                alert("error");
 	            }
 	        });
-			
 		}
+	}
+	
+	function preferential() {
+		var countPreferential = $("#form_Preferential .add").size();
+		var listPreferential = new Array();	listPreferential.push(0);
 		
 		if(countPreferential   != "0") {
 			for(var i=0; i<countPreferential ; i++) {
@@ -459,8 +486,22 @@
 	                alert("error");
 	            }
 	        });
-			
 		}
+
+	}
+	
+	function submit() {
+		if( window.ajaxCheck == 1 ) return false;
+		resume();
+		school();
+		career();
+		activities();
+		education();
+		certificate();
+		award();
+		overseas_Experience();
+		language();
+		preferential();
 
 	}
 	
@@ -1849,11 +1890,18 @@ input {
 }
 </style>
 
+<c:set var="pagingTag" value="전체"/>
+<sec:authentication property="details" var="member"/>   
+    <sec:authorize access="isAuthenticated()">
+      <c:set var="mem" value="${member.member_no }"/>
+</sec:authorize>
+
 <div style="background: #f0f2f4;">
 	<div class="container">
 		<section>
 				<div class="resume_title">
 					<input type="text" name="resume_title" placeholder="제목을 입력하세요.">
+					<input type="hidden" id="member_no" name="member_no" value="${mem }"/>
 				</div>
 
 				<div class="form">
