@@ -8,16 +8,25 @@
 
 	<insert id="insertResume" parameterType="web.dto.mypage.resume.Resume">
 		INSERT INTO resume
-		(resume_no, member_no, resume_title, resume_name, resume_gender,resume_email,resume_phone,resume_cellphone,resume_addr,forms_employment,desired_work_place,salary)
+		(resume_no, member_no, resume_title, resume_name, resume_gender, resume_email, resume_phone, resume_cellphone, resume_addr, forms_employment, desired_work_place, salary)
 		VALUES
 		(resume_seq.nextval, #{member_no}, #{resume_title}, #{resume_name}, #{resume_gender}, #{resume_email}, #{resume_phone}, #{resume_cellphone}, #{resume_addr}, #{forms_employment}, #{desired_work_place}, #{salary})
 		 
 		<selectKey keyProperty="resume_no" resultType="Integer" order="AFTER">
 
-			 SELECT LAST_INSERT_ID()
+			 SELECT B.resume_no FROM(SELECT ROWNUM, X.*
+   			 	FROM (select A.resume_no FROM resume A WHERE member_no = #{member_no}
+        		ORDER BY A.resume_writendate DESC) X
+        		WHERE ROWNUM = 1) B
 
 		</selectKey>
 	
+	</insert>
+	
+	<insert id="insertCertificate" parameterType="web.dto.mypage.resume.Certificate">
+		INSERT INTO Certificate
+		(resume_no, certificate_name, place_issue, acquisition_date)
+		VALUES(#{resume_no}, #{certificate_name}, #{place_issue}, #{acquisition_date})
 	</insert>
 
 </mapper>
