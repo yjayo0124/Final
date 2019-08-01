@@ -41,11 +41,17 @@ public interface RecruitmentService {
 	
 	public int recruitSeqCurr();
 
-	public String getCor_no(int recruit_no);
+	public String getCor_addr(int recruit_no);
 
 	public List getListnotpaging();
 
 	public Recruit_file viewFile(int recruit_no);
+
+	public void delete_File(Recruit_file recruit_file);
+
+	public String getCorNo(int recruit_no);
+
+	public String getCorType(int recruit_no);
 
 	
 
