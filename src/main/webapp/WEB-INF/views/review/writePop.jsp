@@ -294,9 +294,11 @@ ul, li {
 
 <br><br>
 <form id="writeReview" name="writeReview" action="/review/writePop" method="post">
-	<label>*선택한 기업<h5>기업검색시 아래에 선택한 기업이 보여집니다.</h5></label>
+	<label>* 선택한 기업<h5>기업검색시 아래에 선택한 기업이 보여집니다.</h5></label>
 	<div id="selectCor" name="selectCor">
-	
+	<c:if test="${corname ne null }">
+		${corname }  <h6 style="color: black; display: inline-block">* 기업상세정보에서 글쓰기 시 기업이 자동입력됩니다.</h5>
+	</c:if>
 	</div>
 
 	<br>

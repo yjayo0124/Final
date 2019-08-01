@@ -42,9 +42,11 @@ public class ReviewController {
 	
 	// 글쓰기 페이지 이동
 	@RequestMapping(value = "/review/writePop", method = RequestMethod.GET) 
-	public void write() {
+	public void write(String cor_name, Model model) {
 		logger.info("글쓰기 페이지");
-
+		
+		System.out.println(cor_name);
+		model.addAttribute("corname", cor_name);
 	}
 	
 	// review table insert

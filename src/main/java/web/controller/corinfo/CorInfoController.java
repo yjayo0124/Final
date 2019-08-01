@@ -1,5 +1,6 @@
 package web.controller.corinfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import web.dao.cor.face.CorDao;
 import web.dto.Cor;
+import web.dto.Recruit;
 import web.service.corinfo.face.CorInfoService;
 
 @Controller
@@ -47,32 +48,22 @@ public class CorInfoController {
 		// �룞醫낆궛�뾽援� �룊洹� �눜�궗�쑉
 		int levmem = corinfoService.addLevmem(industrylist);
 		
+		// 기업리뷰 리스트
+		List<HashMap<String, Object>> corReview = corinfoService.getReview(cor_no);
+		
+		String corname = corinfoService.getCorname(cor_no);
+		// 기업 채용공고 리스트
+		List<Recruit> corRecruit = corinfoService.getRecruit(corname);
+		System.out.println(corname);
+		System.out.println(corRecruit);
 		model.addAttribute("list", corlist);
 		model.addAttribute("formatdate", formatdate);
 		model.addAttribute("idformatdate", idformatdate);
 		model.addAttribute("idmem", industrymem);
 		model.addAttribute("newmem", newmem);
 		model.addAttribute("levmem", levmem);
+		model.addAttribute("corReview", corReview);
+		model.addAttribute("corRecruit", corRecruit);
 	}
 	
-	/*
-	 * @RequestMapping(value = "/cor/info", method = RequestMethod.GET) public void
-	 * corInfoByNo(int cor_no, Model model) {
-	 * 
-	 * Cor cor = corinfoService.getCorByNo(cor_no); List<Cor> corlist =
-	 * corinfoService.getCorinfo(cor_no);
-	 * 
-	 * // date format String formatdate = corinfoService.formatDate(corlist);
-	 * 
-	 * List<Cor> industrylist = corinfoService.getIndustryinfo(cor.getCor_type());
-	 * 
-	 * int industrymem = corinfoService.addIndustrymem(industrylist); int newmem =
-	 * corinfoService.addNewmem(industrylist); int levmem =
-	 * corinfoService.addLevmem(industrylist);
-	 * 
-	 * 
-	 * model.addAttribute("list", corlist); model.addAttribute("formatdate",
-	 * formatdate); model.addAttribute("idmem", industrymem);
-	 * model.addAttribute("newmem", newmem); model.addAttribute("levmem", levmem); }
-	 */
 }

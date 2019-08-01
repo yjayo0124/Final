@@ -81,7 +81,7 @@ $(document).ready(function() {
 				 console.log("member : " + memno);
 	
 				 if(${empty pageContext.request.userPrincipal }) {
-					 alert("로그인 하세요");
+					 alert("로그인 후 이용가능합니다.");
 				 } else {
 					 if(change == 0) {
 						 like.eq(1).children().html(data.data);
@@ -98,7 +98,7 @@ $(document).ready(function() {
 				 }
 			 },
 			 error : function(data) {
-				 alert("로그인 하세요");
+				 alert("로그인 후 이용가능합니다.");
 			 }
 		 });
 		
