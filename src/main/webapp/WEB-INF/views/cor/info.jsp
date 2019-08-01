@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -73,8 +74,8 @@
     });
 }(jQuery));
 
-function writePop(corno){
-	window.open("http://localhost:8088/review/writePop?cor_no="+corno, "글쓰기", "width=1000, height=650");
+function writePop(corno, corname){
+	window.open("http://localhost:8088/review/writePop?cor_no="+corno +"&cor_name="+corname, "글쓰기", "width=1000, height=650");
 }
 
 </script>
@@ -120,6 +121,7 @@ h5 {
 
 #mem, #history, #newmem, #levmem {
 	float: left;
+	cursor: pointer;
 }
 
 #zt-span6, #zt-span7, #zt-span8, #zt-span9 {
@@ -140,10 +142,40 @@ h5 {
 	width: 100%;
 	border-radius: 8px;
 	height: 500px;
+	position: relative;
 }
 
 #reviewBtn {
 	float: right;
+	height: 33px;
+	width: 60px;
+	background-color: #011627;
+	border: 2px solid #011627;
+	color: white;
+	border-radius: 8px;
+}
+
+#thno, #tdno {
+	width: 5%;
+}
+
+#thtag, #tdtag {
+	width: 10%;
+}
+
+#thname, #tdname {
+	width: 20%;
+}
+
+#thtitle, #tdtitle {
+	width: 60%;
+}
+
+#information {
+	cursor:pointer;
+	width: 15px;
+	height: 15px;
+	display: inline-block;
 }
 
 table {
@@ -169,6 +201,9 @@ td {
 	padding: 10px;
 }
 
+a:link {
+	text-decoration: none;
+}
 
 /* css */
 .sm-link{
@@ -456,8 +491,10 @@ SETTINGS
 <h3><b>${i.cor_name }</b></h3>
 </div>
 <div id="corincome">
-<h5>예상 평균연봉</h5>
-<h5>${i.national_pension }</h5>
+<h4><label>예상 평균연봉</label></h4>
+<h2><label>${((i.national_pension * 11) / i.cor_mem) * 12 } 
+<img id="information" src="/resources/images/information.png" title="연봉이 정확하지 않을수 있습니다.&#10;KHOB의 연봉은 국민연금데이터를 &#10;기반으로 산출한 정보입니다."/>
+</label></h2>
 </div>
 
 <br><br><br><br><br><br>
@@ -589,16 +626,60 @@ SETTINGS
 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<h5>기업리뷰</h5>
-<button id="reviewBtn" onclick="writePop(${i.cor_no})">글쓰기</button>
-<div id="review">
+<h4><label>기업리뷰</label></h4>
+<button id="reviewBtn" onclick="writePop('${i.cor_no}', '${i.cor_name }')">글쓰기</button>
 
+<div id="review" style="overflow:auto;">
+	<table style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
+		<thead>
+			<tr>
+				<th id="thno">No</th>
+				<th id="thtag">Tag</th>
+				<th id="thname">기업명</th>
+				<th id="thtitle">제목</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${corReview }" var="i">
+				<tr>
+					<td id="tdno">${i.REVIEW_NO }</td>
+					<td id="tdtag" style="cursor: pointer;"><a href="/review/list?tag=${i.REVIEW_TAG }">${i.REVIEW_TAG }<a></td>
+					<td id="tdname">${i.COR_NAME }</td>
+					<td id="tdtitle" style="cursor: pointer;"><a href="/review/view?reviewno=${i.REVIEW_NO }&tag=${i.REVIEW_TAG }">${i.REVIEW_TITLE }</a>
+						<h6 style="float: right; margin-top: 20px;">
+						추천수&nbsp;<label id="uplike">${i.REVIEW_RECOMMENDED }</label>&nbsp;&nbsp;&nbsp;
+						조회수&nbsp;${i.REVIEW_HIT }&nbsp;&nbsp;&nbsp;
+						작성일&nbsp;<fmt:formatDate value="${i.REVIEW_WRITTEN_DATE}" pattern="yyyy-MM-dd"/>
+						</h6>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </div>
 <div style="margin: 500px;"></div>
 <br><br><br><br><br><br>
-<h5>채용공고</h5>
-<div id="recruit">
 
+<h4><label>채용공고</label></h4>
+<div id="recruit">
+	<table style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
+		<thead>
+			<tr>
+				<th id="thno">No</th>
+				<th id="thname">기업명</th>
+				<th id="thtitle">제목</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${corRecruit }" var="i">
+				<tr>
+					<td id="tdno">${i.RECRUIT_NO }</td>
+					<td id="tdname">${i.RECRUIT_NAME }</td>
+					<td id="tdtitle">${i.RECRUIT_TITLE }</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </div>
 </c:forEach>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
