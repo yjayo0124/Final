@@ -16,4 +16,19 @@
 		WHERE cor_type = #{cor_type } AND ROWNUM <![CDATA[<=]]> 200
 	</select>
 	
+	<select id="selectReview" parameterType="int" resultType="hashmap">
+		SELECT * FROM review, cor
+		WHERE review.cor_no = cor.cor_no AND cor.cor_no = #{cor_no }
+		ORDER BY review.review_no DESC
+	</select>
+	
+	<select id="selectCorname" parameterType="int" resultType="String">
+		SELECT cor_name FROM cor
+		WHERE cor_no = #{cor_no }
+	</select>
+	
+	<select id="selectRecruit" parameterType="String" resultType="web.dto.Recruit">
+		SELECT * FROM recruit
+		WHERE recruit_name = #{corname }
+	</select>
 </mapper>
