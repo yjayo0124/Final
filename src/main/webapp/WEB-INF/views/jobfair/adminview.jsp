@@ -17,8 +17,6 @@
 <!-- include summernote-ko-KR -->
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
-<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
-
 
 <style type="text/css">
 #map {
@@ -27,6 +25,7 @@
 }
 </style>
 
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -34,20 +33,26 @@ $(document).ready(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
 	
+	$("#btnGoUpdate").click(function() {
+		$(location).attr("href", "/jobfair/update?jobfair_no=${viewmap.jobfair_no }");
+	});
+	
+	$("#btnDelete").click(function() {
+		$(location).attr("href","/jobfair/delete?jobfair_no=${viewmap.jobfair_no }");
+	});
+
 });
 
 </script>
 
-
 <script type="text/javascript">
 
-$(document).ready(function(){
+$(document).ready(function() {
 	$.ajax({
 		url: '/jobfair/geocoder',
 		method: 'POST',
 		dataType: 'json',
 		contentType: 'application/json',
-		mimeType: 'application/json',
 		success: function(retVal){
 			console.log("성공");
 			console.log(retVal.latitude + "/" + retVal.longitude);
@@ -62,19 +67,22 @@ $(document).ready(function(){
 			console.log("--error--");
 			console.log(error);
 		}
-	});	
+	});		
 });
+
 
 function initMap(){
 	
-	var latitude = retVal.latitude;
+// 	var latitude = retVal.latitude;
+	var latitude = 33.3632256;
 	console.log("lat: " + latitude);
-	var longitude = retVal.longitude;
+// 	var longitude = retVal.longitude;
+	var longitude = -117.0874871
 	console.log("lng: " + longitude);
 	
 	var loc =  {lat: latitude, lng: longitude};
 	
-	var map = new google.maps.Map(document.getElmenetById('map'), {
+	var map = new google.maps.Map(document.getElementById('map'), {
 		zomm: 15,
 		center: loc
 	});
@@ -84,14 +92,14 @@ function initMap(){
 		map: map
 	});
 	
-	map.setCenter(loc);
+// 	map.setCenter(loc);
 	
 }
+
 </script>
 
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxFiuigEoZ0&callback=initMap">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxFiuigEoZ0&callback=initMap" type="text/javascript"></script>
+
 
 
 <div class="body">
@@ -100,7 +108,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxF
 <hr>
 
 
-<form action="/jobfair/adminview" method="post">
 <input type="hidden" name="jobfair_no" value="${viewmap.jobfair_no }" />
 
 <table class="table  table-bordered table-striped table-hover table-condensed">
@@ -155,11 +162,10 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxF
 
 <div class="text-center">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<button id="btnGoUpdate" class="btn">수정하기</button>
+	<button id="btnGoUpdate" class="btn">수정</button>
+	<button id="btnDelete" class="btn">삭제</button>
 </sec:authorize>
 <input id="btnCancel" type="reset" value="확인" class="btn"/>
 </div>
-
-</form>
 
 </div>

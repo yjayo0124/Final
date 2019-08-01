@@ -56,12 +56,8 @@ public class JobFairFileServiceImpl implements JobFairFileService {
 	}
 	
 	@Override
-	public void deleteFile(JobFairFile jobfairfile) {
-		
-//		JobFair jobfair = new JobFair();
-		
-//		jobfairfile.setJobfair_no(jobfair.getJobfair_no());
-		jobfairDao.deleteFile(jobfairfile);
+	public void deleteFile(int jobfair_no) {
+		jobfairDao.deleteFile(jobfair_no);
 	}
 
 }
