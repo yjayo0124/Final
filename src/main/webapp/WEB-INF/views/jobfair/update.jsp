@@ -20,6 +20,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	$("#btnUpdate").click(function() {
+		$("form").submit();
+	});
+	
+	$("#btnCancel").click(function() {
+		$(location).attr("href", "/jobfair/main");
+	});
+	
 	$("#summernote").summernote({
 		tabsize: 2,
 		height: 370,
@@ -31,14 +39,7 @@ $(document).ready(function() {
 
 	$("#summernote").summernote('pasteHTML', string);
 	
-	$("#btnUpdate").click(function() {
-		$("form").submit();
-	});
-	
-	$("#btnCancel").click(function() {
-		$(location).attr("href", "/jobfair/main");
-	});
-	
+
 });
 
 </script>

@@ -8,7 +8,7 @@
 
 <mapper namespace="web.dao.jobfair.face.JobFairDao">
 
-	<sql id="selectJobfari">
+	<sql id="selectJobfair">
 		SELECT 
 			jobfair_no, 
 			jobfair_name, 

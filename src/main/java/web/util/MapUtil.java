@@ -36,6 +36,7 @@ public class MapUtil {
 		
 		try {
 			geocodeResponse = geocoder.geocode(geocoderRequest);
+			System.out.println(geocodeResponse);
 			
 			if(geocodeResponse.getStatus() == GeocoderStatus.OK & !geocodeResponse.getResults().isEmpty()) {
 				GeocoderResult geocoderResult = geocodeResponse.getResults().iterator().next();

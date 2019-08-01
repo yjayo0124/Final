@@ -1,6 +1,5 @@
 package web.controller.recruitment;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.Cor;
 import web.dto.Member;
 import web.dto.Recruit;
 import web.dto.Recruit_file;
 import web.service.cor.face.CorService;
+import web.service.corinfo.face.CorInfoService;
 import web.service.mypage.face.MypageService;
 import web.service.recruitment.face.RecruitmentService;
 import web.util.Paging;
@@ -32,11 +33,14 @@ public class RecruitmentController {
 	@Autowired RecruitmentService recruitmentService;
 	@Autowired CorService corService;
 	@Autowired MypageService mypageService;
+	@Autowired CorInfoService corinfoService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(RecruitmentController.class);
 	
 	@RequestMapping(value = "/recruitment/main", method = RequestMethod.GET) 
-	public void recruitList( HttpServletRequest req, Model model) {
+	public void recruitList( 
+			HttpServletRequest req,
+			Model model) {
 //		logger.info("채용공고 리스트페이지");
 		
 		//요청 파라미터에서 curPage 얻어오기
@@ -44,18 +48,20 @@ public class RecruitmentController {
 		
 		//MODEL로 paging 객체 넣기
 		req.setAttribute("paging", paging);
-	
+			
 		//테이블 전체 조회 결과 얻기
 		List list = recruitmentService.getList(paging);
 		
 		//Model로 조회결과 넣기
 		model.addAttribute("recruitList", list);		
 		
-
 	}
 	
 	@RequestMapping(value = "/recruitment/view", method = RequestMethod.GET) 
-	public void recruitView(Recruit recruit, int recruit_no, Model model) {
+	public void recruitView(
+			Recruit recruit,
+			int recruit_no,
+			Model model) {
 		
 		logger.info("채용공고 상세페이지 :: 조회할 recruit_no --> "+recruit_no);
 		
@@ -67,9 +73,14 @@ public class RecruitmentController {
 	//	logger.info("db에서 조회한 파일 이름  : "+file_name);
 		model.addAttribute("file", file_name);
 		
-		String cor_no = recruitmentService.getCor_no(recruit_no);
-		model.addAttribute("cor", cor_no);	
+		String corAddr = recruitmentService.getCor_addr(recruit_no);
+		model.addAttribute("cor", corAddr);	
+
+		String corNo = recruitmentService.getCorNo(recruit_no);
+		model.addAttribute("corno",corNo);
 		
+		String corType = recruitmentService.getCorType(recruit_no);
+		model.addAttribute("cortype",corType);
 	}
 
 
@@ -132,7 +143,7 @@ public class RecruitmentController {
 		model.addAttribute("viewRecruit", recruit);
 		
 		//첨부파일 전달
-		 Recruit_file recruit_file = recruitmentService.viewFile(recruit_no);
+		Recruit_file recruit_file = recruitmentService.viewFile(recruit_no);
 		model.addAttribute("file", recruit_file);
 
 		//인증된 객체의 상세정보 가져오기
@@ -146,6 +157,7 @@ public class RecruitmentController {
 	@RequestMapping(value="/recruitment/update", method=RequestMethod.POST)
 	public String updateProc(
 			Recruit recruit,
+			Recruit_file recruit_file,
 			Authentication auth,
 			HttpServletRequest req,
 			@RequestParam(value="file") MultipartFile fileupload
@@ -169,7 +181,7 @@ public class RecruitmentController {
 			}else {// 파일 업로드가 있다면 
 				recruitmentService.update(recruit);
 				int recruit_no = recruit.getRecruit_no();   //update 메소드가 리턴해주는 값이 select key에서 추출한 값. 
-//				recruitmentService.filedelete();
+				recruitmentService.delete_File(recruit_file);
 				recruitmentService.filesave(recruit_no, fileupload, context);
 			}
 

@@ -79,10 +79,14 @@ public interface RecruitmentDao {
 	
 	public int selectRecruitSeqCurrval();
 
-	public String selectCornoBytwoMemno(int recruit_no);
+	public String selectCoraddrBytwoMemno(int recruit_no);
 
 	public List selectAllnotpaging();
 
 	public Recruit_file selectFile(int recruit_no);
+
+	public String selectCorno(int recruit_no);
+
+	public String selectCortype(int recruit_no);
 
 }
