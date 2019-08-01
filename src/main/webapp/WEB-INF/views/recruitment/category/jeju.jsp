@@ -68,7 +68,7 @@ table, th {
 <thead>
 	<tr>
 		<th style="width:10%;">공고번호</th>
-		<th style="width:20%;">기업명</th>
+		<th style="width:30%;">기업명</th>
 		<th style="width:60%;">채용공고명</th>
 	</tr>
 </thead>

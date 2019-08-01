@@ -33,7 +33,7 @@ $(document).ready(function() {
 	
 	
 	$("#btnCor").click(function() {
-		$(location).attr("href", "#");
+// 		$(location).attr("href", "/cor/info?cor_no="+${corlist.COR_NO }+"&cor_type="+${corlist.COR_TYPE });
 	});
 	
 	$("#btnUpdate").click(function(){
@@ -173,13 +173,14 @@ button {
 
 <tr>
 <td>직급</td><td>${viewRecruit.recruit_position }</td>
-<td>회사 주소</td><td>${cor }</td>
+<td>회사 주소</td><td>${cor}</td>
 </tr>
 
 </table>
 <div style="padding-left: 41%">
-	<button id="btnCor" class="btn btn-default">기업정보 상세보기</button>
-	
+	<a href="/cor/info?cor_no=${corno }&cor_type=${cortype }">
+	<button id="btnCor" class="btn btn-default">기업정보 상세보기</button> </a>	
+
 	<sec:authorize access="hasRole('ROLE_IDV')">
 	<button id="btnScrab" class="btn btn-default" onclick=""><img src="/resources/images/like_empty.png" height="20px"></button>
 	<button id="btnCancelScrab" class="btn btn-default" onclick=""><img src="/resources/images/like.png" height="20px"></button>
