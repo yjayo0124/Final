@@ -214,7 +214,9 @@ $(document).ready(function() {
 					 });
 					 document.getElementById('newrecommendno').value = newcommentno;
 					 document.getElementById('newchange').value = newcheck;
-					 document.getElementById('newmemno').value = ${mem };
+					 <c:if test="${not empty pageContext.request.userPrincipal }">
+						 document.getElementById('newmemno').value = ${mem };
+					 </c:if>
 					 document.getElementById('deletecmtno').value = newcommentno;
 					 document.getElementById('deletecmtpw').value = newpw;
 					 document.getElementById('deletecmtnick').value = newnick;
@@ -346,7 +348,7 @@ $(document).ready(function() {
 			 success: function(data) {
 				 console.log("data : " + data.data);
 				 if(${empty pageContext.request.userPrincipal }) {
-					 alert("로그인 하세요");
+					 alert("로그인 후 이용가능합니다.");
 				 } else {
 					 if(change.children().eq(2).val() == 0) {
 						 change.children().eq(4).html(data.data);
@@ -365,7 +367,7 @@ $(document).ready(function() {
 				 }
 			 },
 			 error : function(data) {
-				 alert("에러 입니다.");
+				 alert("로그인 후 이용가능합니다.");
 			 }
 		 });
 		
@@ -386,7 +388,7 @@ $(document).ready(function() {
 			 success: function(data) {
 				 console.log("data : " + data.data);
 				 if(${empty pageContext.request.userPrincipal }) {
-					 alert("로그인 하세요");
+					 alert("로그인 후 이용가능합니다.");
 				 } else {
 					 if(change.children().eq(2).val() == 0) {
 						 change.children().eq(4).html('\u00a0' + data.data);
@@ -405,7 +407,7 @@ $(document).ready(function() {
 				 }
 			 },
 			 error : function(data) {
-				 alert("에러 입니다.");
+				 alert("로그인 후 이용가능합니다.");
 			 }
 		 });
 	});

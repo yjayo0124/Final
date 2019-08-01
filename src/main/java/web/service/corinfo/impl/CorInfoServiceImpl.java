@@ -2,6 +2,7 @@ package web.service.corinfo.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import web.dao.corinfo.face.CorInfoDao;
 import web.dto.Cor;
+import web.dto.Recruit;
+import web.dto.Review;
 import web.service.corinfo.face.CorInfoService;
 
 @Service
@@ -112,5 +115,24 @@ public class CorInfoServiceImpl implements CorInfoService {
 		
 		return idformatdate;
 	}
+
+	@Override
+	public List<HashMap<String, Object>> getReview(int cor_no) {
+		return corinfoDao.selectReview(cor_no);
+	}
+
+
+	@Override
+	public String getCorname(int cor_no) {
+		return corinfoDao.selectCorname(cor_no);
+	}
+
+
+	@Override
+	public List<Recruit> getRecruit(String corname) {
+		return corinfoDao.selectRecruit(corname);
+	}
+	
+	
 
 }

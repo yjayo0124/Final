@@ -94,7 +94,6 @@ public class RecruimentServiceImpl implements RecruitmentService{
 				
 		//DB에저장 (업로드 정보 기록)
 		Recruit_file recruit_file = new Recruit_file();
-		Recruit recruit = new Recruit();
 		
 		recruit_file.setRecruit_file_originname(file.getOriginalFilename());
 		recruit_file.setRecruit_file_storedname(name);
@@ -144,8 +143,8 @@ public class RecruimentServiceImpl implements RecruitmentService{
 	}
 
 	@Override
-	public String getCor_no(int recruit_no) {
-		return recruitmentDao.selectCornoBytwoMemno(recruit_no);
+	public String getCor_addr(int recruit_no) {
+		return recruitmentDao.selectCoraddrBytwoMemno(recruit_no);
 	}
 
 	@Override
@@ -156,6 +155,21 @@ public class RecruimentServiceImpl implements RecruitmentService{
 	@Override
 	public Recruit_file viewFile(int recruit_no) {
 		return recruitmentDao.selectFile(recruit_no);
+	}
+
+	@Override
+	public void delete_File(Recruit_file recruit_file) {
+		 recruitmentDao.deleteFile(recruit_file);
+	}
+
+	@Override
+	public String getCorNo(int recruit_no) {
+		 return recruitmentDao.selectCorno(recruit_no);
+	}
+
+	@Override
+	public String getCorType(int recruit_no) {
+		return recruitmentDao.selectCortype(recruit_no);
 	}
 
 	
