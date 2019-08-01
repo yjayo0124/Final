@@ -5,6 +5,7 @@ import java.util.Date;
 public class Award {
 	
 	private int resume_no;
+	private int numbers;
 	private String award_name;
 	private String award_service;
 	private String award_date;
@@ -14,6 +15,13 @@ public class Award {
 	public String toString() {
 		return "Award [resume_no=" + resume_no + ", award_name=" + award_name + ", award_service="
 				+ award_service + ", award_date=" + award_date + ", award_content=" + award_content + "]";
+	}
+
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
 	}
 	public int getResume_no() {
 		return resume_no;

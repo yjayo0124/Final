@@ -1,12 +1,10 @@
 package web.controller.mypage;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -23,16 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import web.dto.Member;
 import web.dto.Recruit;
 import web.dto.Review;
-import web.dto.mypage.resume.Activities;
-import web.dto.mypage.resume.Award;
-import web.dto.mypage.resume.Career;
-import web.dto.mypage.resume.Certificate;
-import web.dto.mypage.resume.Education;
-import web.dto.mypage.resume.Language;
-import web.dto.mypage.resume.Overseas_Experience;
-import web.dto.mypage.resume.Preferential;
 import web.dto.mypage.resume.Resume;
-import web.dto.mypage.resume.School;
 import web.service.member.face.MemberService;
 import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.MyCommentService;
@@ -81,25 +70,64 @@ public class MypageController {
 	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
 	public void introductionWriteProc(
 			Resume resume,
-			HttpServletRequest request,
-			HttpServletResponse response
+			String[] school,
+			String[] career,
+			String[] activities,
+			String[] education,
+			String[] certificate,
+			String[] award,
+			String[] overseas_Experience,
+			String[] language,
+			String[] preferential
 			)
 	{		
 			System.out.println("이력서 정보 : " + resume);
 			resumeService.insertResume(resume);
-			System.out.println("이력서 정보 : " + resume);
-			PrintWriter out;
-			try {
-				out = response.getWriter();
-				int number = resume.getResume_no();
-				System.out.println(number);
-				out.write(number); 
-				out.flush();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+			System.out.println("작성 후 이력서 정보 : " + resume);
+			int resume_no = resume.getResume_no();
+			System.out.println(school[0]);
+	
+			if(school != null) {
+				resumeService.insertSchool(school, resume_no);
+			}
 
+			if(career != null) {
+				resumeService.insertCareer(career, resume_no);
+			}
+
+
+			if(activities != null) {
+				resumeService.insertActivities(activities, resume_no);
+			}
+
+
+			if(education != null) {
+				resumeService.insertEducation(education, resume_no);
+			}
+
+
+			if(certificate != null) {
+				resumeService.insertCertificate(certificate, resume_no);
+			}
+
+
+			if(award != null) {
+				resumeService.insertAward(award, resume_no);
+			}
+
+
+			if(overseas_Experience != null) {
+				resumeService.insertOverseas_Experience(overseas_Experience, resume_no);
+			}
+
+			if(language != null) {
+				resumeService.insertLanguage(language, resume_no);
+			}
+
+
+			if(preferential != null) {
+				resumeService.insertPreferential(preferential, resume_no);
+			}
 	}
 
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)

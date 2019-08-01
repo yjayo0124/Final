@@ -5,19 +5,27 @@ import java.util.Date;
 public class Language {
 	
 	private int resume_no;
+	private int numbers;
 	private String language_classification;
 	private String language_name;
 	private String standardized_tests;
 	private String language_score;
-	private String conversation_ability;
+	private String conversational_ability;
 	private String acquisition_date;
 	
 	@Override
 	public String toString() {
 		return "Language [resume_no=" + resume_no + ", language_classification=" + language_classification
-				+ ", language_name=" + language_name + ", conversation_ability=" + conversation_ability
+				+ ", language_name=" + language_name + ", conversational_ability=" + conversational_ability
 				+ ", standardized_tests=" + standardized_tests + ", language_score=" + language_score
 				+ ", acquisition_date=" + acquisition_date + "]";
+	}
+
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
 	}
 	public int getResume_no() {
 		return resume_no;
@@ -37,11 +45,12 @@ public class Language {
 	public void setLanguage_name(String language_name) {
 		this.language_name = language_name;
 	}
-	public String getConversation_ability() {
-		return conversation_ability;
+	
+	public String getConversational_ability() {
+		return conversational_ability;
 	}
-	public void setConversation_ability(String conversation_ability) {
-		this.conversation_ability = conversation_ability;
+	public void setConversational_ability(String conversational_ability) {
+		this.conversational_ability = conversational_ability;
 	}
 	public String getStandardized_tests() {
 		return standardized_tests;

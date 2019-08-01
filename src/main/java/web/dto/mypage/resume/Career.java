@@ -4,6 +4,7 @@ package web.dto.mypage.resume;
 public class Career {
 	
 	private int resume_no;
+	private int numbers;
 	private String company_name;
 	private String department_name;
 	private String hire_date;
@@ -21,6 +22,13 @@ public class Career {
 				+ ", served_status=" + served_status + ", position=" + position + ", "
 				+ ", job_work=" + job_work + ", salary=" + salary + ", assigned_task="
 				+ assigned_task + "]";
+	}
+
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
 	}
 	public int getResume_no() {
 		return resume_no;

@@ -147,6 +147,15 @@
 				 
 			});
 	var resume_no;
+	var listSchool = new Array();	listSchool.push(0);
+	var listCareer = new Array();	listCareer.push(0);
+	var listActivities = new Array();	listActivities.push(0);
+	var listEducation = new Array();	listEducation.push(0);
+	var listCertificate = new Array();	listCertificate.push(0);
+	var listAward = new Array();		listAward.push(0);
+	var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
+	var listLanguage = new Array();	listLanguage.push(0);
+	var listPreferential = new Array();	listPreferential.push(0);
 	
 	function resume() {
 		
@@ -162,16 +171,27 @@
 		
 		var forms_employment = $('.Preferential').find("select[name='forms_employment']").val();
 		var desired_work_place = $('.Preferential').find("select[name='desired_work_place']").val();
-		var salary = $('.Preferential').find("input[name='salary']").val();		
+		var salary = $('.Preferential').find("input[name='salary']").val();
 		
 		if(member_no == "") {
 			member_no = 0;
-		}
+		}  
 		
+		school();
+		career();
+		activities();
+		education();
+		certificate();
+		award();
+		overseas_Experience();
+		language();
+		preferential();
 		
 		$.ajax({
             url: "/mypage/introduction/write",
             type: "POST",
+            traditional : true,
+            
             data: {
             		member_no : member_no,
             		resume_title : resume_title,
@@ -184,24 +204,34 @@
             		resume_addr : resume_addr,
             		forms_employment : forms_employment,
             		desired_work_place : desired_work_place,
-            		salary : salary
-            		},
+            		salary : salary,
+            		school : listSchool,
+            		career : listCareer,
+            		activities : listActivities,
+            		education : listEducation,
+            		certificate : listCertificate,
+            		award : listAward,
+            		overseas_Experience : listOverseas_Experience,
+            		language : listLanguage,
+            		preferential : listPreferential
+            	},
             success: function(data){
-            	console.log(data);
+            	console.log("전송완료");
             },
             error: function(){
                 alert("error");
             }
         });
+		location.href = "/mypage/main";
 	}
 	
 	function school() {
 		var countSchool = $("#form_School .add").size();
-		var listSchool = new Array();	listSchool.push(0);
 		
 		if(countSchool != "0") {
 			for(var i=0; i<countSchool; i++) {
 				var School = new Array();
+				School.push(i+1);
 				School.push($("#div_School").children("div.add").eq(i).find("select[name='school_classification']").val());
 				School.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
 				School.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
@@ -220,29 +250,17 @@
 				listSchool.push(School);
 				
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {school : listSchool},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listSchool);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
 		}
 	}
 	
 	function career() {
 		var countCareer = $("#form_Career .add").size();
-		var listCareer = new Array();	listCareer.push(0);
 		
 		if(countCareer != "0") {
 			for(var i=0; i<countCareer; i++) {
 				var Career = new Array();
 				
+				Career.push(i+1);
 				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val());
 				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val());
 				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val());
@@ -255,31 +273,18 @@
 				
 				listCareer.push(Career);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {career : listCareer},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listCareer);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
-			
 		}
 		
 	}
 	
 	function activities() {
 		var countActivities = $("#form_Activities .add").size();
-		var listActivities = new Array();	listActivities.push(0);
 		
 		if(countActivities  != "0") {
 			for(var i=0; i<countActivities; i++) {
 				var Activities = new Array();
 				
+				Activities.push(i+1);
 				Activities.push($("#div_Activities").children("div.add").eq(i).find("select[name='activity_classification']").val());
 				Activities.push($("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val());
 				Activities.push($("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val());
@@ -289,32 +294,19 @@
 				
 				listActivities.push(Activities);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {activities : listActivities},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listActivities);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
-			
 		}
 	}
 	
 	function education() {
 		var countEducation = $("#form_Education .add").size();
-		var listEducation = new Array();	listEducation.push(0);
 		
 		if(countEducation != "0") {
 			for(var i=0; i<countEducation; i++) {
 				var Education = new Array();
 				
+				Education.push(i+1);
 				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val());
-				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='education_facilities']").val());
+				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val());
 				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val());
 				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val());
 				Education.push($("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val());
@@ -322,58 +314,34 @@
 				
 				listEducation.push(Education);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {education : listEducation},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listEducation);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
 		}
 	}
 	
 	function certificate() {
 		var countCertificate = $("#form_Certificate .add").size();
-		var listCertificate = new Array();	listCertificate.push(0);
 		
 		if(countCertificate  != "0") {
 			for(var i=0; i<countCertificate; i++) {
 				var Certificate = new Array();
 				
+				Certificate.push(i+1);
 				Certificate.push($("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val());
 				Certificate.push($("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val());
 				Certificate.push($("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val());
 				
 				listCertificate.push(Certificate);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {certificate : listCertificate},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listCertificate);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
 		}
 	}
 	
 	function award() {
 		var countAward = $("#form_Award .add").size();
-		var listAward = new Array();		listAward.push(0);
 		
 		if(countAward   != "0") {
 			for(var i=0; i<countAward ; i++) {
 				var Award = new Array();
 				
+				Award.push(i+1);
 				Award.push($("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val());
 				Award.push($("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val());
 				Award.push($("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val());
@@ -381,30 +349,17 @@
 				
 				listAward.push(Award);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {award : listAward},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listAward);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
-			
 		}
 	}
 	
 	function overseas_Experience() {
 		var countOverseas_Experience = $("#form_Overseas_Experience .add").size();
-		var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
 		
 		if(countOverseas_Experience != "0") {
 			for(var i=0; i<countOverseas_Experience; i++) {
 				var Overseas_Experience = new Array();
 				
+				Overseas_Experience.push(i+1);
 				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val());
 				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val());
 				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val());;
@@ -412,60 +367,36 @@
 				
 				listOverseas_Experience.push(Overseas_Experience);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {overseas_Experience : listOverseas_Experience},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listOverseas_Experience);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
 		}
 	}
 	
 	function language() {
 		var countLanguage = $("#form_Language .add").size();
-		var listLanguage = new Array();	listLanguage.push(0);
 		
 		if(countLanguage   != "0") {
 			for(var i=0; i<countLanguage ; i++) {
 				var Language = new Array();
 				
+				Language.push(i+1);
 				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='language_classification']").val());
 				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val());
 				Language.push($("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val());
-				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='conversation_ability']").val());
+				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='conversational_ability']").val());
 				Language.push($("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val());
 		
 				listLanguage.push(Language);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {language : listLanguage},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listLanguage);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
 		}
 	}
 	
 	function preferential() {
 		var countPreferential = $("#form_Preferential .add").size();
-		var listPreferential = new Array();	listPreferential.push(0);
 		
 		if(countPreferential   != "0") {
 			for(var i=0; i<countPreferential ; i++) {
 				var Preferential = new Array();
 				
+				Preferential.push(i+1);
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='veterans']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='protect']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='funding']").prop("checked"));
@@ -474,35 +405,12 @@
 			
 				listPreferential.push(Preferential);
 			}
-			$.ajax({
-	            url: "/mypage/introduction/write",
-	            type: "POST",
-	            data: {preferential : listPreferential},
-	            traditional : true,
-	            success: function(data){
-	            	console.log(listPreferential);
-	            },
-	            error: function(){
-	                alert("error");
-	            }
-	        });
 		}
 
 	}
 	
 	function submit() {
-		if( window.ajaxCheck == 1 ) return false;
 		resume();
-		school();
-		career();
-		activities();
-		education();
-		certificate();
-		award();
-		overseas_Experience();
-		language();
-		preferential();
-
 	}
 	
 	function moreSub() {
@@ -766,7 +674,7 @@
 						"<input type='text' name='training_title' placeholder='교육명'>"+
 					"</div>"+
 					"<div class='info_form school' style='width: 276px;'>"+
-						"<input type='text' name='education_facilities' placeholder='교육기관'>"+
+						"<input type='text' name='educational_facilities' placeholder='교육기관'>"+
 					"</div>"+
 					"<div class='info_form normal' style='margin: 0;'>"+
 						"<input class='date' onblur='blurDate()' onfocus='focusDate();' type='text' name='start_date' placeholder='시작년월'>"+
@@ -1431,7 +1339,7 @@ function dynamic_change() {
 					"</select>"+
 				"</div>"+
 				"<div class='info_form normal' style='margin: 0; width: 140px;'>"+
-					"<select class='selecter_full' name='conversation_ability'>"+
+					"<select class='selecter_full' name='conversational_ability'>"+
 						"<option value='구분' selected='selected'>회화능력</option>"+
 						"<option value='일상회화가능'>일상회화 가능</option>"+
 						"<option value='비즈니스회화가능'>비즈니스 회화가능</option>"+
@@ -1492,7 +1400,7 @@ function dynamic_change() {
 					"<input type='text' name='language_score' placeholder='급수/점수'>"+
 				"</div>"+
 				"<div class='info_form normal' style='margin: 0; width: 140px;'>"+
-					"<select class='selecter_full' name='conversation_ability'>"+
+					"<select class='selecter_full' name='conversational_ability'>"+
 						"<option value='0' selected='selected'>선택</option>"+
 						"<option value='일상회화가능'>점</option>"+
 						"<option value='비즈니스회화가능'>급</option>"+
@@ -1896,7 +1804,7 @@ input {
       <c:set var="mem" value="${member.member_no }"/>
 </sec:authorize>
 
-<div style="background: #f0f2f4;">
+<div>
 	<div class="container">
 		<section>
 				<div class="resume_title">
@@ -1909,7 +1817,9 @@ input {
 					<div class="info" id="user_info">
 						<div class="photo info_form">
 							<img id="myImg" alt="" src="">
-							<input	style="display: none;" type="file" name="imgfile">
+							<form id="fileForm" action="fileupload" method="post" enctype="miltipart/form-data">
+								<input	style="display: none;" type="file" name="imgfile">
+							</form>
 						</div>
 						<div
 							style="width: 827px; height: 50px; margin-right: 10px; margin-bottom: 10px;">

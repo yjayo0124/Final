@@ -3,7 +3,7 @@ package web.dto.mypage.resume;
 public class School {
 	
 	private int resume_no;
-	
+	private int numbers;
 	private String school_classification;
 	private String school_name;
 	private String graduation_date;
@@ -31,6 +31,16 @@ public class School {
 				+ ", sub_major_name=" + sub_major_name + ", graduation_thesis_content=" + graduation_thesis_content
 				+ "]";
 	}
+
+	
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int number) {
+		this.numbers = number;
+	}
+
+
 	public String getSchool_classification() {
 		return school_classification;
 	}
