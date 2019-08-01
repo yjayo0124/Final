@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.member.face.MemberDao;
 import web.dto.JobFair;
-import web.dto.JobFairFile;
 import web.dto.Member;
 import web.service.jobfair.face.JobFairFileService;
 import web.service.jobfair.face.JobFairService;
@@ -57,34 +56,7 @@ public class JobfairController {
 		return list;
 	}
 	
-//	@RequestMapping(value="/jobfair/geocoder", method = RequestMethod.POST, produces = {"application/json"}) 
-	@RequestMapping(value="/jobfair/geocoder")
-	@ResponseBody
-	public Map<String, Object> jobfairgeo(
-			JobFair jobfair
-		){
-		
-		logger.info("구글 맵");
-		
-		Map<String, Object> retVal = new HashMap<String, Object>();
-		
-		jobfair = jobfairService.mapList();
-//		System.out.println("mapList: " + jobfair);
-		System.out.println("address: " + jobfair.getJobfair_loc());
-		
-		Float[] coords = maputil.geoCoding(jobfair);
-		System.out.println("maputil: " + maputil.geoCoding(jobfair));
-		System.out.println("coords: " + coords);
-		
-		retVal.put("id", "success");
-		retVal.put("latitude", ""+coords[0]);
-		retVal.put("longitude", coords[1]);
-		System.out.println("geocode: " + retVal);
-		
-		return retVal;
-	}
 
-	
 	@RequestMapping(value="/jobfair/register", method=RequestMethod.GET)
 	public void register(
 			Model model,
@@ -139,15 +111,14 @@ public class JobfairController {
 	}
 	
 	
-	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.GET)
+	@RequestMapping(value="/jobfair/adminview")
 	public void adminView(
-			JobFair jobfair,
 			Model model,
 			int jobfair_no
 		) {
 		logger.info("adminview 폼");
 		
-		JobFair viewmap = jobfairService.adminView(jobfair);
+		JobFair viewmap = jobfairService.adminView(jobfair_no);
 //		System.out.println("viewmap: " + viewmap);
 		
 		model.addAttribute("viewmap", viewmap);
@@ -158,24 +129,44 @@ public class JobfairController {
 		model.addAttribute("file", file_name);
 		
 	}
-	
-	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
-	public String adminViewProc(JobFair jobfair) {
-		logger.info("adminview 처리");
 		
-		return "redirect:/jobfair/update?jobfair_no=" + jobfair.getJobfair_no();
+	@RequestMapping(value="/jobfair/geocoder", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> jobfairgeo(
+			JobFair jobfair,
+			int jobfair_no
+		){
+		
+		logger.info("구글 맵");
+		
+		Map<String, Object> retVal = new HashMap<String, Object>();
+		
+		jobfair = jobfairService.mapList();
+//		jobfair = jobfairService.adminView(jobfair_no);
+		System.out.println("mapList: " + jobfair);
+		System.out.println("address: " + jobfair.getJobfair_loc());
+		
+		Float[] coords = maputil.geoCoding(jobfair);
+		System.out.println("maputil: " + maputil.geoCoding(jobfair));
+		System.out.println("coords: " + coords);
+		
+		retVal.put("id", "success");
+		retVal.put("latitude", ""+coords[0]);
+		retVal.put("longitude", coords[1]);
+		System.out.println("geocode: " + retVal);
+		
+		return retVal;
 	}
 	
 	
 	@RequestMapping(value="/jobfair/update", method=RequestMethod.GET)
 	public void update(
-			JobFair jobfair,
 			Model model,
 			int jobfair_no
 		) {
 		logger.info("업데이트 폼");
 		
-		JobFair update = jobfairService.adminView(jobfair);
+		JobFair update = jobfairService.adminView(jobfair_no);
 //		System.out.println("update: " + update);
 		
 		model.addAttribute("update", update);
@@ -222,13 +213,12 @@ public class JobfairController {
 	
 	@RequestMapping(value="/jobfair/delete", method=RequestMethod.GET)
 	public String deleteProc(
-			JobFair jobfair, 
-			JobFairFile jobfairfile
+			int jobfair_no
 		) {
 		logger.info("삭제 처리");
 		
-		jobfairService.deleteFair(jobfair);
-		fileService.deleteFile(jobfairfile);
+		fileService.deleteFile(jobfair_no);
+		jobfairService.deleteFair(jobfair_no);
 		
 		return "redirect:/jobfair/main";
 	}

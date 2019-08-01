@@ -13,11 +13,11 @@ public interface JobFairService {
 	
 	public void registerFair(JobFair jobfair);
 	
-	public JobFair adminView(JobFair jobfair);
+	public JobFair adminView(int jobfair_no);
 	
 	public void updateFair(JobFair jobfair);
 	
-	public void deleteFair(JobFair jobfair);
+	public void deleteFair(int jobfair_no);
 	
 	public String jobFairSearch(String title); 
 	
