@@ -31,8 +31,8 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 
 	@Override
-	public JobFair adminView(JobFair jobfair) {
-		return jobfairDao.selectByJobfairNo(jobfair);
+	public JobFair adminView(int jobfair_no) {
+		return jobfairDao.selectByJobfairNo(jobfair_no);
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 	
 	@Override
-	public void deleteFair(JobFair jobfair) {
-		jobfairDao.delete(jobfair);
+	public void deleteFair(int jobfair_no) {
+		jobfairDao.delete(jobfair_no);
 	}
 
 	@Override
