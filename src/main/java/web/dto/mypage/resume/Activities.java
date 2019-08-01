@@ -4,6 +4,7 @@ package web.dto.mypage.resume;
 public class Activities {
 	
 	private int resume_no;
+	private int numbers;
 	private String activity_classification;
 	private String institution_name;
 	private String start_date;
@@ -15,6 +16,13 @@ public class Activities {
 		return "Activities [resume_no=" + resume_no + ", activity_classification=" + activity_classification
 				+ ", institution_name=" + institution_name + ", start_date=" + start_date + ", end_date=" + end_date
 				+ ", activity_content=" + activity_content + "]";
+	}
+	
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
 	}
 	public int getResume_no() {
 		return resume_no;

@@ -12,7 +12,7 @@
 		VALUES
 		(resume_seq.nextval, #{member_no}, #{resume_title}, #{resume_name}, #{resume_gender}, #{resume_email}, #{resume_phone}, #{resume_cellphone}, #{resume_addr}, #{forms_employment}, #{desired_work_place}, #{salary})
 		 
-		<selectKey keyProperty="resume_no" resultType="Integer" order="AFTER">
+		<selectKey keyProperty="resume_no" resultType="int" order="AFTER">
 
 			 SELECT B.resume_no FROM(SELECT ROWNUM, X.*
    			 	FROM (select A.resume_no FROM resume A WHERE member_no = #{member_no}
@@ -23,10 +23,80 @@
 	
 	</insert>
 	
+	<insert id="insertHighSchool" parameterType="web.dto.mypage.resume.School">
+		INSERT INTO school 
+		(resume_no, school_classification, school_name, graduation_date, graduation_status, ged_status, numbers)
+		VALUES(#{resume_no}, #{school_classification}, #{school_name}, #{graduation_date}, #{graduation_status}, #{ged_status}, #{numbers})
+	</insert>
+	
+	<insert id="insertCollegeSchool" parameterType="web.dto.mypage.resume.School">
+		INSERT INTO school
+		(resume_no, school_classification, school_name,graduation_date, graduation_status, admission_date, transfer_status, major_name,
+		credit, total_score, sub_major_status, sub_major_name, graduation_thesis_content, numbers )
+		VALUES(#{resume_no}, #{school_classification}, #{school_name}, #{graduation_date}, #{graduation_status}, #{admission_date}, #{transfer_status}, #{major_name},
+		#{credit}, #{total_score}, #{sub_major_status}, #{sub_major_name}, #{graduation_thesis_content}, #{numbers} )
+	</insert>
+	
+	<insert id="insertGraduSchool" parameterType="web.dto.mypage.resume.School">
+		INSERT INTO school
+		(resume_no, school_classification, school_name,graduation_date, graduation_status, academic_degree, admission_date, transfer_status, major_name,
+		credit,total_score, sub_major_status, sub_major_name, graduation_thesis_content, numbers )
+		VALUES(#{resume_no}, #{school_classification}, #{school_name}, #{graduation_date}, #{graduation_status}, #{academic_degree}, #{admission_date}, #{transfer_status},
+		#{major_name}, #{credit}, #{total_score}, #{sub_major_status}, #{sub_major_name}, #{graduation_thesis_content}, #{numbers} )
+	</insert>
+	
+	<insert id="insertCareer" parameterType="web.dto.mypage.resume.Career">
+		INSERT INTO career
+		(resume_no, company_name, department_name, hire_date, retirement_date, served_status, position, job_work, salary, assigned_task, numbers )
+		VALUES(#{resume_no}, #{company_name}, #{department_name}, #{hire_date}, #{retirement_date}, #{served_status}, #{position}, #{job_work}, #{salary}, #{assigned_task}, #{numbers} )
+	</insert>
+	
+	<insert id="insertActivities" parameterType="web.dto.mypage.resume.Activities">
+		INSERT INTO Activities
+		(resume_no, activity_classification, institution_name, start_date, end_date, activity_contentm, numbers)
+		VALUES(#{resume_no}, #{activity_classification}, #{institution_name}, #{start_date}, #{end_date}, #{activity_content}, #{numbers} )
+	</insert>
+	
+	<insert id="insertEducation" parameterType="web.dto.mypage.resume.Education">
+		INSERT INTO Education
+		(resume_no, training_title, Educational_facilities, start_date, end_date, training_content, numbers)
+		VALUES(#{resume_no}, #{training_title}, #{educational_facilities}, #{start_date}, #{end_date}, #{training_content}, #{numbers} )
+	</insert>
+	
 	<insert id="insertCertificate" parameterType="web.dto.mypage.resume.Certificate">
 		INSERT INTO Certificate
-		(resume_no, certificate_name, place_issue, acquisition_date)
-		VALUES(#{resume_no}, #{certificate_name}, #{place_issue}, #{acquisition_date})
+		(resume_no, certificate_name, place_issue, acquisition_date, numbers)
+		VALUES(#{resume_no}, #{certificate_name}, #{place_issue}, #{acquisition_date}, #{numbers})
+	</insert>
+	
+	<insert id="insertAward" parameterType="web.dto.mypage.resume.Award">
+		INSERT INTO Award
+		(resume_no, award_name, award_service, award_date, award_content, numbers)
+		VALUES(#{resume_no}, #{award_name}, #{award_service}, #{award_date}, #{award_content}, #{numbers} )
+	</insert>
+	
+	<insert id="insertOverseas_Experience" parameterType="web.dto.mypage.resume.Overseas_Experience">
+		INSERT INTO Overseas_Experience
+		(resume_no, country_name, start_date, end_date, overseas_experience_content, numbers)
+		VALUES(#{resume_no}, #{country_name}, #{start_date}, #{end_date}, #{overseas_experience_content}, #{numbers} )
+	</insert>
+	
+	<insert id="insertLanguage" parameterType="web.dto.mypage.resume.Language">
+		INSERT INTO Language
+		(resume_no, language_classification, language_name, conversational_ability, numbers )
+		VALUES(#{resume_no}, #{language_classification}, #{language_name}, #{conversational_ability}, #{numbers} )
+	</insert>
+	
+	<insert id="insertCertifiedLanguage" parameterType="web.dto.mypage.resume.Language">
+		INSERT INTO Language
+		(resume_no, language_classification, language_name, language_score, conversational_ability, acquisition_date, numbers )
+		VALUES(#{resume_no}, #{language_classification}, #{language_name}, #{language_score}, #{conversational_ability}, #{acquisition_date}, #{numbers} )
+	</insert>
+	
+	<insert id="insertPreferential" parameterType="web.dto.mypage.resume.Preferential">
+		INSERT INTO Preferential
+		(resume_no, veterans, protect, funding, disorder, military)
+		VALUES(#{resume_no}, #{veterans}, #{protect}, #{funding}, #{disorder}, #{military})
 	</insert>
 
 </mapper>

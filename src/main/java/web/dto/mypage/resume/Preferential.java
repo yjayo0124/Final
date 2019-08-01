@@ -14,7 +14,6 @@ public class Preferential {
 		return "Preferential [resume_no=" + resume_no + ", veterans=" + veterans + ", protect=" + protect + ", funding="
 				+ funding + ", disorder=" + disorder + ", military=" + military + "]";
 	}
-	
 	public int getResume_no() {
 		return resume_no;
 	}

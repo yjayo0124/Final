@@ -5,6 +5,7 @@ import java.util.Date;
 public class Overseas_Experience {
 	
 	private int resume_no;
+	private int numbers;
 	private String country_name;
 	private String start_date;
 	private String end_date;
@@ -15,6 +16,13 @@ public class Overseas_Experience {
 		return "Overseas_Experience [resume_no=" + resume_no + ", country_name=" + country_name + ", start_date="
 				+ start_date + ", end_date=" + end_date + ", overseas_experience_content=" + overseas_experience_content
 				+ "]";
+	}
+
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
 	}
 	public int getResume_no() {
 		return resume_no;

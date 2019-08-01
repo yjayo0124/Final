@@ -4,6 +4,7 @@ package web.dto.mypage.resume;
 public class Certificate {
 
 	private int resume_no;
+	private int numbers;
 	private String certificate_name;
 	private String place_issue;
 	private String acquisition_date;
@@ -12,6 +13,13 @@ public class Certificate {
 	public String toString() {
 		return "Certificate [resume_no=" + resume_no + ", certificate_name=" + certificate_name + ", place_issue="
 				+ place_issue + ", acquisition_date=" + acquisition_date + "]";
+	}
+
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
 	}
 	public int getResume_no() {
 		return resume_no;

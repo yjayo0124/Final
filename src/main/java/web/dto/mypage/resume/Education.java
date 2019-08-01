@@ -4,19 +4,26 @@ package web.dto.mypage.resume;
 public class Education {
 	
 	private int resume_no;
+	private int numbers;
 	private String training_title;
-	private String education_facilities;
+	private String educational_facilities;
 	private String start_date;
 	private String end_date;
 	private String training_content;
 	
 	@Override
 	public String toString() {
-		return "Education [resume_no=" + resume_no + ", training_title=" + training_title + ", education_facilities="
-				+ education_facilities + ", start_date=" + start_date + ", end_date=" + end_date + ", training_content="
+		return "Education [resume_no=" + resume_no + ", training_title=" + training_title + ", educational_facilities="
+				+ educational_facilities + ", start_date=" + start_date + ", end_date=" + end_date + ", training_content="
 				+ training_content + "]";
 	}
-	
+
+	public int getNumbers() {
+		return numbers;
+	}
+	public void setNumbers(int numbers) {
+		this.numbers = numbers;
+	}
 	public int getResume_no() {
 		return resume_no;
 	}
@@ -29,12 +36,15 @@ public class Education {
 	public void setTraining_title(String training_title) {
 		this.training_title = training_title;
 	}
-	public String getEducation_facilities() {
-		return education_facilities;
+	
+	public String getEducational_facilities() {
+		return educational_facilities;
 	}
-	public void setEducation_facilities(String education_facilities) {
-		this.education_facilities = education_facilities;
+
+	public void setEducational_facilities(String educational_facilities) {
+		this.educational_facilities = educational_facilities;
 	}
+
 	public String getStart_date() {
 		return start_date;
 	}

@@ -14,7 +14,7 @@ public interface ResumeService {
 	
 	public void insertEducation(String[] education, int resume_no);
 	
-	public void insertCertificate(String[] certificate);
+	public void insertCertificate(String[] certificate, int resume_no);
 	
 	public void insertAward(String[] award, int resume_no);
 	
