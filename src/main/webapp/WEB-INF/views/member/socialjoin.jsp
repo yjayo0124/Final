@@ -250,6 +250,10 @@ $(document).ready(function() {
 	text-align: center;
 	cursor: pointer;
 	box-sizing: border-box;
+	background-color: #252c41;
+	color: white;
+	border: 1px solid #252c41;
+	border-radius: 4px;
 }
 </style>
 

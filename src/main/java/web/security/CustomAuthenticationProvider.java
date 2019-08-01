@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 
 import web.dto.Member;
 
@@ -19,7 +20,7 @@ import web.dto.Member;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Autowired CustomServiceImpl customServiceImpl;
-	
+		
 	@Autowired
     private BCryptPasswordEncoder passwordEncoder;
 	
@@ -31,7 +32,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {	
 		String input_id = authentication.getName();
 		String input_password = (String) authentication.getCredentials();
-	
+
+		
 		String msg = null;
 		
 //		logger.info("authentication : "+authentication );
@@ -84,6 +86,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
 	
 
+	
+	
 	
 
 	@Override

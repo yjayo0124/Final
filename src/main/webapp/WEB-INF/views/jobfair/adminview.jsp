@@ -33,6 +33,7 @@ $(document).ready(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
 	
+
 	$("#btnGoUpdate").click(function() {
 		$(location).attr("href", "/jobfair/update?jobfair_no=${viewmap.jobfair_no }");
 	});
@@ -40,6 +41,7 @@ $(document).ready(function() {
 	$("#btnDelete").click(function() {
 		$(location).attr("href","/jobfair/delete?jobfair_no=${viewmap.jobfair_no }");
 	});
+
 
 });
 
@@ -162,7 +164,9 @@ function initMap(){
 
 <div class="text-center">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
+
 	<button id="btnGoUpdate" class="btn">수정</button>
+
 	<button id="btnDelete" class="btn">삭제</button>
 </sec:authorize>
 <input id="btnCancel" type="reset" value="확인" class="btn"/>

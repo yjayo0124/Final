@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dao.member.face.MemberDao;
 import web.dto.JobFair;
@@ -127,8 +128,9 @@ public class JobfairController {
 
 		String file_name = fileService.getFilename(jobfair_no);
 		model.addAttribute("file", file_name);
-		
+
 	}
+
 		
 	@RequestMapping(value="/jobfair/geocoder", method=RequestMethod.POST)
 	@ResponseBody
@@ -157,7 +159,16 @@ public class JobfairController {
 		
 		return retVal;
 	}
+
 	
+	
+//	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
+//	public String adminViewProc(JobFair jobfair) {
+//		logger.info("adminview 처리");
+//		
+//		return "redirect:/jobfair/update?jobfair_no=" + jobfair.getJobfair_no();
+//	}
+//	
 	
 	@RequestMapping(value="/jobfair/update", method=RequestMethod.GET)
 	public void update(
@@ -169,12 +180,13 @@ public class JobfairController {
 		JobFair update = jobfairService.adminView(jobfair_no);
 //		System.out.println("update: " + update);
 		
-		model.addAttribute("update", update);
-		
+		mav.addObject("update", update);
 		logger.info("update: " + jobfair_no);
 		
 		String file_name = fileService.getFilename(jobfair_no);
-		model.addAttribute("file", file_name);
+		mav.addObject("file", file_name);
+		
+		return mav;
 		
 	}
 	
@@ -211,6 +223,7 @@ public class JobfairController {
 		return "redirect:/jobfair/main";
 	}
 	
+	
 	@RequestMapping(value="/jobfair/delete", method=RequestMethod.GET)
 	public String deleteProc(
 			int jobfair_no
@@ -220,7 +233,7 @@ public class JobfairController {
 		fileService.deleteFile(jobfair_no);
 		jobfairService.deleteFair(jobfair_no);
 		
-		return "redirect:/jobfair/main";
+		return "redirect:"+"/jobfair/main";
 	}
 
 }
