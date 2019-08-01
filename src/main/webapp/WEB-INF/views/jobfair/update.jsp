@@ -35,11 +35,6 @@ $(document).ready(function() {
 		$("form").submit();
 	});
 	
-	$("#btnDelete").click(function(update) {
-		consolo.log(update.jobfair_no);
-		$(location).attr("href","/jobfair/delete?jobfair_no=" + update.jobfair_no);
-	});
-	
 	$("#btnCancel").click(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
@@ -108,7 +103,6 @@ $(document).ready(function() {
 
 <div class="text-center">
 <button id="btnUpdate" class="btn">수정</button>
-<button id="btnDelete" class="btn">삭제</button>
 <input id="btnCancel" type="reset" value="취소" class="btn"/>
 </div>
 

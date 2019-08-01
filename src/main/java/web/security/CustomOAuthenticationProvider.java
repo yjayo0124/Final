@@ -26,11 +26,16 @@ public class CustomOAuthenticationProvider  implements AuthenticationProvider {
 		
 		member = (Member) customServiceImpl.loadUserByUsername(member_id +"@naver");
 	
+		
         UsernamePasswordAuthenticationToken result = 
-        		new UsernamePasswordAuthenticationToken(member_id, token);
+        		new UsernamePasswordAuthenticationToken(member_id +"@naver", token);
 
         result.setDetails(member);
 
+        logger.info("customouath쪽 : "+result.getDetails());
+        
+        logger.info("token : "+token);
+        
 		return result;
 	}
 

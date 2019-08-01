@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import web.dao.member.face.MemberDao;
 import web.dto.JobFair;
-import web.dto.JobFairFile;
 import web.dto.Member;
 import web.service.jobfair.face.JobFairFileService;
 import web.service.jobfair.face.JobFairService;
@@ -141,13 +141,12 @@ public class JobfairController {
 	
 	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.GET)
 	public void adminView(
-			JobFair jobfair,
 			Model model,
 			int jobfair_no
 		) {
 		logger.info("adminview 폼");
 		
-		JobFair viewmap = jobfairService.adminView(jobfair);
+		JobFair viewmap = jobfairService.adminView(jobfair_no);
 //		System.out.println("viewmap: " + viewmap);
 		
 		model.addAttribute("viewmap", viewmap);
@@ -156,34 +155,36 @@ public class JobfairController {
 
 		String file_name = fileService.getFilename(jobfair_no);
 		model.addAttribute("file", file_name);
-		
+
 	}
 	
-	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
-	public String adminViewProc(JobFair jobfair) {
-		logger.info("adminview 처리");
-		
-		return "redirect:/jobfair/update?jobfair_no=" + jobfair.getJobfair_no();
-	}
 	
+	
+//	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
+//	public String adminViewProc(JobFair jobfair) {
+//		logger.info("adminview 처리");
+//		
+//		return "redirect:/jobfair/update?jobfair_no=" + jobfair.getJobfair_no();
+//	}
+//	
 	
 	@RequestMapping(value="/jobfair/update", method=RequestMethod.GET)
-	public void update(
-			JobFair jobfair,
-			Model model,
+	public ModelAndView update(
+			ModelAndView mav,
 			int jobfair_no
 		) {
 		logger.info("업데이트 폼");
 		
-		JobFair update = jobfairService.adminView(jobfair);
+		JobFair update = jobfairService.adminView(jobfair_no);
 //		System.out.println("update: " + update);
 		
-		model.addAttribute("update", update);
-		
+		mav.addObject("update", update);
 		logger.info("update: " + jobfair_no);
 		
 		String file_name = fileService.getFilename(jobfair_no);
-		model.addAttribute("file", file_name);
+		mav.addObject("file", file_name);
+		
+		return mav;
 		
 	}
 	
@@ -220,17 +221,17 @@ public class JobfairController {
 		return "redirect:/jobfair/main";
 	}
 	
+	
 	@RequestMapping(value="/jobfair/delete", method=RequestMethod.GET)
 	public String deleteProc(
-			JobFair jobfair, 
-			JobFairFile jobfairfile
+			int jobfair_no
 		) {
 		logger.info("삭제 처리");
 		
-		jobfairService.deleteFair(jobfair);
-		fileService.deleteFile(jobfairfile);
+		fileService.deleteFile(jobfair_no);
+		jobfairService.deleteFair(jobfair_no);
 		
-		return "redirect:/jobfair/main";
+		return "redirect:"+"/jobfair/main";
 	}
 
 }

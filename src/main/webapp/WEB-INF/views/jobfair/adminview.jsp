@@ -34,6 +34,14 @@ $(document).ready(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
 	
+	$("#btnUpdate").click(function(){
+		$(location).attr("href","/jobfair/update?jobfair_no="+${viewmap.jobfair_no });
+	});
+
+	$("#btnDelete").click(function(){
+		$(location).attr("href","/jobfair/delete?jobfair_no="+${viewmap.jobfair_no });
+	});
+	
 });
 
 </script>
@@ -100,7 +108,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxF
 <hr>
 
 
-<form action="/jobfair/adminview" method="post">
 <input type="hidden" name="jobfair_no" value="${viewmap.jobfair_no }" />
 
 <table class="table  table-bordered table-striped table-hover table-condensed">
@@ -155,11 +162,12 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxF
 
 <div class="text-center">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-	<button id="btnGoUpdate" class="btn">수정하기</button>
+	<button id="btnUpdate" class="btn">수정</button>
+	<button id="btnDelete" class="btn">삭제</button>
 </sec:authorize>
 <input id="btnCancel" type="reset" value="확인" class="btn"/>
 </div>
 
-</form>
+
 
 </div>

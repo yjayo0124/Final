@@ -14,6 +14,6 @@ public interface JobFairFileService {
 
 	public String getFilename(int jobfair_no);
 	
-	public void deleteFile(JobFairFile jobfairfile);
+	public void deleteFile(int jobfair_no);
 	
 }

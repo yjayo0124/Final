@@ -12,7 +12,7 @@ public interface JobFairDao {
 	
 	public JobFair selectMap();
 	
-	public JobFair selectByJobfairNo(JobFair jobfair);
+	public JobFair selectByJobfairNo(int jobfair_no);
 	
 	public String selectByJobfairTitle(String title);
 	
@@ -20,12 +20,12 @@ public interface JobFairDao {
 	
 	public void update(JobFair jobfair);
 	
-	public void delete(JobFair jobfair);
+	public void delete(int jobfair_no);
 	
 	public void insertFile(JobFairFile jobfairfile);
 	
 	public String selectFilename(int jobfair_no);
 	
-	public void deleteFile(JobFairFile jobfairfile);
+	public void deleteFile(int jobfair_no);
 	
 }

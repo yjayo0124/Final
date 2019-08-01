@@ -1,17 +1,22 @@
 package web.security;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.stereotype.Service;
 
 import web.dao.member.face.MemberDao;
 import web.dto.Member;
 
 @Service
-public class CustomServiceImpl implements UserDetailsService {
+public class CustomServiceImpl implements UserDetailsService{
 
 	@Autowired MemberDao memberDao;
 	
@@ -35,7 +40,6 @@ public class CustomServiceImpl implements UserDetailsService {
 		
 	}
 	
-
 	
 	
 }

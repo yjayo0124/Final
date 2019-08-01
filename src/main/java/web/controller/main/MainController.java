@@ -86,6 +86,12 @@ public class MainController {
 		model.addAttribute("list", corList);
 	}
 	
+	@RequestMapping(value="/about/privacy", method=RequestMethod.GET)
+	public void privacy() {
+
+	}
+	
+	
 	
 
 }

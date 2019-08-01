@@ -32,7 +32,7 @@
 	</select>
 	
 	<select id="selectByJobfairNo" 
-	parameterType="web.dto.JobFair"
+	parameterType="int"
 	resultType="web.dto.JobFair">
 		SELECT * FROM jobfair
 		WHERE jobfair_no = #{jobfair_no }
@@ -83,7 +83,7 @@
 		WHERE jobfair_no = #{jobfair_no }
 	</update>
 	
-	<delete id="delete" parameterType="web.dto.JobFair">
+	<delete id="delete" parameterType="int">
 		DELETE FROM jobfair
 		WHERE jobfair_no = #{jobfair_no }
 	</delete>
@@ -117,7 +117,7 @@
 			AND jobfair_file_no = ( SELECT MAX(jobfair_file_no) FROM jobfair_file )
 	</select>
 	
-	<delete id="deleteFile" parameterType="web.dto.JobFairFile">
+	<delete id="deleteFile" parameterType="int">
 		DELETE FROM jobfair_file
 		WHERE jobfair_no = #{jobfair_no }
 	</delete>
