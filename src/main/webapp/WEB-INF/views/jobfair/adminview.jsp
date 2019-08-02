@@ -18,11 +18,12 @@
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
 
+
 <style type="text/css">
-#map {
-	width: 400px;
-	height: 300px;
-}
+#map { 
+ 	width: 400px; 
+ 	height: 300px;
+ } 
 </style>
 
 
@@ -32,7 +33,6 @@ $(document).ready(function() {
 	$("#btnCancel").click(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
-	
 
 	$("#btnGoUpdate").click(function() {
 		$(location).attr("href", "/jobfair/update?jobfair_no=${viewmap.jobfair_no }");
@@ -42,66 +42,9 @@ $(document).ready(function() {
 		$(location).attr("href","/jobfair/delete?jobfair_no=${viewmap.jobfair_no }");
 	});
 
-
 });
 
 </script>
-
-<script type="text/javascript">
-
-$(document).ready(function() {
-	$.ajax({
-		url: '/jobfair/geocoder',
-		method: 'POST',
-		dataType: 'json',
-		contentType: 'application/json',
-		success: function(retVal){
-			console.log("성공");
-			console.log(retVal.latitude + "/" + retVal.longitude);
-			reloadMap(retVal.latitude, retVal.longitude);
-		},
-		error: function(retVal, status, error){
-			console.log("실패");
-			console.log("--retVal--");
-			console.log(retVal);
-			console.log("--status--");
-			console.log(status);
-			console.log("--error--");
-			console.log(error);
-		}
-	});		
-});
-
-
-function initMap(){
-	
-// 	var latitude = retVal.latitude;
-	var latitude = 33.3632256;
-	console.log("lat: " + latitude);
-// 	var longitude = retVal.longitude;
-	var longitude = -117.0874871
-	console.log("lng: " + longitude);
-	
-	var loc =  {lat: latitude, lng: longitude};
-	
-	var map = new google.maps.Map(document.getElementById('map'), {
-		zomm: 15,
-		center: loc
-	});
-	
-	var marker = new google.maps.Marker({
-		position: loc,
-		map: map
-	});
-	
-// 	map.setCenter(loc);
-	
-}
-
-</script>
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD44of6Yf3YWfz6pMP6bti2bxFiuigEoZ0&callback=initMap" type="text/javascript"></script>
-
 
 
 <div class="body">
@@ -150,8 +93,52 @@ function initMap(){
 		<td>장소</td>
 		<td>
 			${viewmap.jobfair_loc }
-			<br>
+			<br><br>
 			<div id="map"></div>
+			<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+			<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=adf60f4bed100f285f60937e1dcf14a2&libraries=services,clusterer,drawing"></script>
+
+			<script type="text/javascript">
+			
+			var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+			
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+				center: new kakao.maps.LatLng(37.498010, 127.027621), //지도의 중심좌표.
+				level: 3 //지도의 레벨(확대, 축소 정도)
+			};
+			
+			var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+			
+			// 주소-좌표 변환 객체를 생성합니다
+			var geocoder = new kakao.maps.services.Geocoder();
+
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch('${viewmap.jobfair_loc }', function(result, status) {
+				console.log('${viewmap.jobfair_loc }');
+
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${viewmap.jobfair_loc }</div>'
+			        });
+			        infowindow.open(map, marker);
+
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			});    
+			
+			</script>
 		</td>
 		
 	</tr>
