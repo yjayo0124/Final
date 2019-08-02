@@ -2,7 +2,6 @@ package web.controller.jobfair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 
@@ -25,7 +24,6 @@ import web.dto.JobFair;
 import web.dto.Member;
 import web.service.jobfair.face.JobFairFileService;
 import web.service.jobfair.face.JobFairService;
-import web.util.MapUtil;
 
 @Controller
 public class JobfairController {
@@ -34,7 +32,6 @@ public class JobfairController {
 	@Autowired MemberDao memberDao;
 	@Autowired ServletContext context;
 	@Autowired JobFairFileService fileService;
-	@Autowired MapUtil maputil;
 	
 	private static final Logger logger = LoggerFactory.getLogger(JobfairController.class);
 	
@@ -131,48 +128,10 @@ public class JobfairController {
 
 	}
 
-		
-	@RequestMapping(value="/jobfair/geocoder", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> jobfairgeo(
-			JobFair jobfair,
-			int jobfair_no
-		){
-		
-		logger.info("구글 맵");
-		
-		Map<String, Object> retVal = new HashMap<String, Object>();
-		
-		jobfair = jobfairService.mapList();
-//		jobfair = jobfairService.adminView(jobfair_no);
-		System.out.println("mapList: " + jobfair);
-		System.out.println("address: " + jobfair.getJobfair_loc());
-		
-		Float[] coords = maputil.geoCoding(jobfair);
-		System.out.println("maputil: " + maputil.geoCoding(jobfair));
-		System.out.println("coords: " + coords);
-		
-		retVal.put("id", "success");
-		retVal.put("latitude", ""+coords[0]);
-		retVal.put("longitude", coords[1]);
-		System.out.println("geocode: " + retVal);
-		
-		return retVal;
-	}
-
-	
-	
-//	@RequestMapping(value="/jobfair/adminview", method=RequestMethod.POST)
-//	public String adminViewProc(JobFair jobfair) {
-//		logger.info("adminview 처리");
-//		
-//		return "redirect:/jobfair/update?jobfair_no=" + jobfair.getJobfair_no();
-//	}
-//	
 	
 	@RequestMapping(value="/jobfair/update", method=RequestMethod.GET)
-	public void update(
-			Model model,
+	public ModelAndView update(
+			ModelAndView mav,
 			int jobfair_no
 		) {
 		logger.info("업데이트 폼");
