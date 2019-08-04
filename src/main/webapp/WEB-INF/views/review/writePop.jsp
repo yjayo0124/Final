@@ -19,6 +19,8 @@
 
 
 <script type="text/javascript">
+var corname = '${corname }';
+
 $.noConflict();
 var j = jQuery;
 j(document).ready(function() {
@@ -36,6 +38,10 @@ j(document).ready(function() {
 	});
 	
 	$('input[name=selectTag]').attr('value','강추'); // tag default 값
+	
+	if(corname != null) {
+		$('input[name=selectCor]').attr('value', corname);
+	}
 	
 	// 검색 자동완성 기능
 	$('#keyword').autocomplete({

@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <script type="text/javascript">
@@ -72,6 +73,7 @@
     	});
     	
     });
+
 }(jQuery));
 
 function writePop(corno, corname){
@@ -94,6 +96,52 @@ h6 {
 
 h5 {
 	font-weight: bold;
+}
+
+[data-tooltip-text]:hover {
+	position: relative;
+}
+
+[data-tooltip-text]:after {
+	-webkit-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	-moz-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+
+	background-color: rgba(0, 0, 0, 0.8);
+
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	
+  -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+  color: #FFFFFF;
+	font-size: 12px;
+	margin-bottom: 10px;
+	padding: 7px 12px;
+	position: absolute;
+	width: auto;
+	min-width: 170px;
+	max-width: 300px;
+	word-wrap: break-word;
+
+	z-index: 9999;
+
+	opacity: 0;
+	left: -9999px;
+  top: 90%;
+	
+	content: attr(data-tooltip-text);
+	overflow: visible;
+	
+}
+
+[data-tooltip-text]:hover:after {
+	top: 130%;
+	left: 0;
+	opacity: 1;
 }
 
 #corname {
@@ -172,7 +220,7 @@ h5 {
 }
 
 #information {
-	cursor:pointer;
+	cursor: pointer;
 	width: 15px;
 	height: 15px;
 	display: inline-block;
@@ -492,14 +540,20 @@ SETTINGS
 </div>
 <div id="corincome">
 <h4><label>예상 평균연봉</label></h4>
-<h2><label>${((i.national_pension * 11) / i.cor_mem) * 12 } 
-<img id="information" src="/resources/images/information.png" title="연봉이 정확하지 않을수 있습니다.&#10;KHOB의 연봉은 국민연금데이터를 &#10;기반으로 산출한 정보입니다."/>
+<h2><label>
+<fmt:formatNumber var="national" value="${((i.national_pension * 11.1) / i.cor_mem) * 12 } " pattern=".00"/>
+<c:set var="TextValue" value="${national }"/>
+<c:set var="nation" value="${fn:substring(TextValue,0,4) }"/>
+<span data-html="true" data-tooltip-text="연봉이 정확하지 않을수 있습니다. KHOB의 연봉은 국민연금데이터를  기반으로 산출한 정보입니다.">
+<img id="information" src="/resources/images/information.png"/></span>
+<fmt:formatNumber value="${fn:trim(nation)}" pattern="#,###"/>만원
 </label></h2>
 </div>
 
 <br><br><br><br><br><br>
-<h5>기업정보</h5>
-
+<h5 style="display: inline-block;">기업정보</h5>
+<span data-html="true" data-tooltip-text="국민연금 데이터를&#10;기반으로 산출한 정보입니다." style="display: inline-block;">
+<img id="information" src="/resources/images/information.png"/></span>
 <c:if test="${i.cor_classify eq 1}">
 	<c:set var="classify" value="법인기업"/>
 </c:if>
@@ -670,15 +724,15 @@ SETTINGS
 				<th id="thtitle">제목</th>
 			</tr>
 		</thead>
-		<tbody>
-			<c:forEach items="${corRecruit }" var="i">
-				<tr>
-					<td id="tdno">${i.RECRUIT_NO }</td>
-					<td id="tdname">${i.RECRUIT_NAME }</td>
-					<td id="tdtitle">${i.RECRUIT_TITLE }</td>
-				</tr>
-			</c:forEach>
-		</tbody>
+<!-- 		<tbody> -->
+<%-- 			<c:forEach items="${corRecruit }" var="i"> --%>
+<!-- 				<tr> -->
+<%-- 					<td id="tdno">${i.RECRUIT_NO }</td> --%>
+<%-- 					<td id="tdname">${i.RECRUIT_NAME }</td> --%>
+<%-- 					<td id="tdtitle">${i.RECRUIT_TITLE }</td> --%>
+<!-- 				</tr> -->
+<%-- 			</c:forEach> --%>
+<!-- 		</tbody> -->
 	</table>
 </div>
 </c:forEach>
