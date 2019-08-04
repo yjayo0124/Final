@@ -156,11 +156,29 @@
 	var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
 	var listLanguage = new Array();	listLanguage.push(0);
 	var listPreferential = new Array();	listPreferential.push(0);
+	var resume_title;
+	var formData = new FormData();
+	var upfile;
+	var info = new FormData();
+	var count = 0;
+	
+	function submit() {
+		upfile = $("input[name='imgfile']")[0].files[0];
+		resume_title = $('.resume_title').find("input[name='resume_title']").val();
+		
+		if(typeof upfile === "undefined") {
+			alert("이력서 이미지를 삽입해 주세요.")
+		} else if( resume_title == ""){
+			alert("제목을 입력해 주세요.")
+		} else {
+			resume();	
+		}
+	}
 	
 	function resume() {
 		
 		var member_no = $('.resume_title').find("input[name='member_no']").val();
-		var resume_title = $('.resume_title').find("input[name='resume_title']").val();
+		resume_title = $('.resume_title').find("input[name='resume_title']").val();
 		var resume_name = $('#user_info').find("input[name='resume_name']").val();
 		var resume_birth = $('#user_info').find("input[name='resume_birth']").val();
 		var resume_gender = $('#user_info').find("select[name='resume_gender']").val();
@@ -177,52 +195,83 @@
 			member_no = 0;
 		}  
 		
-		school();
-		career();
-		activities();
-		education();
-		certificate();
-		award();
-		overseas_Experience();
-		language();
-		preferential();
+		formData.append("upfile",upfile);
+		formData.append("member_no",member_no);
+		formData.append("resume_title",resume_title);
+		formData.append("resume_name",resume_name);
+		formData.append("resume_birth",resume_birth);
+		formData.append("resume_gender",resume_gender);
+		formData.append("resume_email",resume_email);
+		formData.append("resume_phone",resume_phone);
+		formData.append("resume_cellphone",resume_cellphone);
+		formData.append("resume_addr",resume_addr);
+		formData.append("forms_employment",forms_employment);
+		formData.append("desired_work_place",desired_work_place);
+		formData.append("salary",salary);
+		
+// 		school();
+// 		career();
+// 		activities();
+// 		education();
+// 		certificate();
+// 		award();
+// 		overseas_Experience();
+// 		language();
+// 		preferential();
 		
 		$.ajax({
-            url: "/mypage/introduction/write",
+            url: "/mypage/resume/write",
             type: "POST",
-            traditional : true,
-            
-            data: {
-            		member_no : member_no,
-            		resume_title : resume_title,
-            		resume_name	: resume_name,
-            		resume_birth : resume_birth,
-            		resume_gender : resume_gender,
-            		resume_email : resume_email,
-            		resume_phone : resume_phone,
-            		resume_cellphone : resume_cellphone,
-            		resume_addr : resume_addr,
-            		forms_employment : forms_employment,
-            		desired_work_place : desired_work_place,
-            		salary : salary,
-            		school : listSchool,
-            		career : listCareer,
-            		activities : listActivities,
-            		education : listEducation,
-            		certificate : listCertificate,
-            		award : listAward,
-            		overseas_Experience : listOverseas_Experience,
-            		language : listLanguage,
-            		preferential : listPreferential
-            	},
+            enctype : "multipart/form-data",
+            contentType: false,
+            processData: false,
+            cache: false,
+            data: formData,
             success: function(data){
-            	console.log("전송완료");
+            	resume_no = data;
+            	console.log(resume_no);
+            	school();
+        		career();
+        		activities();
+        		education();
+        		certificate();
+        		award();
+        		overseas_Experience();
+        		language();
+        		preferential();
+        		count++;        		
+        		
+            	if(count == 1) {
+	            	$.ajax({
+	                    url: "/mypage/resume/writeinfo",
+	                    type: "POST",
+	                    traditional : true,
+	                    data: {
+	                    	resume_no : resume_no,
+	                    	school : listSchool,
+	                    	career : listCareer,
+	                    	activities : listActivities,
+	                    	education : listEducation,
+	                    	certificate : listCertificate,
+	                    	award : listAward,
+	                    	overseas_Experience : listOverseas_Experience,
+	                    	language : listLanguage,
+	                    	preferential : listPreferential
+	                    	},
+	                    success: function(data){
+	                    	location.href = "/mypage/main";
+	                    },
+	                    error: function(){
+	                        alert("error");
+	                    }
+	                });
+            	}
+            	
             },
             error: function(){
                 alert("error");
             }
         });
-		location.href = "/mypage/main";
 	}
 	
 	function school() {
@@ -248,7 +297,6 @@
 				School.push($("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val());
 				
 				listSchool.push(School);
-				
 			}
 		}
 	}
@@ -407,10 +455,6 @@
 			}
 		}
 
-	}
-	
-	function submit() {
-		resume();
 	}
 	
 	function moreSub() {
@@ -1909,7 +1953,7 @@ input {
 								style="width: 90px;" onclick="create_Award();">추가</button></label>
 					</div>
 				</div>
-				<form action="/mypage/introduction/write" method="POST" id="frm_Overseas_Experience">
+				
 				<div id="form_Overseas_Experience">
 					<h4 class="head">해외경험</h4>
 					<div class="form" id="div_Overseas_Experience"></div>
@@ -1919,7 +1963,6 @@ input {
 								onclick="create_Overseas_Experience();">추가</button></label>
 					</div>
 				</div>
-				</form>
 
 				<div id="form_Language">
 					<h4 class="head">어학</h4>
@@ -1990,9 +2033,9 @@ input {
 							</div>
 							<div class="checkbox">
 								<p>
-									<input class="input_checkbox" type="checkbox"
-										name="after_interview"><label
-										style="padding-left: 5px;">면접 후 결정</label>
+<!-- 									<input class="input_checkbox" type="checkbox" -->
+<!-- 										name="after_interview"><label -->
+<!-- 										style="padding-left: 5px;">면접 후 결정</label> -->
 								</p>
 							</div>
 						</div>
