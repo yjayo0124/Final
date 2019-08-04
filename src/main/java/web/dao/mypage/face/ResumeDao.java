@@ -1,5 +1,7 @@
 package web.dao.mypage.face;
 
+import java.util.List;
+
 import web.dto.mypage.resume.Activities;
 import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
@@ -10,6 +12,7 @@ import web.dto.mypage.resume.Overseas_Experience;
 import web.dto.mypage.resume.Preferential;
 import web.dto.mypage.resume.Resume;
 import web.dto.mypage.resume.School;
+import web.util.mypage.MypagePaging;
 
 public interface ResumeDao {
 
@@ -38,5 +41,55 @@ public interface ResumeDao {
 	public void insertCertifiedLanguage(Language language);
 	
 	public void insertPreferential(Preferential preferential);
+	
+	public int selectCntAll(int member_no);
+	
+	public int cntMainResume(int member_no);
+	
+	public List<Resume> getList(MypagePaging paging);
+	
+	public int getMainResume_no(int member_no);
+	
+	public void changeMainResume(int resume_no);
+	
+	public void updateMainResume(int resume_no);
+	
+	public int checkSchool(int resume_no);
+	
+	public int checkCareer(int resume_no);
+	
+	public int checkActivities(int resume_no);
+	
+	public int checkEducation(int resume_no);
+	
+	public int checkCertificate(int resume_no);
+	
+	public int checkAward(int resume_no);
+	
+	public int checkOverseas_Experience(int resume_no);
+	
+	public int checkLanguage(int resume_no);
+	
+	public int checkPreferential(int resume_no);
+	
+	public void deleteSchool(int resume_no);
+	
+	public void deleteCareer(int resume_no);
+	
+	public void deleteActivities(int resume_no);
+	
+	public void deleteEducation(int resume_no);
+	
+	public void deleteCertificate(int resume_no);
+	
+	public void deleteAward(int resume_no);
+	
+	public void deleteOverseas_Experience(int resume_no);
+	
+	public void deleteLanguage(int resume_no);
+	
+	public void deletePreferential(int resume_no);
+	
+	public void deleteResume(int resume_no);
 	
 }
