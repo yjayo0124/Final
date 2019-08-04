@@ -61,19 +61,19 @@ $(document).ready(function() {
 
 <tbody>
 	<tr>
-		<td>제목</td>
+		<td style="width: 15%;">제목</td>
 		<td>${viewmap.jobfair_name }</td>
 	</tr>
 	<tr>
-		<td>글쓴이</td>
+		<td style="width: 15%;">글쓴이</td>
 		<td>관리자</td>
 	</tr>
 	<tr>
-		<td>등록일</td>
+		<td style="width: 15%;">등록일</td>
 		<td>${viewmap.jobfair_date }</td>
 	</tr>
 	<tr>
-		<td>내용</td>
+		<td style="width: 15%;">내용</td>
 		<td>
 			<c:if test="${file ne null }">
 				<img src="/upload/${file }" style="width: 70%; heigth: auto;">
@@ -82,15 +82,15 @@ $(document).ready(function() {
 		</td>
 	</tr>
 	<tr>
-		<td>시작일</td>
+		<td style="width: 15%;">시작일</td>
 		<td>${viewmap.jobfair_start }</td>
 	</tr>
 	<tr>
-		<td>종료일</td>
+		<td style="width: 15%;">종료일</td>
 		<td>${viewmap.jobfair_end }</td>
 	</tr>
 	<tr>
-		<td>장소</td>
+		<td style="width: 15%;">장소</td>
 		<td>
 			${viewmap.jobfair_loc }
 			<br><br>
@@ -143,7 +143,7 @@ $(document).ready(function() {
 		
 	</tr>
 	<tr>
-		<td>신청기간</td>
+		<td style="width: 15%;">신청기간</td>
 		<td>${viewmap.jobfair_limit }</td>
 	</tr>
 </tbody>
