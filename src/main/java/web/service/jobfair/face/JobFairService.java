@@ -9,8 +9,6 @@ public interface JobFairService {
 	
 	public List<HashMap<String, Object>> calList();
 	
-	public JobFair mapList();
-	
 	public void registerFair(JobFair jobfair);
 	
 	public JobFair adminView(int jobfair_no);
@@ -19,6 +17,6 @@ public interface JobFairService {
 	
 	public void deleteFair(int jobfair_no);
 	
-	public String jobFairSearch(String title); 
+	public List<JobFair> jobFairSearch(String title); 
 	
 }

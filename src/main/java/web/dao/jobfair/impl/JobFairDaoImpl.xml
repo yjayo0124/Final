@@ -24,24 +24,46 @@
 	</sql>
 
 	<select id="selectAll" resultType="hashmap">
-		SELECT * FROM jobfair
-	</select>
-	
-	<select id="selectMap" resultType="web.dto.JobFair">
-		SELECT * FROM jobfair
+		SELECT 
+			jobfair_no, 
+			jobfair_name, 
+			jobfair_date, 
+			jobfair_start, 
+			jobfair_end,
+			jobfair_loc,
+			jobfair_content,
+			(SELECT SUBSTR(jobfair_limit, 1, (INSTR(jobfair_limit, ',')-1)) FROM dual) jobfair_limit1,
+			(SELECT SUBSTR(jobfair_limit, (INSTR(jobfair_limit, ',')+1)) FROM dual) jobfair_limit2,
+			member_no
+		FROM jobfair
 	</select>
 	
 	<select id="selectByJobfairNo" 
 	parameterType="int"
 	resultType="web.dto.JobFair">
-		SELECT * FROM jobfair
+		SELECT 
+			jobfair_no, 
+			jobfair_name, 
+			jobfair_date, 
+			jobfair_start, 
+			jobfair_end,
+			jobfair_loc,
+			jobfair_content,
+			(SELECT SUBSTR(jobfair_limit, 1, (INSTR(jobfair_limit, ',')-1)) FROM dual) jobfair_limit1,
+			(SELECT SUBSTR(jobfair_limit, (INSTR(jobfair_limit, ',')+1)) FROM dual) jobfair_limit2,
+			member_no
+		FROM jobfair
 		WHERE jobfair_no = #{jobfair_no }
 	</select>
 	
 	<select id="selectByJobfairTitle" 
 	parameterType="String"
-	resultType="String">
-		SELECT jobfair_name FROM jobfair
+	resultType="web.dto.JobFair">
+		SELECT  
+			jobfair_no, 
+			jobfair_name, 
+			jobfair_date
+		FROM jobfair
 		WHERE jobfair_name LIKE '%'||#{jobfair_name, jdbcType=VARCHAR }||'%'
 	</select>
 	
@@ -59,7 +81,7 @@
 		VALUES (
 			jobfair_seq.nextval, 
 			#{jobfair_name, jdbcType=VARCHAR },
-			SYSDATE, 
+			TO_DATE(SYSDATE, 'yyyy-MM-dd'),
 			#{jobfair_start, jdbcType=VARCHAR },
 			#{jobfair_end, jdbcType=VARCHAR },
 			#{jobfair_loc, jdbcType=VARCHAR },

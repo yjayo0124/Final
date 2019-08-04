@@ -2,6 +2,7 @@ package web.controller.jobfair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -54,6 +55,21 @@ public class JobfairController {
 		return list;
 	}
 	
+	@RequestMapping(value="/jobfair/search", method=RequestMethod.GET)
+	public void search(
+			String title,
+			Model model
+		) {
+		
+		logger.info("검색");
+		
+		List<JobFair> list = jobfairService.jobFairSearch(title);
+		System.out.println(list);
+		
+		model.addAttribute("list", list);
+		
+	}
+		
 
 	@RequestMapping(value="/jobfair/register", method=RequestMethod.GET)
 	public void register(

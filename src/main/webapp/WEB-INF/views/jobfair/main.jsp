@@ -74,7 +74,7 @@ $(document).ready(function() {
 	
 
 	$('#btnSearch').click(function() {
-		location.href="/jobfair/list?search=" + $("#search").val();
+		location.href="/jobfair/search?search=" + $("#search").val();
 	});
 	
 	$('#btnRegister').click(function() {
