@@ -15,7 +15,7 @@ public class School {
 	private String transfer_status;
 	private String major_name;
 	private int credit;
-	private double total_score;
+	private String total_score;
 	private String sub_major_status;
 	private String sub_major_name;
 	private String graduation_thesis_content;
@@ -77,10 +77,10 @@ public class School {
 	public void setCredit(int credit) {
 		this.credit = credit;
 	}
-	public double getTotal_score() {
+	public String getTotal_score() {
 		return total_score;
 	}
-	public void setTotal_score(double total_score) {
+	public void setTotal_score(String total_score) {
 		this.total_score = total_score;
 	}
 	public String getSub_major_status() {

@@ -6,11 +6,119 @@
   
 <mapper  namespace="web.dao.mypage.face.ResumeDao" >
 
+	<delete id="deleteSchool" parameterType="int">
+		DELETE FROM School WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteCareer" parameterType="int">
+		DELETE FROM Career WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteActivities" parameterType="int">
+		DELETE FROM Activities WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteEducation" parameterType="int">
+		DELETE FROM Education WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteCertificate" parameterType="int">
+		DELETE FROM Certificate WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteAward" parameterType="int">
+		DELETE FROM Award WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteOverseas_Experience" parameterType="int">
+		DELETE FROM Overseas_Experience WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteLanguage" parameterType="int">
+		DELETE FROM Language WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deletePreferential" parameterType="int">
+		DELETE FROM Preferential WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<delete id="deleteResume" parameterType="int">
+		DELETE FROM Resume WHERE resume_no = #{resume_no}
+	</delete>
+	
+	<select id="checkSchool" parameterType="int" resultType="int">
+		SELECT count(*) FROM school WHERE resume_no = #{resume_no}
+	</select>
+	
+	<select id="checkCareer" parameterType="int" resultType="int">
+		SELECT count(*) FROM career WHERE resume_no = #{resume_no}
+	</select>
+	
+	<select id="checkActivities" parameterType="int" resultType="int">
+		SELECT count(*) FROM Activities WHERE resume_no = #{resume_no}
+	</select>
+	
+	
+	<select id="checkEducation" parameterType="int" resultType="int">
+		SELECT count(*) FROM Education WHERE resume_no = #{resume_no}
+	</select>
+	
+	
+	<select id="checkCertificate" parameterType="int" resultType="int">
+		SELECT count(*) FROM Certificate WHERE resume_no = #{resume_no}
+	</select>
+	
+	
+	<select id="checkAward" parameterType="int" resultType="int">
+		SELECT count(*) FROM Award WHERE resume_no = #{resume_no}
+	</select>
+	
+	
+	<select id="checkOverseas_Experience" parameterType="int" resultType="int">
+		SELECT count(*) FROM Overseas_Experience WHERE resume_no = #{resume_no}
+	</select>
+	
+	
+	<select id="checkLanguage" parameterType="int" resultType="int">
+		SELECT count(*) FROM Language WHERE resume_no = #{resume_no}
+	</select>
+	
+	
+	<select id="checkPreferential" parameterType="int" resultType="int">
+		SELECT count(*) FROM Preferential WHERE resume_no = #{resume_no}
+	</select>
+
+	<update id="updateMainResume" parameterType="int">
+		UPDATE RESUME SET main_resume = 1
+		WHERE resume_no = #{resume_no}
+	</update>
+
+	<update id="changeMainResume" parameterType="int">
+		UPDATE RESUME SET main_resume = 0
+		WHERE resume_no = #{resume_no}
+	</update>
+
+	<select id="getMainResume_no" parameterType="int" resultType="int">
+		SELECT resume_no FROM resume WHERE member_no = #{member_no} AND main_resume = 1
+	</select>
+
+	<select id="cntMainResume" parameterType="int" resultType="int">
+		SELECT count(*) FROM resume WHERE member_no = #{member_no} AND main_resume = 1
+	</select>
+
+	<select id="getList" parameterType="web.util.mypage.MypagePaging" resultType="web.dto.mypage.resume.Resume">
+		SELECT * FROM (SELECT rownum rnum, B.* FROM(SELECT * FROM resume ORDER BY resume_writendate DESC)B ORDER BY rnum)resume WHERE member_no = #{member_no} AND rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+	<select id="selectCntAll" parameterType="int" resultType="int">
+		SELECT count(*) FROM resume WHERE member_no = #{member_no}
+	</select>
+
 	<insert id="insertResume" parameterType="web.dto.mypage.resume.Resume">
 		INSERT INTO resume
-		(resume_no, member_no, resume_title, resume_name, resume_gender, resume_email, resume_phone, resume_cellphone, resume_addr, forms_employment, desired_work_place, salary)
+		(resume_no, member_no, resume_stored_name, resume_title, resume_name, resume_birth, resume_gender, resume_email, resume_phone, resume_cellphone, resume_addr, forms_employment, desired_work_place, salary)
 		VALUES
-		(resume_seq.nextval, #{member_no}, #{resume_title}, #{resume_name}, #{resume_gender}, #{resume_email}, #{resume_phone}, #{resume_cellphone}, #{resume_addr}, #{forms_employment}, #{desired_work_place}, #{salary})
+		(resume_seq.nextval, #{member_no}, #{resume_stored_name}, #{resume_title}, #{resume_name}, #{resume_birth}, #{resume_gender}, #{resume_email}, #{resume_phone}, #{resume_cellphone}, #{resume_addr}, #{forms_employment}, #{desired_work_place}, #{salary})
 		 
 		<selectKey keyProperty="resume_no" resultType="int" order="AFTER">
 
@@ -53,7 +161,7 @@
 	
 	<insert id="insertActivities" parameterType="web.dto.mypage.resume.Activities">
 		INSERT INTO Activities
-		(resume_no, activity_classification, institution_name, start_date, end_date, activity_contentm, numbers)
+		(resume_no, activity_classification, institution_name, start_date, end_date, activity_content, numbers)
 		VALUES(#{resume_no}, #{activity_classification}, #{institution_name}, #{start_date}, #{end_date}, #{activity_content}, #{numbers} )
 	</insert>
 	

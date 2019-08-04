@@ -1,7 +1,16 @@
 package web.service.mypage.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import web.dao.mypage.face.ResumeDao;
 import web.dto.mypage.resume.Activities;
@@ -15,6 +24,7 @@ import web.dto.mypage.resume.Preferential;
 import web.dto.mypage.resume.Resume;
 import web.dto.mypage.resume.School;
 import web.service.mypage.face.ResumeService;
+import web.util.mypage.MypagePaging;
 
 @Service
 public class ResumeServiceImpl implements ResumeService{
@@ -57,16 +67,16 @@ public class ResumeServiceImpl implements ResumeService{
 
 		for(int i=1; i<school.length; i++) {
 			School sch = new School();
-			
+
 			sch.setResume_no(resume_no);
-			
+
 			String splitArr[] = school[i].split(",",-1);	
 			for(int j=0; j<splitArr.length; j++) {
 				if(splitArr[j].isEmpty()) {
 					splitArr[j] = "0";
 				}
 			}
-			
+
 			if(splitArr[1].equals("고등학교")) {
 				sch.setNumbers(Integer.parseInt(splitArr[0]));
 				sch.setSchool_classification(splitArr[1]);
@@ -74,7 +84,7 @@ public class ResumeServiceImpl implements ResumeService{
 				sch.setGraduation_date(splitArr[3]);
 				sch.setGraduation_status(splitArr[4]);
 				sch.setGed_status(splitArr[5]);
-				
+
 				resumeDao.insertHighSchool(sch);
 
 			} else if(splitArr[1].equals("대학") || splitArr[0].equals("대학교")) {
@@ -93,11 +103,7 @@ public class ResumeServiceImpl implements ResumeService{
 					sch.setCredit(Integer.parseInt(splitArr[10]));
 				}
 
-				if(splitArr[11] == null) {
-					sch.setTotal_score(0);
-				} else {
-					sch.setTotal_score(Double.parseDouble(splitArr[11]));
-				}
+				sch.setTotal_score(splitArr[11]);
 				sch.setSub_major_status(splitArr[12]);
 				sch.setSub_major_name(splitArr[13]);
 				sch.setGraduation_thesis_content(splitArr[14]);
@@ -120,16 +126,11 @@ public class ResumeServiceImpl implements ResumeService{
 				} else {
 					sch.setCredit(Integer.parseInt(splitArr[10]));
 				}
-
-				if(splitArr[11] == null) {
-					sch.setTotal_score(0);
-				} else {
-					sch.setTotal_score(Double.parseDouble(splitArr[11]));
-				}
+				sch.setTotal_score(splitArr[11]);
 				sch.setSub_major_status(splitArr[12]);
 				sch.setSub_major_name(splitArr[13]);
 				sch.setGraduation_thesis_content(splitArr[14]);
-				
+
 
 				resumeDao.insertGraduSchool(sch);
 			}
@@ -268,7 +269,7 @@ public class ResumeServiceImpl implements ResumeService{
 					splitArr[j] = "0";
 				}
 			}
-			
+
 			overseas.setNumbers(Integer.parseInt(splitArr[0]));
 			overseas.setResume_no(resume_no);
 			overseas.setCountry_name(splitArr[1]);
@@ -324,7 +325,7 @@ public class ResumeServiceImpl implements ResumeService{
 					splitArr[j] = "0";
 				}
 			}
-			
+
 			pre.setResume_no(resume_no);
 			pre.setVeterans(splitArr[0]);
 			pre.setProtect(splitArr[1]);
@@ -335,6 +336,318 @@ public class ResumeServiceImpl implements ResumeService{
 			resumeDao.insertPreferential(pre);
 		}
 
+	}
+
+
+
+	@Override
+	public String filesave(MultipartFile file, ServletContext context) {
+
+		String storedPath = context.getRealPath("upload");
+		String uId = UUID.randomUUID().toString().split("-")[4];
+		String stored_name = uId + "_" + file.getOriginalFilename();
+		File dest = new File(storedPath, stored_name);
+		try {
+			file.transferTo(dest);
+
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return stored_name;
+	}
+
+
+
+	@Override
+	public MypagePaging getCurPage(HttpServletRequest request, int member_no) {
+		
+		//전달파라미터 curPage 파싱
+		String param = request.getParameter("curPage");
+		int curPage = 0;
+		if( param!=null && !"".equals(param) ) {
+			curPage = Integer.parseInt(param);
+		}
+
+		// 전체 게시글 수
+		int totalCount = resumeDao.selectCntAll(member_no);
+
+		// 페이징 객체 생성
+		MypagePaging paging = new MypagePaging(totalCount, curPage);
+		paging.setMember_no(member_no);
+
+		return paging;
+	}
+
+	
+	@Override
+	public List<Resume> getList(MypagePaging paging) {
+	
+		return resumeDao.getList(paging);
+	}
+
+
+
+	@Override
+	public Boolean checkResume(int member_no) {
+		
+		Boolean check = false;
+		
+		int totalCount = resumeDao.selectCntAll(member_no);
+		
+		if(totalCount != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkMainResume(int member_no) {
+		
+		Boolean check = false;
+		
+		int count = resumeDao.cntMainResume(member_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public int getMainResume_no(int member_no) {
+	
+		return resumeDao.getMainResume_no(member_no);
+	}
+
+
+
+	@Override
+	public void changeMainResume(int resume_no) {
+
+		resumeDao.changeMainResume(resume_no);
+	}
+
+
+
+	@Override
+	public void updateMainResume(int resume_no) {
+
+		resumeDao.updateMainResume(resume_no);
+	}
+
+
+
+	@Override
+	public Boolean checkSchool(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkSchool(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkCareer(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkCareer(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkActivities(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkActivities(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkEducation(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkEducation(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkCertificate(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkCertificate(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkAward(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkAward(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkOverseas_Experience(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkOverseas_Experience(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkLanguage(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkLanguage(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public Boolean checkPreferential(int resume_no) {
+		Boolean check = false;
+		
+		int count = resumeDao.checkPreferential(resume_no);
+		
+		if(count != 0) {
+			check = true;
+		}
+		
+		return check;
+	}
+
+
+
+	@Override
+	public void deleteSchool(int resume_no) {
+		resumeDao.deleteSchool(resume_no);
+		
+	}
+
+
+
+	@Override
+	public void deleteCareer(int resume_no) {
+		resumeDao.deleteCareer(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteActivities(int resume_no) {
+		resumeDao.deleteActivities(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteEducation(int resume_no) {
+		resumeDao.deleteEducation(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteCertificate(int resume_no) {
+		resumeDao.deleteCertificate(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteAward(int resume_no) {
+		resumeDao.deleteAward(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteOverseas_Experience(int resume_no) {
+		resumeDao.deleteOverseas_Experience(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteLanguage(int resume_no) {
+		resumeDao.deleteLanguage(resume_no);		
+	}
+
+
+
+	@Override
+	public void deletePreferential(int resume_no) {
+		resumeDao.deletePreferential(resume_no);		
+	}
+
+
+
+	@Override
+	public void deleteResume(int resume_no) {
+		resumeDao.deleteResume(resume_no);		
 	}
 
 }
