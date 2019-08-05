@@ -14,7 +14,7 @@ public class School {
 	private String admission_date;
 	private String transfer_status;
 	private String major_name;
-	private int credit;
+	private String credit;
 	private String total_score;
 	private String sub_major_status;
 	private String sub_major_name;
@@ -71,10 +71,10 @@ public class School {
 	public void setMajor_name(String major_name) {
 		this.major_name = major_name;
 	}
-	public int getCredit() {
+	public String getCredit() {
 		return credit;
 	}
-	public void setCredit(int credit) {
+	public void setCredit(String credit) {
 		this.credit = credit;
 	}
 	public String getTotal_score() {

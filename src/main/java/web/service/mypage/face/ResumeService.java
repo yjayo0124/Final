@@ -7,7 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import web.dto.mypage.resume.Activities;
+import web.dto.mypage.resume.Award;
+import web.dto.mypage.resume.Career;
+import web.dto.mypage.resume.Certificate;
+import web.dto.mypage.resume.Education;
+import web.dto.mypage.resume.Language;
+import web.dto.mypage.resume.Overseas_Experience;
+import web.dto.mypage.resume.Preferential;
 import web.dto.mypage.resume.Resume;
+import web.dto.mypage.resume.School;
 import web.util.mypage.MypagePaging;
 
 
@@ -87,7 +96,24 @@ public interface ResumeService {
 	
 	public void deleteResume(int resume_no);
 
-
-		
+	public Resume selelctResume(int resume_no);
+	
+	public List<School> selelctSchool(int resume_no);
+	
+	public List<Career> selelctCareer(int resume_no);
+	
+	public List<Activities> selelctActivities(int resume_no);
+	
+	public List<Education> selelctEducation(int resume_no);
+	
+	public List<Certificate> selelctCertificate(int resume_no);
+	
+	public List<Award> selelctAward(int resume_no);
+	
+	public List<Overseas_Experience> selelctOverseas_Experience(int resume_no);
+	
+	public List<Language> selelctLanguage(int resume_no);	
+	
+	public List<Preferential> selelctPreferential(int resume_no);	
 
 }

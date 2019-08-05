@@ -97,12 +97,7 @@ public class ResumeServiceImpl implements ResumeService{
 				sch.setAdmission_date(splitArr[7]);
 				sch.setTransfer_status(splitArr[8]);
 				sch.setMajor_name(splitArr[9]);	
-				if(splitArr[10] == null) {
-					sch.setCredit(0);
-				} else {
-					sch.setCredit(Integer.parseInt(splitArr[10]));
-				}
-
+				sch.setCredit(splitArr[10]);
 				sch.setTotal_score(splitArr[11]);
 				sch.setSub_major_status(splitArr[12]);
 				sch.setSub_major_name(splitArr[13]);
@@ -121,11 +116,7 @@ public class ResumeServiceImpl implements ResumeService{
 				sch.setAdmission_date(splitArr[7]);
 				sch.setTransfer_status(splitArr[8]);
 				sch.setMajor_name(splitArr[9]);	
-				if(splitArr[10] == null) {
-					sch.setCredit(0);
-				} else {
-					sch.setCredit(Integer.parseInt(splitArr[10]));
-				}
+				sch.setCredit(splitArr[10]);
 				sch.setTotal_score(splitArr[11]);
 				sch.setSub_major_status(splitArr[12]);
 				sch.setSub_major_name(splitArr[13]);
@@ -649,5 +640,108 @@ public class ResumeServiceImpl implements ResumeService{
 	public void deleteResume(int resume_no) {
 		resumeDao.deleteResume(resume_no);		
 	}
+
+
+
+	@Override
+	public Resume selelctResume(int resume_no) {
+		
+		return resumeDao.selectResume(resume_no);
+	}
+
+
+
+	@Override
+	public List<School> selelctSchool(int resume_no) {
+		return resumeDao.selelctSchool(resume_no);
+	}
+
+
+
+	@Override
+	public List<Career> selelctCareer(int resume_no) {
+		return resumeDao.selelctCareer(resume_no);
+	}
+
+
+
+	@Override
+	public List<Activities> selelctActivities(int resume_no) {
+		return resumeDao.selelctActivities(resume_no);
+	}
+
+
+
+	@Override
+	public List<Education> selelctEducation(int resume_no) {
+		return resumeDao.selelctEducation(resume_no);
+	}
+
+
+
+	@Override
+	public List<Certificate> selelctCertificate(int resume_no) {
+		return resumeDao.selelctCertificate(resume_no);
+	}
+
+
+
+	@Override
+	public List<Award> selelctAward(int resume_no) {
+		return resumeDao.selelctAward(resume_no);
+	}
+
+
+
+	@Override
+	public List<Overseas_Experience> selelctOverseas_Experience(int resume_no) {
+		return resumeDao.selelctOverseas_Experience(resume_no);
+	}
+
+
+
+	@Override
+	public List<Language> selelctLanguage(int resume_no) {
+		return resumeDao.selelctLanguage(resume_no);
+	}
+
+
+
+	@Override
+	public List<Preferential> selelctPreferential(int resume_no) {
+		return resumeDao.selelctPreferential(resume_no);
+	}
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

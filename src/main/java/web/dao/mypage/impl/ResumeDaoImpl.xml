@@ -6,6 +6,48 @@
   
 <mapper  namespace="web.dao.mypage.face.ResumeDao" >
 
+	<select id="selectResume" parameterType="int" resultType="web.dto.mypage.resume.Resume"> 
+		SELECT * FROM Resume WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctSchool" parameterType="int" resultType="web.dto.mypage.resume.School"> 
+		SELECT * FROM School WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctCareer" parameterType="int" resultType="web.dto.mypage.resume.Career"> 
+		SELECT * FROM Career WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctActivities" parameterType="int" resultType="web.dto.mypage.resume.Activities"> 
+		SELECT * FROM Activities WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctEducation" parameterType="int" resultType="web.dto.mypage.resume.Education"> 
+		SELECT * FROM Education WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctCertificate" parameterType="int" resultType="web.dto.mypage.resume.Certificate"> 
+		SELECT * FROM Certificate WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctAward" parameterType="int" resultType="web.dto.mypage.resume.Award"> 
+		SELECT * FROM Award WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctOverseas_Experience" parameterType="int" resultType="web.dto.mypage.resume.Overseas_Experience"> 
+		SELECT * FROM Overseas_Experience WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctLanguage" parameterType="int" resultType="web.dto.mypage.resume.Language"> 
+		SELECT * FROM Language WHERE resume_no = #{resume_no} 
+	</select>
+	
+	<select id="selelctPreferential" parameterType="int" resultType="web.dto.mypage.resume.Preferential"> 
+		SELECT * FROM Preferential WHERE resume_no = #{resume_no} 
+	</select>
+	
+	
+
 	<delete id="deleteSchool" parameterType="int">
 		DELETE FROM School WHERE resume_no = #{resume_no}
 	</delete>
