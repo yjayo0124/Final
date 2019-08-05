@@ -2,10 +2,109 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="sec"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
+<script type="text/javascript">
+var introduction_title;
+var list_numbers = new Array();
+var list_introduction_question = new Array();
+var list_introduction_content = new Array();
+var formData = new FormData();
+var introduction_no;
+
+function submit() {
+	introduction_title =  $('.title').find("input[name='introduction_title']").val();
+	if( introduction_title == ""){
+		alert("제목을 입력해 주세요.")
+	} else {
+		introduction();	
+	}
+}
+
+function introduction() {
+	introduction_title =  $('.title').find("input[name='introduction_title']").val();
+	var introduction_question = $('.question').find("input[name='introduction_question']").val();
+	var introduction_content = $('.content').find("textarea[name='introduction_content']").val();
+	
+	$.ajax({
+        url: "/mypage/introduction/write",
+        type: "POST",
+        data: {
+        	introduction_title : introduction_title,
+        	introduction_question : introduction_question,
+        	introduction_content : introduction_content
+        	},
+        success: function(data){
+        	introduction_no = data;
+        	sub_introduction();
+        	
+        	$.ajax({
+                url: "/mypage/introduction/writeSub",
+                type: "POST",
+                traditional : true,
+                data: {
+                	introduction_no : introduction_no,
+                	list_numbers : list_numbers,
+                	list_introduction_question : list_introduction_question,
+                	list_introduction_content : list_introduction_content
+                },
+                success: function(data){
+                	location.href = "/mypage/main";
+                },
+                error: function(){
+                    alert("error");
+                }
+            });
+        	
+        },
+        error: function(){
+            alert("error");
+        }
+    });
+	
+}
+
+function sub_introduction() {
+	var countSub = $("#div_Introduction .add").size();
+	
+	if(countSub != "0") {
+		for(var i=0; i<countSub; i++) {
+
+			list_numbers.push(i+1);
+			list_introduction_question.push($("#div_Introduction").children("div.add").eq(i).find("input[name='sub_introduction_question']").val());
+			list_introduction_content.push($("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val());
+		}
+		
+		formData.append("numbers",list_numbers);
+		formData.append("sub_introduction_question",list_introduction_question);
+		formData.append("sub_introduction_content",list_introduction_content);
+	}
+}
+
+function create_Introduction() {
+	$('#div_Introduction').append(
+			"<div class='new add'>"+
+				"<div class='row'>"+
+					"<div class='info_form school' style='width: 97%;'>"+
+						"<input type='text' name='sub_introduction_question' placeholder='질문'>"+
+					"</div>"+
+				"</div>"+
+				"<div class='row' style='height: 300px;'>"+
+					"<textarea class='textarea_content' placeholder='내용' name='sub_introduction_content'></textarea>"+
+				"</div>"+
+				"<button type='button' class='delete_btn' onclick='delete_btn()'></button>"+
+			"</div>");
+}
+	
+function delete_btn() {
+	var thisEle = event.target;
+	thisEle.closest("div.new").remove();		
+}
+
+</script>
 
 <style type="text/css">
+
 .containers {
 	margin: 0 auto;
 	padding: 0;
@@ -97,16 +196,19 @@
 table, th {
 	text-align: center;
 }
+
 .form {
 	width: 100%;
 	float: left;
 }
+
 .head {
 	font-weight: bold;
 	border-bottom: 1px solid #dce1eb;
 	margin-bottom: 0;
 	padding-bottom: 10px;
 }
+
 .new {
 	width: 940px;
 	padding: 20px 20px 10px;
@@ -116,6 +218,7 @@ table, th {
 	background-color: white;
 	position: relative;
 }
+
 .row {
 	width: 100%;
 	margin: 0;
@@ -123,15 +226,18 @@ table, th {
 	margin-bottom: 10px;
 	float: left;
 }
+
 .info_form {
 	border: 1px solid #dce1eb;
 }
+
 .school {
 	width: 300px;
 	height: 50px;
 	float: left;
 	margin-right: 10px;
 }
+
 .textarea_content {
 	border-radius: 4px;
 	padding: 10 20px;
@@ -144,6 +250,7 @@ table, th {
 	overflow: visible;
 	text-overflow: ellipsis;
 }
+
 .img_button {
 	background: url( "/resources/images/plus.png" ) no-repeat;
 	border: none;
@@ -151,6 +258,7 @@ table, th {
 	height: 25px;
 	cursor: pointer;
 }
+
 .delete_btn {
 	background: url( "/resources/images/delete.png" ) no-repeat;
 	right: 0;
@@ -160,6 +268,7 @@ table, th {
 	position: absolute;
 	border: none;
 }
+
 input {
 	width: 100%;
 	height: 100%;
@@ -206,33 +315,31 @@ input {
 			<hr>
 			<div id="form_Overseas_Experience">
 				<h4 class="head">자기소개서 작성</h4>
-				<div class="form" id="div_Overseas_Experience">
-					<div class="new add">
-						<div class="row">
-							<div class="info_form school" style="width: 97%;">
-								<input type="text" name="title" placeholder="제목">
+					<div class="form" id="div_Introduction">
+						<div class="new">
+							<div class="row">
+								<div class="info_form school title" style="width: 97%;">
+									<input type="text" name="introduction_title" placeholder="제목">
+								</div>
+							</div>
+							<div class="row">
+								<div class="info_form school question" style="width: 97%;">
+									<input type="text" name="introduction_question" placeholder="질문">
+								</div>
+							</div>
+							<div class="row content" style="height: 300px;">
+								<textarea class="textarea_content" placeholder="내용" name="introduction_content"></textarea>
 							</div>
 						</div>
-						<div class="row">
-							<div class="info_form school" style="width: 97%;">
-								<input type="text" name="country_name" placeholder="질문">
-							</div>
-						</div>
-						<div class="row" style="height: 300px;">
-							<textarea class="textarea_content" placeholder="내용"
-								name="overseas_experience_content"></textarea>
-						</div>
-						<button type="button" class="delete_btn" onclick="delete_btn()"></button>
 					</div>
-				</div>
 				<div class="new" style="text-align: center; margin-bottom: 30px;">
-					<label><button class="img_button"
-							id="new_Overseas_Experience" type="button" style="width: 90px;"
-							onclick="create_Overseas_Experience();">추가</button></label>
+					<label><button class="img_button" id="new_Introduction"	type="button" style="width: 90px;"
+							onclick="create_Introduction();">추가</button></label>
 				</div>
 			</div>
-
-
+			<div style="float: right;">
+				<button type="button" onclick="submit();">작성완료</button>
+			</div>
 		</div>
 
 	</div>

@@ -5,4 +5,28 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper  namespace="web.dao.mypage.face.IntroductionDao" >
+	
+	<insert id="insertSub" parameterType="web.dto.mypage.introduction.Sub_Introduction">
+		INSERT INTO sub_introduction
+		(introduction_no, numbers, sub_introduction_question, sub_introduction_content)
+		VALUES(#{introduction_no}, #{numbers}, #{sub_introduction_question}, #{sub_introduction_content})
+	</insert>
+
+
+	<insert id="insertIntroduction" parameterType="web.dto.mypage.introduction.Introduction">
+		INSERT INTO introduction
+		(introduction_no, member_no, introduction_title, introduction_question, introduction_content)
+		VALUES
+		(introduction_seq.nextval, #{member_no}, #{introduction_title}, #{introduction_question}, #{introduction_content})
+		 
+		<selectKey keyProperty="introduction_no" resultType="int" order="AFTER">
+
+			 SELECT B.introduction_no FROM(SELECT ROWNUM, X.*
+   			 	FROM (select A.introduction_no FROM introduction A WHERE member_no = #{member_no}
+        		ORDER BY A.introduction_writendate DESC) X
+        		WHERE ROWNUM = 1) B
+
+		</selectKey>
+	
+	</insert>
 </mapper>

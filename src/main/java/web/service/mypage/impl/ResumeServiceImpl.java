@@ -2,6 +2,7 @@ package web.service.mypage.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -646,7 +647,16 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public Resume selelctResume(int resume_no) {
 		
-		return resumeDao.selectResume(resume_no);
+		Resume resume = resumeDao.selectResume(resume_no);
+		System.out.println(resume.getResume_birth());
+		if(resume.getResume_birth() != "0" && resume.getResume_birth() != null) {
+			String birth = resume.getResume_birth().substring(0,4);
+			int year = Integer.parseInt(birth);
+			int age = Calendar.getInstance().get(Calendar.YEAR) - year + 1;
+			resume.setResume_birth(Integer.toString(age));
+		}
+		
+		return resume;
 	}
 
 
@@ -708,7 +718,7 @@ public class ResumeServiceImpl implements ResumeService{
 
 
 	@Override
-	public List<Preferential> selelctPreferential(int resume_no) {
+	public Preferential selelctPreferential(int resume_no) {
 		return resumeDao.selelctPreferential(resume_no);
 	}
 

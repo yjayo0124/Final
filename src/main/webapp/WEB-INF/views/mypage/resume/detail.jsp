@@ -4,6 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <script	type="text/javascript">
+$( document ).ready(function() { 		
+	$('.btnlist').click(function() {  
+		  location.href = "/mypage/resume/list"; 
+	 });	 
+});
+
 </script>
 
 <style type="text/css">
@@ -13,14 +19,6 @@
 	width: 800px;
 	zoom: 1;
 }
-
-.page_list {
-	width: 190px;
-	float: left;
-	border: 1px solid #dce1eb;
-	margin-right: 10px;
-}
-
 .profile_img {
 	margin: 20px auto 0;
 	text-align: center;
@@ -90,6 +88,7 @@ table, th {
 	width: 100%;
 	float: left;
 /* 	border : 1px solid #dce1eb; */
+	border-top: 1px solid; 
 }
 .head {
 	font-weight: bold;
@@ -157,7 +156,7 @@ input {
 	border: none;
 }
 .info{
-	width: 900px;
+	width: 800px;
 	float: left;
 	margin-bottom: 50px;
 }
@@ -183,17 +182,17 @@ p {
 			<h3>이력서 제목</h3>
 			<hr>
 			<h4 class="head">인적사항</h4>
-			<div class="form">
+			<div class="form" style="border:1px solid #dce1eb;;">
 				
-				<div style="float:left; width:200px; height: 200px; border: 1px solid; margin:30px;">
-				
+				<div style="float:left; width:200px; height: 200px; border: 1px solid ; margin:30px;">
+					<img style=" width:100%; height: 100%;"src="/upload/${resume.resume_stored_name }">
 				</div>
 				
 				<div style="float:left; width:500px; height: 200px;  margin: 40 30 20 0;">
 					<div style="float:left; width: 100%; height:47px; margin-bottom: 10px; padding-left: 20px;">
 						<p style="font-size: 25px; display: inline;">${resume.resume_name }</p>
 						<p style="font-size: 15px; display: inline; margin-left: 10px;">${resume.resume_gender }</p>
-						<p style="font-size: 15px; display: inline; margin-left: 5px;">${resume.resume_birth }</p>
+						<p style="font-size: 15px; display: inline; margin-left: 5px;">${resume.resume_birth }세</p>
 					</div>
 					<div style="float:left; width: 100%; height:37px; margin-bottom: 10px;  padding-left: 20px;">
 						<div style="float:left; width: 10%; height:37px;">
@@ -228,40 +227,40 @@ p {
 				<h4 class="head">학력</h4>
 				<div class="form">
 					<c:forEach items="${school}" var="i">
-<%-- 						<c:choose> --%>
-<%-- 							<c:when test="${school[i].school_classification eq '고등학교'}"> --%>
-<!-- 									<div style="float:left; width:100%; height: 30px; border: 1px solid; "> -->
-<!-- 										<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;"> -->
-<%-- 											<p style="font-size: 15px;"> ~ ${school[i].graduation_date}</p> --%>
-<!-- 										</div> -->
-<!-- 										<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;"> -->
-<%-- 											<p style="font-size: 15px;">${school[i].school_name}</p> --%>
-<!-- 										</div> -->
-<!-- 										<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;"> -->
-<!-- 											<p style="font-size: 15px;"></p> -->
-<!-- 										</div> -->
-<!-- 										<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;"> -->
-<%-- 											<p style="font-size: 15px;">${school[i].graduation_status}</p> --%>
-<!-- 										</div> -->
-<!-- 									</div> -->
-<%-- 							</c:when> --%>
-<%-- 							<c:otherwise> --%>
-<!-- 								<div style="float:left; width:100%; height: 30px; border: 1px solid; "> -->
-<!-- 									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;"> -->
-<%-- 										<p style="font-size: 15px;">${school[i].admission_date} ~ ${school[i].graduation_date}</p> --%>
-<!-- 									</div> -->
-<!-- 									<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;"> -->
-<%-- 										<p style="font-size: 15px;">${school[i].school_name} ${school[i].major_name}전공</p> --%>
-<!-- 									</div> -->
-<!-- 									<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;"> -->
-<%-- 										<p style="font-size: 15px;">${school[i].credit} / ${school[i].total_score}</p> --%>
-<!-- 									</div> -->
-<!-- 									<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;"> -->
-<%-- 										<p style="font-size: 15px;">${school[i].graduation_status}</p> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<%-- 							</c:otherwise> --%>
-<%-- 						</c:choose> --%>
+						<c:choose>
+							<c:when test="${i.school_classification eq '고등학교'}">
+									<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+										<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+											<p style="font-size: 15px;">${i.graduation_date}</p>
+										</div>
+										<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+											<p style="font-size: 15px;">${i.school_name}</p>
+										</div>
+										<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+											<p style="font-size: 15px;"></p>
+										</div>
+										<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+											<p style="font-size: 15px;">${i.graduation_status}</p>
+										</div>
+									</div>
+							</c:when>
+							<c:otherwise>
+								<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.admission_date} ~ ${i.graduation_date}</p>
+									</div>
+									<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.school_name} ${i.major_name}전공</p>
+									</div>
+									<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.credit} / ${i.total_score}</p>
+									</div>
+									<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.graduation_status}</p>
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>					
 				</div>
 			</div>
@@ -271,21 +270,22 @@ p {
 			<div class="info">
 				<h4 class="head">경력</h4>
 				<div class="form">
-					<div style="float:left; width:100%; height: 30px; border: 1px solid; ">
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">0000.00 ~ 0000.00</p>
+					<c:forEach items="${career}" var="i">
+						<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.hire_date} ~ ${i.retirement_date}</p>
+							</div>
+							<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.company_name}</p>
+							</div>
+							<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.position}</p>
+							</div>
+							<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.job_work}</p>
+							</div>
 						</div>
-						<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">0000팀</p>
-						</div>
-						<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">대리</p>
-						</div>
-						<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">정규직</p>
-						</div>
-					
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -294,17 +294,19 @@ p {
 			<div class="info">
 				<h4 class="head">인턴,대외활동</h4>
 				<div class="form">
-					<div style="float:left; width:100%; height: 30px; border-top: 1px solid; ">
-						<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">0000.00 ~ 0000.00</p>
+					<c:forEach items="${activities}" var="i">
+						<div style="float:left; width:100%; height: 30px; border-top: 1px solid; border-top: none;">
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
+							</div>
+							<div style="float:left; width:30%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.institution_name}</p>
+							</div>
+							<div style="float:left; width:50%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;">${i.activity_content}</p>
+							</div>
 						</div>
-						<div style="float:left; width:30%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">기관명</p>
-						</div>
-						<div style="float:left; width:50%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px; white-space: pre-wrap;">활동내용</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -313,20 +315,22 @@ p {
 			<div class="info">
 				<h4 class="head">교육이수</h4>
 				<div class="form">
-					<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; ">
-						<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">0000.00 ~ 0000.00</p>
+					<c:forEach items="${education}" var="i">
+						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; border-top: none;">
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
+							</div>
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.training_title}</p>
+							</div>
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.educational_facilities}</p>
+							</div>
+							<div style="float:left; width:40%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;">${i.training_content}</p>
+							</div>
 						</div>
-						<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">교육명</p>
-						</div>
-						<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">교육기관</p>
-						</div>
-						<div style="float:left; width:40%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px; white-space: pre-wrap;">교육내용</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -335,18 +339,19 @@ p {
 			<div class="info">
 				<h4 class="head">자격증</h4>
 				<div class="form">
-					<div style="float:left; width:100%; height: 30px; border: 1px solid; ">
-						<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">자격증 명</p>
+				<c:forEach items="${certificate}" var="i">
+						<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+							<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.certificate_name}</p>
+							</div>
+							<div style="float:left; width:35%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.place_issue}</p>
+							</div>
+							<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.acquisition_date}</p>
+							</div>
 						</div>
-						<div style="float:left; width:35%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">발행처</p>
-						</div>
-						<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">취득년월</p>
-						</div>
-					
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -355,20 +360,22 @@ p {
 			<div class="info">
 				<h4 class="head">수상</h4>
 				<div class="form">
-					<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; ">
-						<div style="float:left; width:25%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">수상명</p>
+					<c:forEach items="${award}" var="i">
+						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; border-top: none;">
+							<div style="float:left; width:25%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.award_name}</p>
+							</div>
+							<div style="float:left; width:25%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.award_service}</p>
+							</div>
+							<div style="float:left; width:10%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 10px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.award_date}</p>
+							</div>
+							<div style="float:left; width:40%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;">${i.award_content}</p>
+							</div>
 						</div>
-						<div style="float:left; width:25%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">수여기관</p>
-						</div>
-						<div style="float:left; width:10%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 10px; padding-top: 3px;">
-							<p style="font-size: 15px;">수상년도</p>
-						</div>
-						<div style="float:left; width:40%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px; white-space: pre-wrap;">수상내용</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -377,17 +384,19 @@ p {
 			<div class="info">
 				<h4 class="head">해외경험</h4>
 				<div class="form">
-					<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; ">
-						<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">0000.00 ~ 0000.00</p>
+					<c:forEach items="${overseas_Experience}" var="i">
+						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; border-top: none;">
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
+							</div>
+							<div style="float:left; width:30%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">${i.country_name}</p>
+							</div>
+							<div style="float:left; width:50%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;">${i.overseas_experience_content}</p>
+							</div>
 						</div>
-						<div style="float:left; width:30%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">국가명</p>
-						</div>
-						<div style="float:left; width:50%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px; white-space: pre-wrap;">수상내용</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -396,32 +405,40 @@ p {
 			<div class="info">
 				<h4 class="head">어학</h4>
 				<div class="form">
-					<div style="float:left; width:100%; height: 30px; border: 1px solid; ">
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">구분</p>
-						</div>
-						<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">외국어명</p>
-						</div>
-						<div style="float:left; width:30%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">회화능력</p>
-						</div>
-					</div>
-					
-					<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none; ">
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">구분</p>
-						</div>
-						<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">외국어명</p>
-						</div>
-						<div style="float:left; width:15%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">000점</p>
-						</div>
-						<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">취득년월</p>
-						</div>
-					</div>
+					<c:forEach items="${language}" var="i">
+						<c:choose>
+							<c:when test="${i.language_classification eq '회화능력'}">
+								<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.language_classification}</p>
+									</div>
+									<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.language_name}</p>
+									</div>
+									<div style="float:left; width:30%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.conversational_ability}</p>
+									</div>
+								</div>
+							</c:when>
+							
+							<c:when test="${i.language_classification eq '공인시험'}">
+								<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none; ">
+									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.language_classification}</p>
+									</div>
+									<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.language_name}</p>
+									</div>
+									<div style="float:left; width:15%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.language_score}${i.conversational_ability}</p>
+									</div>
+									<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+										<p style="font-size: 15px;">${i.acquisition_date}</p>
+									</div>
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
 				</div>
 			</div>
 		</c:if>
@@ -431,22 +448,32 @@ p {
 			<div class="info">
 				<h4 class="head">취업우대, 병역</h4>
 				<div class="form">
-					<div style="float:left; width:100%; height: 30px; border: 1px solid; ">
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">보훈대상</p>
-						</div>
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">취업보호 대상</p>
-						</div>
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">고용지원금 대상</p>
-						</div>
-						<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">장애 : 6급</p>
-						</div>
-						<div style="float:left; width:20%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-							<p style="font-size: 15px;">병역 : 군필</p>
-						</div>
+					<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+						<c:if test="${preferential.veterans eq true }">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">보훈대상</p>
+							</div>
+						</c:if>
+						<c:if test="${preferential.protect eq true }">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">취업보호 대상</p>
+							</div>
+						</c:if>
+						<c:if test="${preferential.funding eq true }">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">고용지원금 대상</p>
+							</div>
+						</c:if>
+						<c:if test="${preferential.disorder ne '0' }">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">장애 : ${preferential.disorder}</p>
+							</div>
+						</c:if>
+						<c:if test="${preferential.military ne '0' }">
+							<div style="float:left; width:20%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">병역 : ${preferential.military}</p>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -455,7 +482,7 @@ p {
 		<div class="info">
 			<h4 class="head">취업우대, 병역</h4>
 			<div class="form">
-				<div style="float:left; width:100%; height: 30px; border: 1px solid;">
+				<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
 					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
 						<p style="font-size: 15px;">고용형태</p>
 					</div>
@@ -465,20 +492,23 @@ p {
 					<div style="float:left; width:33%; height: 100%;  padding-left: 20px; padding-top: 3px;">
 						<p style="font-size: 15px;">희망연봉</p>
 					</div>
-				
 				</div>
+				
 				<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none; ">
 					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-						<p style="font-size: 15px;">고용형태</p>
+						<p style="font-size: 15px;">${resume.forms_employment }</p>
 					</div>
 					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-						<p style="font-size: 15px;">희망근무지</p>
+						<p style="font-size: 15px;">${resume.desired_work_place }</p>
 					</div>
 					<div style="float:left; width:33%; height: 100%; padding-left: 20px; padding-top: 3px;">
-						<p style="font-size: 15px;">희망연봉</p>
+						<p style="font-size: 15px;">${resume.salary }만원 이상</p>
 					</div>
 				</div>
 			</div>
+		</div>
+		<div style="margin-top: 50px; float: right;">
+			<button type="button" class="btnlist">목록</button>
 		</div>
 		
 		
