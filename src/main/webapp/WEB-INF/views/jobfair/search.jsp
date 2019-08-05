@@ -22,6 +22,7 @@ $(document).ready(function() {
 <h4>검색 결과</h4>
 <hr>
 
+<div>
 <table class="table  table-bordered table-striped table-hover table-condensed">
 <thead>
 	<tr>
@@ -46,6 +47,7 @@ $(document).ready(function() {
 	</c:forEach>
 </tbody>
 </table>
+</div>
 
 <div>
 	<button id="btnGoMain" class="btn">메인페이지</button>
