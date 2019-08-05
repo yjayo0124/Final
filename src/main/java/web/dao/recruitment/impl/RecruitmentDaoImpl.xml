@@ -120,7 +120,8 @@
 	
 	
 	<select id="selectAllnotpaging" resultType="web.dto.Recruit">
-		SELECT * FROM recruit
+		SELECT * FROM recruit 
+		ORDER BY recruit_no DESC
 	</select>
 	
 	<select id="selectFile" resultType="web.dto.Recruit_file" parameterType="int">
