@@ -57,7 +57,7 @@ public class JobfairController {
 	
 	@RequestMapping(value="/jobfair/search", method=RequestMethod.GET)
 	public void search(
-			String title,
+			@RequestParam(value="search") String title,
 			Model model
 		) {
 		

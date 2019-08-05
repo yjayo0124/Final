@@ -8,21 +8,6 @@
 
 <mapper namespace="web.dao.jobfair.face.JobFairDao">
 
-	<sql id="selectJobfair">
-		SELECT 
-			jobfair_no, 
-			jobfair_name, 
-			TO_CHAR(sysdate, 'yyyy-MM-dd DAY') jobfair_date, 
-			jobfair_start, 
-			jobfair_end,
-			jobfair_loc,
-			jobfair_content,
-			(SELECT SUBSTR(jobfair_limit, 1, (INSTR(jobfair_limit, ',')-1)) FROM dual) jobfair_limit1,
-			(SELECT SUBSTR(jobfair_limit, (INSTR(jobfair_limit, ',')+1)) FROM dual) jobfair_limit2,
-			member_no
-		FROM jobfair
-	</sql>
-
 	<select id="selectAll" resultType="hashmap">
 		SELECT 
 			jobfair_no, 
@@ -32,8 +17,7 @@
 			jobfair_end,
 			jobfair_loc,
 			jobfair_content,
-			(SELECT SUBSTR(jobfair_limit, 1, (INSTR(jobfair_limit, ',')-1)) FROM dual) jobfair_limit1,
-			(SELECT SUBSTR(jobfair_limit, (INSTR(jobfair_limit, ',')+1)) FROM dual) jobfair_limit2,
+			jobfair_limit,
 			member_no
 		FROM jobfair
 	</select>
@@ -49,8 +33,7 @@
 			jobfair_end,
 			jobfair_loc,
 			jobfair_content,
-			(SELECT SUBSTR(jobfair_limit, 1, (INSTR(jobfair_limit, ',')-1)) FROM dual) jobfair_limit1,
-			(SELECT SUBSTR(jobfair_limit, (INSTR(jobfair_limit, ',')+1)) FROM dual) jobfair_limit2,
+			jobfair_limit,
 			member_no
 		FROM jobfair
 		WHERE jobfair_no = #{jobfair_no }
@@ -64,7 +47,10 @@
 			jobfair_name, 
 			jobfair_date
 		FROM jobfair
-		WHERE jobfair_name LIKE '%'||#{jobfair_name, jdbcType=VARCHAR }||'%'
+		WHERE 1=1
+		<if test="search != null and search != ''"> 
+			AND JOBFAIR_NAME LIKE '%' || #{title } || '%'
+		</if>
 	</select>
 	
 	<insert id="insert" parameterType="web.dto.JobFair">
