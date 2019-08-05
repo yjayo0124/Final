@@ -76,11 +76,7 @@ table, th {
 <c:forEach items="${recruitList }" var="i">
 	<tr>
 		<td>${i.recruit_no }</td>
-		<td>
-<%-- 		<a href="/cor/info?cor_no=${corlist.COR_NO }&cor_type=${corlist.COR_TYPE }"> --%>
-		${i.recruit_name }
-<!-- 		</a> -->
-		</td>
+		<td>${i.recruit_name }		</a></td>
 		<td><a href="/recruitment/view?recruit_no=${i.recruit_no}">${i.recruit_title }</a></td>
 	</tr>
 	</c:forEach>

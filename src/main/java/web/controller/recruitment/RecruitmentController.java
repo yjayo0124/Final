@@ -73,6 +73,7 @@ public class RecruitmentController {
 	//	logger.info("db에서 조회한 파일 이름  : "+file_name);
 		model.addAttribute("file", file_name);
 		
+		// 기업 주소, 기업번호, 기업타입 가져오기
 		String corAddr = recruitmentService.getCor_addr(recruit_no);
 		model.addAttribute("cor", corAddr);	
 
