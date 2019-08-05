@@ -435,7 +435,6 @@
 			for(var i=0; i<countPreferential ; i++) {
 				var Preferential = new Array();
 				
-				Preferential.push(i+1);
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='veterans']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='protect']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='funding']").prop("checked"));
@@ -1437,9 +1436,9 @@ function dynamic_change() {
 				"<div class='info_form normal' style='margin: 0; width: 140px;'>"+
 					"<select class='selecter_full' name='conversational_ability'>"+
 						"<option value='0' selected='selected'>선택</option>"+
-						"<option value='일상회화가능'>점</option>"+
-						"<option value='비즈니스회화가능'>급</option>"+
-						"<option value='원어민수준'>취득</option>"+
+						"<option value='점'>점</option>"+
+						"<option value='급'>급</option>"+
+						"<option value='취득'>취득</option>"+
 					"</select>"+
 				"</div>"+
 				"<div class='info_form normal' style='margin: 0;'>"+

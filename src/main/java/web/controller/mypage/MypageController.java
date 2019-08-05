@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import web.dto.Member;
 import web.dto.Recruit;
 import web.dto.Review;
+import web.dto.mypage.introduction.Introduction;
 import web.dto.mypage.resume.Activities;
 import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
@@ -82,6 +83,39 @@ public class MypageController {
 
 	}
 	
+	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
+	public void introductionWriteProc(HttpServletResponse response, Introduction introduction, Authentication auth) {
+		
+		System.out.println(introduction);
+		Member member = (Member) auth.getDetails();
+		int member_no = member.getMember_no();
+		introduction.setMember_no(member_no);
+		introductionService.insertIntroduction(introduction);
+		int introduction_no = introduction.getIntroduction_no();
+		String data = Integer.toString(introduction_no);
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write(data); 
+			out.flush(); 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}
+	
+	@RequestMapping(value="/mypage/introduction/writeSub", method=RequestMethod.POST)
+	public void writeSub(
+			int introduction_no,
+			String[] list_numbers,
+			String[] list_introduction_question,
+			String[] list_introduction_content
+			) {
+		
+		introductionService.insertSub(introduction_no, list_numbers, list_introduction_question, list_introduction_content);
+	}
+	
 
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)
 	public void introductionDetail() {
@@ -118,9 +152,7 @@ public class MypageController {
 		
 		MypagePaging paging = resumeService.getCurPage(request, member_no);
 		
-		List<Resume> list = resumeService.getList(paging);
-		System.out.println(list.toString());
-		
+		List<Resume> list = resumeService.getList(paging);		
 		
 		model.addAttribute("checkResume", checkResume);
 		model.addAttribute("paging", paging);
@@ -309,7 +341,7 @@ public class MypageController {
 			model.addAttribute("language", language);
 		}
 		if(checkPreferential) {
-			List<Preferential> preferential = resumeService.selelctPreferential(resume_no);
+			Preferential preferential = resumeService.selelctPreferential(resume_no);
 			model.addAttribute("preferential", preferential);
 		}
 		

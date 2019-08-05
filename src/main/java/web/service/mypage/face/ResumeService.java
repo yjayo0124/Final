@@ -114,6 +114,6 @@ public interface ResumeService {
 	
 	public List<Language> selelctLanguage(int resume_no);	
 	
-	public List<Preferential> selelctPreferential(int resume_no);	
+	public Preferential selelctPreferential(int resume_no);	
 
 }
