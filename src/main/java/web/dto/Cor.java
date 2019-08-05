@@ -11,7 +11,7 @@ public class Cor {
 	private String cor_type;
 	private String cor_history;
 	private int cor_mem;
-	private int national_pension;
+	private long national_pension;
 	private int cor_new_mem;
 	private int cor_lev_mem;
 	
@@ -95,11 +95,11 @@ public class Cor {
 		this.cor_mem = cor_mem;
 	}
 
-	public int getNational_pension() {
+	public long getNational_pension() {
 		return national_pension;
 	}
 
-	public void setNational_pension(int national_pension) {
+	public void setNational_pension(long national_pension) {
 		this.national_pension = national_pension;
 	}
 
@@ -118,5 +118,5 @@ public class Cor {
 	public void setCor_lev_mem(int cor_lev_mem) {
 		this.cor_lev_mem = cor_lev_mem;
 	}
-	
+
 }

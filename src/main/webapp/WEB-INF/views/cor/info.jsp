@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <script type="text/javascript">
+
 (function( $ ) {
     "use strict";
     $(function() {
@@ -139,6 +140,53 @@ h5 {
 }
 
 [data-tooltip-text]:hover:after {
+	top: 130%;
+	left: 0;
+	opacity: 1;
+}
+
+/* tooltip2 */
+[data-tooltip-text1]:hover {
+	position: relative;
+}
+
+[data-tooltip-text1]:after {
+	-webkit-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	-moz-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+
+	background-color: rgba(0, 0, 0, 0.8);
+
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	
+  -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+  color: #FFFFFF;
+	font-size: 12px;
+	margin-bottom: 10px;
+	padding: 7px 12px;
+	position: absolute;
+	width: auto;
+	min-width: 170px;
+	max-width: 300px;
+	word-wrap: break-word;
+
+	z-index: 9999;
+
+	opacity: 0;
+	left: -9999px;
+  top: 90%;
+	
+	content: attr(data-tooltip-text1);
+	overflow: visible;
+	
+}
+
+[data-tooltip-text1]:hover:after {
 	top: 130%;
 	left: 0;
 	opacity: 1;
@@ -485,9 +533,9 @@ SETTINGS
 .zt-skill-bar div {
     background-color: #ffc600;
     position: relative;
-    padding-left: 25px;
+    padding-left: 0px;
     width: 0;
-
+	
     -webkit-border-radius: 2px;
        -moz-border-radius: 2px;
        -ms- border-radius: 2px;
@@ -496,12 +544,13 @@ SETTINGS
 
 .zt-skill-bar span {
     display: block;
-    position: absolute; 
+    position: absolute;
     left: auto;
     right: 0;
     top: 0;
     height: auto;
     padding: 0 5px 0 10px;
+    margin: 0 -60px 0 0;
     background-color: #1a1a1a;
 
     -webkit-border-radius: 0 2px 2px 0;
@@ -539,11 +588,13 @@ SETTINGS
 <h3><b>${i.cor_name }</b></h3>
 </div>
 <div id="corincome">
-<h4><label>예상 평균연봉</label></h4>
+<h4><label>예상 평균연봉<span data-html="true" data-tooltip-text1="예상 실수령액 ${pay }만원">
+<img id="calculator" src="/resources/images/calculator.png" style="width: 40px; height: 40px;"/></span></label></h4>
 <h2><label>
 <fmt:formatNumber var="national" value="${((i.national_pension * 11.1) / i.cor_mem) * 12 } " pattern=".00"/>
 <c:set var="TextValue" value="${national }"/>
 <c:set var="nation" value="${fn:substring(TextValue,0,4) }"/>
+<fmt:formatNumber var ="pay" value="${fn:trim(nation / 12)}" pattern="#,###"/>
 <span data-html="true" data-tooltip-text="연봉이 정확하지 않을수 있습니다. KHOB의 연봉은 국민연금데이터를  기반으로 산출한 정보입니다.">
 <img id="information" src="/resources/images/information.png"/></span>
 <fmt:formatNumber value="${fn:trim(nation)}" pattern="#,###"/>만원
@@ -622,8 +673,89 @@ SETTINGS
 	</c:choose>
 
 	<h3><strong>인원</strong></h3>
-	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
-	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem < 90 and i.cor_mem - idmem >= 10  and idmem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem >= 90 and i.cor_mem - idmem >= 10 and idmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem < 90 and i.cor_mem - idmem >= 10 and idmem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem >= 90 and i.cor_mem - idmem >= 10  and idmem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${i.cor_mem > idmem and i.cor_mem < 90 and i.cor_mem - idmem < 10 and idmem > 20}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem >= 90 and i.cor_mem - idmem < 10 and idmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem < 90 and i.cor_mem - idmem < 10 and idmem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem > idmem and i.cor_mem >= 90 and i.cor_mem - idmem < 10 and idmem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${i.cor_mem < idmem and idmem < 90 and idmem - i.cor_mem >= 10 and i.cor_mem > 20}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>	
+	<c:if test="${i.cor_mem < idmem and idmem >= 90 and idmem - i.cor_mem >= 10 and i.cor_mem >= 20}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem < idmem and idmem < 90 and idmem - i.cor_mem >= 10 and i.cor_mem < 20}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>	
+	<c:if test="${i.cor_mem < idmem and idmem >= 90 and idmem - i.cor_mem >= 10 and i.cor_mem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${i.cor_mem < idmem and idmem < 90 and idmem - i.cor_mem < 10 and i.cor_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem < idmem and idmem >= 90 and idmem - i.cor_mem < 10 and i.cor_mem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem < idmem and idmem < 90 and idmem - i.cor_mem < 10 and i.cor_mem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem < idmem and idmem >= 90 and idmem - i.cor_mem < 10 and i.cor_mem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	<c:if test="${i.cor_mem eq idmem and i.cor_mem >= 90}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_mem eq idmem and i.cor_mem < 90}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+	</c:if>
 </div>
 
 <div id="zt-span7" class="zt-span6 last">
@@ -639,25 +771,189 @@ SETTINGS
 	</c:choose>
 	
 	<h3><strong>업력</strong></h3>
-	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
-	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	<c:if test="${formatdate > idformatdate and formatdate < 90 and formatdate - idformatdate >= 10 and idformatdate > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate > idformatdate and formatdate >= 90 and formatdate - idformatdate >= 10 and idformatdate >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate > idformatdate and formatdate < 90 and formatdate - idformatdate >= 10 and idformatdate < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate > idformatdate and formatdate >= 90 and formatdate - idformatdate >= 10 and idformatdate <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${formatdate > idformatdate and formatdate < 90 and formatdate - idformatdate < 10 and idformatdate > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate > idformatdate and formatdate >= 90 and formatdate - idformatdate < 10 and idformatdate >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate > idformatdate and formatdate < 90 and formatdate - idformatdate < 10 and idformatdate < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate > idformatdate and formatdate >= 90 and formatdate - idformatdate < 10 and idformatdate <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate >= 10 and formatdate > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate < idformatdate and idformatdate >= 90 and idformatdate - formatdate >= 10 and formatdate >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate >= 10 and formatdate < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate < idformatdate and idformatdate >= 90 and idformatdate - formatdate >= 10 and formatdate <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate < 10 and formatdate > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate < idformatdate and idformatdate >= 90 and idformatdate - formatdate <= 10 and formatdate >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate < 10 and formatdate < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate < idformatdate and idformatdate >= 90 and idformatdate - formatdate <= 10 and formatdate <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${formatdate eq idformatdate and formatdate >= 90 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
+	</c:if>
+	<c:if test="${formatdate eq idformatdate and formatdate < 90}">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
+	</c:if>
 </div>
 
 <div id="zt-span8" class="zt-span6 last">
 	<c:choose>
-		<c:when test="${i.cor_new_mem > newmem and i.cor_new_mem > 101}">
+		<c:when test="${i.cor_new_mem > newmem and i.cor_new_mem > 99}">
 			<c:set var="cormem" value="${i.cor_mem }"/>
 			<c:set var="newmem" value="${(newmem / i.cor_new_mem) * 100}"/>
 		</c:when>
-		<c:when test="${i.cor_new_mem < newmem and newmem > 101}">
+		<c:when test="${i.cor_new_mem < newmem and newmem > 99}">
 			<c:set var="cormem" value="${newmem }"/>
 			<c:set var="i.cor_new_mem" value="${(i.cor_new_mem / newmem) * 100}"/>
 		</c:when>
 	</c:choose>
-	
+
 	<h3><strong>입사율</strong></h3>
-	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
-	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem < 90 and i.cor_new_mem - newmem >= 10 and newmem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem >= 90 and i.cor_new_mem - newmem >= 10 and newmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem < 90 and i.cor_new_mem - newmem >= 10 and newmem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem >= 90 and i.cor_new_mem - newmem >= 10 and newmem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem < 90 and i.cor_new_mem - newmem < 10 and newmem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem >= 90 and i.cor_new_mem - newmem < 10 and newmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem < 90 and i.cor_new_mem - newmem < 10 and newmem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem >= 90 and i.cor_new_mem - newmem < 10 and newmem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test ="${i.cor_new_mem < newmem and newmem < 90 and newmem - i.cor_new_mem >= 10 and i.cor_new_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>	
+	<c:if test ="${i.cor_new_mem < newmem and newmem >= 90 and newmem - i.cor_new_mem >= 10 and i.cor_new_mem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem < newmem and newmem < 90 and newmem - i.cor_new_mem >= 10 and i.cor_new_mem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>	
+	<c:if test ="${i.cor_new_mem < newmem and newmem >= 90 and newmem - i.cor_new_mem >= 10 and i.cor_new_mem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test ="${i.cor_new_mem < newmem and newmem < 90 and newmem - i.cor_new_mem < 10 and i.cor_new_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem < newmem and newmem >= 90 and newmem - i.cor_new_mem < 10 and i.cor_new_mem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem < newmem and newmem < 90 and newmem - i.cor_new_mem < 10 and i.cor_new_mem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem < newmem and newmem >= 90 and newmem - i.cor_new_mem < 10 and i.cor_new_mem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
+		
+	
+	
+	<c:if test ="${i.cor_new_mem eq newmem and i.cor_new_mem >= 90 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+	</c:if>
+	<c:if test ="${i.cor_new_mem eq newmem and i.cor_new_mem < 90 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px;">${cornewmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
+	</c:if>
 </div>
 
 <div id="zt-span9" class="zt-span6 last">
@@ -673,8 +969,89 @@ SETTINGS
 	</c:choose>
 	
 	<h3><strong>퇴사율</strong></h3>
-	현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
-	동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem < 90 and i.cor_lev_mem - levmem >= 10 and levmem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem >= 90 and i.cor_lev_mem - levmem >= 10 and levmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem < 90 and i.cor_lev_mem - levmem >= 10 and levmem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem >= 90 and i.cor_lev_mem - levmem >= 10 and levmem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem < 90 and i.cor_lev_mem - levmem < 10 and levmem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem >= 90 and i.cor_lev_mem - levmem < 10 and levmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem < 90 and i.cor_lev_mem - levmem < 10 and levmem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem >= 90 and i.cor_lev_mem - levmem < 10 and levmem >= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>	
+	
+	
+	<c:if test="${i.cor_lev_mem < levmem and levme < 90 and levmem - i.cor_lev_mem >= 10 and i.cor_lev_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem < levmem and levme >= 90 and levmem - i.cor_lev_mem >= 10 and i.cor_lev_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem < levmem and levme < 90 and levmem - i.cor_lev_mem >= 10 and i.cor_lev_mem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem < levmem and levme >= 90 and levmem - i.cor_lev_mem >= 10 and i.cor_lev_mem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	
+	
+	
+	<c:if test="${i.cor_lev_mem < levmem and levmem < 90 and levmem - i.cor_lev_mem < 10 and i.cor_lev_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem < levmem and levmem >= 90 and levmem - i.cor_lev_mem < 10 and i.cor_lev_mem > 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem < levmem and levmem < 90 and levmem - i.cor_lev_mem < 10 and i.cor_lev_mem < 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem < levmem and levmem >= 90 and levmem - i.cor_lev_mem < 10 and i.cor_lev_mem <= 20 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
+		
+	
+	
+	<c:if test="${i.cor_lev_mem eq levmem and i.cor_lev_mem >= 90 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+	</c:if>
+	<c:if test="${i.cor_lev_mem eq levmem and i.cor_lev_mem < 90 }">
+		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; ">${corlevmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
+	</c:if>
 </div>
 </div>
 
