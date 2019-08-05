@@ -178,7 +178,7 @@ table, th {
 								대표 이력서
 								</c:if>
 								</td>
-								<td><a href="/mypage/detail?resume_no=${i.resume_no }">${i.resume_title }</a></td>
+								<td><a href="/mypage/resume/detail?resume_no=${i.resume_no }">${i.resume_title }</a></td>
 								<td>
 								<input type="hidden" name="resume_no" value="${i.resume_no }">
 									<c:if test="${i.main_resume eq '0'}">

@@ -209,15 +209,6 @@
 		formData.append("desired_work_place",desired_work_place);
 		formData.append("salary",salary);
 		
-// 		school();
-// 		career();
-// 		activities();
-// 		education();
-// 		certificate();
-// 		award();
-// 		overseas_Experience();
-// 		language();
-// 		preferential();
 		
 		$.ajax({
             url: "/mypage/resume/write",
@@ -2031,13 +2022,6 @@ input {
 								<input type="text" name="salary" placeholder="희망연봉"
 									onblur="blurSalary();" onfocus="focusSalary();">
 							</div>
-							<div class="checkbox">
-								<p>
-<!-- 									<input class="input_checkbox" type="checkbox" -->
-<!-- 										name="after_interview"><label -->
-<!-- 										style="padding-left: 5px;">면접 후 결정</label> -->
-								</p>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -2141,11 +2125,7 @@ input {
 								style="color: #4E8DF5; font-weight: bold;">어학</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Language"></button></li>
-					<!-- 					<li><div class="div_menu_li"> -->
-					<!-- 							<a style="color: black;"><img class="menu_img" -->
-					<!-- 								src="/resources/images/school.png"> <span>포트폴리오</span></a> -->
-					<!-- 						</div> -->
-					<!-- 						<button class="img_button"></button></li> -->
+
 					<li><div class="div_menu_li">
 							<a style="color: black;"><img class="menu_img"
 								src="/resources/images/school.png"> <span>취업우대, 병역</span></a>

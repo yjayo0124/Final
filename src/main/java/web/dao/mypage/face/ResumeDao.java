@@ -92,4 +92,24 @@ public interface ResumeDao {
 	
 	public void deleteResume(int resume_no);
 	
+	public Resume selectResume(int resume_no);
+	
+	public List<School> selelctSchool(int resume_no);
+	
+	public List<Career> selelctCareer(int resume_no);
+	
+	public List<Activities> selelctActivities(int resume_no);
+	
+	public List<Education> selelctEducation(int resume_no);
+	
+	public List<Certificate> selelctCertificate(int resume_no);
+	
+	public List<Award> selelctAward(int resume_no);
+	
+	public List<Overseas_Experience> selelctOverseas_Experience(int resume_no);
+	
+	public List<Language> selelctLanguage(int resume_no);	
+	
+	public List<Preferential> selelctPreferential(int resume_no);	
+	
 }
