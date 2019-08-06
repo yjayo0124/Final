@@ -3,6 +3,18 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<style type="text/css">
+
+.pagination>.active>a{
+	
+	border-color: #566270;
+	background-color: #566270;
+	color: white;
+}
+
+</style>
+
+
 <div class="text-center">
 	<ul class="pagination pagination-sm">
 		<!-- 처음으로 가기 -->

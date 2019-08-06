@@ -43,6 +43,11 @@
 	) R WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	<select id="selectMainIntroductionNoByMemberNo" parameterType="int" resultType="int">
+	SELECT introduction_no FROM introduction 
+	WHERE member_no = #{member_no } AND main_introduction = 1
+	</select>
+	
 	
 
 </mapper>

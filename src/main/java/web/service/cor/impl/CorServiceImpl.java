@@ -41,5 +41,11 @@ public class CorServiceImpl implements CorService{
 		return corDao.selectPageSearch(search);
 	}
 
+	@Override
+	public int getMainIntroductionNoByMemberNo(int member_no) {
+		return corDao.selectMainIntroductionNoByMemberNo(member_no);
+	}
 
+
+	
 }
