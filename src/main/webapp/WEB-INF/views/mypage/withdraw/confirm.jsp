@@ -119,15 +119,15 @@ $(function() {
 			<div class="listGroup">
 				<h2 class="list_title">자기소개서 관리</h2>
 				<ul>
-					<li>자기소개서 등록</li>
-					<li>자시소개서 관리</li>
+					<li><a href="/mypage/introduction/write">자기소개서 등록</a></li>
+					<li><a href="/mypage/introduction/list">자기소개서 관리</a></li>
 				</ul>
 			</div>
 			<div class="listGroup">
 				<h2 class="list_title">이력서 관리</h2>
 				<ul>
 					<li><a href="/mypage/resume/write">이력서 등록</a></li>
-					<li>이력서 관리</li>
+					<li><a href="/mypage/resume/list">이력서 관리</a></li>
 				</ul>
 			</div>
 			<div class="listGroup">

@@ -16,5 +16,33 @@
 	set cor_name = #{cor_name}, cor_addr = #{cor_addr}, cor_mem = #{cor_mem} 
 	WHERE cor_no = #{cor_no}
 	</update>
+	
+	<sql id="selectResume">
+	SELECT * FROM resume
+	</sql>
+	
+	<select id="countSearch" parameterType="web.util.resume.Paging" resultType="int"	>
+	SELECT COUNT(*) FROM (
+	<include refid="selectSearch"/>
+	) CNT
+	</select>
+	
+	<sql id="selectSearch">
+	SELECT rownum rnum, B.* FROM (
+	<include refid="selectResume" />
+	WHERE 1=1
+	<if test="search != null and search != '' ">AND DESIRED_WORK_PLACE LIKE '%' || #{search } || '%'</if>
+	AND MAIN_RESUME = 1
+	ORDER BY resume_no desc	) B order by rnum
+	</sql>
+	
+	
+	<select id="selectPageSearch" parameterType="web.util.resume.Paging" resultType="Hashmap">
+	SELECT * FROM(
+	<include refid="selectSearch" />
+	) R WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	
 
 </mapper>
