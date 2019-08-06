@@ -6,28 +6,28 @@
 <script type="text/javascript">
 $( document ).ready(function() {
    
-// 	$('.btnMain').click(function() {
-// 	var num = $(this).parent().find("input[name='resume_no']").val(); 
+	$('.btnMain').click(function() {
+	var num = $(this).parent().find("input[name='introduction_no']").val(); 
 	  
-// 	  location.href = "/mypage/resume/updateMain?resume_no=" + num; 
-//    });
+	  location.href = "/mypage/introduction/updateMain?introduction_no=" + num; 
+   });
    
-//    $('.btnUnlockMain').click(function() {
-// 		var num = $(this).parent().find("input[name='resume_no']").val(); 
+   $('.btnUnlockMain').click(function() {
+		var num = $(this).parent().find("input[name='introduction_no']").val(); 
 		  
-// 		  location.href = "/mypage/resume/unlockMain?resume_no=" + num; 
-// 	   });
+		  location.href = "/mypage/introduction/unlockMain?introduction_no=" + num; 
+	   });
    
-//    $('.btnDelete').click(function() {
-// 		var num = $(this).parent().find("input[name='resume_no']").val(); 
+   $('.btnDelete').click(function() {
+		var num = $(this).parent().find("input[name='introduction_no']").val(); 
 		  
-// 		  location.href = "/mypage/resume/delete?resume_no=" + num; 
-// 	   });
+		  location.href = "/mypage/introduction/delete?introduction_no=" + num; 
+	   });
    
-//    $('.btnwrite').click(function() {
+   $('.btnwrite').click(function() {
 		  
-// 		  location.href = "/mypage/resume/write" 
-// 	   });
+		  location.href = "/mypage/introduction/write" 
+	   });
 
 });
 
@@ -166,29 +166,31 @@ table, th {
 			<table class="table table-striped table-hover table-condensed" style="margin-top: 50px; margin-bottom: 40px;">
 				<thead>
 					<tr>
-						<th style="width: 15%;"></th>
-						<th style="width: 60%;">자기소개서 제목</th>
+						<th style="width: 10%;"></th>
+						<th style="width: 65%;">자기소개서 제목</th>
 						<th style="width: 25%;">자기소개서 관리</th>
 					</tr>
 				</thead>
 
 				<c:choose>
-					<c:when test="${checkResume eq true}">
+					<c:when test="${checkIntroduction eq true}">
 						<c:forEach items="${list}" var="i">
-							<tr>
+							<tr style="border-bottom: 1px solid #dce1eb;">
 								<td>
-								<c:if test="${i.main_resume eq '1'}">
+								<c:if test="${i.main_introduction eq '1'}">
 								대표 이력서
 								</c:if>
 								</td>
-								<td><a href="/mypage/detail?resume_no=${i.resume_no }">${i.resume_title }</a></td>
+								<td style="padding-top: 10px; padding-bottom: 10px;" >
+									<a href="/mypage/introduction/detail?introduction_no=${i.introduction_no }">
+										${i.introduction_title }</a></td>
 								<td>
-								<input type="hidden" name="resume_no" value="${i.resume_no }">
-									<c:if test="${i.main_resume eq '0'}">
-									<button type="button" class="btn btn-default btnMain" style="margin-right: 5px;" >대표 등록</button>
+								<input type="hidden" name="introduction_no" value="${i.introduction_no }">
+									<c:if test="${i.main_introduction eq '0'}">
+										<button type="button" class="btn btn-default btnMain" style="margin-right: 5px;" >대표 등록</button>
 									</c:if>
-									<c:if test="${i.main_resume eq '1'}">
-									<button type="button" class="btn btn-default btnUnlockMain" style="margin-right: 5px;" >대표 해제</button>
+									<c:if test="${i.main_introduction eq '1'}">
+										<button type="button" class="btn btn-default btnUnlockMain" style="margin-right: 5px;" >대표 해제</button>
 									</c:if>
 									<button type="button" class="btn btn-default btnDelete">삭제</button>
 								</td>
@@ -196,7 +198,7 @@ table, th {
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<tr>
+						<tr style="border-bottom: 1px solid #dce1eb;">
 							<td>미완성</td>
 							<td>자기소개서가 아직 완성되지 않았습니다.</td>
 							<td>
@@ -207,7 +209,7 @@ table, th {
 				</c:choose>
 			</table>
 			<div id="pagingBox">
-				<c:import url="/WEB-INF/views/layout/resumePaging/paging.jsp" />
+				<c:import url="/WEB-INF/views/layout/introductionPaging/paging.jsp" />
 			</div>
 		</div>
 

@@ -96,24 +96,24 @@ public interface ResumeService {
 	
 	public void deleteResume(int resume_no);
 
-	public Resume selelctResume(int resume_no);
+	public Resume selectResume(int resume_no);
 	
-	public List<School> selelctSchool(int resume_no);
+	public List<School> selectSchool(int resume_no);
 	
-	public List<Career> selelctCareer(int resume_no);
+	public List<Career> selectCareer(int resume_no);
 	
-	public List<Activities> selelctActivities(int resume_no);
+	public List<Activities> selectActivities(int resume_no);
 	
-	public List<Education> selelctEducation(int resume_no);
+	public List<Education> selectEducation(int resume_no);
 	
-	public List<Certificate> selelctCertificate(int resume_no);
+	public List<Certificate> selectCertificate(int resume_no);
 	
-	public List<Award> selelctAward(int resume_no);
+	public List<Award> selectAward(int resume_no);
 	
-	public List<Overseas_Experience> selelctOverseas_Experience(int resume_no);
+	public List<Overseas_Experience> selectOverseas_Experience(int resume_no);
 	
-	public List<Language> selelctLanguage(int resume_no);	
+	public List<Language> selectLanguage(int resume_no);	
 	
-	public Preferential selelctPreferential(int resume_no);	
+	public Preferential selectPreferential(int resume_no);	
 
 }
