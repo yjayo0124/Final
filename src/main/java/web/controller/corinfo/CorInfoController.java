@@ -28,7 +28,7 @@ public class CorInfoController {
 		
 		// �빐�떦湲곗뾽 由ъ뒪�듃
 		List<Cor> corlist = corinfoService.getCorinfo(cor_no);
-
+		System.out.println(corlist);
 		// 해당기업 date format
 		String formatdate = corinfoService.formatDate(corlist);
 		
@@ -39,7 +39,6 @@ public class CorInfoController {
 		String idformatdate = corinfoService.idformatDate(industrylist);
 		
 		// 동종산업군 평균 인원
-
 		int industrymem = corinfoService.addIndustrymem(industrylist);
 		
 		// �룞醫낆궛�뾽援� �룊洹� �엯�궗�쑉
@@ -54,6 +53,7 @@ public class CorInfoController {
 		String corname = corinfoService.getCorname(cor_no);
 		// 기업 채용공고 리스트
 		List<Recruit> corRecruit = corinfoService.getRecruit(corname);
+		
 		System.out.println(corname);
 		System.out.println(corRecruit);
 		model.addAttribute("list", corlist);

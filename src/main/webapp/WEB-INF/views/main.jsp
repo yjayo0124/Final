@@ -77,8 +77,13 @@ $(document).ready(function() {
 	padding: 4px;
 }
 
+.ui-menu-item, .ui-autocomplete, .ui-menu, .ui-widget, .ui-widget-content, .ui-corner-all {
+	width: 420px;
+	font-size: 15px;
+}
+
 #searchBtn{
-	margin-left: -10px;
+	margin-left: -3px;
 	height: 40px;
 	width: 60px;
 	background-color: #011627;

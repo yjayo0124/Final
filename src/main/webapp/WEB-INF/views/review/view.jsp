@@ -662,9 +662,10 @@ td {
 <h1>기업리뷰</h1>
 <br>
 <hr class="review-hr">
+<c:forEach items="${viewlist }" var="i">
 <div class="search">
 	<h5>*기업을 검색해 주세요</h5>
-	<form action="/review/list?tag=${tag }" method="post">
+	<form action="/review/list?tag=${i.REVIEW_TAG }" method="post">
 		<input type="text" name="keyword" id="keyword"/>
 		<input type="button" id="searchBtn" value="검색">
 	</form>
@@ -674,7 +675,6 @@ td {
 </div>
 <br><br>
 
-<c:forEach items="${viewlist }" var="i">
 	<a href="/review/list?tag=${i.REVIEW_TAG }"><label id="tag"># ${i.REVIEW_TAG }</label></a>
 	<h3><b>${i.COR_NAME }</b></h3>
 	<table>

@@ -5,14 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
-
 import web.dto.Comment_recommend;
-import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
-import web.util.Paging;
+import web.util.Review.Paging;
 
 public interface ReviewService {
 
@@ -24,7 +21,7 @@ public interface ReviewService {
 
 	public List<HashMap<String, Object>> getReviewList(Paging paging);
 
-	public Paging getCurPage(HttpServletRequest request);
+	public Paging getCurPage(HttpServletRequest request, String tag);
 
 	public List<HashMap<String, Object>> tagSearch(Paging paging);
 
