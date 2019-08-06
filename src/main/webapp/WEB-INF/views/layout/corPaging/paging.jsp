@@ -15,13 +15,12 @@
 </style>
 
 
-
 <div class="text-center">
 	<ul class="pagination pagination-sm">
 		<!-- 처음으로 가기 -->
 		<c:if test="${paging.startPage ne 1 }">
 		<li>
-			<a href="/admin"><span>&larr;처음</span></a>
+			<a href="/resume/list"><span>&larr;처음</span></a>
 		</li>
 		</c:if>
 
@@ -38,7 +37,7 @@
 
 		<c:if test="${paging.curPage ne 1 }">
 		<li>
-			<a href="/admin?curPage=${paging.curPage-1 }&select=${param.select }&search=${param.search}"><span>&laquo;</span></a>
+			<a href="/resume/list?curPage=${paging.curPage-1 }&select=${param.select }&search=${param.search}"><span>&laquo;</span></a>
 	    </li>
 	    </c:if>
 
@@ -54,13 +53,13 @@
 			<!-- 현재 보고 있는 페이지번호만 강조해주기 -->
 			<c:if test="${paging.curPage eq i}">
 			<li class="active">
-				<a href="/admin?curPage=${i }&select=${param.select }&search=${param.search}">${i }</a>
+				<a href="/resume/list?curPage=${i }&select=${param.select }&search=${param.search}">${i }</a>
 			</li>
 			</c:if>
 		
 			<c:if test="${paging.curPage ne i}">
 			<li>
-				<a href="/admin?curPage=${i }&select=${param.select }&search=${param.search}">${i }</a>
+				<a href="/resume/list?curPage=${i }&select=${param.select }&search=${param.search}">${i }</a>
 			</li>
 			</c:if>
 			
@@ -78,7 +77,7 @@
 
 		<c:if test="${paging.curPage ne paging.totalPage }">
 		<li>
-			<a href="/admin?curPage=${paging.curPage+1 }&select=${param.select }&search=${param.search }">
+			<a href="/resume/list?curPage=${paging.curPage+1 }&select=${param.select }&search=${param.search }">
 			<span>&raquo;</span>
 		</a>
 		</li>
