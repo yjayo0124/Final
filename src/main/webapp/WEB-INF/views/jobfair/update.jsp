@@ -16,7 +16,6 @@
 <!-- include summernote-ko-KR -->
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -27,6 +26,7 @@ $(document).ready(function() {
 	$("#btnCancel").click(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
+	
 	
 	$("#summernote").summernote({
 		tabsize: 2,
@@ -39,11 +39,17 @@ $(document).ready(function() {
 
 	$("#summernote").summernote('pasteHTML', string);
 	
-
 });
 
 </script>
 
+
+<style type="text/css">
+#btnUpdate, #btnCancel {
+	background-color: #011627;
+	color: #ffffff;
+}
+</style>
 
 <div class="body">
 

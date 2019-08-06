@@ -57,13 +57,13 @@ public class JobfairController {
 	
 	@RequestMapping(value="/jobfair/search", method=RequestMethod.GET)
 	public void search(
-			@RequestParam(value="search") String title,
+			String search,
 			Model model
 		) {
 		
 		logger.info("검색");
 		
-		List<JobFair> list = jobfairService.jobFairSearch(title);
+		List<JobFair> list = jobfairService.jobFairSearch(search);
 		System.out.println(list);
 		
 		model.addAttribute("list", list);

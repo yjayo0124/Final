@@ -3,18 +3,24 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<style type="text/css">
-
-</style>
-
 <script type="text/javascript">
 $(document).ready(function() {
+	
 	$("#btnGoMain").click(function() {
 		$(location).attr("href", "/jobfair/main");
 	});
+	
 });
+
 </script>
 
+
+<style type="text/css">
+.btn {
+	background-color: #011627;
+	color: #ffffff;
+}
+</style>
 
 <div class="wrap">
 <div class="body">

@@ -12,7 +12,7 @@ public interface JobFairDao {
 	
 	public JobFair selectByJobfairNo(int jobfair_no);
 	
-	public List<JobFair> selectByJobfairTitle(String title);
+	public List<JobFair> selectByJobfairTitle(String search);
 	
 	public void insert(JobFair jobfair);
 	
