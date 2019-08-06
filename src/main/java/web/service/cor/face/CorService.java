@@ -1,5 +1,6 @@
 package web.service.cor.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import web.dto.Cor;
@@ -19,5 +20,14 @@ public interface CorService {
 	public List getResumeList(Paging search);
 	
 	public int getMainIntroductionNoByMemberNo(int member_no);
+	
+	public boolean myScrab(HashMap map);
+	
+	public boolean scrabCheck(HashMap map);
+	
+	public boolean myScrabCancel(HashMap map);
+	
+	public List<Resume> getScrabList(int member_no);
+
 	
 }
