@@ -18,12 +18,23 @@
 	
 	<select id="selectCor" parameterType="String" resultType="String">
 		SELECT cor_name FROM cor
-		WHERE cor_name = #{result }
+		WHERE cor_name = #{result } AND ROWNUM <![CDATA[<=]]> 1
 	</select>
 	
-		
 	<select id="selectCntAll" resultType="int">
 		SELECT COUNT(*) FROM review
+		ORDER BY review_no
+	</select>
+	
+	<select id="selectCntAlltag" resultType="int">
+		SELECT COUNT(*) FROM review
+		WHERE review_tag = #{tag }
+		ORDER BY review_no
+	</select>
+	
+	<select id="selectCntAllCor" resultType="int">
+		SELECT COUNT(*) FROM review
+		WHERE cor_no = #{corname }
 		ORDER BY review_no
 	</select>
 	

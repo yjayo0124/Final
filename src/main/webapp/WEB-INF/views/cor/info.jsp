@@ -49,9 +49,9 @@
     		$('#zt-span8').hide();
     		$('#zt-span9').hide();
     		$('#zt-span6').show();
-
     	});
     	$('#historybox').click(function() {
+    		console.log($('#zt-span7').children().eq(1).data());
     		$('#zt-span6').hide();
     		$('#zt-span8').hide();
     		$('#zt-span9').hide();
@@ -124,10 +124,9 @@ h5 {
 	padding: 7px 12px;
 	position: absolute;
 	width: auto;
-	min-width: 170px;
+	min-width: 210px;
 	max-width: 300px;
 	word-wrap: break-word;
-
 	z-index: 9999;
 
 	opacity: 0;
@@ -140,9 +139,10 @@ h5 {
 }
 
 [data-tooltip-text]:hover:after {
-	top: 130%;
-	left: 0;
+	top: -20%;
+	left: -220;
 	opacity: 1;
+	margin-right: 20px;
 }
 
 /* tooltip2 */
@@ -171,8 +171,8 @@ h5 {
 	padding: 7px 12px;
 	position: absolute;
 	width: auto;
-	min-width: 170px;
-	max-width: 300px;
+	min-width: 50px;
+	max-width: 100px;
 	word-wrap: break-word;
 
 	z-index: 9999;
@@ -187,8 +187,56 @@ h5 {
 }
 
 [data-tooltip-text1]:hover:after {
-	top: 130%;
-	left: 0;
+	top: -250%;
+	left: -70;
+	right: 0;
+	opacity: 1;
+}
+
+
+[data-tooltip-text2]:hover {
+	position: relative;
+}
+
+[data-tooltip-text2]:after {
+	-webkit-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	-moz-transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+	transition: bottom .3s ease-in-out, opacity .3s ease-in-out;
+
+	background-color: rgba(0, 0, 0, 0.8);
+
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	-moz-box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	box-shadow: 0px 0px 3px 1px rgba(50, 50, 50, 0.4);
+	
+  -webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+  color: #FFFFFF;
+	font-size: 12px;
+	margin-bottom: 10px;
+	padding: 7px 12px;
+	position: absolute;
+	width: auto;
+	min-width: 180px;
+	max-width: 300px;
+	word-wrap: break-word;
+
+	z-index: 9999;
+
+	opacity: 0;
+	left: -9999px;
+  top: 90%;
+	
+	content: attr(data-tooltip-text2);
+	overflow: visible;
+	
+}
+
+[data-tooltip-text2]:hover:after {
+	top: -170%;
+	left: 20;
 	opacity: 1;
 }
 
@@ -588,22 +636,38 @@ SETTINGS
 <h3><b>${i.cor_name }</b></h3>
 </div>
 <div id="corincome">
-<h4><label>예상 평균연봉<span data-html="true" data-tooltip-text1="예상 실수령액 ${pay }만원">
-<img id="calculator" src="/resources/images/calculator.png" style="width: 40px; height: 40px;"/></span></label></h4>
-<h2><label>
-<fmt:formatNumber var="national" value="${((i.national_pension * 11.1) / i.cor_mem) * 12 } " pattern=".00"/>
-<c:set var="TextValue" value="${national }"/>
-<c:set var="nation" value="${fn:substring(TextValue,0,4) }"/>
-<fmt:formatNumber var ="pay" value="${fn:trim(nation / 12)}" pattern="#,###"/>
-<span data-html="true" data-tooltip-text="연봉이 정확하지 않을수 있습니다. KHOB의 연봉은 국민연금데이터를  기반으로 산출한 정보입니다.">
-<img id="information" src="/resources/images/information.png"/></span>
-<fmt:formatNumber value="${fn:trim(nation)}" pattern="#,###"/>만원
-</label></h2>
+<c:if test="${i.national_pension ne 0 }">
+	<fmt:formatNumber var="national" value="${((i.national_pension * 11.1) / i.cor_mem) * 12 } " pattern=".00"/>
+	<c:set var="TextValue" value="${national }"/>
+	<c:set var="nation" value="${fn:substring(TextValue,0,4) }"/>
+	<fmt:formatNumber var ="pay" value="${fn:trim(nation / 12)}" pattern="#,###"/>
+	<h4><label>예상 평균연봉</label>
+	<span data-html="true" data-tooltip-text1="예상 실수령액  &emsp; ${pay }만원">
+	<img id="calculator" src="/resources/images/calculator.png" style="width: 30px; height: 30px;"/></span></h4>
+	<h2>
+	<span data-html="true" data-tooltip-text="연봉이 정확하지 않을수 있습니다 . KHOB의 연봉은 국민연금데이터를  기반으로 산출한 정보입니다.">
+	<img id="information" src="/resources/images/information.png"/></span>
+	<label>
+	<fmt:formatNumber value="${fn:trim(nation)}" pattern="#,###"/>만원
+	</label>
+	</h2>
+</c:if>
+<c:if test="${i.national_pension eq 0 }">
+	<h4><label>예상 평균연봉</label>
+	<span data-html="true" data-tooltip-text1="예상 실수령액  &emsp;&nbsp;&nbsp; 0만원">
+	<img id="calculator" src="/resources/images/calculator.png" style="width: 30px; height: 30px;"/></span></h4>
+	<h2>
+	<span data-html="true" data-tooltip-text="연봉이 정확하지 않을수 있습니다. KHOB의 연봉은 국민연금데이터를  기반으로 산출한 정보입니다.">
+	<img id="information" src="/resources/images/information.png"/></span>
+	<label>
+	0만원
+	</label></h2>
+</c:if>
 </div>
 
 <br><br><br><br><br><br>
 <h5 style="display: inline-block;">기업정보</h5>
-<span data-html="true" data-tooltip-text="국민연금 데이터를&#10;기반으로 산출한 정보입니다." style="display: inline-block;">
+<span data-html="true" data-tooltip-text2="국민연금 데이터를  기반으로  산출한 정보입니다." style="display: inline-block;">
 <img id="information" src="/resources/images/information.png"/></span>
 <c:if test="${i.cor_classify eq 1}">
 	<c:set var="classify" value="법인기업"/>
@@ -620,7 +684,12 @@ SETTINGS
 	</tr>
 	<tr>
 		<td>${i.cor_addr }</td>
-		<td>${i.cor_type }</td>
+		<c:if test="${i.cor_type eq 'BIZ_NO미존재사업장'}">
+			<td>정보 없음</td>
+		</c:if>
+		<c:if test="${i.cor_type ne 'BIZ_NO미존재사업장'}">
+			<td>${i.cor_type }</td>
+		</c:if>
 		<td>${classify }</td>
 	</tr>
 </table>
@@ -769,7 +838,7 @@ SETTINGS
 			<c:set var="idmem" value="${(formatdate / idformatdate) * 100}"/>
 		</c:when>
 	</c:choose>
-	
+
 	<h3><strong>업력</strong></h3>
 	<c:if test="${formatdate > idformatdate and formatdate < 90 and formatdate - idformatdate >= 10 and idformatdate > 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
@@ -789,7 +858,7 @@ SETTINGS
 	</c:if>
 	
 	
-	
+
 	<c:if test="${formatdate > idformatdate and formatdate < 90 and formatdate - idformatdate < 10 and idformatdate > 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
 		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
@@ -808,7 +877,7 @@ SETTINGS
 	</c:if>
 	
 	
-	
+
 	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate >= 10 and formatdate > 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
 		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
@@ -827,7 +896,7 @@ SETTINGS
 	</c:if>
 	
 	
-	
+
 	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate < 10 and formatdate > 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
 		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
@@ -836,7 +905,7 @@ SETTINGS
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px; margin:0px;">${formatdate }년</span></div></div>
 		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px; margin:0px;">${idformatdate }년</span></div></div>
 	</c:if>
-	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate < 10 and formatdate < 20 }">
+	<c:if test="${formatdate < idformatdate and idformatdate < 90 and idformatdate - formatdate < 10 and formatdate <= 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${formatdate }">&nbsp;<span style="width:60px;">${formatdate }년</span></div></div>
 		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idformatdate }">&nbsp;<span style="width:60px;">${idformatdate }년</span></div></div>
 	</c:if>
@@ -1098,18 +1167,18 @@ SETTINGS
 			<tr>
 				<th id="thno">No</th>
 				<th id="thname">기업명</th>
-				<th id="thtitle">제목</th>
+				<th id="thtitle">채용공고 명</th>
 			</tr>
 		</thead>
-<!-- 		<tbody> -->
-<%-- 			<c:forEach items="${corRecruit }" var="i"> --%>
-<!-- 				<tr> -->
-<%-- 					<td id="tdno">${i.RECRUIT_NO }</td> --%>
-<%-- 					<td id="tdname">${i.RECRUIT_NAME }</td> --%>
-<%-- 					<td id="tdtitle">${i.RECRUIT_TITLE }</td> --%>
-<!-- 				</tr> -->
-<%-- 			</c:forEach> --%>
-<!-- 		</tbody> -->
+		<tbody>
+			<c:forEach items="${corRecruit }" var="i">
+				<tr>
+					<td id="tdno">${i.recruit_no }</td>
+					<td id="tdname">${i.recruit_name }</td>
+					<td id="tdtitle"><a href="/recruitment/view?recruit_no=${i.recruit_no }">${i.recruit_title }</a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
 	</table>
 </div>
 </c:forEach>

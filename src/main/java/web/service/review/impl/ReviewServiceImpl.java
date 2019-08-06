@@ -14,7 +14,7 @@ import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
 import web.service.review.face.ReviewService;
-import web.util.Paging;
+import web.util.Review.Paging;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -42,16 +42,26 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	@Override
-	public Paging getCurPage(HttpServletRequest request) {
+	public Paging getCurPage(HttpServletRequest request, String tag) {
 		// 전달파라미터 curPage 파싱
 		String param = request.getParameter("curPage");
+		int totalCount = 0;
 		int curPage = 0;
 		if( param!=null && !"".equals(param) ) {
 			curPage = Integer.parseInt(param);
 		}
-		
-		// 전체 게시글 수
-		int totalCount = reviewDao.selectCntAll();
+		System.out.println("tag : " + tag);
+		if(tag.equalsIgnoreCase("전체")) {
+			totalCount = reviewDao.selectCntAll();
+		} else if(tag.equalsIgnoreCase("강추") || 
+				tag.equalsIgnoreCase("비추") || 
+				tag.equalsIgnoreCase("취업고민")) {
+			totalCount = reviewDao.selectCntAlltag(tag);
+		} else {
+			int corno = reviewDao.selectCorno(tag);
+			System.out.println("corno : " + corno);
+			totalCount = reviewDao.selectCntAllCor(corno);
+		}
 		
 		// 페이징 객체 생성
 		Paging paging = new Paging(totalCount, curPage);

@@ -6,11 +6,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import web.dto.Comment_recommend;
-import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
-import web.util.Paging;
+import web.util.Review.Paging;
 
 public interface ReviewDao {
 
@@ -23,6 +22,10 @@ public interface ReviewDao {
 	public List<HashMap<String, Object>> selectReview(Paging paging);
 
 	public int selectCntAll();
+
+	public int selectCntAlltag(String tag);
+
+	public int selectCntAllCor(int corno);
 
 	public List<HashMap<String, Object>> selectReviewByTag(Paging paging);
 

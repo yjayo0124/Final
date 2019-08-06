@@ -30,7 +30,7 @@ import web.dto.Review;
 import web.dto.Review_comment;
 import web.service.main.face.SearchMainService;
 import web.service.review.face.ReviewService;
-import web.util.Paging;
+import web.util.Review.Paging;
 
 @Controller
 public class ReviewController {
@@ -93,7 +93,7 @@ public class ReviewController {
 
 		logger.info("테이블 스캔 중...");
 		String scanResult = reviewService.scanTable(result);
-
+		System.out.println(scanResult);
 		JSONObject obj = new JSONObject();
 		obj.put("data", scanResult);
         resp.setContentType("application/json ; charset=UTF-8");
@@ -108,12 +108,12 @@ public class ReviewController {
 	
 	// 리뷰 페이지 이동
 	@RequestMapping(value = "/review/list", method = RequestMethod.GET) 
-	public void review(HttpServletRequest request, Model model, @RequestParam String tag, String keyword, Authentication auth) {
+	public void review(HttpServletRequest request, Model model, @RequestParam String tag, Authentication auth) {
 		logger.info("리뷰 페이지");
-		Paging paging = reviewService.getCurPage(request);
+		Paging paging = reviewService.getCurPage(request, tag);
 		String selectTag = reviewService.getTag(tag);
 		paging.setTag(selectTag);
-		
+		System.out.println(paging.toString());
 		List<HashMap<String, Object>> reviewlist = reviewService.tagSearch(paging);
 		List<Recommend> recommendlist = reviewService.getRecommend();
 		
@@ -133,9 +133,9 @@ public class ReviewController {
 	
 	// 검색 값 받기
 	@RequestMapping(value = "/review/list", method = RequestMethod.POST) 
-	public void reviewSearch(HttpServletRequest request, Model model, String keyword) {
+	public void reviewSearch(HttpServletRequest request, Model model, String keyword, String tag) {
 		logger.info("검색값 받기");
-		Paging paging = reviewService.getCurPage(request);
+		Paging paging = reviewService.getCurPage(request, tag);
 		paging.setTag(keyword);
 		
 		List<HashMap<String, Object>> reviewlist = reviewService.reviewSearch(paging);

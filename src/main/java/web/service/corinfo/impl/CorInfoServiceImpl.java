@@ -43,8 +43,8 @@ public class CorInfoServiceImpl implements CorInfoService {
 	@Override
 	public String formatDate(List<Cor> corlist) {
 		String formatdate = null;
-		int cordate = 0;
-		int sys_date = 0;
+		long cordate = 0;
+		long sys_date = 0;
 		for(int i = 0; i < corlist.size(); i++) {
 			formatdate = corlist.get(i).getCor_history();
 		}
@@ -59,7 +59,7 @@ public class CorInfoServiceImpl implements CorInfoService {
 		sys_date = Integer.parseInt(to);
 		
 		cordate = sys_date - cordate;
-		formatdate = Integer.toString(cordate);
+		formatdate = Long.toString(cordate);
 		System.out.println("formatedate : " + formatdate);
 		
 		return formatdate;

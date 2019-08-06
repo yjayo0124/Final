@@ -65,7 +65,7 @@
 
 		<c:if test="${paging.curPage ne paging.totalPage }">
 		<li>
-			<a href="/review/list?tag=${paging.tag }&curPage=${paging.curPage+1 }">
+			<a href="/review/list?tag=${paging.tag }&curPage=${paging.curPage+10 }">
 			<span>&raquo;</span>
 		</a>
 		</li>
