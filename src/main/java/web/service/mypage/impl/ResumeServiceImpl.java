@@ -645,7 +645,7 @@ public class ResumeServiceImpl implements ResumeService{
 
 
 	@Override
-	public Resume selelctResume(int resume_no) {
+	public Resume selectResume(int resume_no) {
 		
 		Resume resume = resumeDao.selectResume(resume_no);
 		System.out.println(resume.getResume_birth());
@@ -662,63 +662,63 @@ public class ResumeServiceImpl implements ResumeService{
 
 
 	@Override
-	public List<School> selelctSchool(int resume_no) {
+	public List<School> selectSchool(int resume_no) {
 		return resumeDao.selelctSchool(resume_no);
 	}
 
 
 
 	@Override
-	public List<Career> selelctCareer(int resume_no) {
+	public List<Career> selectCareer(int resume_no) {
 		return resumeDao.selelctCareer(resume_no);
 	}
 
 
 
 	@Override
-	public List<Activities> selelctActivities(int resume_no) {
+	public List<Activities> selectActivities(int resume_no) {
 		return resumeDao.selelctActivities(resume_no);
 	}
 
 
 
 	@Override
-	public List<Education> selelctEducation(int resume_no) {
+	public List<Education> selectEducation(int resume_no) {
 		return resumeDao.selelctEducation(resume_no);
 	}
 
 
 
 	@Override
-	public List<Certificate> selelctCertificate(int resume_no) {
+	public List<Certificate> selectCertificate(int resume_no) {
 		return resumeDao.selelctCertificate(resume_no);
 	}
 
 
 
 	@Override
-	public List<Award> selelctAward(int resume_no) {
+	public List<Award> selectAward(int resume_no) {
 		return resumeDao.selelctAward(resume_no);
 	}
 
 
 
 	@Override
-	public List<Overseas_Experience> selelctOverseas_Experience(int resume_no) {
+	public List<Overseas_Experience> selectOverseas_Experience(int resume_no) {
 		return resumeDao.selelctOverseas_Experience(resume_no);
 	}
 
 
 
 	@Override
-	public List<Language> selelctLanguage(int resume_no) {
+	public List<Language> selectLanguage(int resume_no) {
 		return resumeDao.selelctLanguage(resume_no);
 	}
 
 
 
 	@Override
-	public Preferential selelctPreferential(int resume_no) {
+	public Preferential selectPreferential(int resume_no) {
 		return resumeDao.selelctPreferential(resume_no);
 	}
 

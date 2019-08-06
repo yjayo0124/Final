@@ -7,7 +7,7 @@
 <mapper  namespace="web.dao.mypage.face.IntroductionDao" >
 	
 	<insert id="insertSub" parameterType="web.dto.mypage.introduction.Sub_Introduction">
-		INSERT INTO sub_introduction
+		INSERT INTO sub_Introduction
 		(introduction_no, numbers, sub_introduction_question, sub_introduction_content)
 		VALUES(#{introduction_no}, #{numbers}, #{sub_introduction_question}, #{sub_introduction_content})
 	</insert>
@@ -29,4 +29,50 @@
 		</selectKey>
 	
 	</insert>
+	
+	<select id="selectCntIntroduction" parameterType="int" resultType="int">
+		SELECT count(*) FROM introduction WHERE member_no = #{member_no}
+	</select>
+	
+	<select id="getList" parameterType="web.util.mypage.MypagePaging" resultType="web.dto.mypage.introduction.Introduction">
+		SELECT * FROM (SELECT rownum rnum, B.* FROM(SELECT * FROM introduction ORDER BY introduction_writendate DESC)B ORDER BY rnum)introduction WHERE member_no = #{member_no} AND rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="cntMainIntroduction" parameterType="int" resultType="int">
+		SELECT count(*) FROM introduction WHERE member_no = #{member_no} AND main_introduction = 1
+	</select>
+	
+	<select id="getMainIntroduction_no" parameterType="int" resultType="int">
+		SELECT introduction_no FROM introduction WHERE member_no = #{member_no} AND main_introduction = 1
+	</select>
+	
+	<update id="changeMainIntroduction" parameterType="int">
+		UPDATE introduction SET main_introduction = 0
+		WHERE introduction_no = #{introduction_no}
+	</update>
+	
+	<update id="updateMainIntroduction" parameterType="int">
+		UPDATE introduction SET main_introduction = 1
+		WHERE introduction_no = #{introduction_no}
+	</update>
+	
+	<select id="checkSub" parameterType="int" resultType="int">
+		SELECT count(*) FROM sub_Introduction WHERE introduction_no = #{introduction_no}
+	</select>
+	
+	<delete id="deleteSub" parameterType="int">
+		DELETE FROM sub_Introduction WHERE introduction_no = #{introduction_no}
+	</delete>
+	
+	<delete id="deleteIntroduction" parameterType="int">
+		DELETE FROM Introduction WHERE introduction_no = #{introduction_no}
+	</delete>
+	
+	<select id="selelctIntroduction" parameterType="int" resultType="web.dto.mypage.introduction.Introduction"> 
+		SELECT * FROM Introduction WHERE introduction_no = #{introduction_no} 
+	</select>
+	
+	<select id="selectSub" parameterType="int" resultType="web.dto.mypage.introduction.Sub_Introduction"> 
+		SELECT * FROM sub_Introduction WHERE introduction_no = #{introduction_no} 
+	</select>
 </mapper>

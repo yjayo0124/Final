@@ -130,8 +130,8 @@ table, th {
 			<div class="listGroup">
 				<h2 class="list_title">자기소개서 관리</h2>
 				<ul>
-					<li>자기소개서 등록</li>
-					<li>자시소개서 관리</li>
+					<li><a href="/mypage/introduction/write">자기소개서 등록</a></li>
+					<li><a href="/mypage/introduction/list">자기소개서 관리</a></li>
 				</ul>
 			</div>
 			<div class="listGroup">
@@ -163,8 +163,8 @@ table, th {
 			<table class="table table-striped table-hover table-condensed" style="margin-top: 50px; margin-bottom: 40px;">
 				<thead>
 					<tr>
-						<th style="width: 15%;"></th>
-						<th style="width: 60%;">이력서 제목</th>
+						<th style="width: 10%;"></th>
+						<th style="width: 65%;">이력서 제목</th>
 						<th style="width: 25%;">이력서 관리</th>
 					</tr>
 				</thead>
@@ -172,13 +172,13 @@ table, th {
 				<c:choose>
 					<c:when test="${checkResume eq true}">
 						<c:forEach items="${list}" var="i">
-							<tr>
+							<tr style="border-bottom: 1px solid #dce1eb;">
 								<td>
 								<c:if test="${i.main_resume eq '1'}">
 								대표 이력서
 								</c:if>
 								</td>
-								<td><a href="/mypage/resume/detail?resume_no=${i.resume_no }">${i.resume_title }</a></td>
+								<td style="padding-top: 10px; padding-bottom: 10px;"><a href="/mypage/resume/detail?resume_no=${i.resume_no }">${i.resume_title }</a></td>
 								<td>
 								<input type="hidden" name="resume_no" value="${i.resume_no }">
 									<c:if test="${i.main_resume eq '0'}">
@@ -193,7 +193,7 @@ table, th {
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<tr>
+						<tr style="border-bottom: 1px solid #dce1eb;">
 							<td>미완성</td>
 							<td>이력서가 아직 완성되지 않았습니다.</td>
 							<td>

@@ -14,8 +14,17 @@ public class MypagePaging {
 	private int startNo;	//게시물리스트 첫 번호
 	private int endNo;	//게시물리스트 마지막 번호
 	
-	private int member_no;
+	private int member_no;	
+
 	
+
+	@Override
+	public String toString() {
+		return "MypagePaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
+				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", member_no=" + member_no + "]";
+	}
+
 	public int getMember_no() {
 		return member_no;
 	}
@@ -95,13 +104,6 @@ public class MypagePaging {
 		startNo = (curPage-1)*listCount+1;
 		// 게시글 끝번호
 		endNo = curPage*listCount;
-	}
-
-	@Override
-	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
 	}
 
 	public int getCurPage() {
