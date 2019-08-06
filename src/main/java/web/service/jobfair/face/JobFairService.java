@@ -17,6 +17,6 @@ public interface JobFairService {
 	
 	public void deleteFair(int jobfair_no);
 	
-	public List<JobFair> jobFairSearch(String title); 
+	public List<JobFair> jobFairSearch(String search); 
 	
 }

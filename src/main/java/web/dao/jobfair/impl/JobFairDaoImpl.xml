@@ -8,7 +8,7 @@
 
 <mapper namespace="web.dao.jobfair.face.JobFairDao">
 
-	<select id="selectAll" resultType="hashmap">
+	<sql id="selectJobFair">
 		SELECT 
 			jobfair_no, 
 			jobfair_name, 
@@ -20,22 +20,16 @@
 			jobfair_limit,
 			member_no
 		FROM jobfair
+	</sql>
+
+	<select id="selectAll" resultType="hashmap">
+		<include refid="selectJobFair" />
 	</select>
 	
 	<select id="selectByJobfairNo" 
 	parameterType="int"
 	resultType="web.dto.JobFair">
-		SELECT 
-			jobfair_no, 
-			jobfair_name, 
-			jobfair_date, 
-			jobfair_start, 
-			jobfair_end,
-			jobfair_loc,
-			jobfair_content,
-			jobfair_limit,
-			member_no
-		FROM jobfair
+		<include refid="selectJobFair" />
 		WHERE jobfair_no = #{jobfair_no }
 	</select>
 	
@@ -48,8 +42,8 @@
 			jobfair_date
 		FROM jobfair
 		WHERE 1=1
-		<if test="search != null and search != ''"> 
-			AND JOBFAIR_NAME LIKE '%' || #{title } || '%'
+		<if test="value != null and value != ' ' "> 
+			AND JOBFAIR_NAME LIKE '%' || #{value } || '%'
 		</if>
 	</select>
 	

@@ -16,7 +16,6 @@
 <!-- include summernote-ko-KR -->
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
-
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -45,12 +44,18 @@ $(document).ready(function() {
 	 + '<label>담당자:  </label><br> <label>사이트(출처):  </label><br></div>';
 	
 	$("#summernote").summernote('pasteHTML', string);
+	
 });
-
-
 
 </script>
 
+
+<style type="text/css">
+#btnRegister, #btnCancel {
+	background-color: #011627;
+	color: #ffffff;
+}
+</style>
 
 <div class="body">
 

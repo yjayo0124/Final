@@ -17,16 +17,6 @@
 <!-- include summernote-ko-KR -->
 <script src="/resources/summernote/lang/summernote-ko-KR.js"></script>
 
-
-
-<style type="text/css">
-#map { 
- 	width: 400px; 
- 	height: 300px;
- } 
-</style>
-
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -46,6 +36,18 @@ $(document).ready(function() {
 
 </script>
 
+
+<style type="text/css">
+#map { 
+ 	width: 400px; 
+ 	height: 300px;
+} 
+ 
+.btn {
+	background-color: #011627;
+	color: #ffffff;
+}
+</style>
 
 <div class="body">
 

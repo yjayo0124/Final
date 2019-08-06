@@ -41,9 +41,9 @@ public class JobFairServiceImpl implements JobFairService {
 	}
 
 	@Override
-	public List<JobFair> jobFairSearch(String title) {
-		System.out.println(jobfairDao.selectByJobfairTitle(title));
-		return jobfairDao.selectByJobfairTitle(title);
+	public List<JobFair> jobFairSearch(String search) {
+		System.out.println(jobfairDao.selectByJobfairTitle(search));
+		return jobfairDao.selectByJobfairTitle(search);
 	}
  
 }
