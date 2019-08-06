@@ -508,7 +508,7 @@ p {
 			</div>
 		</div>
 		<div style="margin-top: 50px; float: right;">
-			<button type="button" class="btnlist">목록</button>
+			<button type="button" class="btn btn-default btnlist">목록</button>
 		</div>
 		
 		

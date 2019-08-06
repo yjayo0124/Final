@@ -38,6 +38,7 @@ function introduction() {
         	introduction_no = data;
         	sub_introduction();
         	
+        	
         	$.ajax({
                 url: "/mypage/introduction/writeSub",
                 type: "POST",
@@ -338,7 +339,7 @@ input {
 				</div>
 			</div>
 			<div style="float: right;">
-				<button type="button" onclick="submit();">작성완료</button>
+				<button type="button" class="btn btn-default"onclick="submit();">작성완료</button>
 			</div>
 		</div>
 

@@ -29,6 +29,7 @@ import web.dto.Member;
 import web.dto.Recruit;
 import web.dto.Review;
 import web.dto.mypage.introduction.Introduction;
+import web.dto.mypage.introduction.Sub_Introduction;
 import web.dto.mypage.resume.Activities;
 import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
@@ -74,7 +75,22 @@ public class MypageController {
 	}
 
 	@RequestMapping(value="/mypage/introduction/list", method=RequestMethod.GET)
-	public void introductionList() {
+	public void introductionList(HttpServletRequest request, Authentication auth, Model model) {
+		
+		Member member = (Member) auth.getDetails();
+		int member_no = member.getMember_no();
+		
+		Boolean checkIntroduction = introductionService.checkIntroduction(member_no);
+		
+		MypagePaging paging = introductionService.getCurPage(request, member_no);
+		
+		List<Introduction> list = introductionService.getList(paging);
+		
+		model.addAttribute("checkIntroduction", checkIntroduction);
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		
+		
 		
 	}
 
@@ -114,11 +130,20 @@ public class MypageController {
 			) {
 		
 		introductionService.insertSub(introduction_no, list_numbers, list_introduction_question, list_introduction_content);
-	}
-	
-
+	}	
 	@RequestMapping(value="/mypage/introduction/detail", method=RequestMethod.GET)
-	public void introductionDetail() {
+	public void introductionDetail(int introduction_no, Model model) {
+		Boolean checkSub = introductionService.checkSub(introduction_no);
+		
+		Introduction introduction = introductionService.selelctIntroduction(introduction_no);
+		model.addAttribute("introduction", introduction);
+		
+		model.addAttribute("checkSub", checkSub);		
+		
+		if(checkSub) {
+			List<Sub_Introduction> sub = introductionService.selectSub(introduction_no);
+			model.addAttribute("sub", sub);
+		}		
 
 	}
 
@@ -126,10 +151,51 @@ public class MypageController {
 	public void introductionUpdate() {
 
 	}
+	
+	@RequestMapping(value="/mypage/introduction/updateMain")
+	public String introductionUpdateMain(int introduction_no, Authentication auth) {
+		
+		Member member = (Member) auth.getDetails();
+		int member_no = member.getMember_no();
+		
+		Boolean checkMainIntroduction = introductionService.checkMainIntroduction(member_no);
+		
+		//대표 자기소개서가 있을 때
+		if(checkMainIntroduction) {
+			int mainIntroduction_no =  introductionService.getMainIntroduction_no(member_no);
+			introductionService.changeMainIntroduction(mainIntroduction_no);
+			introductionService.updateMainIntroduction(introduction_no);
+			
+		} 
+		//대표 자기소개서가 없을 때
+		else {
+			introductionService.updateMainIntroduction(introduction_no);
+		}
+		
+		
+		return "redirect: /mypage/introduction/list";
+	}
+	
+	@RequestMapping(value="/mypage/introduction/unlockMain")
+	public String introductionUnlockMain(int introduction_no, Authentication auth) {
+		
+			introductionService.changeMainIntroduction(introduction_no);
+		
+		
+		return "redirect: /mypage/introduction/list";
+	}
 
 	@RequestMapping(value="/mypage/introduction/delete", method=RequestMethod.GET)
-	public void introductionDelete() {
-
+	public String introductionDelete(int introduction_no) {
+		
+		//sub_introduction이 있을때
+		if(introductionService.checkSub(introduction_no)) {
+			introductionService.deleteSub(introduction_no);
+		}
+		
+		introductionService.deleteIntroduction(introduction_no);
+		
+		return "redirect: /mypage/introduction/list";
 	}
 
 	@RequestMapping(value="/mypage/introduction/selectMain", method=RequestMethod.GET)
@@ -293,7 +359,7 @@ public class MypageController {
 		Boolean checkLanguage = resumeService.checkLanguage(resume_no);
 		Boolean checkPreferential = resumeService.checkPreferential(resume_no);
 		
-		Resume resume = resumeService.selelctResume(resume_no);
+		Resume resume = resumeService.selectResume(resume_no);
 		model.addAttribute("resume", resume);
 		
 		model.addAttribute("checkSchool", checkSchool);
@@ -308,40 +374,40 @@ public class MypageController {
 		
 		
 		if(checkSchool) {
-			List<School> school = resumeService.selelctSchool(resume_no);
+			List<School> school = resumeService.selectSchool(resume_no);
 			model.addAttribute("school", school);
 		}
 		if(checkCareer) {
-			List<Career> career = resumeService.selelctCareer(resume_no);
+			List<Career> career = resumeService.selectCareer(resume_no);
 			model.addAttribute("career", career);
 		}
 		if(checkActivities) {
-			List<Activities> activities = resumeService.selelctActivities(resume_no);
+			List<Activities> activities = resumeService.selectActivities(resume_no);
 			model.addAttribute("activities", activities);
 
 		}
 		if(checkEducation) {
-			List<Education> education = resumeService.selelctEducation(resume_no);
+			List<Education> education = resumeService.selectEducation(resume_no);
 			model.addAttribute("education", education);
 		}
 		if(checkCertificate) {
-			List<Certificate> certificate = resumeService.selelctCertificate(resume_no);
+			List<Certificate> certificate = resumeService.selectCertificate(resume_no);
 			model.addAttribute("certificate", certificate);
 		}
 		if(checkAward) {
-			List<Award> award = resumeService.selelctAward(resume_no);
+			List<Award> award = resumeService.selectAward(resume_no);
 			model.addAttribute("award", award);
 		}
 		if(checkOverseas_Experience) {
-			List<Overseas_Experience> overseas_Experience = resumeService.selelctOverseas_Experience(resume_no);
+			List<Overseas_Experience> overseas_Experience = resumeService.selectOverseas_Experience(resume_no);
 			model.addAttribute("overseas_Experience", overseas_Experience);
 		}
 		if(checkLanguage) {
-			List<Language> language = resumeService.selelctLanguage(resume_no);
+			List<Language> language = resumeService.selectLanguage(resume_no);
 			model.addAttribute("language", language);
 		}
 		if(checkPreferential) {
-			Preferential preferential = resumeService.selelctPreferential(resume_no);
+			Preferential preferential = resumeService.selectPreferential(resume_no);
 			model.addAttribute("preferential", preferential);
 		}
 		
