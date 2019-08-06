@@ -18,4 +18,6 @@ public interface CorService {
 	
 	public List getResumeList(Paging search);
 	
+	public int getMainIntroductionNoByMemberNo(int member_no);
+	
 }

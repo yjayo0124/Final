@@ -67,8 +67,8 @@ table, th {
 }
 .new {
 	width: 800px;
-	padding: 20px 20px 10px;
-	border: 1px solid #dce1eb;
+	padding: 20px 20px 40px;
+	border: 1px solid #edeef0;
 	border-top: none;
 	float: left;
 	background-color: white;
@@ -78,44 +78,13 @@ table, th {
 	width: 100%;
 	margin: 0;
 	height: 50px;
-	margin-bottom: 10px;
 	float: left;
 }
 
-.school {
-	width: 300px;
-	height: 50px;
-	float: left;
-	margin-right: 10px;
-}
-.textarea_content {
-	border-radius: 4px;
-	padding: 10 20px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	border-color: #dce1eb;
-	width: 97%;
-	height: 300px;
-	border: 1;
-	overflow: visible;
-	text-overflow: ellipsis;
-}
-.img_button {
-	background: url( "/resources/images/plus.png" ) no-repeat;
-	border: none;
-	width: 25px;
-	height: 25px;
-	cursor: pointer;
-}
-.delete_btn {
-	background: url( "/resources/images/delete.png" ) no-repeat;
-	right: 0;
-	top: 0;
-	width: 32px;
-	height: 32px;
-	position: absolute;
-	border: none;
-}
+
+
+
+
 input {
 	width: 100%;
 	height: 100%;
@@ -128,18 +97,7 @@ input {
 	float: left;
 	margin-bottom: 50px;
 }
-.textarea_content {
-	border-radius: 4px;
-	padding: 3 10px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	border-color: #dce1eb;
-	width: 100%;
-	min-height: 30px;
-	border: 1;
-	overflow: visible;
-	text-overflow: ellipsis;
-}
+
 
 
 p {
@@ -191,9 +149,10 @@ td{
 }
 
 tr{
+font-size: 17px;
 font-family: 'Nanum Gothic', sans-serif;
- height: 50px;
-	border-bottom: 1px solid #edeef0; 
+height: 50px;
+border-bottom: 1px solid #edeef0; 
 }
 
 </style>
@@ -251,7 +210,7 @@ font-family: 'Nanum Gothic', sans-serif;
 				<h4 class="head">학력</h4>
 				<div class="form data">
 					<c:forEach items="${school}" var="i">
-						
+						<c:choose>
 							<c:when test="${i.school_classification eq '고등학교'}">
 									<div style="float:left; width:100%; height: 30px;  border-bottom: 1px solid #edeef0;">
 										<div style="float:left; width:20%; height: 100%; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
@@ -268,7 +227,7 @@ font-family: 'Nanum Gothic', sans-serif;
 										</div>
 									</div>
 							</c:when>
-							
+							<c:otherwise>
 								<div style="float:left; width:100%; height: 30px;  border-bottom: 1px solid #edeef0;">
 									<div style="float:left; width:20%; height: 100%; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
 										<p style="font-size: 15px;">${i.admission_date} ~ ${i.graduation_date}</p>
@@ -283,7 +242,8 @@ font-family: 'Nanum Gothic', sans-serif;
 										<p style="font-size: 15px; color:#3399ff;">${i.graduation_status}</p>
 									</div>
 								</div>
-					
+					</c:otherwise>
+					</c:choose>
 					</c:forEach>					
 				</div>
 			</div>
@@ -339,17 +299,17 @@ font-family: 'Nanum Gothic', sans-serif;
 				<h4 class="head">교육이수</h4>
 				<div class="form data">
 					<c:forEach items="${education}" var="i">
-						<div style="float:left; width:100%; min-height: 30px; border-bottom: 1px solid #edeef0;">
-							<div style="float:left; width:20%; height: 30px; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
+						<div style="float:left; width:100%; min-height: 45px; border-bottom: 1px solid #edeef0;">
+							<div style="float:left; width:20%; height: 45px; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
 								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
 							</div>
-							<div style="float:left; width:20%; height: 30px; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
-								<p style="font-size: 15px;">${i.training_title}</p>
+							<div style="float:left; width:20%; height: 45px; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
+								<p style="font-size: 13px;">${i.training_title}</p>
 							</div>
-							<div style="float:left; width:20%; height: 30px; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
+							<div style="float:left; width:20%; height: 45px; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
 								<p style="font-size: 15px;">${i.educational_facilities}</p>
 							</div>
-							<div style="float:left; width:40%; min-height: 30px; padding-left: 20px; padding-top: 3px;">
+							<div style="float:left; width:40%; min-height: 45px; padding-left: 20px; padding-top: 3px;">
 								<p style="font-size: 15px; white-space: pre-wrap;">${i.training_content}</p>
 							</div>
 						</div>
@@ -453,7 +413,7 @@ font-family: 'Nanum Gothic', sans-serif;
 										<p style="font-size: 15px; color:#3399ff;">${i.language_name}</p>
 									</div>
 									<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
-										<p style="font-size: 15px;">${i.language_score}${i.conversational_ability}</p>
+										<p style="font-size: 15px; font-weight: bold;">${i.language_score}${i.conversational_ability}</p>
 									</div>
 									<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
 										<p style="font-size: 15px;">${i.acquisition_date}</p>
@@ -474,35 +434,30 @@ font-family: 'Nanum Gothic', sans-serif;
 					<div style="float:left; width:100%; height: 50px; border-bottom: 1px solid #edeef0">
 						<c:if test="${preferential.veterans eq true }">
 							<div style="float:left; width:20%; height: 100%; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">보훈대상</p>
+								<p style="font-size: 15px;"><u>보훈대상</u></p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.protect eq true }">
 							<div style="float:left; width:20%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">취업보호 대상</p>
+								<p style="font-size: 15px;"><u>취업보호 대상</u></p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.funding eq true }">
 							<div style="float:left; width:20%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">고용지원금 대상</p>
+								<p style="font-size: 15px;"><u>고용지원금 대상</u></p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.disorder ne '0' }">
 							<div style="float:left; width:20%; height: 100%; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">장애 : ${preferential.disorder}</p>
+								<p style="font-size: 15px;">장애 : <span style="color:#E71D36;"> ${preferential.disorder} </span></p>
 							</div>
 						</c:if>
-						
-						
 						<c:if test="${preferential.military ne '0' }">
-						<table>
-						<tr>
-							<th>병역</th>
-							<td>${preferential.military}</td>
-						</tr>
-						</table>
-
+							<div style="float:left; width:20%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+								<p style="font-size: 15px;">병역 : ${preferential.military}</p>
+							</div>
 						</c:if>
+
 					</div>
 				</div>
 			</div>
@@ -528,6 +483,47 @@ font-family: 'Nanum Gothic', sans-serif;
 			
 			</div>
 		</div>
+		
+		
+		
+	<div class="info_container" style="width: 800px;">
+		<h3 style="font-weight: bold;">${introduction.introduction_title }</h3>
+		<hr>
+		<div>
+			<div class="div_Introduction">
+				<div class="new">
+					<div class="row">
+						<div class="info_form" style="width: 100%; padding: 20px; font-weight: bold;">
+						${introduction.introduction_question }
+						</div>
+					</div>
+					<div class="row" style="width: 100%; min-height: 100px;">
+						<div class="info_form" style="width: 100%; min-height: 100px; padding: 20px;">
+						${introduction.introduction_content }
+						</div>
+					</div>
+				</div>
+				<c:if test="${checkSub eq true }">
+					<c:forEach items="${sub}" var="i">
+						<div class="new">
+							<div class="row">
+								<div class="info_form" style="width: 100%; padding: 20px; font-weight: bold;">
+								${i.sub_introduction_question }
+								</div>
+							</div>
+							<div class="row" style="width: 100%; min-height: 100px;">
+								<div class="info_form" style="width: 100%; min-height: 100px; padding: 20px;">
+								${i.sub_introduction_content }
+								</div>
+							</div>
+						</div>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>	
+	</div>
+		
+		
 		</div>
 		
 		<div style="margin-top: 50px; text-align: center;">

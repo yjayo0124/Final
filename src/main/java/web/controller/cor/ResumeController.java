@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import web.dto.mypage.introduction.Introduction;
+import web.dto.mypage.introduction.Sub_Introduction;
 import web.dto.mypage.resume.Activities;
 import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
@@ -22,6 +24,7 @@ import web.dto.mypage.resume.Preferential;
 import web.dto.mypage.resume.Resume;
 import web.dto.mypage.resume.School;
 import web.service.cor.face.CorService;
+import web.service.mypage.face.IntroductionService;
 import web.service.mypage.face.ResumeService;
 import web.util.resume.Paging;
 
@@ -33,6 +36,7 @@ public class ResumeController {
 	
 	@Autowired CorService corService;
 	@Autowired ResumeService resumeService;
+	@Autowired IntroductionService introductionService;
 	
 	@RequestMapping(value="/resume/list", method= RequestMethod.GET)
 	public void list(
@@ -73,7 +77,7 @@ public class ResumeController {
 		Boolean checkLanguage = resumeService.checkLanguage(resume_no);
 		Boolean checkPreferential = resumeService.checkPreferential(resume_no);
 		
-		Resume resume = resumeService.selelctResume(resume_no);
+		Resume resume = resumeService.selectResume(resume_no);
 		model.addAttribute("resume", resume);
 		
 		model.addAttribute("checkSchool", checkSchool);
@@ -88,42 +92,56 @@ public class ResumeController {
 		
 		
 		if(checkSchool) {
-			List<School> school = resumeService.selelctSchool(resume_no);
+			List<School> school = resumeService.selectSchool(resume_no);
 			model.addAttribute("school", school);
 		}
 		if(checkCareer) {
-			List<Career> career = resumeService.selelctCareer(resume_no);
+			List<Career> career = resumeService.selectCareer(resume_no);
 			model.addAttribute("career", career);
 		}
 		if(checkActivities) {
-			List<Activities> activities = resumeService.selelctActivities(resume_no);
+			List<Activities> activities = resumeService.selectActivities(resume_no);
 			model.addAttribute("activities", activities);
 
 		}
 		if(checkEducation) {
-			List<Education> education = resumeService.selelctEducation(resume_no);
+			List<Education> education = resumeService.selectEducation(resume_no);
 			model.addAttribute("education", education);
 		}
 		if(checkCertificate) {
-			List<Certificate> certificate = resumeService.selelctCertificate(resume_no);
+			List<Certificate> certificate = resumeService.selectCertificate(resume_no);
 			model.addAttribute("certificate", certificate);
 		}
 		if(checkAward) {
-			List<Award> award = resumeService.selelctAward(resume_no);
+			List<Award> award = resumeService.selectAward(resume_no);
 			model.addAttribute("award", award);
 		}
 		if(checkOverseas_Experience) {
-			List<Overseas_Experience> overseas_Experience = resumeService.selelctOverseas_Experience(resume_no);
+			List<Overseas_Experience> overseas_Experience = resumeService.selectOverseas_Experience(resume_no);
 			model.addAttribute("overseas_Experience", overseas_Experience);
 		}
 		if(checkLanguage) {
-			List<Language> language = resumeService.selelctLanguage(resume_no);
+			List<Language> language = resumeService.selectLanguage(resume_no);
 			model.addAttribute("language", language);
 		}
 		if(checkPreferential) {
-			Preferential preferential = resumeService.selelctPreferential(resume_no);
+			Preferential preferential = resumeService.selectPreferential(resume_no);
 			model.addAttribute("preferential", preferential);
 		}
+		
+		
+		int introduction_no = corService.getMainIntroductionNoByMemberNo(resume.getMember_no());
+	
+		Boolean checkSub = introductionService.checkSub(introduction_no);
+		Introduction introduction = introductionService.selelctIntroduction(introduction_no);
+
+		model.addAttribute("introduction", introduction);
+		model.addAttribute("checkSub", checkSub);		
+		
+		if(checkSub) {
+			List<Sub_Introduction> sub = introductionService.selectSub(introduction_no);
+			model.addAttribute("sub", sub);
+		}	
 		
 		
 	}

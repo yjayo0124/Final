@@ -16,4 +16,5 @@ public interface CorDao {
 	
 	public List selectPageSearch(Paging search);
 
+	public int selectMainIntroductionNoByMemberNo(int member_no);
 }

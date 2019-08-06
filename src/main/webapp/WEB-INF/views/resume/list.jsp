@@ -4,6 +4,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		$("#btnSearch").click(function() {
+			location.href="/resume/list?search="+$("#search").val();
+		});
+		
+	})
+
+</script>
+
 <style type="text/css">
 
 
@@ -76,7 +88,7 @@ dd{
 </style>
 
 <div style="margin-top:50px;">
-<h2>구직자가 올린 이력서</h2>
+<h2 onclick="location.href='/resume/list'">구직자가 올린 이력서</h2>
 <hr>
 <form></form>
 <table class="table table-hover table-condensed" >
