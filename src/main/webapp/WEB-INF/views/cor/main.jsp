@@ -18,7 +18,7 @@ thead>tr{
 	<div class="info" style="width: 500px; height: 100px; margin: 0 auto;">
 	<a class="btn btn-default btn-lg btn-block center" href="/recruitment/write" role="button">공고 등록 하러가기</a>
 	<a class="btn btn-default btn-lg btn-block center" href="/resume/list" role="button">인재 검색</a>
-	<a class="btn btn-default btn-lg btn-block center" href="/resume/scrab" role="button">스크랩한 인재</a>
+	<a class="btn btn-default btn-lg btn-block center" href="/cor/resumeScrab" role="button">스크랩한 인재</a>
 	<a class="btn btn-default btn-lg btn-block center" href="/cor/memCheck" role="button">기업 정보 수정</a>
 	</div>
 	 

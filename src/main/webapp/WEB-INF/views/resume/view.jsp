@@ -2,9 +2,91 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags"  prefix="sec"%>
+
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap&subset=korean" rel="stylesheet">
     
-    
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#btnBack").click(function(){
+		history.go(-1);
+	});
+	
+
+	$.ajax({
+		type : 'GET',
+		url : '/resume/scrabCheck',
+		data : {
+			"resume_no" : ${resume.resume_no}
+		},
+		dataType: 'json',
+		success : function(data){
+			console.log(data);
+		
+			if(data) {//true ==> 스크랩 가능 하게 만들어야함 
+				
+				$('#btnScrab').show();
+				$('#btnCancelScrab').hide();
+						
+			}else{
+				$('#btnScrab').hide();
+				$('#btnCancelScrab').show();
+				
+			}
+		}
+	
+	});
+	
+
+	//스크랩 하기
+	$("#btnScrab").click(function(){
+	 	$.ajax({
+			type : 'POST',
+			url : '/resume/scrabInsert',
+			data : {
+				"resume_no" : ${resume.resume_no}
+			},
+			dataType: 'json',
+			success : function(data){
+				
+				$('#btnScrab').hide();
+				$('#btnCancelScrab').show();	
+				
+				$('#scrabResult').html('관심 지정됨. <a href="/cor/resumeScrab/">기업페이지</a>에서 모아볼 수 있어요.').fadeToggle(3000);
+			}
+		}) 		
+		
+	})
+	
+	//스크랩 취소
+	$("#btnCancelScrab").click(function(){
+	 	$.ajax({
+			type : 'POST',
+			url : '/resume/scrabCancel',
+			data : {
+				"resume_no" : ${resume.resume_no}
+			},
+			dataType: 'json',
+			success : function(data){
+				
+				$('#btnScrab').show();
+				$('#btnCancelScrab').hide();
+				
+				$('#scrabResult').html('관심 지정 취소').fadeToggle(3000);
+				
+			}
+		}) 		
+		
+	})
+	
+	
+	
+});
+
+
+
+</script>    
     
 <style type="text/css">
 
@@ -77,7 +159,7 @@ table, th {
 .row {
 	width: 100%;
 	margin: 0;
-	height: 50px;
+
 	float: left;
 }
 
@@ -160,6 +242,12 @@ border-bottom: 1px solid #edeef0;
 <div class="containers">
 		<div class="info-container">
 			<h3><strong>${resume.resume_title }</strong></h3>
+		<span style="float: right;  margin-top: -31px; position: relative;">
+		<sec:authorize access="hasRole('ROLE_COR')">
+			<button id="btnScrab" class="btn btn-default" onclick=""><img src="/resources/images/emptystar.png" height="20px"></button>
+			<button id="btnCancelScrab" class="btn btn-default" onclick=""><img src="/resources/images/star.png" height="20px"></button>
+		</sec:authorize>
+		</span>
 			<hr>
 			<h4 class="head">인적사항</h4>
 			<div class="form" style="border:1px solid #dce1eb;;">
@@ -431,7 +519,7 @@ border-bottom: 1px solid #edeef0;
 			<div class="info">
 				<h4 class="head">취업우대, 병역</h4>
 				<div class="form data">
-					<div style="float:left; width:100%; height: 50px; border-bottom: 1px solid #edeef0">
+					<div style="float:left; width:100%; height: 35px; border-bottom: 1px solid #edeef0">
 						<c:if test="${preferential.veterans eq true }">
 							<div style="float:left; width:20%; height: 100%; padding-left: 20px; padding-top: 3px;">
 								<p style="font-size: 15px;"><u>보훈대상</u></p>
@@ -484,7 +572,7 @@ border-bottom: 1px solid #edeef0;
 			</div>
 		</div>
 		
-		
+		<c:if test="${introduction ne null }">
 		
 	<div class="info_container" style="width: 800px;">
 		<h3 style="font-weight: bold;">${introduction.introduction_title }</h3>
@@ -497,8 +585,8 @@ border-bottom: 1px solid #edeef0;
 						${introduction.introduction_question }
 						</div>
 					</div>
-					<div class="row" style="width: 100%; min-height: 100px;">
-						<div class="info_form" style="width: 100%; min-height: 100px; padding: 20px;">
+					<div class="row" style="width: 100%; ">
+						<div class="info_form" style="width: 100%; padding: 20px;">
 						${introduction.introduction_content }
 						</div>
 					</div>
@@ -511,8 +599,8 @@ border-bottom: 1px solid #edeef0;
 								${i.sub_introduction_question }
 								</div>
 							</div>
-							<div class="row" style="width: 100%; min-height: 100px;">
-								<div class="info_form" style="width: 100%; min-height: 100px; padding: 20px;">
+							<div class="row" style="width: 100%; ">
+								<div class="info_form" style="width: 100%;  padding: 20px;">
 								${i.sub_introduction_content }
 								</div>
 							</div>
@@ -523,11 +611,12 @@ border-bottom: 1px solid #edeef0;
 		</div>	
 	</div>
 		
+		</c:if>
 		
 		</div>
 		
 		<div style="margin-top: 50px; text-align: center;">
-			<button type="button" class="btnList" onclick="location.href='/resume/list'">목록</button>
+			<button type="button" class="btnList" id="btnBack">목록</button>
 		</div>
 		
 	

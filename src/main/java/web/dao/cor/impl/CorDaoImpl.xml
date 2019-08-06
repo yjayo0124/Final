@@ -50,4 +50,27 @@
 	
 	
 
+	<select id="scrabCheck" parameterType="hashMap" resultType="int">
+	SELECT count(*) FROM resumescrab 
+	WHERE member_no = #{member_no} and resume_no = #{resume_no}
+	</select>
+	
+	<insert id="insertScrab" parameterType="hashMap">
+	INSERT into resumescrab(member_no, resume_no)
+	VALUES( #{member_no}, #{resume_no} )
+	</insert>
+	
+	<delete id="myScrabDelete" parameterType="hashMap">
+	DELETE from resumescrab 
+	WHERE member_no = #{member_no} and resume_no = #{resume_no}
+	</delete>
+	
+
+	<select id="selectScrabList" parameterType="int" resultType="hashMap">
+	SELECT resume.* 
+	FROM resumescrab, resume 
+	WHERE resumescrab.resume_no = resume.resume_no and resumescrab.member_no = #{member_no} 
+	</select>
+
+
 </mapper>
