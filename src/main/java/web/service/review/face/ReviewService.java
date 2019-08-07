@@ -76,5 +76,5 @@ public interface ReviewService {
 	public void deleteReviewComment(int reviewno);
 	
 	public void deleteReview(int reviewno);
-
+	
 }
