@@ -149,7 +149,7 @@ p {
 							</div>
 							<div class="row" style="width: 100%; min-height: 100px;">
 								<div class="info_form school content" style="width: 100%; min-height: 100px; padding: 20px;">
-								${i.sub_introduction_content }
+									${i.sub_introduction_content }
 								</div>
 							</div>
 						</div>

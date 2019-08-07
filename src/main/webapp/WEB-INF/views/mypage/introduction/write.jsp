@@ -24,7 +24,7 @@ function submit() {
 function introduction() {
 	introduction_title =  $('.title').find("input[name='introduction_title']").val();
 	var introduction_question = $('.question').find("input[name='introduction_question']").val();
-	var introduction_content = $('.content').find("textarea[name='introduction_content']").val();
+	var introduction_content = $('.content').find("textarea[name='introduction_content']").val().replace(/(\n|\r\n)/g, '<br>');
 	
 	$.ajax({
         url: "/mypage/introduction/write",
@@ -38,24 +38,31 @@ function introduction() {
         	introduction_no = data;
         	sub_introduction();
         	
+        	var countSub = $("#div_Introduction .add").size();
         	
-        	$.ajax({
-                url: "/mypage/introduction/writeSub",
-                type: "POST",
-                traditional : true,
-                data: {
-                	introduction_no : introduction_no,
-                	list_numbers : list_numbers,
-                	list_introduction_question : list_introduction_question,
-                	list_introduction_content : list_introduction_content
-                },
-                success: function(data){
-                	location.href = "/mypage/main";
-                },
-                error: function(){
-                    alert("error");
-                }
-            });
+        	if(countSub != "0") {
+        	
+        	
+	        	$.ajax({
+	                url: "/mypage/introduction/writeSub",
+	                type: "POST",
+	                traditional : true,
+	                data: {
+	                	introduction_no : introduction_no,
+	                	list_numbers : list_numbers,
+	                	list_introduction_question : list_introduction_question,
+	                	list_introduction_content : list_introduction_content
+	                },
+	                success: function(data){
+	                	location.href = "/mypage/introduction/list";
+	                },
+	                error: function(){
+	                    alert("error");
+	                }
+	            });
+        	} else {
+        		location.href = "/mypage/introduction/list";
+        	}
         	
         },
         error: function(){
@@ -73,7 +80,7 @@ function sub_introduction() {
 
 			list_numbers.push(i+1);
 			list_introduction_question.push($("#div_Introduction").children("div.add").eq(i).find("input[name='sub_introduction_question']").val());
-			list_introduction_content.push($("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val());
+			list_introduction_content.push($("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val().replace(/(\n|\r\n)/g, '<br>'));
 		}
 		
 		formData.append("numbers",list_numbers);

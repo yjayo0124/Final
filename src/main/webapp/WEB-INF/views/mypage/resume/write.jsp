@@ -143,9 +143,8 @@
 				 
 				$("input[name='imgfile']").on("change", handleImgFileSelect);
 				
-				
-				 
 			});
+	
 	var formData = new FormData();
 	var resume_title;
 	var upfile;
