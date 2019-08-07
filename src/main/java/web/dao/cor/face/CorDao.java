@@ -27,4 +27,6 @@ public interface CorDao {
 	public void myScrabDelete(HashMap map);
 	
 	public List<Resume> selectScrabList(int member_no);
+	
+	public int selectScrabCount(int member_no);
 }

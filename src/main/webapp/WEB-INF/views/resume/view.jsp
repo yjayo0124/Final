@@ -572,7 +572,7 @@ border-bottom: 1px solid #edeef0;
 			</div>
 		</div>
 		
-		<c:if test="${introduction ne null }">
+		<c:if test="${not empty introduction }">
 		
 	<div class="info_container" style="width: 800px;">
 		<h3 style="font-weight: bold;">${introduction.introduction_title }</h3>
