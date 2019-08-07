@@ -64,7 +64,7 @@ public class JobfairController {
 		logger.info("검색");
 		
 		List<JobFair> list = jobfairService.jobFairSearch(search);
-		System.out.println(list);
+//		System.out.println(list);
 		
 		model.addAttribute("list", list);
 		

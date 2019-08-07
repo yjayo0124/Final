@@ -45,6 +45,7 @@
 		<if test="value != null and value != ' ' "> 
 			AND JOBFAIR_NAME LIKE '%' || #{value } || '%'
 		</if>
+		ORDER BY jobfair_no DESC
 	</select>
 	
 	<insert id="insert" parameterType="web.dto.JobFair">
@@ -61,7 +62,7 @@
 		VALUES (
 			jobfair_seq.nextval, 
 			#{jobfair_name, jdbcType=VARCHAR },
-			TO_DATE(SYSDATE, 'yyyy-MM-dd'),
+			SYSDATE,
 			#{jobfair_start, jdbcType=VARCHAR },
 			#{jobfair_end, jdbcType=VARCHAR },
 			#{jobfair_loc, jdbcType=VARCHAR },

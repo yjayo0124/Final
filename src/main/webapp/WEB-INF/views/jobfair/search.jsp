@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -13,11 +14,27 @@ $(document).ready(function() {
 });
 
 </script>
-
+ 
 
 <style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+.body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: 'Nanum Gothic', 'Spoqa Han Sans', 'Jeju Gothic', sans-serif;
+	font-size: 14px;
+}
+
 .btn {
 	background-color: #011627;
+	color: #ffffff;
+} 
+
+thead {
+	background-color: #343a40; 
 	color: #ffffff;
 }
 </style>
@@ -25,16 +42,16 @@ $(document).ready(function() {
 <div class="wrap">
 <div class="body">
 
-<h4>검색 결과</h4>
+<h2>검색 결과</h2>
 <hr>
 
 <div>
-<table class="table  table-bordered table-striped table-hover table-condensed">
+<table class="table table-hover">
 <thead>
 	<tr>
 		<th style="width: 10%;">번호</th>
-		<th style="width: 45%;">제목</th>
-		<th style="width: 15%;">글쓴이</th>
+		<th style="width: 40%;">제목</th>
+		<th style="width: 10%;">글쓴이</th>
 		<th style="width: 20%;">등록일</th>
 	</tr>
 </thead>
@@ -48,12 +65,14 @@ $(document).ready(function() {
 	
 		<td>관리자</td>
 	
-		<td>${i.jobfair_date }</td>
+		<td><fmt:formatDate value='${i.jobfair_date }' pattern="yyyy-MM-dd" /></td>
 	</tr>
 	</c:forEach>
 </tbody>
 </table>
 </div>
+<br>
+<br>
 
 <div>
 	<button id="btnGoMain" class="btn">메인페이지</button>
