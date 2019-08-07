@@ -100,11 +100,6 @@ $(document).ready(function() {
 	position: relative;
  }
 
-button {
-	background: #011627 ;
-	
-}
-
 .col_1 {
     color: #39f;
     font-weight: normal;
@@ -166,7 +161,7 @@ dd {
 
 .divDetailWrap {
     position: relative;
-    margin-top: 58px;
+    margin-top: 500px;
 }
 </style>
 
