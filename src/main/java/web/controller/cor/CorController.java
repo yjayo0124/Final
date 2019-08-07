@@ -25,7 +25,7 @@ public class CorController {
 	private static final Logger logger = LoggerFactory.getLogger(CorController.class);
 	
 	@Autowired
-	CorService corSerivce;
+	CorService corService;
 	
 	@Autowired
 	MemberService memberService;
@@ -44,13 +44,18 @@ public class CorController {
 		}else {
 			Member member = (Member) auth.getDetails();
 			
-			model.addAttribute("cor", corSerivce.select(member.getCompany_no()));
+			model.addAttribute("cor", corService.select(member.getCompany_no()));
 			
 			List<Recruit> list = recruitmentService.getListByMemberNo(member.getMember_no());
 			
 			model.addAttribute("list", list);
-		}
+
+			int count = corService.getCountScrab(member.getMember_no());
+					
+			model.addAttribute("count", count);
 			
+		}
+		
 	}
 	
 	@RequestMapping(value="/cor/memCheck", method=RequestMethod.GET)
@@ -82,7 +87,7 @@ public class CorController {
 	
 		Member memberRes = memberService.selectById(member.getMember_id());
 		
-		Cor cor = (Cor) corSerivce.select(member.getCompany_no());
+		Cor cor = (Cor) corService.select(member.getCompany_no());
 		
 		model.addAttribute("member", memberRes);
 		model.addAttribute("cor", cor);
@@ -104,16 +109,16 @@ public class CorController {
 			member.setMember_pw(incode_pw);
 			
 			memberService.update(member);
-			corSerivce.update(cor);
+			corService.update(cor);
 			
 		}else {
 
 			memberService.updateMemberInfoExceptPw(member);
-			corSerivce.update(cor);
+			corService.update(cor);
 		}
 
 		Member memberRes = memberService.selectById(member.getMember_id());
-		Cor corRes = (Cor) corSerivce.select(member.getCompany_no());
+		Cor corRes = (Cor) corService.select(member.getCompany_no());
 		
 		model.addAttribute("member", memberRes);
 		model.addAttribute("cor", corRes);

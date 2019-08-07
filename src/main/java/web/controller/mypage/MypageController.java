@@ -35,6 +35,7 @@ import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
 import web.dto.mypage.resume.Certificate;
 import web.dto.mypage.resume.Education;
+import web.dto.mypage.resume.FormData;
 import web.dto.mypage.resume.Language;
 import web.dto.mypage.resume.Overseas_Experience;
 import web.dto.mypage.resume.Preferential;
@@ -148,8 +149,40 @@ public class MypageController {
 	}
 
 	@RequestMapping(value="/mypage/introduction/update", method=RequestMethod.GET)
-	public void introductionUpdate() {
+	public void introductionUpdate(int introduction_no, Model model) {
+		
+		Boolean checkSub = introductionService.checkSub(introduction_no);
+		model.addAttribute("checkSub", checkSub);
+		
+		Introduction introduction = introductionService.selelctIntroduction(introduction_no);
+		model.addAttribute("introduction", introduction);
+				
+		
+		if(checkSub) {
+			List<Sub_Introduction> sub = introductionService.selectSub(introduction_no);
+			model.addAttribute("sub", sub);
+		}		
 
+	}
+	
+	@RequestMapping(value="/mypage/introduction/update", method=RequestMethod.POST)
+	public void introductionUpdateProc(
+			Introduction introduction,
+			String[] list_numbers,
+			String[] list_introduction_question,
+			String[] list_introduction_content) {
+		
+		int introduction_no = introduction.getIntroduction_no();
+		
+		introductionService.updateIntroduction(introduction);
+		
+		Boolean checkSub = introductionService.checkSub(introduction_no);
+		//sub_introduction이 있을때
+		if(checkSub) {
+			introductionService.deleteSub(introduction_no);
+			introductionService.insertSub(introduction_no, list_numbers, list_introduction_question, list_introduction_content);
+		}
+		
 	}
 	
 	@RequestMapping(value="/mypage/introduction/updateMain")
@@ -198,16 +231,6 @@ public class MypageController {
 		return "redirect: /mypage/introduction/list";
 	}
 
-	@RequestMapping(value="/mypage/introduction/selectMain", method=RequestMethod.GET)
-	public void introductionMain() {
-
-	}
-
-	@RequestMapping(value="/mypage/introduction/releaseMain", method=RequestMethod.GET)
-	public void introductionReleaseMain() {
-
-	}
-
 	@RequestMapping(value="/mypage/resume/list", method=RequestMethod.GET)
 	public void resumeList(HttpServletRequest request, Authentication auth, Model model) {
 		
@@ -236,84 +259,63 @@ public class MypageController {
 			MultipartHttpServletRequest request,
 			@RequestParam(value = "upfile") MultipartFile upfile,
 			Resume resume,
-			HttpServletResponse response
+			FormData formData
 			) {
+		System.out.println(formData.toString());
+		
 		String resume_stored_name = resumeService.filesave(upfile, context);
 		resume.setResume_stored_name(resume_stored_name);
 		logger.info("이력서 정보 : " + resume);
 		resumeService.insertResume(resume);
 		logger.info("작성 후 이력서 정보 : " + resume);
 		int resume_no = resume.getResume_no();
+		formData.setResume_no(resume_no);
 		logger.info("작성 후 이력서 번호 : " + resume_no);
-		String data = Integer.toString(resume_no);
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			out.write(data); 
-			out.flush(); 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		
+		if(formData.getSchool_numbers() != null) {
+			resumeService.insertSchool(formData);
+		}
+
+		if(formData.getCareer_numbers() != null) {
+			resumeService.insertCareer(formData);
+		}
+
+
+		if(formData.getActivities_numbers() != null) {
+			resumeService.insertActivities(formData);
+		}
+
+
+		if(formData.getEducation_numbers() != null) {
+			resumeService.insertEducation(formData);
+		}
+
+
+		if(formData.getCertificate_numbers() != null) {
+			resumeService.insertCertificate(formData);
+		}
+
+
+		if(formData.getAward_numbers() != null) {
+			resumeService.insertAward(formData);
+		}
+
+
+		if(formData.getOverseas_Experience_numbers() != null) {
+			resumeService.insertOverseas_Experience(formData);
+		}
+
+		if(formData.getLanguage_numbers() != null) {
+			resumeService.insertLanguage(formData);
+		}
+
+
+		if(formData.getPreferential() != null) {
+			resumeService.insertPreferential(formData);
+		}
+		
 	}
 	
-	@RequestMapping(value="/mypage/resume/writeinfo", method=RequestMethod.POST)
-	public void resumeWriteProc(
-			int resume_no,
-			String[] school,
-			String[] career,
-			String[] activities,
-			String[] education,
-			String[] certificate,
-			String[] award,
-			String[] overseas_Experience,
-			String[] language,
-			String[] preferential) {
-		
-		logger.info("info 이력서 번호 : "+resume_no);
-			
-		if(school != null) {
-			resumeService.insertSchool(school, resume_no);
-		}
-
-		if(career != null) {
-			resumeService.insertCareer(career, resume_no);
-		}
-
-
-		if(activities != null) {
-			resumeService.insertActivities(activities, resume_no);
-		}
-
-
-		if(education != null) {
-			resumeService.insertEducation(education, resume_no);
-		}
-
-
-		if(certificate != null) {
-			resumeService.insertCertificate(certificate, resume_no);
-		}
-
-
-		if(award != null) {
-			resumeService.insertAward(award, resume_no);
-		}
-
-
-		if(overseas_Experience != null) {
-			resumeService.insertOverseas_Experience(overseas_Experience, resume_no);
-		}
-
-		if(language != null) {
-			resumeService.insertLanguage(language, resume_no);
-		}
-
-
-		if(preferential != null) {
-			resumeService.insertPreferential(preferential, resume_no);
-		}
-	}
 	@RequestMapping(value="/mypage/resume/updateMain")
 	public String resumeUpdateMain(int resume_no, Authentication auth) {
 		

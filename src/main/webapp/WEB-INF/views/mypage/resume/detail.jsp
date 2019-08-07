@@ -480,7 +480,7 @@ p {
 		</c:if>	
 		
 		<div class="info">
-			<h4 class="head">취업우대, 병역</h4>
+			<h4 class="head">희망근무조건</h4>
 			<div class="form">
 				<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
 					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">

@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:400,700&display=swap&subset=korean" rel="stylesheet">  
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -92,6 +92,7 @@ function search() {
 
 /* 메인 검색엔진 css */
 .search {
+
 	text-align: center;
 	padding: 4px;
 }
@@ -102,7 +103,8 @@ function search() {
 }
 
 #searchBtn{
-	margin-left: -3px;
+	border-radius: 3px;
+	margin-left: -13px;
 	height: 40px;
 	width: 60px;
 	background-color: #011627;
@@ -113,7 +115,7 @@ function search() {
 
 #keyword {
 	border-radius: 5px;
-    width: 430px;
+    
     height: 40px;
     background: white;
     border: 1px double;
@@ -235,15 +237,30 @@ table th{
 }
 
 
+.recruit_table, review_table{
+	border: 1px solid #edeef0;
+	border-radius: 26px;
+	height: 330px;
+}
+
+.review_table{
+	border: 1px solid #edeef0;
+	border-radius: 26px;
+	height: 330px;
+}
+
 </style>
 
 	
-	<div class="search_container">
-		<!-- 검색기능 -->
-		<form action="/main/search" method="get" onsubmit="return false;">
-			<div class="search">
-				<input type="text" name="keyword" id="keyword" width="90%" placeholder="기업을 검색해보세요♬">
-				<button type="button" id="searchBtn" onclick="search()">검색</button>
+	<div class="search_container" style="width: 500px; margin: 0 auto;">
+
+		<form action="/main/search" method="get" onsubmit="return false;">>
+			<div class="search input-group mb-1">
+				<input type="text" name="keyword" class="form-control" id="keyword" width="90%" placeholder="기업을 검색해보세요♬" aria-describedby="searchBtn" style="font-size: 15px;">
+				<div class="input-group-append">
+				<button type="button" class="btn btn-outline-secondary" id="searchBtn" onclick="search()">검색</button>
+				</div>
+
 			</div>
 		</form>
 	</div>
@@ -265,9 +282,9 @@ table th{
 <div class="main_container">
  
  
-<div class="recruit_table" style="border: 1px solid #ccc; height: 330px;">
+<div class="recruit_table">
 <table class="table table-hover table-condensed table-responsive" >
-	<thead>
+	<thead class="thead-dark">
 		<tr>
 			<th colspan="3" style=" text-align: center;">최신 채용공고</th>	
 		</tr>
@@ -286,9 +303,9 @@ table th{
 
  
 
-<div class="review_table" style="border: 1px solid #ccc; height: 330px;">
+<div class="review_table">
 <table class="table table-hover table-condensed table-responsive" >
-	<thead>
+	<thead class="thead-dark">
 		<tr >
 			<th colspan="3" style="text-align: center;">최신 기업리뷰</th>	
 		</tr>

@@ -12,6 +12,7 @@ import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
 import web.dto.mypage.resume.Certificate;
 import web.dto.mypage.resume.Education;
+import web.dto.mypage.resume.FormData;
 import web.dto.mypage.resume.Language;
 import web.dto.mypage.resume.Overseas_Experience;
 import web.dto.mypage.resume.Preferential;
@@ -24,23 +25,23 @@ public interface ResumeService {
 	
 	public void insertResume(Resume resume);
 	
-	public void insertSchool(String[] school, int resume_no);
+	public void insertSchool(FormData formData);
 	
-	public void insertCareer(String[] career, int resume_no);
+	public void insertCareer(FormData formData);
 	
-	public void insertActivities(String[] activities, int resume_no);
+	public void insertActivities(FormData formData);
 	
-	public void insertEducation(String[] education, int resume_no);
+	public void insertEducation(FormData formData);
 	
-	public void insertCertificate(String[] certificate, int resume_no);
+	public void insertCertificate(FormData formData);
 	
-	public void insertAward(String[] award, int resume_no);
+	public void insertAward(FormData formData);
 	
-	public void insertOverseas_Experience(String[] overseas_Experience, int resume_no);
+	public void insertOverseas_Experience(FormData formData);
 	
-	public void insertLanguage(String[] language, int resume_no);
+	public void insertLanguage(FormData formData);
 	
-	public void insertPreferential(String[] preferential, int resume_no);
+	public void insertPreferential(FormData formData);
 	
 	public String filesave(MultipartFile file, ServletContext context);
 	

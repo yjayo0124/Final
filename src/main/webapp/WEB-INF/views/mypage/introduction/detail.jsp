@@ -7,7 +7,13 @@
 $( document ).ready(function() { 		
 	$('.btnlist').click(function() {  
 		  location.href = "/mypage/introduction/list"; 
-	 });	 
+	 });
+	
+	$('.btnUpdate').click(function() {
+		var num = $(this).parent().find("input[name='introduction_no']").val(); 
+		  
+		location.href = "/mypage/introduction/update?introduction_no=" + num; 
+	 });
 });
 
 </script>
@@ -115,6 +121,10 @@ p {
 	<div class="info_container" style="width: 800px;">
 		<h3>${introduction.introduction_title }</h3>
 		<hr>
+		<div style="margin-bottom: 15px; float: right;">
+			<button type="button" class="btn btn-default btnUpdate">수정하기</button>
+			<input type="hidden" name="introduction_no" value="${introduction.introduction_no }">
+		</div>
 		<div id="form_Overseas_Experience">
 			<div class="form" id="div_Introduction">
 				<div class="main">

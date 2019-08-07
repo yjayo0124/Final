@@ -34,4 +34,6 @@ public interface IntroductionDao {
 	
 	public List<Sub_Introduction> selectSub(int introduction_no);
 
+	public void updateIntroduction(Introduction introduction);
+
 }
