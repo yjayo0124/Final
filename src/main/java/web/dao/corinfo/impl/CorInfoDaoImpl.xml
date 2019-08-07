@@ -17,9 +17,15 @@
 	</select>
 	
 	<select id="selectReview" parameterType="int" resultType="hashmap">
-		SELECT * FROM review, cor
-		WHERE review.cor_no = cor.cor_no AND cor.cor_no = #{cor_no }
-		ORDER BY review.review_no DESC
+		SELECT * FROM (
+			SELECT rownum AS rnum, B.* FROM( 
+				SELECT review.review_no, review.cor_no, cor.cor_name, cor.cor_type, review.review_title, review.review_tag, 
+						review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no
+				FROM review, cor
+				WHERE review.cor_no = cor.cor_no AND cor.cor_no = #{cor_no }
+				ORDER BY review.review_no DESC
+			)B
+		)
 	</select>
 	
 	<select id="selectCorname" parameterType="int" resultType="String">
