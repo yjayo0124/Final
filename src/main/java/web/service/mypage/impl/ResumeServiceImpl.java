@@ -19,6 +19,7 @@ import web.dto.mypage.resume.Award;
 import web.dto.mypage.resume.Career;
 import web.dto.mypage.resume.Certificate;
 import web.dto.mypage.resume.Education;
+import web.dto.mypage.resume.FormData;
 import web.dto.mypage.resume.Language;
 import web.dto.mypage.resume.Overseas_Experience;
 import web.dto.mypage.resume.Preferential;
@@ -64,64 +65,57 @@ public class ResumeServiceImpl implements ResumeService{
 
 
 	@Override
-	public void insertSchool(String[] school, int resume_no) {
+	public void insertSchool(FormData formData) {
 
-		for(int i=1; i<school.length; i++) {
+		for(int i=0; i<formData.getSchool_numbers().length; i++) {
 			School sch = new School();
 
-			sch.setResume_no(resume_no);
+			sch.setResume_no(formData.getResume_no());
 
-			String splitArr[] = school[i].split(",",-1);	
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-
-			if(splitArr[1].equals("고등학교")) {
-				sch.setNumbers(Integer.parseInt(splitArr[0]));
-				sch.setSchool_classification(splitArr[1]);
-				sch.setSchool_name(splitArr[2]);
-				sch.setGraduation_date(splitArr[3]);
-				sch.setGraduation_status(splitArr[4]);
-				sch.setGed_status(splitArr[5]);
+			if(formData.getSchool_classification()[i].equals("고등학교")) {
+				sch.setNumbers(Integer.parseInt(formData.getSchool_numbers()[i]));
+				sch.setSchool_classification(formData.getSchool_classification()[i]);
+				sch.setSchool_name(formData.getSchool_name()[i]);
+				sch.setGraduation_date(formData.getGraduation_date()[i]);
+				sch.setGraduation_status(formData.getGraduation_status()[i]);
+				sch.setGed_status(formData.getGed_status()[i]);
 
 				resumeDao.insertHighSchool(sch);
 
-			} else if(splitArr[1].equals("대학") || splitArr[0].equals("대학교")) {
+			} else if(formData.getSchool_classification()[i].equals("대학") || formData.getSchool_classification()[i].equals("대학교")) {
 
-				sch.setNumbers(Integer.parseInt(splitArr[0]));
-				sch.setSchool_classification(splitArr[1]);
-				sch.setSchool_name(splitArr[2]);
-				sch.setGraduation_date(splitArr[3]);
-				sch.setGraduation_status(splitArr[4]);
-				sch.setAdmission_date(splitArr[7]);
-				sch.setTransfer_status(splitArr[8]);
-				sch.setMajor_name(splitArr[9]);	
-				sch.setCredit(splitArr[10]);
-				sch.setTotal_score(splitArr[11]);
-				sch.setSub_major_status(splitArr[12]);
-				sch.setSub_major_name(splitArr[13]);
-				sch.setGraduation_thesis_content(splitArr[14]);
+				sch.setNumbers(Integer.parseInt(formData.getSchool_numbers()[i]));
+				sch.setSchool_classification(formData.getSchool_classification()[i]);
+				sch.setSchool_name(formData.getSchool_name()[i]);
+				sch.setGraduation_date(formData.getGraduation_date()[i]);
+				sch.setGraduation_status(formData.getGraduation_status()[i]);
+				sch.setAdmission_date(formData.getAdmission_date()[i]);
+				sch.setTransfer_status(formData.getTransfer_status()[i]);
+				sch.setMajor_name(formData.getMajor_name()[i]);	
+				sch.setCredit(formData.getCredit()[i]);
+				sch.setTotal_score(formData.getTotal_score()[i]);
+				sch.setSub_major_status(formData.getSub_major_status()[i]);
+				sch.setSub_major_name(formData.getSub_major_name()[i]);
+				sch.setGraduation_thesis_content(formData.getGraduation_thesis_content()[i]);
 
 				resumeDao.insertCollegeSchool(sch);
 
-			} else if(splitArr[1].equals("대학원")) {
+			} else if(formData.getSchool_classification()[i].equals("대학원")) {
 
-				sch.setNumbers(Integer.parseInt(splitArr[0]));
-				sch.setSchool_classification(splitArr[1]);
-				sch.setSchool_name(splitArr[2]);
-				sch.setGraduation_date(splitArr[3]);
-				sch.setGraduation_status(splitArr[4]);
-				sch.setAcademic_degree(splitArr[6]);
-				sch.setAdmission_date(splitArr[7]);
-				sch.setTransfer_status(splitArr[8]);
-				sch.setMajor_name(splitArr[9]);	
-				sch.setCredit(splitArr[10]);
-				sch.setTotal_score(splitArr[11]);
-				sch.setSub_major_status(splitArr[12]);
-				sch.setSub_major_name(splitArr[13]);
-				sch.setGraduation_thesis_content(splitArr[14]);
+				sch.setNumbers(Integer.parseInt(formData.getSchool_numbers()[i]));
+				sch.setSchool_classification(formData.getSchool_classification()[i]);
+				sch.setSchool_name(formData.getSchool_name()[i]);
+				sch.setGraduation_date(formData.getGraduation_date()[i]);
+				sch.setGraduation_status(formData.getGraduation_status()[i]);
+				sch.setAcademic_degree(formData.getAcademic_degree()[i]);
+				sch.setAdmission_date(formData.getAdmission_date()[i]);
+				sch.setTransfer_status(formData.getTransfer_status()[i]);
+				sch.setMajor_name(formData.getMajor_name()[i]);	
+				sch.setCredit(formData.getCredit()[i]);
+				sch.setTotal_score(formData.getTotal_score()[i]);
+				sch.setSub_major_status(formData.getSub_major_status()[i]);
+				sch.setSub_major_name(formData.getSub_major_name()[i]);
+				sch.setGraduation_thesis_content(formData.getGraduation_thesis_content()[i]);
 
 
 				resumeDao.insertGraduSchool(sch);
@@ -131,30 +125,25 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertCareer(String[] career, int resume_no) {
-		for(int i=1; i<career.length; i++) {
+	public void insertCareer(FormData formData) {
+		for(int i=0; i<formData.getCareer_numbers().length; i++) {
 			Career car = new Career();
-			String splitArr[] = career[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-			car.setNumbers(Integer.parseInt(splitArr[0]));
-			car.setResume_no(resume_no);
-			car.setCompany_name(splitArr[1]);
-			car.setDepartment_name(splitArr[2]);
-			car.setHire_date(splitArr[3]);
-			car.setRetirement_date(splitArr[4]);
-			car.setServed_status(splitArr[5]);
-			car.setPosition(splitArr[6]);
-			car.setJob_work(splitArr[7]);
-			if(splitArr[8] == null) {
+			
+			car.setNumbers(Integer.parseInt(formData.getCareer_numbers()[i]));
+			car.setResume_no(formData.getResume_no());
+			car.setCompany_name(formData.getCompany_name()[i]);
+			car.setDepartment_name(formData.getDepartment_name()[i]);
+			car.setHire_date(formData.getHire_date()[i]);
+			car.setRetirement_date(formData.getRetirement_date()[i]);
+			car.setServed_status(formData.getServed_status()[i]);
+			car.setPosition(formData.getPosition()[i]);
+			car.setJob_work(formData.getJob_work()[i]);
+			if(formData.getCareer_salary()[i] == null) {
 				car.setSalary(0);
 			} else {
-				car.setSalary(Integer.parseInt(splitArr[8]));
+				car.setSalary(Integer.parseInt(formData.getCareer_salary()[i]));
 			}
-			car.setAssigned_task(splitArr[9]);
+			car.setAssigned_task(formData.getAssigned_task()[i]);
 
 			resumeDao.insertCareer(car);
 		}
@@ -162,22 +151,18 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertActivities(String[] activities, int resume_no) {
-		for(int i=1; i<activities.length; i++) {
+	public void insertActivities(FormData formData) {
+		for(int i=0; i<formData.getActivities_numbers().length; i++) {
 			Activities act = new Activities();		
-			String splitArr[] = activities[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-			act.setNumbers(Integer.parseInt(splitArr[0]));
-			act.setResume_no(resume_no);
-			act.setActivity_classification(splitArr[1]);
-			act.setInstitution_name(splitArr[2]);
-			act.setStart_date(splitArr[3]);
-			act.setEnd_date(splitArr[4]);
-			act.setActivity_content(splitArr[5]);
+			
+			
+			act.setNumbers(Integer.parseInt(formData.getActivities_numbers()[i]));
+			act.setResume_no(formData.getResume_no());
+			act.setActivity_classification(formData.getActivity_classification()[i]);
+			act.setInstitution_name(formData.getInstitution_name()[i]);
+			act.setStart_date(formData.getActivity_start_date()[i]);
+			act.setEnd_date(formData.getActivity_end_date()[i]);
+			act.setActivity_content(formData.getActivity_content()[i]);
 
 			resumeDao.insertActivities(act);
 		}
@@ -185,22 +170,17 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertEducation(String[] education, int resume_no) {
-		for(int i=1; i<education.length; i++) {
+	public void insertEducation(FormData formData) {
+		for(int i=0; i<formData.getEducation_numbers().length; i++) {
 			Education edu = new Education();
-			String splitArr[] = education[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-			edu.setNumbers(Integer.parseInt(splitArr[0]));
-			edu.setResume_no(resume_no);
-			edu.setTraining_title(splitArr[1]);
-			edu.setEducational_facilities(splitArr[2]);
-			edu.setStart_date(splitArr[3]);
-			edu.setEnd_date(splitArr[4]);
-			edu.setTraining_content(splitArr[5]);
+			
+			edu.setNumbers(Integer.parseInt(formData.getEducation_numbers()[i]));
+			edu.setResume_no(formData.getResume_no());
+			edu.setTraining_title(formData.getTraining_title()[i]);
+			edu.setEducational_facilities(formData.getEducational_facilities()[i]);
+			edu.setStart_date(formData.getEducation_start_date()[i]);
+			edu.setEnd_date(formData.getEducation_end_date()[i]);
+			edu.setTraining_content(formData.getTraining_content()[i]);
 
 			resumeDao.insertEducation(edu);
 		}
@@ -208,21 +188,16 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertCertificate(String[] certificate,  int resume_no) {
+	public void insertCertificate(FormData formData) {
 
-		for(int i=1; i<certificate.length; i++) {
+		for(int i=0; i<formData.getCertificate_numbers().length; i++) {
 			Certificate cer = new Certificate();
-			String[] splitArr = certificate[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-			cer.setNumbers(Integer.parseInt(splitArr[0]));
-			cer.setResume_no(resume_no);
-			cer.setCertificate_name(splitArr[1]);
-			cer.setPlace_issue(splitArr[2]);
-			cer.setAcquisition_date(splitArr[3]);
+			
+			cer.setNumbers(Integer.parseInt(formData.getCertificate_numbers()[i]));
+			cer.setResume_no(formData.getResume_no());
+			cer.setCertificate_name(formData.getCertificate_name()[i]);
+			cer.setPlace_issue(formData.getPlace_issue()[i]);
+			cer.setAcquisition_date(formData.getCertificate_acquisition_date()[i]);
 
 			resumeDao.insertCertificate(cer);
 		}
@@ -230,21 +205,16 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertAward(String[] award, int resume_no) {
-		for(int i=1; i<award.length; i++) {
+	public void insertAward(FormData formData) {
+		for(int i=0; i<formData.getAward_numbers().length; i++) {
 			Award awa = new Award();
-			String splitArr[] = award[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-			awa.setNumbers(Integer.parseInt(splitArr[0]));
-			awa.setResume_no(resume_no);
-			awa.setAward_name(splitArr[1]);
-			awa.setAward_service(splitArr[2]);
-			awa.setAward_date(splitArr[3]);
-			awa.setAward_content(splitArr[4]);
+			
+			awa.setNumbers(Integer.parseInt(formData.getAward_numbers()[i]));
+			awa.setResume_no(formData.getResume_no());
+			awa.setAward_name(formData.getAward_name()[i]);
+			awa.setAward_service(formData.getAward_service()[i]);
+			awa.setAward_date(formData.getAward_date()[i]);
+			awa.setAward_content(formData.getAward_content()[i]);
 
 			resumeDao.insertAward(awa);
 		}
@@ -252,22 +222,17 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertOverseas_Experience(String[] overseas_Experience, int resume_no) {
-		for(int i=1; i<overseas_Experience.length; i++) {
+	public void insertOverseas_Experience(FormData formData) {
+		for(int i=0; i<formData.getOverseas_Experience_numbers().length; i++) {
 			Overseas_Experience overseas = new Overseas_Experience();
-			String splitArr[] = overseas_Experience[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
+			
 
-			overseas.setNumbers(Integer.parseInt(splitArr[0]));
-			overseas.setResume_no(resume_no);
-			overseas.setCountry_name(splitArr[1]);
-			overseas.setStart_date(splitArr[2]);
-			overseas.setEnd_date(splitArr[3]);
-			overseas.setOverseas_experience_content(splitArr[4]);
+			overseas.setNumbers(Integer.parseInt(formData.getOverseas_Experience_numbers()[i]));
+			overseas.setResume_no(formData.getResume_no());
+			overseas.setCountry_name(formData.getCountry_name()[i]);
+			overseas.setStart_date(formData.getOverseas_Experience_start_date()[i]);
+			overseas.setEnd_date(formData.getOverseas_Experience_end_date()[i]);
+			overseas.setOverseas_experience_content(formData.getOverseas_experience_content()[i]);
 
 			resumeDao.insertOverseas_Experience(overseas);
 		}
@@ -275,31 +240,26 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertLanguage(String[] language, int resume_no) {
-		for(int i=1; i<language.length; i++) {
+	public void insertLanguage(FormData formData) {
+		for(int i=0; i<formData.getLanguage_numbers().length; i++) {
 			Language lan = new Language();
-			lan.setResume_no(resume_no);
-			String splitArr[] = language[i].split(",",-1);	
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
-			if(splitArr[1].equals("회화능력")) {
-				lan.setNumbers(Integer.parseInt(splitArr[0]));
-				lan.setLanguage_classification(splitArr[1]);
-				lan.setLanguage_name(splitArr[2]);
-				lan.setConversational_ability(splitArr[4]);
+			lan.setResume_no(formData.getResume_no());
+			
+			if(formData.getLanguage_classification()[i].equals("회화능력")) {
+				lan.setNumbers(Integer.parseInt(formData.getLanguage_numbers()[i]));
+				lan.setLanguage_classification(formData.getLanguage_classification()[i]);
+				lan.setLanguage_name(formData.getLanguage_name()[i]);
+				lan.setConversational_ability(formData.getConversational_ability()[i]);
 
 				resumeDao.insertLanguage(lan);
 
-			} else if(splitArr[1].equals("공인시험")) {
-				lan.setNumbers(Integer.parseInt(splitArr[0]));
-				lan.setLanguage_classification(splitArr[1]);
-				lan.setLanguage_name(splitArr[2]);
-				lan.setLanguage_score(splitArr[3]);
-				lan.setConversational_ability(splitArr[4]);
-				lan.setAcquisition_date(splitArr[5]);
+			} else if(formData.getLanguage_classification()[i].equals("공인시험")) {
+				lan.setNumbers(Integer.parseInt(formData.getLanguage_numbers()[i]));
+				lan.setLanguage_classification(formData.getLanguage_classification()[i]);
+				lan.setLanguage_name(formData.getLanguage_name()[i]);
+				lan.setLanguage_score(formData.getLanguage_score()[i]);
+				lan.setConversational_ability(formData.getConversational_ability()[i]);
+				lan.setAcquisition_date(formData.getLanguage_acquisition_date()[i]);
 
 				resumeDao.insertCertifiedLanguage(lan);
 			}
@@ -308,25 +268,19 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void insertPreferential(String[] preferential, int resume_no) {
-		for(int i=1; i<preferential.length; i++) {
+	public void insertPreferential(FormData formData) {
+		
 			Preferential pre = new Preferential();
-			String splitArr[] = preferential[i].split(",",-1);
-			for(int j=0; j<splitArr.length; j++) {
-				if(splitArr[j].isEmpty()) {
-					splitArr[j] = "0";
-				}
-			}
+			
 
-			pre.setResume_no(resume_no);
-			pre.setVeterans(splitArr[0]);
-			pre.setProtect(splitArr[1]);
-			pre.setFunding(splitArr[2]);
-			pre.setDisorder(splitArr[3]);
-			pre.setMilitary(splitArr[4]);
+			pre.setResume_no(formData.getResume_no());
+			pre.setVeterans(formData.getPreferential()[0]);
+			pre.setProtect(formData.getPreferential()[1]);
+			pre.setFunding(formData.getPreferential()[2]);
+			pre.setDisorder(formData.getPreferential()[3]);
+			pre.setMilitary(formData.getPreferential()[4]);
 
 			resumeDao.insertPreferential(pre);
-		}
 
 	}
 

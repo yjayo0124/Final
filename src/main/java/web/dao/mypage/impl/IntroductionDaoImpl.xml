@@ -73,6 +73,14 @@
 	</select>
 	
 	<select id="selectSub" parameterType="int" resultType="web.dto.mypage.introduction.Sub_Introduction"> 
-		SELECT * FROM sub_Introduction WHERE introduction_no = #{introduction_no} 
+		SELECT * FROM sub_Introduction WHERE introduction_no = #{introduction_no}
+		ORDER BY numbers
 	</select>
+	
+	<update id="updateIntroduction" parameterType="web.dto.mypage.introduction.Introduction">
+		UPDATE introduction SET introduction_title = #{introduction_title},
+								introduction_question = #{introduction_question},
+								introduction_content = #{introduction_content}
+		WHERE introduction_no = #{introduction_no}							
+	</update>
 </mapper>

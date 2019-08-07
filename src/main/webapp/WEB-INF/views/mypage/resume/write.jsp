@@ -146,25 +146,14 @@
 				
 				 
 			});
-	var resume_no;
-	var listSchool = new Array();	listSchool.push(0);
-	var listCareer = new Array();	listCareer.push(0);
-	var listActivities = new Array();	listActivities.push(0);
-	var listEducation = new Array();	listEducation.push(0);
-	var listCertificate = new Array();	listCertificate.push(0);
-	var listAward = new Array();		listAward.push(0);
-	var listOverseas_Experience = new Array();	listOverseas_Experience.push(0);
-	var listLanguage = new Array();	listLanguage.push(0);
-	var listPreferential = new Array();	listPreferential.push(0);
-	var resume_title;
 	var formData = new FormData();
+	var resume_title;
 	var upfile;
 	var info = new FormData();
-	var count = 0;
 	
 	function submit() {
-		upfile = $("input[name='imgfile']")[0].files[0];
 		resume_title = $('.resume_title').find("input[name='resume_title']").val();
+		upfile = $("input[name='imgfile']")[0].files[0];
 		
 		if(typeof upfile === "undefined") {
 			alert("이력서 이미지를 삽입해 주세요.")
@@ -209,6 +198,15 @@
 		formData.append("desired_work_place",desired_work_place);
 		formData.append("salary",salary);
 		
+		school();
+		career();
+		activities();
+		education();
+		certificate();
+		award();
+		overseas_Experience();
+		language();
+		preferential();	
 		
 		$.ajax({
             url: "/mypage/resume/write",
@@ -219,45 +217,8 @@
             cache: false,
             data: formData,
             success: function(data){
-            	resume_no = data;
-            	console.log(resume_no);
-            	school();
-        		career();
-        		activities();
-        		education();
-        		certificate();
-        		award();
-        		overseas_Experience();
-        		language();
-        		preferential();
-        		count++;        		
-        		
-            	if(count == 1) {
-	            	$.ajax({
-	                    url: "/mypage/resume/writeinfo",
-	                    type: "POST",
-	                    traditional : true,
-	                    data: {
-	                    	resume_no : resume_no,
-	                    	school : listSchool,
-	                    	career : listCareer,
-	                    	activities : listActivities,
-	                    	education : listEducation,
-	                    	certificate : listCertificate,
-	                    	award : listAward,
-	                    	overseas_Experience : listOverseas_Experience,
-	                    	language : listLanguage,
-	                    	preferential : listPreferential
-	                    	},
-	                    success: function(data){
-	                    	location.href = "/mypage/main";
-	                    },
-	                    error: function(){
-	                        alert("error");
-	                    }
-	                });
-            	}
-            	
+            	location.href = "/mypage/resume/list";
+				console.log("성공");
             },
             error: function(){
                 alert("error");
@@ -269,26 +230,57 @@
 		var countSchool = $("#form_School .add").size();
 		
 		if(countSchool != "0") {
+			var school_numbers = new Array();
+			var school_classification = new Array();
+			var school_name = new Array();
+			var graduation_date = new Array();
+			var graduation_status = new Array();
+			var ged_status = new Array();
+			var academic_degree = new Array();
+			var admission_date = new Array();
+			var transfer_status = new Array();
+			var major_name = new Array();
+			var credit = new Array();
+			var total_score = new Array();
+			var sub_major_status = new Array();
+			var sub_major_name = new Array();
+			var graduation_thesis_content = new Array();
+			
 			for(var i=0; i<countSchool; i++) {
-				var School = new Array();
-				School.push(i+1);
-				School.push($("#div_School").children("div.add").eq(i).find("select[name='school_classification']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("select[name='graduation_status']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked"));
-				School.push($("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='admission_date']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='transfer_status']").prop("checked"));
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='major_name']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='credit']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("select[name='total_score']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("select[name='sub_major_status']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("input[name='sub_major_name']").val());
-				School.push($("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val());
 				
-				listSchool.push(School);
+				school_numbers.push(i+1);
+				school_classification.push($("#div_School").children("div.add").eq(i).find("select[name='school_classification']").val());
+				school_name.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
+				graduation_date.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
+				graduation_status.push($("#div_School").children("div.add").eq(i).find("select[name='graduation_status']").val());
+				ged_status.push($("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked"));
+				academic_degree.push($("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val());
+				admission_date.push($("#div_School").children("div.add").eq(i).find("input[name='admission_date']").val());
+				transfer_status.push($("#div_School").children("div.add").eq(i).find("input[name='transfer_status']").prop("checked"));
+				major_name.push($("#div_School").children("div.add").eq(i).find("input[name='major_name']").val());
+				credit.push($("#div_School").children("div.add").eq(i).find("input[name='credit']").val());
+				total_score.push($("#div_School").children("div.add").eq(i).find("select[name='total_score']").val());
+				sub_major_status.push($("#div_School").children("div.add").eq(i).find("select[name='sub_major_status']").val());
+				sub_major_name.push($("#div_School").children("div.add").eq(i).find("input[name='sub_major_name']").val());
+				graduation_thesis_content.push($("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val());
+				
 			}
+			formData.append("school_numbers",school_numbers );
+			formData.append("school_classification",school_classification);
+			formData.append("school_name",school_name);
+			formData.append("graduation_date",graduation_date);
+			formData.append("graduation_status",graduation_status);
+			formData.append("ged_status",ged_status);
+			formData.append("academic_degree",academic_degree);
+			formData.append("admission_date",admission_date);
+			formData.append("transfer_status",transfer_status);
+			formData.append("major_name",major_name);
+			formData.append("credit",credit);
+			formData.append("total_score",total_score);
+			formData.append("sub_major_status",sub_major_status);
+			formData.append("sub_major_name",sub_major_name);
+			formData.append("graduation_thesis_content",graduation_thesis_content);
+			
 		}
 	}
 	
@@ -296,22 +288,42 @@
 		var countCareer = $("#form_Career .add").size();
 		
 		if(countCareer != "0") {
+			var career_numbers = new Array();
+			var company_name = new Array();
+			var department_name = new Array();
+			var hire_date = new Array();
+			var retirement_date = new Array();
+			var served_status = new Array();
+			var position = new Array();
+			var job_work = new Array();
+			var career_salary = new Array();
+			var assigned_task = new Array();
+			
+			
 			for(var i=0; i<countCareer; i++) {
-				var Career = new Array();
-				
-				Career.push(i+1);
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='retirement_date']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='served_status']").prop("checked"));
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='position']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='job_work']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("input[name='salary']").val());
-				Career.push($("#div_Career").children("div.add").eq(i).find("textarea[name='assigned_task']").val());
-				
-				listCareer.push(Career);
+								
+				career_numbers.push(i+1);
+				company_name.push($("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val());
+				department_name.push($("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val());
+				hire_date.push($("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val());
+				retirement_date.push($("#div_Career").children("div.add").eq(i).find("input[name='retirement_date']").val());
+				served_status.push($("#div_Career").children("div.add").eq(i).find("input[name='served_status']").prop("checked"));
+				position.push($("#div_Career").children("div.add").eq(i).find("input[name='position']").val());
+				job_work.push($("#div_Career").children("div.add").eq(i).find("input[name='job_work']").val());
+				career_salary.push($("#div_Career").children("div.add").eq(i).find("input[name='salary']").val());
+				assigned_task.push($("#div_Career").children("div.add").eq(i).find("textarea[name='assigned_task']").val());	
 			}
+			
+			formData.append("career_numbers",career_numbers );
+			formData.append("company_name",company_name );
+			formData.append("department_name",department_name );
+			formData.append("hire_date",hire_date );
+			formData.append("retirement_date",retirement_date );
+			formData.append("served_status",served_status );
+			formData.append("position",position );
+			formData.append("job_work",job_work );
+			formData.append("career_salary",career_salary );
+			formData.append("assigned_task",assigned_task );
 		}
 		
 	}
@@ -320,19 +332,29 @@
 		var countActivities = $("#form_Activities .add").size();
 		
 		if(countActivities  != "0") {
-			for(var i=0; i<countActivities; i++) {
-				var Activities = new Array();
-				
-				Activities.push(i+1);
-				Activities.push($("#div_Activities").children("div.add").eq(i).find("select[name='activity_classification']").val());
-				Activities.push($("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val());
-				Activities.push($("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val());
-				Activities.push($("#div_Activities").children("div.add").eq(i).find("input[name='end_date']").val());
-				Activities.push($("#div_Activities").children("div.add").eq(i).find("textarea[name='activity_content']").val());
+			var activities_numbers = new Array();
+			var activity_classification = new Array();
+			var institution_name = new Array();
+			var activity_start_date = new Array();
+			var activity_end_date = new Array();
+			var activity_content = new Array();
 			
+			for(var i=0; i<countActivities; i++) {
 				
-				listActivities.push(Activities);
+				activities_numbers.push(i+1);
+				activity_classification.push($("#div_Activities").children("div.add").eq(i).find("select[name='activity_classification']").val());
+				institution_name.push($("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val());
+				activity_start_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val());
+				activity_end_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='end_date']").val());
+				activity_content.push($("#div_Activities").children("div.add").eq(i).find("textarea[name='activity_content']").val());
 			}
+			
+			formData.append("activities_numbers",activities_numbers );
+			formData.append("activity_classification",activity_classification );
+			formData.append("institution_name",institution_name );
+			formData.append("activity_start_date",activity_start_date );
+			formData.append("activity_end_date",activity_end_date );
+			formData.append("activity_content",activity_content );
 		}
 	}
 	
@@ -340,19 +362,30 @@
 		var countEducation = $("#form_Education .add").size();
 		
 		if(countEducation != "0") {
-			for(var i=0; i<countEducation; i++) {
-				var Education = new Array();
-				
-				Education.push(i+1);
-				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val());
-				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val());
-				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val());
-				Education.push($("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val());
-				Education.push($("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val());
+			var education_numbers = new Array();
+			var training_title = new Array();
+			var educational_facilities = new Array();
+			var education_start_date = new Array();
+			var education_end_date = new Array();
+			var training_content = new Array();
 			
+			for(var i=0; i<countEducation; i++) {
 				
-				listEducation.push(Education);
+				education_numbers.push(i+1);
+				training_title.push($("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val());
+				educational_facilities.push($("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val());
+				education_start_date.push($("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val());
+				education_end_date.push($("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val());
+				training_content.push($("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val());
+	
 			}
+			
+			formData.append("education_numbers",education_numbers );
+			formData.append("training_title",training_title );
+			formData.append("educational_facilities",educational_facilities );
+			formData.append("education_start_date",education_start_date );
+			formData.append("education_end_date",education_end_date );
+			formData.append("training_content",training_content );
 		}
 	}
 	
@@ -360,16 +393,23 @@
 		var countCertificate = $("#form_Certificate .add").size();
 		
 		if(countCertificate  != "0") {
+			var certificate_numbers = new Array();
+			var certificate_name = new Array();
+			var place_issue = new Array();
+			var certificate_acquisition_date = new Array();
+			
 			for(var i=0; i<countCertificate; i++) {
-				var Certificate = new Array();
 				
-				Certificate.push(i+1);
-				Certificate.push($("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val());
-				Certificate.push($("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val());
-				Certificate.push($("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val());
-				
-				listCertificate.push(Certificate);
+				certificate_numbers.push(i+1);
+				certificate_name.push($("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val());
+				place_issue.push($("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val());
+				certificate_acquisition_date.push($("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val());
 			}
+			
+			formData.append("certificate_numbers",certificate_numbers );
+			formData.append("certificate_name",certificate_name );
+			formData.append("place_issue",place_issue );
+			formData.append("certificate_acquisition_date",certificate_acquisition_date );
 		}
 	}
 	
@@ -377,17 +417,27 @@
 		var countAward = $("#form_Award .add").size();
 		
 		if(countAward   != "0") {
+			var award_numbers = new Array();
+			var award_name = new Array();
+			var award_service = new Array();
+			var award_date = new Array();
+			var award_content = new Array();
+			
 			for(var i=0; i<countAward ; i++) {
-				var Award = new Array();
 				
-				Award.push(i+1);
-				Award.push($("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val());
-				Award.push($("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val());
-				Award.push($("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val());
-				Award.push($("#div_Award").children("div.add").eq(i).find("textarea[name='award_content']").val());
+				award_numbers.push(i+1);
+				award_name.push($("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val());
+				award_service.push($("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val());
+				award_date.push($("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val());
+				award_content.push($("#div_Award").children("div.add").eq(i).find("textarea[name='award_content']").val());
 				
-				listAward.push(Award);
 			}
+			
+			formData.append("award_numbers",award_numbers );
+			formData.append("award_name",award_name );
+			formData.append("award_service",award_service );
+			formData.append("award_date",award_date );
+			formData.append("award_content",award_content );
 		}
 	}
 	
@@ -395,17 +445,27 @@
 		var countOverseas_Experience = $("#form_Overseas_Experience .add").size();
 		
 		if(countOverseas_Experience != "0") {
+			var overseas_Experience_numbers = new Array();
+			var country_name = new Array();
+			var overseas_Experience_start_date = new Array();
+			var overseas_Experience_end_date = new Array();
+			var overseas_experience_content = new Array();
+			
 			for(var i=0; i<countOverseas_Experience; i++) {
-				var Overseas_Experience = new Array();
 				
-				Overseas_Experience.push(i+1);
-				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val());
-				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val());
-				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val());;
-				Overseas_Experience.push($("#div_Overseas_Experience").children("div.add").eq(i).find("textarea[name='overseas_experience_content']").val());
+				overseas_Experience_numbers.push(i+1);
+				country_name.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val());
+				overseas_Experience_start_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val());
+				overseas_Experience_end_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val());;
+				overseas_experience_content.push($("#div_Overseas_Experience").children("div.add").eq(i).find("textarea[name='overseas_experience_content']").val());
 				
-				listOverseas_Experience.push(Overseas_Experience);
 			}
+			
+			formData.append("overseas_Experience_numbers",overseas_Experience_numbers );
+			formData.append("country_name",country_name );
+			formData.append("overseas_Experience_start_date",overseas_Experience_start_date );
+			formData.append("overseas_Experience_end_date",overseas_Experience_end_date );
+			formData.append("overseas_experience_content",overseas_experience_content );
 		}
 	}
 	
@@ -413,18 +473,30 @@
 		var countLanguage = $("#form_Language .add").size();
 		
 		if(countLanguage   != "0") {
+			var language_numbers = new Array();
+			var language_classification = new Array();
+			var language_name = new Array();
+			var language_score = new Array();
+			var conversational_ability = new Array();
+			var language_acquisition_date = new Array();
+			
 			for(var i=0; i<countLanguage ; i++) {
-				var Language = new Array();
 				
-				Language.push(i+1);
-				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='language_classification']").val());
-				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val());
-				Language.push($("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val());
-				Language.push($("#div_Language").children("div.add").eq(i).find("select[name='conversational_ability']").val());
-				Language.push($("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val());
+				language_numbers.push(i+1);
+				language_classification.push($("#div_Language").children("div.add").eq(i).find("select[name='language_classification']").val());
+				language_name.push($("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val());
+				language_score.push($("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val());
+				conversational_ability.push($("#div_Language").children("div.add").eq(i).find("select[name='conversational_ability']").val());
+				language_acquisition_date.push($("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val());
 		
-				listLanguage.push(Language);
 			}
+			
+			formData.append("language_numbers",language_numbers );
+			formData.append("language_classification",language_classification );
+			formData.append("language_name",language_name );
+			formData.append("language_score",language_score );
+			formData.append("conversational_ability",conversational_ability );
+			formData.append("language_acquisition_date",language_acquisition_date );
 		}
 	}
 	
@@ -432,17 +504,19 @@
 		var countPreferential = $("#form_Preferential .add").size();
 		
 		if(countPreferential   != "0") {
+			var Preferential = new Array();
+			
 			for(var i=0; i<countPreferential ; i++) {
-				var Preferential = new Array();
 				
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='veterans']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='protect']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("input[name='funding']").prop("checked"));
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("select[name='disorder']").val());
 				Preferential.push($("#div_Preferential").children("div.add").eq(i).find("select[name='military']").val());
-			
-				listPreferential.push(Preferential);
+				
 			}
+			formData.append("Preferential",Preferential );
+			
 		}
 
 	}
