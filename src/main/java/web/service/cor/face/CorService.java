@@ -29,5 +29,5 @@ public interface CorService {
 	
 	public List<Resume> getScrabList(int member_no);
 
-	
+	public int getCountScrab(int member_no);
 }

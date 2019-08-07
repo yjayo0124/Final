@@ -73,4 +73,8 @@
 	</select>
 
 
+	<select id="selectScrabCount" parameterType="int" resultType="int">
+	select count(*) from resumescrab where member_no = #{member_no}
+	</select>
+
 </mapper>

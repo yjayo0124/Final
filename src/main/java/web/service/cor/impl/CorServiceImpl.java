@@ -121,5 +121,11 @@ public class CorServiceImpl implements CorService{
 		
 		return corDao.selectScrabList(member_no);
 	}
+
+	@Override
+	public int getCountScrab(int member_no) {
+		
+		return corDao.selectScrabCount(member_no);
+	}
 	
 }
