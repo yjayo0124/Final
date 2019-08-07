@@ -38,44 +38,67 @@ $(document).ready(function() {
 
 
 <style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+.body {
+	width: 1000px;
+	font-family: 'Nanum Gothic', 'Spoqa Han Sans', 'Jeju Gothic', sans-serif;
+	font-size: 14px;
+}
+
 #map { 
- 	width: 400px; 
- 	height: 300px;
+ 	width: 500px; 
+ 	height: 350px;
 } 
  
 .btn {
 	background-color: #011627;
 	color: #ffffff;
 }
+
+h4 {
+	text-align: left;
+	border: 1px solid;
+	border-color: #2C3E50;
+	color: #2C3E50;
+	padding: 15px;
+}
+
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
 </style>
+
+<div align="center">
 
 <div class="body">
 
-<h4>뷰 페이지</h4>
-<hr>
-
+<h4>&nbsp;뷰 페이지</h4>
+<br>
 
 <input type="hidden" name="jobfair_no" value="${viewmap.jobfair_no }" />
 
-<table class="table  table-bordered table-striped table-hover table-condensed">
+<table class="table">
 <thead>
 </thead>
 
 <tbody>
 	<tr>
-		<td style="width: 15%;">제목</td>
+		<td style="width: 10%;">제목</td>
 		<td>${viewmap.jobfair_name }</td>
 	</tr>
 	<tr>
-		<td style="width: 15%;">글쓴이</td>
+		<td style="width: 10%;">글쓴이</td>
 		<td>관리자</td>
 	</tr>
 	<tr>
-		<td style="width: 15%;">등록일</td>
-		<td>${viewmap.jobfair_date }</td>
+		<td style="width: 10%;">등록일</td>
+		<td><fmt:formatDate value='${viewmap.jobfair_date }' pattern="yyyy-MM-dd" /></td>
 	</tr>
 	<tr>
-		<td style="width: 15%;">내용</td>
+		<td style="width: 10%;">내용</td>
 		<td>
 			<c:if test="${file ne null }">
 				<img src="/upload/${file }" style="width: 70%; heigth: auto;">
@@ -84,15 +107,15 @@ $(document).ready(function() {
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 15%;">시작일</td>
+		<td style="width: 10%;">시작일</td>
 		<td>${viewmap.jobfair_start }</td>
 	</tr>
 	<tr>
-		<td style="width: 15%;">종료일</td>
+		<td style="width: 10%;">종료일</td>
 		<td>${viewmap.jobfair_end }</td>
 	</tr>
 	<tr>
-		<td style="width: 15%;">장소</td>
+		<td style="width: 10%;">장소</td>
 		<td>
 			${viewmap.jobfair_loc }
 			<br><br>
@@ -142,10 +165,9 @@ $(document).ready(function() {
 			
 			</script>
 		</td>
-		
 	</tr>
 	<tr>
-		<td style="width: 15%;">신청기간</td>
+		<td style="width: 10%;">신청기간</td>
 		<td>${viewmap.jobfair_limit }</td>
 	</tr>
 </tbody>
@@ -158,7 +180,10 @@ $(document).ready(function() {
 
 	<button id="btnDelete" class="btn">삭제</button>
 </sec:authorize>
-<input id="btnCancel" type="reset" value="확인" class="btn"/>
+
+	<input id="btnCancel" type="reset" value="확인" class="btn"/>
+</div>
+
 </div>
 
 </div>

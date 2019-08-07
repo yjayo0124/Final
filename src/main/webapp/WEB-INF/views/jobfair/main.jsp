@@ -69,12 +69,8 @@ $(document).ready(function() {
 			console.log(event.no);
 			location.href = '/jobfair/adminview?jobfair_no=' + event.no;
 		},
-		eventColor: 'rgba(135, 203, 22, 0.2)' 
-						//'rgba(255, 165, 52, 0.2)' 
-						//'rgba(68, 125, 247, 0.2)' 
-						//'rgba(251, 64, 75, 0.2)' 
-						//'#b2dfdb'
-			
+		eventColor: 'rgba(255, 165, 52, 0.2)'
+
 	});
 	
 
@@ -108,7 +104,7 @@ $(document).ready(function() {
 }
 
 .btn {
-	background-color: #2C3E50; /* #011627; */
+	background-color: #343a40;
 	color: #ffffff;
 }
 

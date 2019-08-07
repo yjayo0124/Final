@@ -41,7 +41,7 @@ $(document).ready(function() {
 	'<div><label>일시:  </label><br> <label>장소:  </label><br>'
 	 + '<label>참가 대상:  </label><br> <label>행사 구성:  </label><br>'
 	 + '<label>개인 신청 기간:  </label><br> <label>기업 신청 기간:  </label><br>'
-	 + '<label>담당자:  </label><br> <label>사이트(출처):  </label><br></div>';
+	 + '<label>담당자:  </label><br> <label>사이트(출처):  </label><br><br></div>';
 	
 	$("#summernote").summernote('pasteHTML', string);
 	
@@ -51,11 +51,40 @@ $(document).ready(function() {
 
 
 <style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+.body {
+	margin: 40px 10px;
+	padding: 0;
+	font-family: 'Nanum Gothic', 'Spoqa Han Sans', 'Jeju Gothic', sans-serif;
+	font-size: 14px;
+}
+
 #btnRegister, #btnCancel {
 	background-color: #011627;
 	color: #ffffff;
 }
+
+h4 {
+	text-align: left;
+	border: 1px solid;
+	border-color: #2C3E50;
+	color: #2C3E50;
+	padding: 15px;
+}
+
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
+
+#jobfair_limit {
+	width: 483px;
+}
 </style>
+
+<div align="center">
 
 <div class="body">
 
@@ -63,64 +92,70 @@ $(document).ready(function() {
 <fmt:formatDate value='${now }' pattern="yyyy-MM-dd" var="nowDate"/>
 
 <h4>등록 페이지</h4>
-<hr>
+<br>
 
 <form action="/jobfair/register" method="post" enctype="multipart/form-data">
 
-<table class="table  table-bordered table-striped table-hover table-condensed">
+<table class="table table-condensed">
 <thead>
 </thead>
 
 <tbody>
 	<tr>
-		<td>제목</td>
-		<td><input type="text" name="jobfair_name" id="jobfair_name" /></td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">제목</td>
+		<td><input type="text" name="jobfair_name" id="jobfair_name" class="form-control"  /></td>
 	</tr>
 	<tr>
-		<td>글쓴이</td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">글쓴이</td>
 		<td>${member_id }/${member.member_no }</td>
 	</tr>
 	<tr>
-		<td>등록일</td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">등록일</td>
 		<td><c:out value="${nowDate }" /></td>
 	</tr>
 	<tr>
-		<td>내용</td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">내용</td>
 		<td><textarea id="summernote" name="jobfair_content"></textarea></td>
 	</tr>
 	<tr>
-		<td>시작일</td>
-		<td><input type="date" name="jobfair_start" id="jobfair_start" /></td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">시작일</td>
+		<td><input type="date" name="jobfair_start" id="jobfair_start" class="form-control" /></td>
 	</tr>
 	<tr>
-		<td>종료일</td>
-		<td><input type="date" name="jobfair_end" id="jobfair_end" /></td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">종료일</td>
+		<td><input type="date" name="jobfair_end" id="jobfair_end" class="form-control" /></td>
 	</tr>
 	<tr>
-		<td>장소</td>
-		<td><input type="text" name="jobfair_loc" id="jobfair_loc" /></td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">장소</td>
+		<td><input type="text" name="jobfair_loc" id="jobfair_loc" class="form-control" /></td>
 	</tr>
 	<tr>
-		<td>신청기간</td>
-		<td><input type="date" name="jobfair_limit" id="jobfair_limit" />
-			~ <input type="date" name="jobfair_limit" id="jobfair_limit" /></td>
-		<td><input type="hidden" name="member_no" id="member_no" value="${member.member_no }" /></td>
+		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">신청기간</td>
+		<td>
+			<div class="form-inline">
+			<input type="date" name="jobfair_limit" id="jobfair_limit" class="form-control" />&nbsp;
+			 ~  &nbsp;<input type="date" name="jobfair_limit" id="jobfair_limit" class="form-control" />
+			</div>
+		</td>
 	</tr>
 </tbody>
 </table>
 
-<div>
-<label for="file">파일첨부</label>
-<input type="file" name="file" id="file" />
+<div class="form-group" style="text-align: left;">
+	<label for="file">파일첨부</label>
+	<input type="file" name="file" id="file" />
 </div>
 <br>
 <br>
 
 <div class="text-center">
-<button id="btnRegister" class="btn">등록</button>
-<input id="btnCancel" type="reset" value="취소" class="btn"/>
+	<button id="btnRegister" class="btn">등록</button>
+	<input id="btnCancel" type="reset" value="취소" class="btn"/>
 </div>
 
 </form>
 
 </div>
+
+</div>
+
