@@ -146,6 +146,12 @@ public class IntroductionServiceImpl implements IntroductionService {
 		
 		return introductionDao.selectSub(introduction_no);
 	}
+
+	@Override
+	public void updateIntroduction(Introduction introduction) {
+		introductionDao.updateIntroduction(introduction);
+		
+	}
 	
 
 }
