@@ -23,4 +23,9 @@ public class SearchMainServiceImpl implements SearchMainService {
 	public List<Cor> autocomplete(String result) {
 		return searchmainDao.autocomplete(result);
 	}
+
+	@Override
+	public String scanCor(String result) {
+		return searchmainDao.scanCor(result);
+	}
 }

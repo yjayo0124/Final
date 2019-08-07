@@ -44,10 +44,10 @@
 					review.review_recommended, review.review_hit, review.review_written_date, review.review_check, review.mem_no 
 			FROM review, cor
 			WHERE review.cor_no = cor.cor_no
-			ORDER BY review_no DESC
+			ORDER BY rnum
 		)
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-		ORDER BY review_no DESC
+		ORDER BY rnum
 	</select>
 	
 	<select id="selectReviewByTag" resultType="hashmap">
@@ -59,6 +59,7 @@
 			ORDER BY review_no DESC
 		)
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY review_no DESC
 	</select>
 	
 	<select id="searchReview" resultType="hashmap">
@@ -70,6 +71,7 @@
 			ORDER BY review_no DESC
 		)
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY review_no DESC
 	</select>
 	
 	<select id="selectViewList" parameterType="int" resultType="hashmap">

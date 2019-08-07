@@ -40,6 +40,7 @@ var dltnewrecommend;
 var dltnewBtn;
 
 function getParam(sname) {
+	
     // 현재 페이지의 url
     var url = decodeURIComponent(location.href);
     // url이 encodeURIComponent 로 인코딩 되었을때는 다시 디코딩 해준다.
@@ -81,26 +82,12 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#searchBtn").click(function() {
-		 $.ajax({
-			 url: "/review/scantable",
-			 type: "get",
-			 dataType: "json",
-			 data: { keyword : $('#keyword').val()},
-			 success: function(data) {
-				 console.log(data);
-				 if(data.data == null) {
-					 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
-				 } else {
-					 $("form").submit();
-				 }
-			 },
-			 error : function(data) {
-				 alert("에러가 발생하였습니다.")
-			 }
-		 });
-	});
-	
+    $("#keyword").keypress(function (e) {
+        if (e.which == 13){
+        	search();  // 실행할 이벤트
+        }
+    });
+    
 	$(document).on("click","#writecmt",function() {
 		 <c:set var="pagingTag" value="전체"/>
 		 <sec:authentication property="details" var="member"/>   
@@ -413,6 +400,29 @@ $(document).ready(function() {
 	});
 });
 
+function search() {
+	var test = document.formlist;
+	console.log(test);
+	 $.ajax({
+		 url: "/review/scantable",
+		 type: "get",
+		 dataType: "json",
+		 data: { keyword : $('#keyword').val()},
+		 success: function(data) {
+			 console.log(data);
+			 if(data.data == null) {
+				 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
+			 } else {
+				 test.action = "/review/list?tag=" + $('#keyword').val();
+				 test.submit();
+			 }
+		 },
+		 error : function(data) {
+			 alert("에러가 발생하였습니다.")
+		 }
+	 });
+}
+		 
 function writePop() {
 	window.open("http://localhost:8088/review/writePop", "글쓰기", "width=1000, height=650");
 }
@@ -655,7 +665,7 @@ td {
 <c:set var="pagingTag" value="전체"/>
 <sec:authentication property="details" var="member"/>   
     <sec:authorize access="isAuthenticated()">
-		<c:set var="mem" value="${member.member_no }"/>
+	<c:set var="mem" value="${member.member_no }"/>
 </sec:authorize>
 
 <br>
@@ -665,9 +675,9 @@ td {
 <c:forEach items="${viewlist }" var="i">
 <div class="search">
 	<h5>*기업을 검색해 주세요</h5>
-	<form action="/review/list?tag=${i.REVIEW_TAG }" method="post">
+	<form name="formlist" action="/review/list?tag=${i.REVIEW_TAG }" method="post" onsubmit="return false;">
 		<input type="text" name="keyword" id="keyword"/>
-		<input type="button" id="searchBtn" value="검색">
+		<input type="button" id="searchBtn" value="검색" onclick="search()">
 	</form>
 	<c:if test="${not empty pageContext.request.userPrincipal }">
 		<button id="reviewBtn" onclick="writePop()">글쓰기</button>

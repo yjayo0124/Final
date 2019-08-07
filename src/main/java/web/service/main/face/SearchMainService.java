@@ -9,4 +9,6 @@ public interface SearchMainService {
 	public List<Cor> getSearch(String keyword);
 
 	public List<Cor> autocomplete(String result);
+
+	public String scanCor(String result);
 }

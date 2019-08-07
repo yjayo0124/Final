@@ -78,6 +78,25 @@ public class MainController {
 		}
 	}
 
+	@RequestMapping(value="/main/scancor", method=RequestMethod.GET)
+	public void scancor(Model model, HttpServletRequest request, HttpServletResponse resp) {
+		String result = request.getParameter("keyword");
+
+		logger.info("테이블 스캔 중...");
+		String scanResult = searchmainService.scanCor(result);
+		System.out.println(scanResult);
+		JSONObject obj = new JSONObject();
+		obj.put("data", scanResult);
+        resp.setContentType("application/json ; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        
+        try {
+			resp.getWriter().write(obj.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@RequestMapping(value="/main/search", method=RequestMethod.GET)
 	public void searchCor(String keyword, Model model) {
 		
