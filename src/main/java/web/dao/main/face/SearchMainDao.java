@@ -10,4 +10,6 @@ public interface SearchMainDao {
 
 	public List<Cor> autocomplete(String result);
 
+	public String scanCor(String result);
+
 }

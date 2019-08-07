@@ -46,7 +46,7 @@ public class CorInfoController {
 		
 		// �룞醫낆궛�뾽援� �룊洹� �눜�궗�쑉
 		int levmem = corinfoService.addLevmem(industrylist);
-		
+		System.out.println("levmem : " + levmem);
 		// 기업리뷰 리스트
 		List<HashMap<String, Object>> corReview = corinfoService.getReview(cor_no);
 		

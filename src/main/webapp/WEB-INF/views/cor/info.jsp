@@ -687,6 +687,9 @@ SETTINGS
 		<c:if test="${i.cor_type eq 'BIZ_NO미존재사업장'}">
 			<td>정보 없음</td>
 		</c:if>
+		<c:if test="${i.cor_type eq '정보없음'}">
+			<td>정보 없음</td>
+		</c:if>
 		<c:if test="${i.cor_type ne 'BIZ_NO미존재사업장'}">
 			<td>${i.cor_type }</td>
 		</c:if>
@@ -710,13 +713,13 @@ SETTINGS
 	<div id="newmem" class="section">
 		<h5>입사율</h5>
 		<div id="newmembox" class="sm-link sm-link_bg sm-link12">
-			<span class="sm-link__label"><h4>${i.cor_new_mem }명</h4></span>
+			<span class="sm-link__label"><h4>${i.cor_new_mem }명 &nbsp;<fmt:formatNumber value="${i.cor_new_mem /i.cor_mem * 100}" pattern="0.00"/>%</h4></span>
 		</div>
 	</div>
 	<div id="levmem" class="section">
 		<h5>퇴사율</h5>
 		<div id="levmembox" class="sm-link sm-link_bg sm-link12">
-			<span class="sm-link__label"><h4>${i.cor_lev_mem }명</h4></span>
+			<span class="sm-link__label"><h4>${i.cor_lev_mem }명 &nbsp;<fmt:formatNumber value="${i.cor_lev_mem /i.cor_mem * 100}" pattern="0.00"/>%</h4></span>
 		</div>
 	</div>
 </div>
@@ -953,7 +956,7 @@ SETTINGS
 	</c:if>
 	<c:if test ="${i.cor_new_mem > newmem and i.cor_new_mem >= 90 and i.cor_new_mem - newmem >= 10 and newmem <= 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_new_mem }">&nbsp;<span style="width:60px; margin:0px;">${cornewmemvar }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px; margin:0px;">${newmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${newmem }">&nbsp;<span style="width:60px;">${newmemvar }명</span></div></div>
 	</c:if>
 	
 	
@@ -1026,16 +1029,16 @@ SETTINGS
 </div>
 
 <div id="zt-span9" class="zt-span6 last">
-	<c:choose>
-		<c:when test="${i.cor_lev_mem > levmem and i.cor_lev_mem > 101}">
-			<c:set var="cormem" value="${i.cor_mem }"/>
-			<c:set target="levmem" value="${(levmem / i.cor_lev_mem) * 100}"/>
-		</c:when>
-		<c:when test="${i.cor_lev_mem < levmem and levmem > 101}">
-			<c:set var="cormem" value="${levmem }"/>
-			<c:set target="i.cor_lev_mem" value="${(i.cor_lev_mem / levmem) * 100}"/>
-		</c:when>
-	</c:choose>
+<%-- 	<c:choose> --%>
+<%-- 		<c:when test="${i.cor_lev_mem > levmem and i.cor_lev_mem > 99}"> --%>
+<%-- 			<c:set var="cormem" value="${i.cor_mem }"/> --%>
+<%-- 			<c:set target="levmem" value="${(levmem / i.cor_lev_mem) * 100}"/> --%>
+<%-- 		</c:when> --%>
+<%-- 		<c:when test="${i.cor_lev_mem < levmem and levmem > 99}"> --%>
+<%-- 			<c:set var="cormem" value="${levmem }"/> --%>
+<%-- 			<c:set target="i.cor_lev_mem" value="${(i.cor_lev_mem / levmem) * 100}"/> --%>
+<%-- 		</c:when> --%>
+<%-- 	</c:choose> --%>
 	
 	<h3><strong>퇴사율</strong></h3>
 	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem < 90 and i.cor_lev_mem - levmem >= 10 and levmem > 20 }">
@@ -1052,7 +1055,7 @@ SETTINGS
 	</c:if>
 	<c:if test="${i.cor_lev_mem > levmem and i.cor_lev_mem >= 90 and i.cor_lev_mem - levmem >= 10 and levmem <= 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px; margin:0px;">${corlevmemvar }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
+		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px;">${levmemvar }명</span></div></div>
 	</c:if>
 	
 	
@@ -1073,6 +1076,7 @@ SETTINGS
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_lev_mem }">&nbsp;<span style="width:60px;">${corlevmemvar }명</span></div></div>
 		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${levmem }">&nbsp;<span style="width:60px; margin:0px;">${levmemvar }명</span></div></div>
 	</c:if>	
+	
 	
 	
 	<c:if test="${i.cor_lev_mem < levmem and levme < 90 and levmem - i.cor_lev_mem >= 10 and i.cor_lev_mem > 20 }">
@@ -1127,8 +1131,9 @@ SETTINGS
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <h4><label>기업리뷰</label></h4>
-<button id="reviewBtn" onclick="writePop('${i.cor_no}', '${i.cor_name }')">글쓰기</button>
-
+<c:if test="${not empty pageContext.request.userPrincipal }">
+	<button id="reviewBtn" onclick="writePop('${i.cor_no}', '${i.cor_name }')">글쓰기</button>
+</c:if>
 <div id="review" style="overflow:auto;">
 	<table style="border-top: 1px solid gray; border-bottom: 1px solid gray;">
 		<thead>

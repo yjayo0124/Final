@@ -39,16 +39,14 @@ $(document).ready(function() {
 				}
 			});
 		}
-	});
+	});	
 	
-	// 검색버튼 동작
-	$("#searchBtn").click(function() {
-		// form submit 수행
-		$("form").submit();
-	});
-	
-	
-	
+    $("#keyword").keypress(function (e) {
+        if (e.which == 13){
+        	search();  // 실행할 이벤트
+        }
+    });
+    
     $('.slider').slick({
     	  infinite: true,
     	  speed:300,
@@ -65,6 +63,27 @@ $(document).ready(function() {
  
 
 });
+
+// 검색버튼 동작
+function search() {
+	 $.ajax({
+		 url: "/main/scancor",
+		 type: "get",
+		 dataType: "json",
+		 data: { keyword : $('#keyword').val()},
+		 success: function(data) {
+			 console.log(data);
+			 if(data.data == null) {
+				 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
+			 } else {
+				 $("form").submit();
+			 }
+		 },
+		 error : function(data) {
+			 alert("에러가 발생하였습니다.")
+		 }
+	 });
+}
 
 </script>
 
@@ -234,13 +253,14 @@ table th{
 
 	
 	<div class="search_container" style="width: 500px; margin: 0 auto;">
-		<!-- 검색기능 -->
-		<form action="/main/search" method="get">
+
+		<form action="/main/search" method="get" onsubmit="return false;">>
 			<div class="search input-group mb-1">
 				<input type="text" name="keyword" class="form-control" id="keyword" width="90%" placeholder="기업을 검색해보세요♬" aria-describedby="searchBtn" style="font-size: 15px;">
 				<div class="input-group-append">
-				<button type="button" class="btn btn-outline-secondary" id="searchBtn">검색</button>
+				<button type="button" class="btn btn-outline-secondary" id="searchBtn" onclick="search()">검색</button>
 				</div>
+
 			</div>
 		</form>
 	</div>

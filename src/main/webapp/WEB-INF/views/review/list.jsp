@@ -40,25 +40,11 @@ $(document).ready(function() {
 		}
 	});
 	
-	$("#searchBtn").click(function() {
-		 $.ajax({
-			 url: "/review/scantable",
-			 type: "get",
-			 dataType: "json",
-			 data: { keyword : $('#keyword').val()},
-			 success: function(data) {
-				 console.log(data);
-				 if(data.data == null) {
-					 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
-				 } else {
-					 $("form").submit();
-				 }
-			 },
-			 error : function(data) {
-				 alert("에러가 발생하였습니다.")
-			 }
-		 });
-	});
+    $("#keyword").keypress(function (e) {
+        if (e.which == 13){
+        	search();  // 실행할 이벤트
+        }
+    });
 	
 	$(document).on('click', '#like', function(){
 		// 현재 클릭된 Row(<tr>)
@@ -164,6 +150,29 @@ $(document).ready(function() {
 		});
 	}
 });
+
+function search() {
+	var test = document.formlist;
+	console.log(test);
+	 $.ajax({
+		 url: "/review/scantable",
+		 type: "get",
+		 dataType: "json",
+		 data: { keyword : $('#keyword').val()},
+		 success: function(data) {
+			 console.log(data);
+			 if(data.data == null) {
+				 alert("                   검색결과 존재하지 않는 기업입니다.\n                   기업이름을 정확히 입력해 주세요.");
+			 } else {
+				 test.action = "/review/list?tag=" + $('#keyword').val();
+				 test.submit();
+			 }
+		 },
+		 error : function(data) {
+			 alert("에러가 발생하였습니다.")
+		 }
+	 });
+}
 
 function writePop(){
 	window.open("http://localhost:8088/review/writePop", "글쓰기", "width=1000, height=650");
@@ -309,9 +318,9 @@ a:link {
 <hr class="review-hr">
 <div class="search">
 	<h5>*기업을 검색해 주세요</h5>
-	<form action="/review/list?tag=${tag }" method="post">
+	<form name="formlist" action="/review/list?tag=${tag }" method="post" onsubmit="return false;">
 		<input type="text" name="keyword" id="keyword"/>
-		<input type="button" id="searchBtn" value="검색">
+		<input type="button" id="searchBtn" value="검색" onclick="search()">
 	</form>
 	<c:if test="${not empty pageContext.request.userPrincipal }">
 		<button id="reviewBtn" onclick="writePop()">글쓰기</button>
