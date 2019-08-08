@@ -46,8 +46,6 @@
 		SELECT * FROM Preferential WHERE resume_no = #{resume_no} 
 	</select>
 	
-	
-
 	<delete id="deleteSchool" parameterType="int">
 		DELETE FROM School WHERE resume_no = #{resume_no}
 	</delete>
@@ -248,5 +246,38 @@
 		(resume_no, veterans, protect, funding, disorder, military)
 		VALUES(#{resume_no}, #{veterans}, #{protect}, #{funding}, #{disorder}, #{military})
 	</insert>
+	
+	<update id="updateResumeNoFile" parameterType="web.dto.mypage.resume.Resume">
+		UPDATE Resume SET resume_title = #{resume_title},
+							resume_name = #{resume_name},
+							resume_birth = #{resume_birth},
+							resume_gender = #{resume_gender},
+							resume_email = #{resume_email},
+							resume_phone = #{resume_phone},
+							resume_cellphone = #{resume_cellphone},
+							resume_addr = #{resume_addr},
+							forms_employment = #{forms_employment},
+							desired_work_place = #{desired_work_place},
+							salary = #{salary}
+		WHERE resume_no = #{resume_no}
+	
+	</update>
+	
+	<update id="updateResumeHaveFile" parameterType="web.dto.mypage.resume.Resume">
+		UPDATE Resume SET resume_title = #{resume_title},
+							resume_name = #{resume_name},
+							resume_stored_name = #{resume_stored_name},
+							resume_birth = #{resume_birth},
+							resume_gender = #{resume_gender},
+							resume_email = #{resume_email},
+							resume_phone = #{resume_phone},
+							resume_cellphone = #{resume_cellphone},
+							resume_addr = #{resume_addr},
+							forms_employment = #{forms_employment},
+							desired_work_place = #{desired_work_place},
+							salary = #{salary}
+		WHERE resume_no = #{resume_no}
+	
+	</update>
 
 </mapper>

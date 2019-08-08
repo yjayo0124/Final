@@ -489,6 +489,66 @@ public class MypageController {
 		}
 
 	}
+	
+	@RequestMapping(value="/mypage/resume/update", method=RequestMethod.POST)
+	public void resumeUpdateProc(
+			MultipartHttpServletRequest request,
+			String filename,
+			Resume resume,
+			FormData formData) {
+		int resume_no = resume.getResume_no();
+		
+		//파일첨부 없을 때, 업데이트
+		if(filename.equals("")) {
+			System.out.println("파일없음");
+			resumeService.updateResumeNoFile(resume);
+			
+		//파일첨부 있을 때, 업데이트
+		} else {
+			MultipartFile upfile = request.getFile("upfile");
+			String resume_stored_name = resumeService.filesave(upfile, context);
+			resume.setResume_stored_name(resume_stored_name);
+			resumeService.updateResumeHaveFile(resume);
+		}
+		//school이 있을때
+		if(resumeService.checkSchool(resume_no)) {
+			resumeService.deleteSchool(resume_no);
+			resumeService.insertSchool(formData);
+		}
+		if(resumeService.checkCareer(resume_no)) {
+			resumeService.deleteCareer(resume_no);
+			resumeService.insertCareer(formData);
+		}
+		if(resumeService.checkActivities(resume_no)) {
+			resumeService.deleteActivities(resume_no);
+			resumeService.insertActivities(formData);
+		}
+		if(resumeService.checkEducation(resume_no)) {
+			resumeService.deleteEducation(resume_no);
+			resumeService.insertEducation(formData);
+		}
+		if(resumeService.checkCertificate(resume_no)) {
+			resumeService.deleteCertificate(resume_no);
+			resumeService.insertCertificate(formData);
+		}
+		if(resumeService.checkAward(resume_no)) {
+			resumeService.deleteAward(resume_no);
+			resumeService.insertAward(formData);
+		}
+		if(resumeService.checkOverseas_Experience(resume_no)) {
+			resumeService.deleteOverseas_Experience(resume_no);
+			resumeService.insertOverseas_Experience(formData);
+		}
+		if(resumeService.checkLanguage(resume_no)) {
+			resumeService.deleteLanguage(resume_no);
+			resumeService.insertLanguage(formData);
+		}
+		if(resumeService.checkPreferential(resume_no)) {
+			resumeService.deletePreferential(resume_no);
+			resumeService.insertPreferential(formData);
+		}
+		
+	}
 
 	@RequestMapping(value="/mypage/resume/delete", method=RequestMethod.GET)
 	public String resumeDelete(int resume_no) {

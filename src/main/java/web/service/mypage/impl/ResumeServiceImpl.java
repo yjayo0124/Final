@@ -206,6 +206,7 @@ public class ResumeServiceImpl implements ResumeService{
 
 	@Override
 	public void insertAward(FormData formData) {
+		System.out.println(formData.getAward_numbers().length);
 		for(int i=0; i<formData.getAward_numbers().length; i++) {
 			Award awa = new Award();
 			
@@ -665,6 +666,22 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public Preferential selectPreferential(int resume_no) {
 		return resumeDao.selelctPreferential(resume_no);
+	}
+
+
+
+	@Override
+	public void updateResumeNoFile(Resume resume) {
+		resumeDao.updateResumeNoFile(resume);
+		
+	}
+
+
+
+	@Override
+	public void updateResumeHaveFile(Resume resume) {
+		resumeDao.updateResumeHaveFile(resume);
+		
 	}
 
 

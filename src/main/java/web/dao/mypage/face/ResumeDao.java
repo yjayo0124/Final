@@ -112,4 +112,8 @@ public interface ResumeDao {
 	
 	public Preferential selelctPreferential(int resume_no);	
 	
+	public void updateResumeNoFile(Resume resume);
+	
+	public void updateResumeHaveFile(Resume resume);
+	
 }

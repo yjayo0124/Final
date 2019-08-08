@@ -245,22 +245,100 @@
 			var graduation_thesis_content = new Array();
 			
 			for(var i=0; i<countSchool; i++) {
+				var val_ged_status = $("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked");
+				var val_school_name = $("#div_School").children("div.add").eq(i).find("input[name='school_name']").val();
+				var val_graduation_date = $("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val();
+				var val_academic_degree = $("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val();
+				var val_admission_date = $("#div_School").children("div.add").eq(i).find("input[name='admission_date']").val();
+				var val_transfer_status= $("#div_School").children("div.add").eq(i).find("input[name='transfer_status']").prop("checked");
+				var val_major_name = $("#div_School").children("div.add").eq(i).find("input[name='major_name']").val();
+				var val_credit = $("#div_School").children("div.add").eq(i).find("input[name='credit']").val();
+				var val_total_score = $("#div_School").children("div.add").eq(i).find("select[name='total_score']").val();
+				var val_sub_major_status = $("#div_School").children("div.add").eq(i).find("select[name='sub_major_status']").val();
+				var val_sub_major_name = $("#div_School").children("div.add").eq(i).find("input[name='sub_major_name']").val();
+				var val_graduation_thesis_content = $("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val();
 				
 				school_numbers.push(i+1);
 				school_classification.push($("#div_School").children("div.add").eq(i).find("select[name='school_classification']").val());
-				school_name.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
-				graduation_date.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
+				if(typeof val_school_name == "undefined"|| val_school_name == null || val_school_name == ""){
+					school_name.push("0");
+				}else{
+					school_name.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
+				}
+// 				school_name.push($("#div_School").children("div.add").eq(i).find("input[name='school_name']").val());
+				if(typeof val_graduation_date == "undefined"|| val_graduation_date == null || val_graduation_date == ""){
+					graduation_date.push("0");
+				}else{
+					graduation_date.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
+				}
+// 				graduation_date.push($("#div_School").children("div.add").eq(i).find("input[name='graduation_date']").val());
 				graduation_status.push($("#div_School").children("div.add").eq(i).find("select[name='graduation_status']").val());
-				ged_status.push($("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked"));
-				academic_degree.push($("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val());
-				admission_date.push($("#div_School").children("div.add").eq(i).find("input[name='admission_date']").val());
-				transfer_status.push($("#div_School").children("div.add").eq(i).find("input[name='transfer_status']").prop("checked"));
-				major_name.push($("#div_School").children("div.add").eq(i).find("input[name='major_name']").val());
-				credit.push($("#div_School").children("div.add").eq(i).find("input[name='credit']").val());
-				total_score.push($("#div_School").children("div.add").eq(i).find("select[name='total_score']").val());
-				sub_major_status.push($("#div_School").children("div.add").eq(i).find("select[name='sub_major_status']").val());
-				sub_major_name.push($("#div_School").children("div.add").eq(i).find("input[name='sub_major_name']").val());
-				graduation_thesis_content.push($("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val());
+				if(typeof val_ged_status == "undefined"|| val_ged_status == null || val_ged_status == ""){
+					ged_status.push("false");
+				}else{
+					ged_status.push($("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked"));
+				}
+// 				ged_status.push($("#div_School").children("div.add").eq(i).find("input[name='ged_status']").prop("checked"));
+				if(typeof val_academic_degree == "undefined"|| val_academic_degree == null || val_academic_degree == ""){
+					academic_degree.push("0");
+				}else{
+					academic_degree.push($("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val());
+				}
+// 				academic_degree.push($("#div_School").children("div.add").eq(i).find("select[name='academic_degree']").val());
+				if(typeof val_admission_date == "undefined"|| val_admission_date == null || val_admission_date == ""){
+					admission_date.push("0");
+				}else{
+					admission_date.push($("#div_School").children("div.add").eq(i).find("input[name='admission_date']").val());
+				}
+// 				admission_date.push($("#div_School").children("div.add").eq(i).find("input[name='admission_date']").val());
+				if(typeof val_transfer_status == "undefined"|| val_transfer_status == null || val_transfer_status == ""){
+					transfer_status.push("false");
+				}else{
+					transfer_status.push($("#div_School").children("div.add").eq(i).find("input[name='transfer_status']").prop("checked"));
+				}
+// 				transfer_status.push($("#div_School").children("div.add").eq(i).find("input[name='transfer_status']").prop("checked"));
+				
+				if(typeof val_major_name == "undefined"|| val_major_name == null || val_major_name == ""){
+					major_name.push("0");
+				}else{
+					major_name.push($("#div_School").children("div.add").eq(i).find("input[name='major_name']").val());
+				}
+// 				major_name.push($("#div_School").children("div.add").eq(i).find("input[name='major_name']").val());
+				
+				if(typeof val_credit == "undefined"|| val_credit == null || val_credit == ""){
+					credit.push("0");
+				}else{
+					credit.push($("#div_School").children("div.add").eq(i).find("input[name='credit']").val());
+				}
+// 				credit.push($("#div_School").children("div.add").eq(i).find("input[name='credit']").val());
+				
+				if(typeof val_total_score == "undefined"|| val_total_score == null || val_total_score == ""){
+					total_score.push("0");
+				}else{
+					total_score.push($("#div_School").children("div.add").eq(i).find("select[name='total_score']").val());
+				}
+// 				total_score.push($("#div_School").children("div.add").eq(i).find("select[name='total_score']").val());
+				
+				if(typeof val_sub_major_status == "undefined"|| val_sub_major_status == null || val_sub_major_status == ""){
+					sub_major_status.push("0");
+				}else{
+					sub_major_status.push($("#div_School").children("div.add").eq(i).find("select[name='sub_major_status']").val());
+				}
+// 				sub_major_status.push($("#div_School").children("div.add").eq(i).find("select[name='sub_major_status']").val());
+				
+				if(typeof val_sub_major_name == "undefined"|| val_sub_major_name == null || val_sub_major_name == ""){
+					sub_major_name.push("0");
+				}else{
+					sub_major_name.push($("#div_School").children("div.add").eq(i).find("input[name='sub_major_name']").val());
+				}
+// 				sub_major_name.push($("#div_School").children("div.add").eq(i).find("input[name='sub_major_name']").val());
+				
+				if(typeof val_graduation_thesis_content == "undefined"|| val_graduation_thesis_content == null || val_graduation_thesis_content == ""){
+					graduation_thesis_content.push("0");
+				}else{
+					graduation_thesis_content.push($("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val());
+				}
+// 				graduation_thesis_content.push($("#div_School").children("div.add").eq(i).find("textarea[name='graduation_thesis_content']").val());
 				
 			}
 			formData.append("school_numbers",school_numbers );
@@ -299,17 +377,79 @@
 			
 			
 			for(var i=0; i<countCareer; i++) {
-								
+				var val_company_name = $("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val();
+				var val_department_name = $("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val();
+				var val_hire_date = $("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val();
+				var val_retirement_date = $("#div_Career").children("div.add").eq(i).find("input[name='retirement_date']").val();
+				var val_served_status = $("#div_Career").children("div.add").eq(i).find("input[name='served_status']").prop("checked");
+				var val_position = $("#div_Career").children("div.add").eq(i).find("input[name='position']").val();
+				var val_job_work = $("#div_Career").children("div.add").eq(i).find("input[name='job_work']").val();
+				var val_career_salary = $("#div_Career").children("div.add").eq(i).find("input[name='salary']").val();
+				var val_assigned_task = $("#div_Career").children("div.add").eq(i).find("textarea[name='assigned_task']").val();
+				
 				career_numbers.push(i+1);
-				company_name.push($("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val());
-				department_name.push($("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val());
-				hire_date.push($("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val());
-				retirement_date.push($("#div_Career").children("div.add").eq(i).find("input[name='retirement_date']").val());
-				served_status.push($("#div_Career").children("div.add").eq(i).find("input[name='served_status']").prop("checked"));
-				position.push($("#div_Career").children("div.add").eq(i).find("input[name='position']").val());
-				job_work.push($("#div_Career").children("div.add").eq(i).find("input[name='job_work']").val());
-				career_salary.push($("#div_Career").children("div.add").eq(i).find("input[name='salary']").val());
-				assigned_task.push($("#div_Career").children("div.add").eq(i).find("textarea[name='assigned_task']").val());	
+				if(typeof val_department_name == "undefined"|| val_department_name == null || val_department_name == ""){
+					company_name.push("0");
+				}else{
+					company_name.push($("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val());
+				}
+// 				company_name.push($("#div_Career").children("div.add").eq(i).find("input[name='company_name']").val());
+
+				if(typeof val_company_name == "undefined"|| val_company_name == null || val_company_name == ""){
+					department_name.push("0");
+				}else{
+					department_name.push($("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val());
+				}
+// 				department_name.push($("#div_Career").children("div.add").eq(i).find("input[name='department_name']").val());
+				
+				if(typeof val_hire_date == "undefined"|| val_hire_date == null || val_hire_date == ""){
+					hire_date.push("0");
+				}else{
+					hire_date.push($("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val());
+				}
+// 				hire_date.push($("#div_Career").children("div.add").eq(i).find("input[name='hire_date']").val());
+				
+				if(typeof val_retirement_date == "undefined"|| val_retirement_date == null || val_retirement_date == ""){
+					retirement_date.push("0");
+				}else{
+					retirement_date.push($("#div_Career").children("div.add").eq(i).find("input[name='retirement_date']").val());
+				}
+// 				retirement_date.push($("#div_Career").children("div.add").eq(i).find("input[name='retirement_date']").val());
+				
+				if(typeof val_served_status == "undefined"|| val_served_status == null || val_served_status == ""){
+					served_status.push("false");
+				}else{
+					served_status.push($("#div_Career").children("div.add").eq(i).find("input[name='served_status']").prop("checked"));
+				}
+// 				served_status.push($("#div_Career").children("div.add").eq(i).find("input[name='served_status']").prop("checked"));
+				
+				if(typeof val_position == "undefined"|| val_position == null || val_position == ""){
+					position.push("0");
+				}else{
+					position.push($("#div_Career").children("div.add").eq(i).find("input[name='position']").val());
+				}
+// 				position.push($("#div_Career").children("div.add").eq(i).find("input[name='position']").val());
+				
+				if(typeof val_job_work == "undefined"|| val_job_work == null || val_job_work == ""){
+					job_work.push("0");
+				}else{
+					job_work.push($("#div_Career").children("div.add").eq(i).find("input[name='job_work']").val());
+				}
+// 				job_work.push($("#div_Career").children("div.add").eq(i).find("input[name='job_work']").val());
+				
+				if(typeof val_career_salary == "undefined"|| val_career_salary == null || val_career_salary == ""){
+					career_salary.push("0");
+				}else{
+					career_salary.push($("#div_Career").children("div.add").eq(i).find("input[name='salary']").val());
+				}
+// 				career_salary.push($("#div_Career").children("div.add").eq(i).find("input[name='salary']").val());
+
+				if(typeof val_assigned_task == "undefined"|| val_assigned_task == null || val_assigned_task == ""){
+					assigned_task.push("0");
+				}else{
+					assigned_task.push($("#div_Career").children("div.add").eq(i).find("textarea[name='assigned_task']").val());	
+				}
+// 				assigned_task.push($("#div_Career").children("div.add").eq(i).find("textarea[name='assigned_task']").val());	
 			}
 			
 			formData.append("career_numbers",career_numbers );
@@ -338,12 +478,40 @@
 			var activity_content = new Array();
 			
 			for(var i=0; i<countActivities; i++) {
+				var val_institution_name = $("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val();
+				var val_start_date = $("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val();
+				var val_end_date = $("#div_Activities").children("div.add").eq(i).find("input[name='end_date']").val();
+				var val_activity_content = $("#div_Activities").children("div.add").eq(i).find("textarea[name='activity_content']").val();
 				
 				activities_numbers.push(i+1);
 				activity_classification.push($("#div_Activities").children("div.add").eq(i).find("select[name='activity_classification']").val());
-				institution_name.push($("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val());
-				activity_start_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val());
-				activity_end_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='end_date']").val());
+				
+				if(typeof val_institution_name == "undefined"|| val_institution_name == null || val_institution_name == ""){
+					institution_name.push("0");
+				}else{
+					institution_name.push($("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val());
+				}
+// 				institution_name.push($("#div_Activities").children("div.add").eq(i).find("input[name='institution_name']").val());
+
+				if(typeof val_start_date == "undefined"|| val_start_date == null || val_start_date == ""){
+					activity_start_date.push("0");
+				}else{
+					activity_start_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val());
+				}
+// 				activity_start_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='start_date']").val());
+
+				if(typeof val_end_date == "undefined"|| val_end_date == null || val_end_date == ""){
+					activity_end_date.push("0");
+				}else{
+					activity_end_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='end_date']").val());
+				}
+// 				activity_end_date.push($("#div_Activities").children("div.add").eq(i).find("input[name='end_date']").val());
+
+				if(typeof val_activity_content == "undefined"|| val_activity_content == null || val_activity_content == ""){
+					activity_content.push("0");
+				}else{
+					activity_content.push($("#div_Activities").children("div.add").eq(i).find("textarea[name='activity_content']").val());
+				}
 				activity_content.push($("#div_Activities").children("div.add").eq(i).find("textarea[name='activity_content']").val());
 			}
 			
@@ -368,13 +536,47 @@
 			var training_content = new Array();
 			
 			for(var i=0; i<countEducation; i++) {
+				var val_training_title = $("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val();
+				var val_educational_facilities = $("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val();
+				var val_start_date = $("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val();
+				var val_end_date = $("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val();
+				var val_training_content = $("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val();
 				
 				education_numbers.push(i+1);
-				training_title.push($("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val());
-				educational_facilities.push($("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val());
-				education_start_date.push($("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val());
-				education_end_date.push($("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val());
-				training_content.push($("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val());
+				if(typeof val_training_title == "undefined"|| val_training_title == null || val_training_title == ""){
+					training_title.push("0");
+				}else{
+					training_title.push($("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val());
+				}
+// 				training_title.push($("#div_Education").children("div.add").eq(i).find("input[name='training_title']").val());
+
+				if(typeof val_educational_facilities == "undefined"|| val_educational_facilities == null || val_educational_facilities == ""){
+					educational_facilities.push("0");
+				}else{
+					educational_facilities.push($("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val());
+				}
+// 				educational_facilities.push($("#div_Education").children("div.add").eq(i).find("input[name='educational_facilities']").val());
+				
+				if(typeof val_start_date == "undefined"|| val_start_date == null || val_start_date == ""){
+					education_start_date.push("0");
+				}else{
+					education_start_date.push($("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val());
+				}
+// 				education_start_date.push($("#div_Education").children("div.add").eq(i).find("input[name='start_date']").val());
+				
+				if(typeof val_end_date == "undefined"|| val_end_date == null || val_end_date == ""){
+					education_end_date.push("0");
+				}else{
+					education_end_date.push($("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val());
+				}
+// 				education_end_date.push($("#div_Education").children("div.add").eq(i).find("input[name='end_date']").val());
+				
+				if(typeof val_training_content == "undefined"|| val_training_content == null || val_training_content == ""){
+					training_content.push("0");
+				}else{
+					training_content.push($("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val());
+				}
+// 				training_content.push($("#div_Education").children("div.add").eq(i).find("textarea[name='training_content']").val());
 	
 			}
 			
@@ -397,11 +599,32 @@
 			var certificate_acquisition_date = new Array();
 			
 			for(var i=0; i<countCertificate; i++) {
+				var val_certificate_name = $("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val();
+				var val_place_issue = $("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val();
+				var val_acquisition_date = $("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val();
 				
 				certificate_numbers.push(i+1);
-				certificate_name.push($("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val());
-				place_issue.push($("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val());
-				certificate_acquisition_date.push($("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val());
+				
+				if(typeof val_certificate_name == "undefined"|| val_certificate_name == null || val_certificate_name == ""){
+					certificate_name.push("0");
+				}else{
+					certificate_name.push($("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val());
+				}
+// 				certificate_name.push($("#div_Certificate").children("div.add").eq(i).find("input[name='certificate_name']").val());
+
+				if(typeof val_place_issue == "undefined"|| val_place_issue == null || val_place_issue == ""){
+					place_issue.push("0");
+				}else{
+					place_issue.push($("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val());
+				}
+// 				place_issue.push($("#div_Certificate").children("div.add").eq(i).find("input[name='place_issue']").val());
+				
+				if(typeof val_acquisition_date == "undefined"|| val_acquisition_date == null || val_acquisition_date == ""){
+					certificate_acquisition_date.push("0");
+				}else{
+					certificate_acquisition_date.push($("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val());
+				}
+// 				certificate_acquisition_date.push($("#div_Certificate").children("div.add").eq(i).find("input[name='acquisition_date']").val());
 			}
 			
 			formData.append("certificate_numbers",certificate_numbers );
@@ -422,12 +645,36 @@
 			var award_content = new Array();
 			
 			for(var i=0; i<countAward ; i++) {
-				
+				var val = $("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val();
+				var val2 = $("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val();
+				var val3 = $("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val();
+				var val4 = $("#div_Award").children("div.add").eq(i).find("textarea[name='award_content']").val();
 				award_numbers.push(i+1);
-				award_name.push($("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val());
-				award_service.push($("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val());
-				award_date.push($("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val());
-				award_content.push($("#div_Award").children("div.add").eq(i).find("textarea[name='award_content']").val());
+				if(typeof val == "undefined"|| val == null || val == ""){
+					award_name.push("0");
+				}else{
+					award_name.push($("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val());
+				}
+// 				award_name.push($("#div_Award").children("div.add").eq(i).find("input[name='award_name']").val());
+				if(typeof val2 == "undefined"|| val2 == null || val2 == ""){
+					award_service.push("0");
+				}else{
+					award_service.push($("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val());
+				}
+				
+// 				award_service.push($("#div_Award").children("div.add").eq(i).find("input[name='award_service']").val());
+				if(typeof val3 == "undefined"|| val3 == null || val3 == ""){
+					award_date.push("0");
+				}else{
+					award_date.push($("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val());
+				}
+// 				award_date.push($("#div_Award").children("div.add").eq(i).find("input[name='award_date']").val());
+				if(typeof val4 == "undefined"|| val4 == null || val4 == ""){
+					award_content.push("0");
+				}else{
+					award_content.push($("#div_Award").children("div.add").eq(i).find("textarea[name='award_content']").val());
+				}
+// 				award_content.push($("#div_Award").children("div.add").eq(i).find("textarea[name='award_content']").val());
 				
 			}
 			
@@ -450,12 +697,40 @@
 			var overseas_experience_content = new Array();
 			
 			for(var i=0; i<countOverseas_Experience; i++) {
+				var val_country_name = $("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val();
+				var val_start_date = $("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val();
+				var val_end_date = $("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val();
+				var val_overseas_experience_content = $("#div_Overseas_Experience").children("div.add").eq(i).find("textarea[name='overseas_experience_content']").val();
 				
 				overseas_Experience_numbers.push(i+1);
-				country_name.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val());
-				overseas_Experience_start_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val());
-				overseas_Experience_end_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val());;
-				overseas_experience_content.push($("#div_Overseas_Experience").children("div.add").eq(i).find("textarea[name='overseas_experience_content']").val());
+				
+				if(typeof val_country_name == "undefined"|| val_country_name == null || val_country_name == ""){
+					country_name.push("0");
+				}else{
+					country_name.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val());
+				}
+// 				country_name.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='country_name']").val());
+
+				if(typeof val_start_date == "undefined"|| val_start_date == null || val_start_date == ""){
+					overseas_Experience_start_date.push("0");
+				}else{
+					overseas_Experience_start_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val());
+				}
+// 				overseas_Experience_start_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='start_date']").val());
+				
+				if(typeof val_end_date == "undefined"|| val_end_date == null || val_end_date == ""){
+					overseas_Experience_end_date.push("0");
+				}else{
+					overseas_Experience_end_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val());
+				}
+// 				overseas_Experience_end_date.push($("#div_Overseas_Experience").children("div.add").eq(i).find("input[name='end_date']").val());
+				
+				if(typeof val_overseas_experience_content == "undefined"|| val_overseas_experience_content == null || val_overseas_experience_content == ""){
+					overseas_experience_content.push("0");
+				}else{
+					overseas_experience_content.push($("#div_Overseas_Experience").children("div.add").eq(i).find("textarea[name='overseas_experience_content']").val());
+				}
+// 				overseas_experience_content.push($("#div_Overseas_Experience").children("div.add").eq(i).find("textarea[name='overseas_experience_content']").val());
 				
 			}
 			
@@ -479,13 +754,34 @@
 			var language_acquisition_date = new Array();
 			
 			for(var i=0; i<countLanguage ; i++) {
+				var val_language_name = $("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val();
+				var val_language_score = $("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val();
+				var val_acquisition_date = $("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val();
 				
 				language_numbers.push(i+1);
 				language_classification.push($("#div_Language").children("div.add").eq(i).find("select[name='language_classification']").val());
-				language_name.push($("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val());
-				language_score.push($("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val());
+				
+				if(typeof val_language_name == "undefined"|| val_language_name == null || val_language_name == ""){
+					language_name.push("0");
+				}else{
+					language_name.push($("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val());
+				}
+// 				language_name.push($("#div_Language").children("div.add").eq(i).find("select[name='language_name']").val());
+				
+				if(typeof val_language_score == "undefined"|| val_language_score == null || val_language_score == ""){
+					language_score.push("0");
+				}else{
+					language_score.push($("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val());
+				}
+// 				language_score.push($("#div_Language").children("div.add").eq(i).find("input[name='language_score']").val());
 				conversational_ability.push($("#div_Language").children("div.add").eq(i).find("select[name='conversational_ability']").val());
-				language_acquisition_date.push($("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val());
+				
+				if(typeof val_acquisition_date == "undefined"|| val_acquisition_date == null || val_acquisition_date == ""){
+					language_acquisition_date.push("0");
+				}else{
+					language_acquisition_date.push($("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val());
+				}
+// 				language_acquisition_date.push($("#div_Language").children("div.add").eq(i).find("input[name='acquisition_date']").val());
 		
 			}
 			
@@ -618,6 +914,19 @@
 		thisEle.setAttribute("placeholder", before);
 	}
 	
+	function focusBirth() {
+		thisEle = event.target;
+		before = thisEle.getAttribute("placeholder");
+		var after = "0000.00.00";
+		
+			thisEle.setAttribute("placeholder", after);
+		
+	}
+	
+	function blurBirth() {
+		thisEle.setAttribute("placeholder", before);
+	}
+	
 	function handleImgFileSelect(e) {
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
@@ -638,7 +947,7 @@
 	function focusSalary() {
 		thisEle = event.target;
 		before = thisEle.getAttribute("placeholder");
-		var after ="만원 이상( , 제외 입력)"
+		var after ="만원 이상( , 제외 입력)";
 		
 			thisEle.setAttribute("placeholder", after);
 		
@@ -827,7 +1136,7 @@
 						"<input type='text' name='award_service' placeholder='수여기관'>"+
 					"</div>"+
 					"<div class='info_form normal' style='margin: 0;'>"+
-						"<input class='date' onblur='blurDate()' onfocus='focusDate();' type='text' name='award_date' placeholder='수상년도'>"+
+						"<input class='date' onblur='blurDate()' onfocus='focusDate();' type='text' name='award_date' placeholder='수상년월'>"+
 					"</div>"+
 				"</div>"+
 				"<div class='row' style='height: 85;'>"+
@@ -959,7 +1268,7 @@
 				"</div>"+
 				"<div class='row disability_grade'>"+
 					"<div style='width: 50px; height: 50px; float: left; padding-top: 15px;'>"+
-						"<p>장애</p>"+
+						"<p>장애 :</p>"+
 					"</div>"+
 					"<div class='info_form normal' style='margin: 0;'>"+
 						"<select class='selecter_full' name='disorder' id='disability_grade'>"+
@@ -975,7 +1284,7 @@
 				"</div>"+
 				"<div class='row military_status'>"+
 					"<div style='width: 50px; height: 50px; float: left; padding-top: 15px;'>"+
-						"<p>병역</p>"+
+						"<p>병역 :</p>"+
 					"</div>"+
 					"<div class='info_form normal' style='margin: 0;'>"+
 						"<select class='selecter_full' name='military' id='military_status'>"+
@@ -1372,7 +1681,7 @@ function dynamic_change() {
 						"<option value='노르웨이어'>노르웨이어</option>"+
 						"<option value='유고어'>유고어</option>"+
 						"<option value='히브리어'>히브리어</option>"+
-						"<option value='이란(페르시아어)'>이란(페르시아어)</option>"+
+						"<option value='페르시아어'>페르시아어</option>"+
 						"<option value='터키어'>터키어</option>"+
 						"<option value='체코어'>체코어</option>"+
 						"<option value='루마니아어'>루마니아어</option>"+
@@ -1384,7 +1693,6 @@ function dynamic_change() {
 						"<option value='슬로바이카어'>슬로바이카어</option>"+
 						"<option value='세르비아어'>세르비아어</option>"+
 						"<option value='한국어'>한국어</option>"+
-						"<option value='직접입력'>직접입력</option>"+
 					"</select>"+
 				"</div>"+
 				"<div class='info_form normal' style='margin: 0; width: 140px;'>"+
@@ -1429,7 +1737,7 @@ function dynamic_change() {
 						"<option value='노르웨이어'>노르웨이어</option>"+
 						"<option value='유고어'>유고어</option>"+
 						"<option value='히브리어'>히브리어</option>"+
-						"<option value='이란(페르시아어)'>이란(페르시아어)</option>"+
+						"<option value='페르시아어'>페르시아어</option>"+
 						"<option value='터키어'>터키어</option>"+
 						"<option value='체코어'>체코어</option>"+
 						"<option value='루마니아어'>루마니아어</option>"+
@@ -1441,7 +1749,6 @@ function dynamic_change() {
 						"<option value='슬로바이카어'>슬로바이카어</option>"+
 						"<option value='세르비아어'>세르비아어</option>"+
 						"<option value='한국어'>한국어</option>"+
-						"<option value='직접입력'>직접입력</option>"+
 					"</select>"+
 				"</div>"+
 				"<div class='info_form normal' style='margin: 0; width: 140px;'>"+
@@ -1499,7 +1806,6 @@ function dynamic_change() {
 						"<option value='슬로바이카어'>슬로바이카어</option>"+
 						"<option value='세르비아어'>세르비아어</option>"+
 						"<option value='한국어'>한국어</option>"+
-						"<option value='직접입력'>직접입력</option>"+
 					"</select>"+
 				"</div>"+
 				"<div class='info_form normal' style='margin: 0;'>"+
@@ -1571,11 +1877,10 @@ a:hover {
 	zoom: 1;
 	display: flex;
 	position: relative;
-	/* 	background-color: #e5edf0; */
 }
 
 aside {
-	width: 240px;
+	width: 205px;
 	position: fixed;
 	top: 85px;
 	z-index: 99;
@@ -1583,22 +1888,22 @@ aside {
 }
 
 section {
-	margin-left: 250px;
+	margin-left: 210px;
 	width: 960px;
 	padding: 0 10px;
 }
 
 .more_menu {
-	width: 240px;
+	width: 205px;
 	padding: 0 14px;
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	background-color: white;
 }
 
 .resume_title {
 	width: 940px;
 	height: 50px;
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	margin-bottom: 30px;
 }
 
@@ -1608,15 +1913,18 @@ section {
 	padding: 0 20px;
 	font-size: 20px;
 	border: none;
+	margin-bottom: 70px;
+	float: left;
 }
 
 .listhead {
 	height: 48px;
 	padding-top: 16px;
 	font-size: 14px;
-	color: #999;
+	color: black;
 	text-align: left;
 	margin: 0;
+	font-weight: 900;
 }
 
 .list_menu {
@@ -1649,6 +1957,13 @@ section {
 	height: 25px;
 	cursor: pointer;
 }
+.img_button_down{
+	background: url( "/resources/images/down.png" ) no-repeat;
+	border: none;
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+}
 
 .img_button_plus {
 	background: url( "/resources/images/plus.png" ) no-repeat;
@@ -1667,7 +1982,7 @@ section {
 }
 
 .div_menu_li {
-	width: 180px;
+	width: 140px;
 	float: left;
 	cursor: pointer;
 }
@@ -1675,14 +1990,14 @@ section {
 .info {
 	width: 940px;
 	padding: 20px 20px 10px;
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	margin-bottom: 30px;
 	float: left;
 	background-color: white;
 }
 
 .info_form {
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 }
 
 .name {
@@ -1701,9 +2016,9 @@ section {
 }
 
 .photo {
-	width: 90px;
-	height: 110px;
-	float: right;
+	width: 200px;
+	height: 250px;
+	float: left;;
 }
 
 .photo img {
@@ -1726,7 +2041,7 @@ section {
 }
 
 .email {
-	width: 335px;
+	width: 100%;
 	height: 50px;
 	float: left;
 	margin-right: 10px;
@@ -1741,7 +2056,7 @@ section {
 }
 
 .addr {
-	width: 458px;
+	width: 100%;
 	height: 50px;
 	float: left;
 	margin-right: 10px;
@@ -1788,11 +2103,21 @@ input {
 .new {
 	width: 940px;
 	padding: 20px 20px 10px;
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	border-top: none;
 	float: left;
 	background-color: white;
 	position: relative;
+}
+.more {
+	width: 110px;
+	padding: 20px 20px 10px;
+	border: 1px solid #A4A4A4;
+	border-top: none;
+	float: left;
+	background-color: white;
+	position: relative;
+	background-color: #FAFAFA;
 }
 
 .form {
@@ -1802,7 +2127,7 @@ input {
 
 .head {
 	font-weight: bold;
-	border-bottom: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	margin-bottom: 0;
 	padding-bottom: 10px;
 }
@@ -1832,7 +2157,7 @@ input {
 	padding: 3 10px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	border-color: #dce1eb;
+	border-color: #A4A4A4;
 	width: 100%;
 	height: 80px;
 	border: 1;
@@ -1844,51 +2169,70 @@ input {
 	width: 165px;
 	height: 50px;
 	margin-right: 10px;
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	float: left;
 	padding-left: 15px;
+	border-radius: 8px;
 }
 
 #form_Education {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Career {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Activities {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Certificate {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Award {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Overseas_Experience {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Language {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_Preferential {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 #form_school {
 	display: none;
+	float: left;
+	margin-bottom: 50px;
 }
 
 .delete_btn {
 	background: url( "/resources/images/delete.png" ) no-repeat;
 	right: 0;
-	top: 0;
+	top: -1;
 	width: 32px;
 	height: 32px;
 	position: absolute;
@@ -1902,6 +2246,13 @@ input {
 .military_status {
 	display: none;
 }
+.sub_title{
+	border: 1px solid #A4A4A4;
+	text-align: center;
+	height: 40px;
+	width: 940px;
+	background-color: #FAFAFA;
+}
 </style>
 
 <c:set var="pagingTag" value="전체"/>
@@ -1913,136 +2264,161 @@ input {
 <div>
 	<div class="container">
 		<section>
+				<div class="sub_title">
+					<h4 style="font-weight: bold;">제목</h4>
+				</div>
 				<div class="resume_title">
 					<input type="text" name="resume_title" placeholder="제목을 입력하세요.">
 					<input type="hidden" id="member_no" name="member_no" value="${mem }"/>
 				</div>
 
-				<div class="form">
-					<h4 style="font-weight: bold;">인적사항</h4>
-					<div class="info" id="user_info">
+				<div class="form" style="float: left; margin-bottom: 40px;">
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">인적사항</h4>
+					</div>
+					<div class="info" style="padding-bottom: 20px;" id="user_info">
 						<div class="photo info_form">
 							<img id="myImg" alt="" src="">
 							<form id="fileForm" action="fileupload" method="post" enctype="miltipart/form-data">
 								<input	style="display: none;" type="file" name="imgfile">
 							</form>
 						</div>
-						<div
-							style="width: 827px; height: 50px; margin-right: 10px; margin-bottom: 10px;">
-							<div class="info_form name">
+						<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left; margin-top: 10px;">
+							<div class="info_form name" style="width: 35%;">
 								<input type="text" name="resume_name" placeholder="이름">
 							</div>
-							<div class="info_form name">
-								<input type="text" name="resume_birth" placeholder="생년월일">
+							<div class="info_form name" style="width: 35%;">
+								<input type="text" name="resume_birth" placeholder="생년월일" onfocus="focusBirth();" onblur="blurBirth()">
 							</div>
 							<div class="info_form normal">
-								<p
-									style="font-size: 8px; margin: 0; padding-left: 14px; padding-top: 4px; color: #a8a8a8;">성별</p>
-								<select class="selecter" name="resume_gender">
+								<select class="selecter" style="height: 100%;" name="resume_gender">
 									<option value="남자" selected="selected">남자</option>
 									<option value="여자">여자</option>
 								</select>
 							</div>
+						</div>
+						<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
 							<div class="info_form email">
-								<input type="text" name="resume_email" placeholder="이메일">
+								<input type="text" style="width: 100%;" name="resume_email" placeholder="이메일">
 							</div>
 						</div>
-						<div
-							style="width: 827px; height: 50px; margin-right: 10px; margin-bottom: 10px;">
-							<div class="info_form name">
+						<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
+							<div class="info_form name" style="width: 45%;">
 								<input type="text" name="resume_phone" placeholder="전화번호">
 							</div>
-							<div class="info_form name">
+							<div class="info_form name" style="width: 45%;">
 								<input type="text" name="resume_cellphone" placeholder="휴대폰번호">
 							</div>
+						</div>	
+						<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
 							<div class="info_form addr">
-								<input type="text" name="resume_addr" placeholder="주소">
+								<input type="text" style="width: 100%;" name="resume_addr" placeholder="주소">
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div id="form_School">
-					<h4 class="head">학력</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">학력사항</h4>
+					</div>
 					<div class="form" id="div_School"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_School();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Career">
-					<h4 class="head">경력</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">경력사항</h4>
+					</div>
 					<div class="form" id="div_Career"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_Career();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Activities">
-					<h4 class="head">인턴, 대외활동</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">대외활동</h4>
+					</div>
 					<div class="form" id="div_Activities"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_Activities();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Education">
-					<h4 class="head">교육이수</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">교육사항</h4>
+					</div>
 					<div class="form" id="div_Education"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_Education();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Certificate">
-					<h4 class="head">자격증</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">자격면허</h4>
+					</div>
 					<div class="form" id="div_Certificate"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_Certificate();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Award">
-					<h4 class="head">수상</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">수상경력</h4>
+					</div>
 					<div class="form" id="div_Award"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_Award();">추가</button></label>
 					</div>
 				</div>
 				
 				<div id="form_Overseas_Experience">
-					<h4 class="head">해외경험</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">해외경험</h4>
+					</div>
 					<div class="form" id="div_Overseas_Experience"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down"
 								id="new_Overseas_Experience" type="button" style="width: 90px;"
 								onclick="create_Overseas_Experience();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Language">
-					<h4 class="head">어학</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">어학능력</h4>
+					</div>
 					<div class="form" id="div_Language"></div>
-					<div class="new" style="text-align: center; margin-bottom: 30px;">
-						<label><button class="img_button" type="button"
+					<div class="more" style="text-align: center; margin-bottom: 30px;">
+						<label><button class="img_button_down" type="button"
 								style="width: 90px;" onclick="create_Language();">추가</button></label>
 					</div>
 				</div>
 
 				<div id="form_Preferential">
-					<h4 class="head">취업우대, 병역</h4>
+					<div  class="sub_title">
+						<h4 style="font-weight: bold;">우대사항,병역</h4>
+					</div>
 					<div class="form" style="margin-bottom: 30px;"
 						id="div_Preferential"></div>
 				</div>
 
 				<div class="form" style="margin-bottom: 300px;">
-					<h4 class="head">희망근무조건</h4>
+					<div  class="sub_title">
+					<h4 style="font-weight: bold;">희망취업조건</h4>
+					</div>
 					<div class="new">
 						<div class="row">
 							<div class="info_form normal Preferential" style="width: 200px;">
@@ -2106,113 +2482,94 @@ input {
 
 		<aside>
 			<div class="more_menu">
-				<p class="listhead">이력서 항목</p>
+				<p class="listhead" style="text-align: center;">항목 선택</p>
 				<ul class="list_menu" id="list_menu">
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>학력</span></a>
+							<a style="color: black;"><span>학력사항</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_School"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">학력</span></a>
+							<a style="color: black;"><span style="color: black; font-weight: bold;">학력사항</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_School"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>경력</span></a>
+							<a style="color: black;"><span>경력사항</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Career"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">경력</span></a>
+							<a style="color: black;"> <span
+								style="color: black; font-weight: bold;">경력사항</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Career"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>인턴, 대외활동</span></a>
+							<a style="color: black;"><span>대외활동</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Activities"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">인턴, 대외활동</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">대외활동</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Activities"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>교육이수</span></a>
+							<a style="color: black;"><span>교육사항</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Education"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">교육이수</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">교육사항</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Education"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>자격증</span></a>
+							<a style="color: black;"><span>자격면허</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Certificate"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">자격증</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">자격면허</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Certificate"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>수상</span></a>
+							<a style="color: black;"><span>수상경력</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Award"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">수상</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">수상경력</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Award"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>해외경험</span></a>
+							<a style="color: black;"><span>해외경험</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Overseas_Experience"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">해외경험</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">해외경험</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Overseas_Experience"></button></li>
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>어학</span></a>
+							<a style="color: black;"><span>어학능력</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Language"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">어학</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">어학능력</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Language"></button></li>
 
 					<li><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span>취업우대, 병역</span></a>
+							<a style="color: black;"><span>우대사항, 병역</span></a>
 						</div>
 						<button class="img_button_plus" id="plus_Preferential"></button></li>
 					<li style="display: none;"><div class="div_menu_li">
-							<a style="color: black;"><img class="menu_img"
-								src="/resources/images/school.png"> <span
-								style="color: #4E8DF5; font-weight: bold;">취업우대, 병역</span></a>
+							<a style="color: black;"><span
+								style="color: black; font-weight: bold;">우대사항, 병역</span></a>
 						</div>
 						<button class="img_button_minus" id="minus_Preferential"></button></li>
 				</ul>
 			</div>
-			<div class="" style="width: 240px; height: 40px; float: left;">
+			<div class="" style="width: 205px; height: 40px; float: left;">
 				<button type="button" class=" btn-primary" id="submit"
-					style="border: none; width: 100%; height: 100%;" onclick="submit();">작성완료</button>
+					style="border: none; width: 100%; height: 100%; background-color: #848484; font-weight: bold;" onclick="submit();">작성하기</button>
 			</div>
 		</aside>
 	</div>
