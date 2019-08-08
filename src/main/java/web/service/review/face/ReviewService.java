@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import web.dto.Comment_recommend;
+import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
@@ -13,7 +14,7 @@ import web.util.Review.Paging;
 
 public interface ReviewService {
 
-	public int getCorno(String selectCor);
+	public int getCorno(Cor cor);
 
 	public void write(Review review);
 
@@ -76,5 +77,9 @@ public interface ReviewService {
 	public void deleteReviewComment(int reviewno);
 	
 	public void deleteReview(int reviewno);
-	
+
+	public int formatCorno(String cor_no);
+
+	public int getCornoByname(String selectCor);
+
 }

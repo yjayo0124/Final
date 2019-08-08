@@ -78,7 +78,7 @@
 }(jQuery));
 
 function writePop(corno, corname){
-	window.open("http://localhost:8088/review/writePop?cor_no="+corno +"&cor_name="+corname, "글쓰기", "width=1000, height=650");
+	window.open("/review/writePop?cor_no="+corno +"&cor_name="+corname, "글쓰기", "width=1000, height=650");
 }
 
 </script>

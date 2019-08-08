@@ -42,20 +42,31 @@ public class ReviewController {
 	
 	// 글쓰기 페이지 이동
 	@RequestMapping(value = "/review/writePop", method = RequestMethod.GET) 
-	public void write(String cor_name, Model model) {
+	public void write(String cor_name, String cor_no, Model model) {
 		logger.info("글쓰기 페이지");
-		
-		System.out.println(cor_name);
+		if(cor_no != null) {
+			int corno = reviewService.formatCorno(cor_no);
+			model.addAttribute("corno", corno);
+		}
 		model.addAttribute("corname", cor_name);
 	}
 	
 	// review table insert
 	@RequestMapping(value = "/review/writePop", method = RequestMethod.POST) 
-	public void writeProc(String selectCor, String selectTag, int selectMem, String title, String content, Review review) {
-		int corno = reviewService.getCorno(selectCor);
+	public void writeProc(String selectCor, String selectTag, int selectMem, String corno, String title, String content, Review review, Cor cor) {
+		int corn;
+		if(corno != null) {
+			int formatno = Integer.parseInt(corno);
+			cor.setCor_no(formatno);
+			cor.setCor_name(selectCor);
+			corn = reviewService.getCorno(cor);
+		} else  {
+			corn = reviewService.getCornoByname(selectCor);
+		}
+
 
 		review.setMem_no(selectMem);
-		review.setCor_no(corno);
+		review.setCor_no(corn);
 		review.setReview_tag(selectTag);
 		review.setReview_title(title);
 		review.setReview_content(content);

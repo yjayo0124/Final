@@ -6,11 +6,21 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="web.dao.review.face.ReviewDao">
-	<select id="selectCorno" parameterType="String" resultType="int">
+	<select id="selectCorno" parameterType="web.dto.Cor" resultType="int">
+		SELECT cor_no FROM cor
+		WHERE cor_name = #{cor_name } AND cor_no = #{cor_no } AND ROWNUM <![CDATA[<=]]> 1
+	</select>
+
+	<select id="selectCornoByname" parameterType="String" resultType="int">
 		SELECT cor_no FROM cor
 		WHERE cor_name = #{selectCor } AND ROWNUM <![CDATA[<=]]> 1
 	</select>
-
+	
+	<select id="selectCorn" parameterType="String" resultType="int">
+		SELECT cor_no FROM cor
+		WHERE cor_name = #{selectCor } AND ROWNUM <![CDATA[<=]]> 1
+	</select>
+	
 	<insert id="insertReview" parameterType="web.dto.Review">
 		INSERT INTO review
 		VALUES (review_no_seq.nextval, #{cor_no }, #{mem_no }, #{review_tag }, #{review_title }, #{review_content }, 0, 0, SYSDATE, 0)

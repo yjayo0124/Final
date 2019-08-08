@@ -175,7 +175,7 @@ function search() {
 }
 
 function writePop(){
-	window.open("http://localhost:8088/review/writePop", "글쓰기", "width=1000, height=650");
+	window.open("/review/writePop", "글쓰기", "width=1000, height=650");
 }
 
 </script>
