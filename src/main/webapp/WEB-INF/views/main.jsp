@@ -111,25 +111,6 @@ function search() {
 	left: -50%;	
 	margin-top: 45px;
 }
-.recruit_table{
-	
-	margin-right: 5px;
-	width: 450px;
-	min-width: 450px;
-	float: left;
-	position: relative;
-	left: 50%;
-}
-
-.review_table{
-	
-	margin-left: 5px;
-	width: 450px;
-	min-width: 450px;
-	float: left;
-	position: relative;
-	left: 50%;
-}
 
 
 td{
@@ -219,17 +200,30 @@ table th{
 }
 
 
-.recruit_table, review_table{
-	border: 1px solid #edeef0;
-	border-radius: 26px;
+.recruit_table{
 	height: 330px;
+	margin-right: 5px;
+	width: 450px;
+	min-width: 450px;
+	float: left;
+	position: relative;
+	left: 50%;
 }
 
 .review_table{
-	border: 1px solid #edeef0;
-	border-radius: 26px;
+	
 	height: 330px;
+	margin-left: 5px;
+	width: 450px;
+	min-width: 450px;
+	float: left;
+	position: relative;
+	left: 50%;
 }
+
+
+
+
 
 </style>
 

@@ -747,19 +747,19 @@ SETTINGS
 	<h3><strong>인원</strong></h3>
 	<c:if test="${i.cor_mem > idmem and i.cor_mem < 90 and i.cor_mem - idmem >= 10  and idmem > 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+		동종산업군 평균 인원<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
 	</c:if>
 	<c:if test="${i.cor_mem > idmem and i.cor_mem >= 90 and i.cor_mem - idmem >= 10 and idmem >= 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
+		동종산업군 평균 인원<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px; margin:0px;">${idmemvar }명</span></div></div>
 	</c:if>
 	<c:if test="${i.cor_mem > idmem and i.cor_mem < 90 and i.cor_mem - idmem >= 10 and idmem < 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px;">${cormemvar }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+		동종산업군 평균 인원<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
 	</c:if>
 	<c:if test="${i.cor_mem > idmem and i.cor_mem >= 90 and i.cor_mem - idmem >= 10  and idmem <= 20 }">
 		현재기업<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn1" data-width="${i.cor_mem }">&nbsp;<span style="width:60px; margin:0px;">${cormemvar }명</span></div></div>
-		동종산업군<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
+		동종산업군 평균 인원<div class="zt-skill-bar" data-width="${cormem }"><div id="zt-sapn2" data-width="${idmem }">&nbsp;<span style="width:60px;">${idmemvar }명</span></div></div>
 	</c:if>
 	
 	

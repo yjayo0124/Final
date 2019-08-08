@@ -10,7 +10,9 @@ import web.dto.Review;
 public interface CorInfoService {
 
 	List<Cor> getCorinfo(int cor_no);
-
+	
+	public Cor getCorinfoByCorNo(int cor_no);
+	
 	List<Cor> getIndustryinfo(String cor_type);
 
 	int addIndustrymem(List<Cor> industrylist);
@@ -27,5 +29,5 @@ public interface CorInfoService {
 
 	String getCorname(int cor_no);
 
-	List<Recruit> getRecruit(String corname);
+	List<Recruit> getRecruit(int cor_no);
 }

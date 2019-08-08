@@ -75,7 +75,7 @@ h4 {
 
 <div class="body">
 
-<h4>&nbsp;뷰 페이지</h4>
+<h4>&nbsp;${viewmap.jobfair_name }</h4>
 <br>
 
 <input type="hidden" name="jobfair_no" value="${viewmap.jobfair_no }" />
@@ -86,16 +86,12 @@ h4 {
 
 <tbody>
 	<tr>
-		<td style="width: 10%;">제목</td>
-		<td>${viewmap.jobfair_name }</td>
+		<td style="width: 10%;">등록일</td>
+		<td><fmt:formatDate value='${viewmap.jobfair_date }' pattern="yyyy-MM-dd" /></td>
 	</tr>
 	<tr>
 		<td style="width: 10%;">글쓴이</td>
 		<td>관리자</td>
-	</tr>
-	<tr>
-		<td style="width: 10%;">등록일</td>
-		<td><fmt:formatDate value='${viewmap.jobfair_date }' pattern="yyyy-MM-dd" /></td>
 	</tr>
 	<tr>
 		<td style="width: 10%;">내용</td>

@@ -11,6 +11,12 @@
 		WHERE cor_no = #{cor_no }
 	</select>
 	
+	<select id="selectCorinfoByCorNo" parameterType="int" resultType="web.dto.Cor">
+		SELECT * FROM COR
+		WHERE cor_no = #{cor_no }
+	</select>
+	
+	
 	<select id="selectIndustryinfo" parameterType="String" resultType="web.dto.Cor">
 		SELECT * FROM COR
 		WHERE cor_type = #{cor_type } AND ROWNUM <![CDATA[<=]]> 200
@@ -33,8 +39,8 @@
 		WHERE cor_no = #{cor_no }
 	</select>
 	
-	<select id="selectRecruit" parameterType="String" resultType="web.dto.Recruit">
+	<select id="selectRecruit" parameterType="int" resultType="web.dto.Recruit">
 		SELECT * FROM recruit
-		WHERE recruit_name = #{corname }
+		WHERE cor_no = #{cor_no }
 	</select>
 </mapper>

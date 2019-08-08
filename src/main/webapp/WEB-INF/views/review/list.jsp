@@ -175,9 +175,9 @@ function search() {
 }
 
 function writePop(){
-	window.open("/review/writePop", "글쓰기", "width=1000, height=650");
+	window.open("/review/writePop", "글쓰기", "width=1000, height=650, min-width=1000");
 }
-
+ 
 </script>
 
 <style type="text/css">
