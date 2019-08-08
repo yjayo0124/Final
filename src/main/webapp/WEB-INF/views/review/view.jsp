@@ -9,6 +9,8 @@
 <script	src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
+
+
 <script type="text/javascript">
 var ajax;
 var jbResult;
@@ -423,6 +425,7 @@ function search() {
 	 });
 }
 		 
+		 		 
 function writePop() {
 	window.open("http://localhost:8088/review/writePop", "글쓰기", "width=1000, height=650");
 }

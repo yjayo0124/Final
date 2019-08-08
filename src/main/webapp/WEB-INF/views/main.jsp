@@ -129,25 +129,6 @@ function search() {
 	left: -50%;	
 	margin-top: 45px;
 }
-.recruit_table{
-	
-	margin-right: 5px;
-	width: 450px;
-	min-width: 450px;
-	float: left;
-	position: relative;
-	left: 50%;
-}
-
-.review_table{
-	
-	margin-left: 5px;
-	width: 450px;
-	min-width: 450px;
-	float: left;
-	position: relative;
-	left: 50%;
-}
 
 
 td{
@@ -237,24 +218,37 @@ table th{
 }
 
 
-.recruit_table, review_table{
-	border: 1px solid #edeef0;
-	border-radius: 26px;
+.recruit_table{
 	height: 330px;
+	margin-right: 5px;
+	width: 450px;
+	min-width: 450px;
+	float: left;
+	position: relative;
+	left: 50%;
 }
 
 .review_table{
-	border: 1px solid #edeef0;
-	border-radius: 26px;
+	
 	height: 330px;
+	margin-left: 5px;
+	width: 450px;
+	min-width: 450px;
+	float: left;
+	position: relative;
+	left: 50%;
 }
+
+
+
+
 
 </style>
 
 	
 	<div class="search_container" style="width: 500px; margin: 0 auto;">
 
-		<form action="/main/search" method="get" onsubmit="return false;">>
+		<form action="/main/search" method="get" onsubmit="return false;">
 			<div class="search input-group mb-1">
 				<input type="text" name="keyword" class="form-control" id="keyword" width="90%" placeholder="기업을 검색해보세요♬" aria-describedby="searchBtn" style="font-size: 15px;">
 				<div class="input-group-append">

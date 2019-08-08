@@ -97,6 +97,8 @@ public class JobfairController {
 			@RequestParam(value="file") MultipartFile fileupload
 		) {
 		
+		logger.info("jobfair :"+jobfair);
+		
 		if( fileupload.getOriginalFilename().equals("") ) {
 
 			logger.info("등록 처리");
