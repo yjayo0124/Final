@@ -116,5 +116,9 @@ public interface ResumeService {
 	public List<Language> selectLanguage(int resume_no);	
 	
 	public Preferential selectPreferential(int resume_no);	
+	
+	public void updateResumeNoFile(Resume resume);
+	
+	public void updateResumeHaveFile(Resume resume);
 
 }
