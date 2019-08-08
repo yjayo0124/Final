@@ -3,6 +3,7 @@ package web.controller.mypage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -103,7 +104,6 @@ public class MypageController {
 	@RequestMapping(value="/mypage/introduction/write", method=RequestMethod.POST)
 	public void introductionWriteProc(HttpServletResponse response, Introduction introduction, Authentication auth) {
 		
-		System.out.println(introduction);
 		Member member = (Member) auth.getDetails();
 		int member_no = member.getMember_no();
 		introduction.setMember_no(member_no);
@@ -261,7 +261,6 @@ public class MypageController {
 			Resume resume,
 			FormData formData
 			) {
-		System.out.println(formData.toString());
 		
 		String resume_stored_name = resumeService.filesave(upfile, context);
 		resume.setResume_stored_name(resume_stored_name);
@@ -271,6 +270,8 @@ public class MypageController {
 		int resume_no = resume.getResume_no();
 		formData.setResume_no(resume_no);
 		logger.info("작성 후 이력서 번호 : " + resume_no);
+		
+		System.out.println(formData.toString());
 		
 		if(formData.getSchool_numbers() != null) {
 			resumeService.insertSchool(formData);
@@ -362,6 +363,12 @@ public class MypageController {
 		Boolean checkPreferential = resumeService.checkPreferential(resume_no);
 		
 		Resume resume = resumeService.selectResume(resume_no);
+		if(resume.getResume_birth() != "0" && resume.getResume_birth() != null) {
+			String birth = resume.getResume_birth().substring(0,4);
+			int year = Integer.parseInt(birth);
+			int age = Calendar.getInstance().get(Calendar.YEAR) - year + 1;
+			resume.setResume_birth(Integer.toString(age));
+		}
 		model.addAttribute("resume", resume);
 		
 		model.addAttribute("checkSchool", checkSchool);
@@ -417,7 +424,69 @@ public class MypageController {
 	}
 
 	@RequestMapping(value="/mypage/resume/update", method=RequestMethod.GET)
-	public void resumeUpdate() {
+	public void resumeUpdate(int resume_no, Model model) {
+		
+		Boolean checkSchool = resumeService.checkSchool(resume_no);
+		Boolean checkCareer = resumeService.checkCareer(resume_no);
+		Boolean checkActivities = resumeService.checkActivities(resume_no);
+		Boolean checkEducation = resumeService.checkEducation(resume_no);
+		Boolean checkCertificate = resumeService.checkCertificate(resume_no);
+		Boolean checkAward = resumeService.checkAward(resume_no);
+		Boolean checkOverseas_Experience = resumeService.checkOverseas_Experience(resume_no);
+		Boolean checkLanguage = resumeService.checkLanguage(resume_no);
+		Boolean checkPreferential = resumeService.checkPreferential(resume_no);
+		
+		Resume resume = resumeService.selectResume(resume_no);
+		model.addAttribute("resume", resume);
+		
+		model.addAttribute("checkSchool", checkSchool);
+		model.addAttribute("checkCareer", checkCareer);
+		model.addAttribute("checkActivities", checkActivities);
+		model.addAttribute("checkEducation", checkEducation);
+		model.addAttribute("checkCertificate", checkCertificate);
+		model.addAttribute("checkAward", checkAward);
+		model.addAttribute("checkOverseas_Experience", checkOverseas_Experience);
+		model.addAttribute("checkLanguage", checkLanguage);
+		model.addAttribute("checkPreferential", checkPreferential);
+		
+		
+		if(checkSchool) {
+			List<School> school = resumeService.selectSchool(resume_no);
+			model.addAttribute("school", school);
+		}
+		if(checkCareer) {
+			List<Career> career = resumeService.selectCareer(resume_no);
+			model.addAttribute("career", career);
+		}
+		if(checkActivities) {
+			List<Activities> activities = resumeService.selectActivities(resume_no);
+			model.addAttribute("activities", activities);
+
+		}
+		if(checkEducation) {
+			List<Education> education = resumeService.selectEducation(resume_no);
+			model.addAttribute("education", education);
+		}
+		if(checkCertificate) {
+			List<Certificate> certificate = resumeService.selectCertificate(resume_no);
+			model.addAttribute("certificate", certificate);
+		}
+		if(checkAward) {
+			List<Award> award = resumeService.selectAward(resume_no);
+			model.addAttribute("award", award);
+		}
+		if(checkOverseas_Experience) {
+			List<Overseas_Experience> overseas_Experience = resumeService.selectOverseas_Experience(resume_no);
+			model.addAttribute("overseas_Experience", overseas_Experience);
+		}
+		if(checkLanguage) {
+			List<Language> language = resumeService.selectLanguage(resume_no);
+			model.addAttribute("language", language);
+		}
+		if(checkPreferential) {
+			Preferential preferential = resumeService.selectPreferential(resume_no);
+			model.addAttribute("preferential", preferential);
+		}
 
 	}
 

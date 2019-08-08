@@ -8,6 +8,12 @@ $( document ).ready(function() {
 	$('.btnlist').click(function() {  
 		  location.href = "/mypage/resume/list"; 
 	 });	 
+	
+	$('.btnUpdate').click(function() {
+		var num = $(this).parent().find("input[name='resume_no']").val(); 
+		  
+		location.href = "/mypage/resume/update?resume_no=" + num; 
+	 });
 });
 
 </script>
@@ -179,8 +185,12 @@ p {
 
 <div class="containers">
 		<div class="info">
-			<h3>이력서 제목</h3>
+			<h3>${resume.resume_title }</h3>
 			<hr>
+			<div style="margin-bottom: 15px; float: right;">
+				<button type="button" class="btn btn-default btnUpdate">수정하기</button>
+				<input type="hidden" name="resume_no" value="${resume.resume_no }">
+			</div>
 			<h4 class="head">인적사항</h4>
 			<div class="form" style="border:1px solid #dce1eb;;">
 				
@@ -250,7 +260,7 @@ p {
 										<p style="font-size: 15px;">${i.admission_date} ~ ${i.graduation_date}</p>
 									</div>
 									<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.school_name} ${i.major_name}전공</p>
+										<p style="font-size: 15px;">${i.school_name} ${i.major_name}</p>
 									</div>
 									<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
 										<p style="font-size: 15px;">${i.credit} / ${i.total_score}</p>

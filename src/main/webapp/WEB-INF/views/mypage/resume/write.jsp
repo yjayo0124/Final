@@ -217,7 +217,6 @@
             data: formData,
             success: function(data){
             	location.href = "/mypage/resume/list";
-				console.log("성공");
             },
             error: function(){
                 alert("error");

@@ -601,16 +601,7 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public Resume selectResume(int resume_no) {
 		
-		Resume resume = resumeDao.selectResume(resume_no);
-		System.out.println(resume.getResume_birth());
-		if(resume.getResume_birth() != "0" && resume.getResume_birth() != null) {
-			String birth = resume.getResume_birth().substring(0,4);
-			int year = Integer.parseInt(birth);
-			int age = Calendar.getInstance().get(Calendar.YEAR) - year + 1;
-			resume.setResume_birth(Integer.toString(age));
-		}
-		
-		return resume;
+		return  resumeDao.selectResume(resume_no);
 	}
 
 
