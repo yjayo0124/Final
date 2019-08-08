@@ -115,7 +115,7 @@ public class JobfairController {
 			jobfairService.registerFair(jobfair);
 			
 			int jobfair_no = jobfair.getJobfair_no();
-//			System.out.println(jobfair_no);
+//			System.out.println("register: " + jobfair_no);
 			
 			fileService.filesave(jobfair_no, fileupload, context);
 			
@@ -140,6 +140,7 @@ public class JobfairController {
 		logger.info("view: " + jobfair_no);
 
 		String file_name = fileService.getFilename(jobfair_no);
+//		System.out.println("view.file: " + file_name);
 		model.addAttribute("file", file_name);
 
 	}
@@ -189,9 +190,9 @@ public class JobfairController {
 			jobfairService.updateFair(jobfair);
 			
 			int jobfair_no = jobfair.getJobfair_no();
-			System.out.println(jobfair_no);
+//			System.out.println("update: " + jobfair_no);
 			
-			fileService.filesave(jobfair_no, fileupload, context);
+			fileService.updateFile(jobfair_no, fileupload, context);
 			
 		}
 		

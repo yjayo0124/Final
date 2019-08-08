@@ -24,6 +24,8 @@ public interface JobFairDao {
 	
 	public String selectFilename(int jobfair_no);
 	
+	public void updateFile(JobFairFile jobfairfile);
+	
 	public void deleteFile(int jobfair_no);
 	
 }

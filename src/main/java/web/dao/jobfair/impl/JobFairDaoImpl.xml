@@ -117,8 +117,15 @@
 		SELECT jobfair_file_storedname 
 		FROM jobfair_file
 		WHERE jobfair_no = #{jobfair_no }
-			AND jobfair_file_no = ( SELECT MAX(jobfair_file_no) FROM jobfair_file )
 	</select>
+	
+	<update id="updateFile" parameterType="web.dto.JobFairFile">
+		UPDATE jobfair_file
+		SET jobfair_file_storedname = #{jobfair_file_storedname, jdbcType=VARCHAR },
+			jobfair_file_originname = #{jobfair_file_originname, jdbcType=VARCHAR },
+			jobfair_file_upload_date = SYSDATE
+		WHERE jobfair_no = #{jobfair_no }
+	</update>
 	
 	<delete id="deleteFile" parameterType="int">
 		DELETE FROM jobfair_file
