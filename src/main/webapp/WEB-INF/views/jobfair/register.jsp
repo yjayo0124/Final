@@ -38,7 +38,8 @@ $(document).ready(function() {
 	});
 
 	var string = 
-	'<div><label>일시:  </label><br> <label>장소:  </label><br>'
+	'<div><br><label></label><br><label></label><br>'
+	 + '<label>일시:  </label><br> <label>장소:  </label><br>'
 	 + '<label>참가 대상:  </label><br> <label>행사 구성:  </label><br>'
 	 + '<label>개인 신청 기간:  </label><br> <label>기업 신청 기간:  </label><br>'
 	 + '<label>담당자:  </label><br> <label>사이트(출처):  </label><br><br></div>';
@@ -96,6 +97,7 @@ h4 {
 
 <form action="/jobfair/register" method="post" enctype="multipart/form-data">
 
+<input type="hidden" name="member_no" id="member_no" value="${member.member_no }" />
 <table class="table table-condensed">
 <thead>
 </thead>

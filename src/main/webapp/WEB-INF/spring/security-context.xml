@@ -37,6 +37,10 @@
 	<security:access-denied-handler error-page="/accessError"/>
 	<security:csrf disabled="true"/>
 	
+	<security:session-management>
+	<security:concurrency-control max-sessions="1"/>
+	</security:session-management>
+	
 </security:http>
 
 

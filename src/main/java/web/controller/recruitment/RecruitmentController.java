@@ -73,15 +73,23 @@ public class RecruitmentController {
 	//	logger.info("db에서 조회한 파일 이름  : "+file_name);
 		model.addAttribute("file", file_name);
 		
-		// 기업 주소, 기업번호, 기업타입 가져오기
-		String corAddr = recruitmentService.getCor_addr(recruit_no);
-		model.addAttribute("cor", corAddr);	
-
-		String corNo = recruitmentService.getCorNo(recruit_no);
-		model.addAttribute("corno",corNo);
 		
-		String corType = recruitmentService.getCorType(recruit_no);
-		model.addAttribute("cortype",corType);
+		Cor cor = corinfoService.getCorinfoByCorNo(res.getCor_no());
+		
+		// 기업 주소, 기업번호, 기업타입 가져오기
+//		String corAddr = recruitmentService.getCor_addr(recruit_no);
+//		model.addAttribute("cor", corAddr);	
+//
+//		String corNo = recruitmentService.getCorNo(recruit_no);
+//		model.addAttribute("corno",corNo);
+//		
+//		String corType = recruitmentService.getCorType(recruit_no);
+//		model.addAttribute("cortype",corType);
+
+		model.addAttribute("cor", cor);
+		
+		logger.info("cor 정보 : "+cor);
+		
 	}
 
 
@@ -107,10 +115,11 @@ public class RecruitmentController {
 		
 		//인증된 객체의 상세정보 가져오기
 		Member member = (Member) auth.getDetails();
-				
+		
 		//객체에 담겨있는 회원번호 가져오기
 		recruit.setMember_no(member.getMember_no());
-	
+		recruit.setCor_no(member.getCompany_no());
+		
 		logger.info("사용자가 입력한 recruit"+recruit);
 		logger.info("파일 : " + fileupload.getOriginalFilename());
 		logger.info(context.getRealPath("upload"));	

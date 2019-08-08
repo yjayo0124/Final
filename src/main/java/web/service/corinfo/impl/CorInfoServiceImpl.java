@@ -25,6 +25,8 @@ public class CorInfoServiceImpl implements CorInfoService {
 	}
 	
 
+	
+
 	@Override
 	public List<Cor> getIndustryinfo(String cor_type) {
 		return corinfoDao.selectIndustryinfo(cor_type);
@@ -121,16 +123,22 @@ public class CorInfoServiceImpl implements CorInfoService {
 		return corinfoDao.selectReview(cor_no);
 	}
 
-
 	@Override
 	public String getCorname(int cor_no) {
 		return corinfoDao.selectCorname(cor_no);
 	}
 
+	@Override
+	public List<Recruit> getRecruit(int cor_no) {
+		return corinfoDao.selectRecruit(cor_no);
+	}
+
+
+
 
 	@Override
-	public List<Recruit> getRecruit(String corname) {
-		return corinfoDao.selectRecruit(corname);
+	public Cor getCorinfoByCorNo(int cor_no) {
+		return corinfoDao.selectCorinfoByCorNo(cor_no);
 	}
 	
 	

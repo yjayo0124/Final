@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import web.dao.review.face.ReviewDao;
 import web.dto.Comment_recommend;
+import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
@@ -22,8 +23,8 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired ReviewDao reviewDao;
 
 	@Override
-	public int getCorno(String selectCor) {
-		return reviewDao.selectCorno(selectCor);
+	public int getCorno(Cor cor) {
+		return reviewDao.selectCorno(cor);
 	}
 	
 	@Override
@@ -58,7 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
 				tag.equalsIgnoreCase("취업고민")) {
 			totalCount = reviewDao.selectCntAlltag(tag);
 		} else {
-			int corno = reviewDao.selectCorno(tag);
+			int corno = reviewDao.selectCorn(tag);
 			System.out.println("corno : " + corno);
 			totalCount = reviewDao.selectCntAllCor(corno);
 		}
@@ -356,6 +357,17 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void deleteReview(int reviewno) {
 		reviewDao.deleteReview(reviewno);
+	}
+
+	@Override
+	public int formatCorno(String cor_no) {
+		int corno = Integer.parseInt(cor_no);
+		return corno;
+	}
+
+	@Override
+	public int getCornoByname(String selectCor) {
+		return reviewDao.selectCornoByname(selectCor);
 	}
 
 }

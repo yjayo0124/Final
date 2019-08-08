@@ -56,6 +56,37 @@ public class JobFairFileServiceImpl implements JobFairFileService {
 	}
 	
 	@Override
+	public void updateFile(int jobfair_no, MultipartFile file, ServletContext context) {
+
+		String storedPath = context.getRealPath("upload");
+		
+		String uId = UUID.randomUUID().toString().split("-")[4];
+		
+		String name = file.getOriginalFilename() + "_" + uId;
+		
+		File dest = new File(storedPath, name);
+		
+		try {
+			file.transferTo(dest);
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		JobFairFile jobfairfile = new JobFairFile();
+		
+		jobfairfile.setJobfair_file_storedname(name);
+		jobfairfile.setJobfair_file_originname(file.getOriginalFilename());
+		jobfairfile.setJobfair_no(jobfair_no);
+		
+//		System.out.println("service.update: " + jobfairfile);
+		jobfairDao.updateFile(jobfairfile);
+		
+	}
+	
+	@Override
 	public void deleteFile(int jobfair_no) {
 		jobfairDao.deleteFile(jobfair_no);
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import web.dto.Comment_recommend;
+import web.dto.Cor;
 import web.dto.Recommend;
 import web.dto.Review;
 import web.dto.Review_comment;
@@ -13,7 +14,7 @@ import web.util.Review.Paging;
 
 public interface ReviewDao {
 
-	public int selectCorno(String selectCor);
+	public int selectCorno(Cor cor);
 	
 	public void insertReview(Review review);
 
@@ -84,5 +85,9 @@ public interface ReviewDao {
 	public void deleteReviewComment(int reviewno);
 
 	public void deleteReview(int reviewno);
+
+	public int selectCorn(String tag);
+
+	public int selectCornoByname(String selectCor);
 
 }

@@ -231,10 +231,10 @@ dd {
 				</dd>
 				<dt>회사주소</dt>
 				<dd>
-					<strong class="col_1">${cor}</strong>
+					<strong class="col_1">${cor.cor_addr}</strong>
 				</dd>
 			</dl>
-			<a href="/cor/info?cor_no=${corno }&cor_type=${cortype }">
+			<a href="/cor/info?cor_no=${cor.cor_no }&cor_type=${cor.cor_type }">
 			<button id="btnCor" class="btn btn-default">기업정보 상세보기</button> </a>	
 		</div>
 	</div>
@@ -254,7 +254,7 @@ dd {
 	<sec:authentication property="details" var="member"/>
 		<sec:authorize access="isAuthenticated()">
 		<c:if test="${member.member_no eq viewRecruit.member_no }" >
-			<button id="btnUpdate" >수정</button>
+			<button id="btnUpdate"  class="btn btn-warning">수정</button>
 			<button id="btnDelete" class="btn btn-danger">삭제</button>
 		</c:if>
 		</sec:authorize>

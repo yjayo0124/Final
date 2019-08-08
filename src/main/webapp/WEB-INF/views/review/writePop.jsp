@@ -174,6 +174,7 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	background-color: #e9e9e9;
+
 }
 
 hr {
@@ -318,6 +319,9 @@ ul, li {
 	<input type="hidden" name="selectTag"></input> <!-- tag 선택시 저장되는 곳 -->
 	<input type="hidden" name="selectCor"></input> <!-- 기업 선택시 저장되는 곳 -->
 	<input type="hidden" name="selectMem" value="${mem }"></input> <!-- 현재 로그인한 멤버no -->
+	<c:if test="${corno ne null }">
+		<input type="hidden" name="corno" value="${corno }"></input>
+	</c:if>
 	<button type="button" id="writeBtn">글쓰기</button>
 </form>
 

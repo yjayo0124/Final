@@ -17,6 +17,8 @@ public interface CorInfoDao {
 
 	String selectCorname(int cor_no);
 
-	List<Recruit> selectRecruit(String corname);
+	List<Recruit> selectRecruit(int cor_no);
+
+	Cor selectCorinfoByCorNo(int cor_no);
 	
 }
