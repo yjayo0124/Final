@@ -123,12 +123,10 @@ public class CorInfoServiceImpl implements CorInfoService {
 		return corinfoDao.selectReview(cor_no);
 	}
 
-
 	@Override
 	public String getCorname(int cor_no) {
 		return corinfoDao.selectCorname(cor_no);
 	}
-
 
 	@Override
 	public List<Recruit> getRecruit(int cor_no) {

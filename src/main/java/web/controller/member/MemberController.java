@@ -182,7 +182,7 @@ public class MemberController {
 	@RequestMapping(value="/member/corJoin", method=RequestMethod.POST)
 	public String corJoinProc(Member member, String selectCor) {		
 		
-		int corno = reviewService.getCorno(selectCor);
+		int corno = reviewService.getCornoByname(selectCor);
 
 		member.setCompany_no(corno);
 		
