@@ -9,7 +9,7 @@
 	<select id="selectAll" parameterType="web.util.Paging" resultType="web.dto.Recruit">
 		SELECT * FROM ( SELECT rownum rnum, B.* FROM (
 			SELECT recruit_no, recruit_name,recruit_title,recruit_career,recruit_educareer, recruit_certificate,
-			recruit_major, recruit_type, recruit_sal, recruit_position, recruit_content, recruit_loc, member_no 
+			recruit_major, recruit_type, recruit_sal, recruit_position, recruit_content, recruit_loc, member_no, cor_no
 	 		FROM Recruit	
 	 		ORDER BY recruit_no DESC ) B
 			ORDER BY rnum ) WHERE rnum BETWEEN #{startNo} and #{endNo}
@@ -40,7 +40,8 @@
 							recruit_position, 
 							recruit_content,
 							recruit_loc,
-							member_no )
+							member_no,
+							cor_no )
 		VALUES	(recruit_seq.nextval, 
 				#{recruit_name},
 				#{recruit_title},
@@ -53,7 +54,8 @@
 				 #{recruit_position}, 
 				 #{recruit_content},
 				 #{recruit_loc},
-				 #{member_no} )
+				 #{member_no},
+				 #{cor_no} )
 	</insert>
 	
 	<insert id="insertFile" parameterType="web.dto.Recruit_file">

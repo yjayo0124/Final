@@ -310,7 +310,7 @@ border-bottom: 1px solid #edeef0;
 										<div style="float:left; width:13%; height: 100%; padding-left: 20px; padding-top: 3px; border-right: 1px solid #edeef0;">
 											<p style="font-size: 15px;"></p>
 										</div>
-										<div style="float:left; width:13%; height: 100%; padding-top: 3px;">
+										<div style="float:left; width:13%; height: 100%; padding-left: 20px; padding-top: 3px;">
 											<p style="font-size: 15px; color:#3399ff;">${i.graduation_status}</p>
 										</div>
 									</div>

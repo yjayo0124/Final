@@ -96,6 +96,7 @@ h4 {
 
 <form action="/jobfair/register" method="post" enctype="multipart/form-data">
 
+<input type="hidden" name="member_no" id="member_no" value="${member.member_no }" />
 <table class="table table-condensed">
 <thead>
 </thead>

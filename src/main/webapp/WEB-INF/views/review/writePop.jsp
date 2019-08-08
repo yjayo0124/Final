@@ -174,6 +174,7 @@ body {
 	width: 1000px;
 	margin: 0 auto;
 	background-color: #e9e9e9;
+
 }
 
 hr {
