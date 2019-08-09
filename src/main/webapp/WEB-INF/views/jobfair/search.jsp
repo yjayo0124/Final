@@ -42,7 +42,7 @@ thead {
 <div class="wrap">
 <div class="body">
 
-<h2>검색 결과</h2>
+<h2>"${search }" 검색 결과</h2>
 <hr>
 
 <div>
