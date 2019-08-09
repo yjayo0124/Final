@@ -116,4 +116,6 @@ public interface ResumeDao {
 	
 	public void updateResumeHaveFile(Resume resume);
 	
+	public String selectImgByMainResume(int resume_no);
+	
 }

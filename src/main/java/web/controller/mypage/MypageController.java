@@ -73,7 +73,18 @@ public class MypageController {
 		
 		Member member = (Member) auth.getDetails();
 		model.addAttribute("member_name", member.getMember_name());
-		//접속 객체 이름 model값으로 보내기
+		//접속 객체 이름 model값으로 보내기		
+		int member_no = member.getMember_no();
+		
+		Boolean checkMainResume = resumeService.checkMainResume(member_no);
+		model.addAttribute("checkMainResume", checkMainResume);
+		
+		//대표 이력서가 있을 때
+		if(checkMainResume) {
+			int mainResume_no =  resumeService.getMainResume_no(member_no);
+			String stored_name = resumeService.selectImgByMainResume(mainResume_no);
+			model.addAttribute("stored_name", stored_name);
+		}
 	}
 
 	@RequestMapping(value="/mypage/introduction/list", method=RequestMethod.GET)
@@ -83,11 +94,13 @@ public class MypageController {
 		int member_no = member.getMember_no();
 		
 		Boolean checkIntroduction = introductionService.checkIntroduction(member_no);
+		Boolean checkMainIntroduction = introductionService.checkMainIntroduction(member_no);
 		
 		MypagePaging paging = introductionService.getCurPage(request, member_no);
 		
 		List<Introduction> list = introductionService.getList(paging);
 		
+		model.addAttribute("checkMainIntroduction", checkMainIntroduction);
 		model.addAttribute("checkIntroduction", checkIntroduction);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
@@ -237,12 +250,15 @@ public class MypageController {
 		Member member = (Member) auth.getDetails();
 		int member_no = member.getMember_no();
 		
+		Boolean checkMainResume = resumeService.checkMainResume(member_no);
+		
 		Boolean checkResume = resumeService.checkResume(member_no);
 		
 		MypagePaging paging = resumeService.getCurPage(request, member_no);
 		
 		List<Resume> list = resumeService.getList(paging);		
 		
+		model.addAttribute("checkMainResume", checkMainResume);
 		model.addAttribute("checkResume", checkResume);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
@@ -270,8 +286,6 @@ public class MypageController {
 		int resume_no = resume.getResume_no();
 		formData.setResume_no(resume_no);
 		logger.info("작성 후 이력서 번호 : " + resume_no);
-		
-		System.out.println(formData.toString());
 		
 		if(formData.getSchool_numbers() != null) {
 			resumeService.insertSchool(formData);
@@ -500,7 +514,6 @@ public class MypageController {
 		
 		//파일첨부 없을 때, 업데이트
 		if(filename.equals("")) {
-			System.out.println("파일없음");
 			resumeService.updateResumeNoFile(resume);
 			
 		//파일첨부 있을 때, 업데이트

@@ -19,6 +19,25 @@ $( document ).ready(function() {
 </script>
 
 <style type="text/css">
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 .containers {
 	margin: 0 auto;
 	padding: 0;
@@ -46,7 +65,7 @@ $( document ).ready(function() {
 
 .btn_create_resume {
 	padding: 2px;
-	border: 1px solid #e7e9e9;
+	border: 1px solid #A4A4A4;
 	font-size: 12px;
 	color: #333;
 	height: 24px;
@@ -58,7 +77,7 @@ $( document ).ready(function() {
 .listGroup {
 	width: 190px;
 	padding: 15px 20px;
-	border-bottom: 1px solid #dce1eb;
+	border-bottom: 1px solid #A4A4A4;
 	float: left;
 }
 
@@ -93,8 +112,10 @@ table, th {
 .form {
 	width: 100%;
 	float: left;
-/* 	border : 1px solid #dce1eb; */
-	border-top: 1px solid; 
+/* 	border : 1px solid #A4A4A4; */
+	border-top: 1px solid #A4A4A4; 
+	text-align: center;
+	padding-left: 0;
 }
 .head {
 	font-weight: bold;
@@ -104,7 +125,7 @@ table, th {
 .new {
 	width: 800px;
 	padding: 20px 20px 10px;
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 	border-top: none;
 	float: left;
 	background-color: white;
@@ -118,7 +139,7 @@ table, th {
 	float: left;
 }
 .info_form {
-	border: 1px solid #dce1eb;
+	border: 1px solid #A4A4A4;
 }
 .school {
 	width: 300px;
@@ -131,7 +152,7 @@ table, th {
 	padding: 10 20px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	border-color: #dce1eb;
+	border-color: #A4A4A4;
 	width: 97%;
 	height: 300px;
 	border: 1;
@@ -171,7 +192,7 @@ input {
 	padding: 3 10px;
 	overflow-x: hidden;
 	overflow-y: auto;
-	border-color: #dce1eb;
+	border-color: #A4A4A4;
 	width: 100%;
 	min-height: 30px;
 	border: 1;
@@ -181,6 +202,7 @@ input {
 p {
 	margin: 0;
 }
+
 </style>
 
 <div class="containers">
@@ -192,9 +214,9 @@ p {
 				<input type="hidden" name="resume_no" value="${resume.resume_no }">
 			</div>
 			<h4 class="head">인적사항</h4>
-			<div class="form" style="border:1px solid #dce1eb;;">
+			<div class="form" style="border:1px solid #A4A4A4; text-align: left;">
 				
-				<div style="float:left; width:200px; height: 200px; border: 1px solid ; margin:30px;">
+				<div style="float:left; width:200px; height: 200px; border: 1px solid #A4A4A4; margin:30px;">
 					<img style=" width:100%; height: 100%;"src="/upload/${resume.resume_stored_name }">
 				</div>
 				
@@ -234,39 +256,43 @@ p {
 		
 		<c:if test="${checkSchool eq true }">
 			<div class="info">
-				<h4 class="head">학력</h4>
+				<h4 class="head">학력사항</h4>
 				<div class="form">
 					<c:forEach items="${school}" var="i">
 						<c:choose>
 							<c:when test="${i.school_classification eq '고등학교'}">
-									<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
-										<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-											<p style="font-size: 15px;">${i.graduation_date}</p>
+									<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
+										<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+											<p style="font-size: 15px;"><c:if test="${i.graduation_date ne '0'}">${i.graduation_date}</c:if>
+											</p>
 										</div>
-										<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-											<p style="font-size: 15px;">${i.school_name}</p>
+										<div style="float:left; width:54%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+											<p style="font-size: 15px;"><c:if test="${i.school_name ne '0'}">${i.school_name}</c:if></p>
 										</div>
-										<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+										<div style="float:left; width:13%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 											<p style="font-size: 15px;"></p>
 										</div>
-										<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-											<p style="font-size: 15px;">${i.graduation_status}</p>
+										<div style="float:left; width:13%; height: 100%;    padding-top: 3px;">
+											<p style="font-size: 15px;"><c:if test="${i.graduation_status ne '0'}">${i.graduation_status}</c:if></p>
 										</div>
 									</div>
 							</c:when>
 							<c:otherwise>
-								<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
-									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.admission_date} ~ ${i.graduation_date}</p>
+								<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
+									<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.admission_date ne '0'}">${i.admission_date}</c:if> ~ 
+										<c:if test="${i.graduation_date ne '0'}">${i.graduation_date}</c:if></p>
 									</div>
-									<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.school_name} ${i.major_name}</p>
+									<div style="float:left; width:54%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.school_name ne '0'}">${i.school_name}</c:if>
+										 <c:if test="${i.major_name ne '0'}">${i.major_name}</c:if></p>
 									</div>
-									<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.credit} / ${i.total_score}</p>
+									<div style="float:left; width:13%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;">
+										<c:if test="${i.credit ne '0'}">${i.credit}</c:if> / <c:if test="${i.total_score ne '0'}">${i.total_score}</c:if></p>
 									</div>
-									<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.graduation_status}</p>
+									<div style="float:left; width:13%; height: 100%;    padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.graduation_status ne '0'}">${i.graduation_status}</c:if></p>
 									</div>
 								</div>
 							</c:otherwise>
@@ -278,21 +304,22 @@ p {
 		
 		<c:if test="${checkCareer eq true }">
 			<div class="info">
-				<h4 class="head">경력</h4>
+				<h4 class="head">경력사항</h4>
 				<div class="form">
 					<c:forEach items="${career}" var="i">
-						<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
-							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.hire_date} ~ ${i.retirement_date}</p>
+						<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;">
+								<c:if test="${i.hire_date ne '0'}">${i.hire_date}</c:if> ~ <c:if test="${i.retirement_date ne '0'}">${i.retirement_date}</c:if></p>
 							</div>
-							<div style="float:left; width:54%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.company_name}</p>
+							<div style="float:left; width:54%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.company_name ne '0'}">${i.company_name}</c:if></p>
 							</div>
-							<div style="float:left; width:13%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.position}</p>
+							<div style="float:left; width:13%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.position ne '0'}">${i.position}</c:if></p>
 							</div>
-							<div style="float:left; width:13%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.job_work}</p>
+							<div style="float:left; width:13%; height: 100%;    padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.job_work ne '0'}">${i.job_work}</c:if></p>
 							</div>
 						</div>
 					</c:forEach>
@@ -302,18 +329,18 @@ p {
 		
 		<c:if test="${checkActivities eq true }">
 			<div class="info">
-				<h4 class="head">인턴,대외활동</h4>
+				<h4 class="head">대외활동</h4>
 				<div class="form">
 					<c:forEach items="${activities}" var="i">
-						<div style="float:left; width:100%; height: 30px; border-top: 1px solid; border-top: none;">
-							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
+						<div style="float:left; width:100%; height: 30px; border-top: 1px solid #A4A4A4; border-top: none;">
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.start_date ne '0'}">${i.start_date}</c:if> ~ <c:if test="${i.end_date ne '0'}">${i.end_date}</c:if></p>
 							</div>
-							<div style="float:left; width:30%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.institution_name}</p>
+							<div style="float:left; width:30%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.institution_name ne '0'}">${i.institution_name}</c:if></p>
 							</div>
-							<div style="float:left; width:50%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px; white-space: pre-wrap;">${i.activity_content}</p>
+							<div style="float:left; width:50%; min-height: 30px; border-left:1px solid #A4A4A4; border-right:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;"><c:if test="${i.activity_content ne '0'}">${i.activity_content}</c:if></p>
 							</div>
 						</div>
 					</c:forEach>
@@ -323,21 +350,22 @@ p {
 		
 		<c:if test="${checkEducation eq true }">
 			<div class="info">
-				<h4 class="head">교육이수</h4>
+				<h4 class="head">교육사항</h4>
 				<div class="form">
 					<c:forEach items="${education}" var="i">
-						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; border-top: none;">
-							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
+						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid #A4A4A4; border-top: none;">
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px;">
+								<c:if test="${i.start_date ne '0'}">${i.start_date}</c:if> ~ <c:if test="${i.end_date ne '0'}">${i.end_date}</c:if></p>
 							</div>
-							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.training_title}</p>
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.training_title ne '0'}">${i.training_title}</c:if></p>
 							</div>
-							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.educational_facilities}</p>
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.educational_facilities ne '0'}">${i.educational_facilities}</c:if></p>
 							</div>
-							<div style="float:left; width:40%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px; white-space: pre-wrap;">${i.training_content}</p>
+							<div style="float:left; width:40%; min-height: 30px; border-left:1px solid #A4A4A4; border-right:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;"><c:if test="${i.training_content ne '0'}">${i.training_content}</c:if></p>
 							</div>
 						</div>
 					</c:forEach>
@@ -347,18 +375,18 @@ p {
 		
 		<c:if test="${checkCertificate eq true }">
 			<div class="info">
-				<h4 class="head">자격증</h4>
+				<h4 class="head">자격면허</h4>
 				<div class="form">
 				<c:forEach items="${certificate}" var="i">
-						<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
-							<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.certificate_name}</p>
+						<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
+							<div style="float:left; width:50%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.certificate_name ne '0'}">${i.certificate_name}</c:if></p>
 							</div>
-							<div style="float:left; width:35%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.place_issue}</p>
+							<div style="float:left; width:35%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.place_issue ne '0'}">${i.place_issue}</c:if></p>
 							</div>
-							<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.acquisition_date}</p>
+							<div style="float:left; width:15%; height: 100%;    padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.acquisition_date ne '0'}">${i.acquisition_date}</c:if></p>
 							</div>
 						</div>
 					</c:forEach>
@@ -368,21 +396,21 @@ p {
 		
 		<c:if test="${checkAward eq true }">
 			<div class="info">
-				<h4 class="head">수상</h4>
+				<h4 class="head">수상경력</h4>
 				<div class="form">
 					<c:forEach items="${award}" var="i">
-						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; border-top: none;">
-							<div style="float:left; width:25%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.award_name}</p>
+						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid #A4A4A4; border-top: none;">
+							<div style="float:left; width:25%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.award_name ne '0'}">${i.award_name}</c:if></p>
 							</div>
-							<div style="float:left; width:25%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.award_service}</p>
+							<div style="float:left; width:25%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.award_service ne '0'}">${i.award_service}</c:if></p>
 							</div>
-							<div style="float:left; width:10%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 10px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.award_date}</p>
+							<div style="float:left; width:10%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4; padding-left: 10px; padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.award_date ne '0'}">${i.award_date}</c:if></p>
 							</div>
-							<div style="float:left; width:40%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px; white-space: pre-wrap;">${i.award_content}</p>
+							<div style="float:left; width:40%; min-height: 30px; border-left:1px solid #A4A4A4; border-right:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;"><c:if test="${i.award_content ne '0'}">${i.award_content}</c:if></p>
 							</div>
 						</div>
 					</c:forEach>
@@ -395,15 +423,16 @@ p {
 				<h4 class="head">해외경험</h4>
 				<div class="form">
 					<c:forEach items="${overseas_Experience}" var="i">
-						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid; border-top: none;">
-							<div style="float:left; width:20%; height: 30px; border-left:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.start_date} ~ ${i.end_date}</p>
+						<div style="float:left; width:100%; min-height: 30px; border-top: 1px solid #A4A4A4; border-top: none;">
+							<div style="float:left; width:20%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px;">
+								<c:if test="${i.start_date ne '0'}">${i.start_date}</c:if> ~ <c:if test="${i.end_date ne '0'}">${i.end_date}</c:if></p>
 							</div>
-							<div style="float:left; width:30%; height: 30px; border-left:1px solid; border-bottom:1px solid; padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px;">${i.country_name}</p>
+							<div style="float:left; width:30%; height: 30px; border-left:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;   padding-top: 3px;">
+								<p style="font-size: 15px;"><c:if test="${i.country_name ne '0'}">${i.country_name}</c:if></p>
 							</div>
-							<div style="float:left; width:50%; min-height: 30px; border-left:1px solid; border-right:1px solid; border-bottom:1px solid;  padding-left: 20px; padding-top: 3px;">
-								<p style="font-size: 15px; white-space: pre-wrap;">${i.overseas_experience_content}</p>
+							<div style="float:left; width:50%; min-height: 30px; border-left:1px solid #A4A4A4; border-right:1px solid #A4A4A4; border-bottom:1px solid #A4A4A4;    padding-top: 3px;">
+								<p style="font-size: 15px; white-space: pre-wrap;"><c:if test="${i.overseas_experience_content ne '0'}">${i.overseas_experience_content}</c:if></p>
 							</div>
 						</div>
 					</c:forEach>
@@ -413,37 +442,38 @@ p {
 		
 		<c:if test="${checkLanguage eq true }">
 			<div class="info">
-				<h4 class="head">어학</h4>
+				<h4 class="head">어학능력</h4>
 				<div class="form">
 					<c:forEach items="${language}" var="i">
 						<c:choose>
 							<c:when test="${i.language_classification eq '회화능력'}">
-								<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
-									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.language_classification}</p>
+								<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
+									<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.language_classification ne '0'}">${i.language_classification}</c:if></p>
 									</div>
-									<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.language_name}</p>
+									<div style="float:left; width:50%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.language_name ne '0'}">${i.language_name}</c:if></p>
 									</div>
-									<div style="float:left; width:30%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.conversational_ability}</p>
+									<div style="float:left; width:30%; height: 100%;    padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.conversational_ability ne '0'}">${i.conversational_ability}</c:if></p>
 									</div>
 								</div>
 							</c:when>
 							
 							<c:when test="${i.language_classification eq '공인시험'}">
-								<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none; ">
-									<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.language_classification}</p>
+								<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none; ">
+									<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.language_classification ne '0'}">${i.language_classification}</c:if></p>
 									</div>
-									<div style="float:left; width:50%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.language_name}</p>
+									<div style="float:left; width:50%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.language_name ne '0'}">${i.language_name}</c:if></p>
 									</div>
-									<div style="float:left; width:15%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.language_score}${i.conversational_ability}</p>
+									<div style="float:left; width:15%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+										<p style="font-size: 15px;">
+										<c:if test="${i.language_score ne '0'}">${i.language_score}</c:if><c:if test="${i.conversational_ability ne '0'}">${i.conversational_ability}</c:if></p>
 									</div>
-									<div style="float:left; width:15%; height: 100%;  padding-left: 20px; padding-top: 3px;">
-										<p style="font-size: 15px;">${i.acquisition_date}</p>
+									<div style="float:left; width:15%; height: 100%;    padding-top: 3px;">
+										<p style="font-size: 15px;"><c:if test="${i.acquisition_date ne '0'}">${i.acquisition_date}</c:if></p>
 									</div>
 								</div>
 							</c:when>
@@ -456,31 +486,31 @@ p {
 		
 		<c:if test="${checkPreferential eq true }">
 			<div class="info">
-				<h4 class="head">취업우대, 병역</h4>
+				<h4 class="head">우대사항, 병역</h4>
 				<div class="form">
-					<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
+					<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
 						<c:if test="${preferential.veterans eq true }">
-							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 								<p style="font-size: 15px;">보훈대상</p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.protect eq true }">
-							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 								<p style="font-size: 15px;">취업보호 대상</p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.funding eq true }">
-							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 								<p style="font-size: 15px;">고용지원금 대상</p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.disorder ne '0' }">
-							<div style="float:left; width:20%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+							<div style="float:left; width:20%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 								<p style="font-size: 15px;">장애 : ${preferential.disorder}</p>
 							</div>
 						</c:if>
 						<c:if test="${preferential.military ne '0' }">
-							<div style="float:left; width:20%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+							<div style="float:left; width:20%; height: 100%;    padding-top: 3px;">
 								<p style="font-size: 15px;">병역 : ${preferential.military}</p>
 							</div>
 						</c:if>
@@ -490,29 +520,29 @@ p {
 		</c:if>	
 		
 		<div class="info">
-			<h4 class="head">희망근무조건</h4>
+			<h4 class="head">희망취업조건</h4>
 			<div class="form">
-				<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none;">
-					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+				<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none;">
+					<div style="float:left; width:33%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 						<p style="font-size: 15px;">고용형태</p>
 					</div>
-					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
+					<div style="float:left; width:33%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
 						<p style="font-size: 15px;">희망근무지</p>
 					</div>
-					<div style="float:left; width:33%; height: 100%;  padding-left: 20px; padding-top: 3px;">
+					<div style="float:left; width:33%; height: 100%;    padding-top: 3px;">
 						<p style="font-size: 15px;">희망연봉</p>
 					</div>
 				</div>
 				
-				<div style="float:left; width:100%; height: 30px; border: 1px solid; border-top: none; ">
-					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-						<p style="font-size: 15px;">${resume.forms_employment }</p>
+				<div style="float:left; width:100%; height: 30px; border: 1px solid #A4A4A4; border-top: none; ">
+					<div style="float:left; width:33%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+						<p style="font-size: 15px;"><c:if test="${resume.forms_employment ne '0'}">${resume.forms_employment }</c:if></p>
 					</div>
-					<div style="float:left; width:33%; height: 100%; border-right:1px solid; padding-left: 20px; padding-top: 3px;">
-						<p style="font-size: 15px;">${resume.desired_work_place }</p>
+					<div style="float:left; width:33%; height: 100%; border-right:1px solid #A4A4A4;   padding-top: 3px;">
+						<p style="font-size: 15px;"><c:if test="${resume.desired_work_place ne '0'}">${resume.desired_work_place }</c:if></p>
 					</div>
-					<div style="float:left; width:33%; height: 100%; padding-left: 20px; padding-top: 3px;">
-						<p style="font-size: 15px;">${resume.salary }만원 이상</p>
+					<div style="float:left; width:33%; height: 100%;   padding-top: 3px;">
+						<p style="font-size: 15px;"><c:if test="${resume.salary ne null}">${resume.salary }만원 이상</c:if></p>
 					</div>
 				</div>
 			</div>

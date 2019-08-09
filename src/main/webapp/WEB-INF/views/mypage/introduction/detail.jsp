@@ -18,6 +18,25 @@ $( document ).ready(function() {
 
 </script>
 <style type="text/css">
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 .containers {
 	margin: 0 auto;
 	padding: 0;
@@ -29,7 +48,7 @@ $( document ).ready(function() {
 	width: 100%;
 	float: left;
 	/* 	border : 1px solid #dce1eb; */
-/* 	border-top: 1px solid #BDBDBD; */
+/* 	border-top: 1px solid #A4A4A4; */
 }
 
 .head {
@@ -40,7 +59,7 @@ $( document ).ready(function() {
 .main {
 	width: 800px;
 	padding: 20px 20px 10px;
-	border: 1px solid #BDBDBD;
+	border: 1px solid #A4A4A4;
 	border-top-left-radius:8px;
 	border-top-right-radius:8px;
 	float: left;
@@ -51,7 +70,7 @@ $( document ).ready(function() {
 .new {
 	width: 800px;
 	padding: 20px 20px 10px;
-	border: 1px solid #BDBDBD;
+	border: 1px solid #A4A4A4;
 	border-top: none;
 	float: left;
 	background-color: white;
@@ -68,7 +87,7 @@ $( document ).ready(function() {
 }
 
 .info_form {
-	border: 1px solid #BDBDBD;
+	border: 1px solid #A4A4A4;
 }
 
 .school {
@@ -103,7 +122,7 @@ input {
 .textarea_content {
 	padding: 10 20px;
 	border-radius: 0;
-	border-color: #BDBDBD;
+	border-color: #A4A4A4;
 	width: 100%;
 	min-height: 30px;
 	border: 1;
@@ -144,12 +163,16 @@ p {
 						<div class="new">
 							<div class="row">
 								<div class="info_form school question" style="width: 100%; padding: 20px;">
+								<c:if test="${i.sub_introduction_question ne '0'}">
 								${i.sub_introduction_question }
+								</c:if>
 								</div>
 							</div>
 							<div class="row" style="width: 100%; min-height: 100px;">
 								<div class="info_form school content" style="width: 100%; min-height: 100px; padding: 20px;">
+									<c:if test="${i.sub_introduction_content ne '0'}">
 									${i.sub_introduction_content }
+									</c:if>
 								</div>
 							</div>
 						</div>
