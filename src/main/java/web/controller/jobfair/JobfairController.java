@@ -50,7 +50,7 @@ public class JobfairController {
 		logger.info("리스트");
 		
 		list = (ArrayList<HashMap<String, Object>>) jobfairService.calList();
-//		System.out.println(list);
+//		System.out.println("list: " + list);
 		
 		return list;
 	}
@@ -62,10 +62,12 @@ public class JobfairController {
 		) {
 		
 		logger.info("검색");
+		logger.info("검색어: " + search);
 		
 		List<JobFair> list = jobfairService.jobFairSearch(search);
-//		System.out.println(list);
+//		System.out.println("search: " + list);
 		
+		model.addAttribute("search", search);
 		model.addAttribute("list", list);
 		
 	}
