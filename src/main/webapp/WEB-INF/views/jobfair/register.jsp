@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
 	$("#btnRegister").click(function() {
 		$("form").submit();
 	});
@@ -69,6 +69,8 @@ $(document).ready(function() {
 }
 
 h4 {
+/* 	background: linear-gradient( to right, #ffffff, #2C3E50 ); */
+/*  	background: linear-gradient(40deg, #ffffff, #ffffff 20%, #343a40 60%); */
 	text-align: left;
 	border: 1px solid;
 	border-color: #2C3E50;
@@ -92,12 +94,12 @@ h4 {
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value='${now }' pattern="yyyy-MM-dd" var="nowDate"/>
 
-<h4>등록 페이지</h4>
+<h4 class="regi">등록 페이지</h4>
 <br>
 
 <form action="/jobfair/register" method="post" enctype="multipart/form-data">
-
 <input type="hidden" name="member_no" id="member_no" value="${member.member_no }" />
+
 <table class="table table-condensed">
 <thead>
 </thead>
@@ -105,11 +107,11 @@ h4 {
 <tbody>
 	<tr>
 		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">제목</td>
-		<td><input type="text" name="jobfair_name" id="jobfair_name" class="form-control"  /></td>
+		<td><input type="text" name="jobfair_name" id="jobfair_name" class="form-control" /></td>
 	</tr>
 	<tr>
 		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">글쓴이</td>
-		<td>${member_id }/${member.member_no }</td>
+		<td>${member_id }</td>
 	</tr>
 	<tr>
 		<td style="border-right: 0.1px solid; border-right-color: lightgrey; width: 10%;">등록일</td>
