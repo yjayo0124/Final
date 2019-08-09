@@ -260,7 +260,6 @@
 							desired_work_place = #{desired_work_place},
 							salary = #{salary}
 		WHERE resume_no = #{resume_no}
-	
 	</update>
 	
 	<update id="updateResumeHaveFile" parameterType="web.dto.mypage.resume.Resume">
@@ -277,7 +276,10 @@
 							desired_work_place = #{desired_work_place},
 							salary = #{salary}
 		WHERE resume_no = #{resume_no}
-	
 	</update>
+	
+	<select id="selectImgByMainResume" parameterType="int" resultType="String">
+		SELECT resume_stored_name FROM Resume WHERE resume_no = #{resume_no}
+	</select>
 
 </mapper>

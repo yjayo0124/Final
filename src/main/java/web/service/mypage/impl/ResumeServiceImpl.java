@@ -37,25 +37,6 @@ public class ResumeServiceImpl implements ResumeService{
 	public void insertResume(Resume resume) {
 
 		if(resume.getMember_no() != 0) {
-			if(resume.getResume_title() == "") {
-				resume.setResume_title("0");
-			}  if (resume.getResume_stored_name() == "") {
-				resume.setResume_stored_name("0");
-			}  if (resume.getResume_name() == "") {
-				resume.setResume_name("0");
-			}  if (resume.getResume_birth() == "") {
-				resume.setResume_birth("0");
-			}  if (resume.getResume_email() == "") {
-				resume.setResume_email("0");
-			}  if (resume.getResume_phone() == "") {
-				resume.setResume_phone("0");
-			}  if (resume.getResume_cellphone() == "") {
-				resume.setResume_cellphone("0");
-			}  if (resume.getResume_addr() == "") {
-				resume.setResume_addr("0");
-			}  if (resume.getSalary() == "") {
-				resume.setSalary("0");
-			} 
 
 			resumeDao.insertResume(resume);
 		}
@@ -682,6 +663,14 @@ public class ResumeServiceImpl implements ResumeService{
 	public void updateResumeHaveFile(Resume resume) {
 		resumeDao.updateResumeHaveFile(resume);
 		
+	}
+
+
+
+	@Override
+	public String selectImgByMainResume(int resume_no) {
+		
+		return resumeDao.selectImgByMainResume(resume_no);
 	}
 
 

@@ -77,10 +77,24 @@ function sub_introduction() {
 	
 	if(countSub != "0") {
 		for(var i=0; i<countSub; i++) {
+			var val_sub_introduction_question = $("#div_Introduction").children("div.add").eq(i).find("input[name='sub_introduction_question']").val();
+			var val_sub_introduction_content = $("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val().replace(/(\n|\r\n)/g, '<br>');
 
 			list_numbers.push(i+1);
-			list_introduction_question.push($("#div_Introduction").children("div.add").eq(i).find("input[name='sub_introduction_question']").val());
-			list_introduction_content.push($("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val().replace(/(\n|\r\n)/g, '<br>'));
+			
+			if(typeof val_sub_introduction_question == "undefined"|| val_sub_introduction_question == null || val_sub_introduction_question == ""){
+				list_introduction_question.push("0");
+			}else{
+				list_introduction_question.push($("#div_Introduction").children("div.add").eq(i).find("input[name='sub_introduction_question']").val());
+			}
+// 			list_introduction_question.push($("#div_Introduction").children("div.add").eq(i).find("input[name='sub_introduction_question']").val());
+			
+			if(typeof val_sub_introduction_content == "undefined"|| val_sub_introduction_content == null || val_sub_introduction_content == ""){
+				list_introduction_content.push("0");
+			}else{
+				list_introduction_content.push($("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val().replace(/(\n|\r\n)/g, '<br>'));
+			}
+// 			list_introduction_content.push($("#div_Introduction").children("div.add").eq(i).find("textarea[name='sub_introduction_content']").val().replace(/(\n|\r\n)/g, '<br>'));
 		}
 		
 		formData.append("numbers",list_numbers);
@@ -112,6 +126,25 @@ function delete_btn() {
 </script>
 
 <style type="text/css">
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 
 .containers {
 	margin: 0 auto;

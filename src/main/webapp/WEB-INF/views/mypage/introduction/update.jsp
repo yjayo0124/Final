@@ -41,7 +41,7 @@ function introduction() {
         	list_introduction_content : list_introduction_content
         	},
         success: function(data){        	
-//         	location.href = "/mypage/main";
+        	location.href = "/mypage/introduction/list";
         	
         },
         error: function(){
@@ -90,7 +90,27 @@ function delete_btn() {
 
 </script>
 
+
 <style type="text/css">
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 
 .containers {
 	margin: 0 auto;
@@ -323,11 +343,25 @@ input {
 								<div class='new add'>
 									<div class='row'>
 										<div class='info_form school' style='width: 98%;'>
-											<input type='text' name='sub_introduction_question' placeholder='질문' value="${i.sub_introduction_question }">
+											<c:choose>
+    											<c:when test="${i.sub_introduction_question ne '0'}">
+       												<input type='text' name='sub_introduction_question' placeholder='질문' value="${i.sub_introduction_question }">
+    											</c:when>
+    											<c:otherwise>
+       												<input type='text' name='sub_introduction_question' placeholder='질문' value="">
+    											</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 									<div class='row' style='height: 300px;'>
-										<textarea class='textarea_content'  style="width: 98%;"placeholder='내용' name='sub_introduction_content'>${i.sub_introduction_content }</textarea>
+										<c:choose>
+    											<c:when test="${i.sub_introduction_content ne '0'}">
+       												<textarea class='textarea_content'  style="width: 98%;"placeholder='내용' name='sub_introduction_content'>${i.sub_introduction_content }</textarea>
+    											</c:when>
+    											<c:otherwise>
+       												<textarea class='textarea_content'  style="width: 98%;"placeholder='내용' name='sub_introduction_content'></textarea>
+    											</c:otherwise>
+										</c:choose>
 									</div>
 								<button type='button' class='delete_btn' onclick='delete_btn()'></button>
 								</div>

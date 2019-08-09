@@ -120,5 +120,7 @@ public interface ResumeService {
 	public void updateResumeNoFile(Resume resume);
 	
 	public void updateResumeHaveFile(Resume resume);
+	
+	public String selectImgByMainResume(int resume_no);
 
 }

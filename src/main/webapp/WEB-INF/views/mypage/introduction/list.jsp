@@ -34,6 +34,25 @@ $( document ).ready(function() {
 </script>
 
 <style type="text/css">
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 .containers {
 	margin: 0 auto;
 	padding: 0;
@@ -125,6 +144,38 @@ $( document ).ready(function() {
 table, th {
 	text-align: center;
 }
+table {
+	width: 100%;
+	border-top: 3px solid #444444;
+	border-bottom: 3px solid #444444;
+	border-left: 0px solid white;
+	border-right: 0px solid white;
+	border-collapse: collapse;
+	margin: auto;
+	margin-top: 35px;
+}
+
+th {
+	text-align: center;
+	border-bottom: 1px solid gray;
+	padding: 10px;
+	background-color: #e9e9e9;
+	width: auto;
+}
+
+td {
+	text-align: center;
+	border-bottom: 1px solid gray;
+	padding: 10px;
+}
+
+.txt_line { 
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+
 </style>
 
 <div class="containers">
@@ -163,11 +214,11 @@ table, th {
 			<h3>자기소개서 관리</h3>
 			<hr>
 
-			<table class="table table-striped table-hover table-condensed" style="margin-top: 50px; margin-bottom: 40px;">
+			<table class="table table-striped table-hover table-condensed" style="margin-top: 50px; margin-bottom: 40px; table-layout:fixed;">
 				<thead>
 					<tr>
-						<th style="width: 10%;"></th>
-						<th style="width: 65%;">자기소개서 제목</th>
+						<th style="width: 18%;"></th>
+						<th style="width: 57%;">자기소개서 제목</th>
 						<th style="width: 25%;">자기소개서 관리</th>
 					</tr>
 				</thead>
@@ -176,19 +227,21 @@ table, th {
 					<c:when test="${checkIntroduction eq true}">
 						<c:forEach items="${list}" var="i">
 							<tr style="border-bottom: 1px solid #dce1eb;">
-								<td>
+								<td style="font-weight: bold;">
 								<c:if test="${i.main_introduction eq '1'}">
-								대표 이력서
+								대표 자기소개서
 								</c:if>
 								</td>
-								<td style="padding-top: 10px; padding-bottom: 10px;" >
+								<td class="txt_line" style="padding-top: 10px; padding-bottom: 10px;" >
 									<a href="/mypage/introduction/detail?introduction_no=${i.introduction_no }">
 										${i.introduction_title }</a></td>
 								<td>
 								<input type="hidden" name="introduction_no" value="${i.introduction_no }">
+								<c:if test="${checkMainIntroduction eq false }">
 									<c:if test="${i.main_introduction eq '0'}">
 										<button type="button" class="btn btn-default btnMain" style="margin-right: 5px;" >대표 등록</button>
 									</c:if>
+								</c:if>
 									<c:if test="${i.main_introduction eq '1'}">
 										<button type="button" class="btn btn-default btnUnlockMain" style="margin-right: 5px;" >대표 해제</button>
 									</c:if>
@@ -199,8 +252,8 @@ table, th {
 					</c:when>
 					<c:otherwise>
 						<tr style="border-bottom: 1px solid #dce1eb;">
-							<td>미완성</td>
-							<td>자기소개서가 아직 완성되지 않았습니다.</td>
+							<td style="font-weight: bold;">없음</td>
+							<td>자기소개서가 등록되어있지 않습니다.</td>
 							<td>
 								<button type="button" class="btn btn-default btnwrite" style="margin-right: 5px;">작성하기</button>
 							</td>

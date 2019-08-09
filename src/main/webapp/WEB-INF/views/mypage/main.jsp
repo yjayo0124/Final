@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -61,7 +64,9 @@ $(document).ready(function() {
 		$("#main_credit").text(totalcredit);
 		$("#credit_sum").text("수업 : "+count+" / 총점 : "+totalcredit);
 	});
-	
+	$('.btn_list_resume').click(function(){
+		location.href = "/mypage/resume/list";
+	});
 	
 	$('#new').click(function(){
 		
@@ -111,6 +116,25 @@ $(document).ready(function() {
 
 </script>
 <style type="text/css">
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
 .container {
 	margin: 0 auto;
 	padding:0;
@@ -255,7 +279,7 @@ td {
 .profile_btn{
 	height:24px;
 }
-.btn_create_resume {
+.btn_list_resume {
 	padding: 2px;
     border: 1px solid #e7e9e9;
     font-size: 12px;
@@ -312,11 +336,19 @@ td {
 <div class="container">
 	<div class="top_container">
 		<div class="profile">
-			<div class="profile_img">
-				<img class="img-circle" src="/resources/images/avatar.png">
-				<div class="profile_name"><strong>${member_name }</strong>님</div>
-				<div class="profile_btn"><button type="button" class="btn_create_resume">이력서 작성하기</button></div>
-			</div>
+			<c:if test="${checkMainResume eq true }">
+				<div class="profile_img">
+					<img class="img-circle" src="/upload/${stored_name }" style="width: 70%; height: 70%;">
+					<div class="profile_name"><strong>${member_name }</strong>님</div>
+				</div>
+			</c:if>
+			<c:if test="${checkMainResume eq false }">
+				<div class="profile_img">
+					<img class="img-circle" src="/resources/images/avatar.png">
+					<div class="profile_name"><strong>${member_name }</strong>님</div>
+					<div class="profile_btn"><button type="button" class="btn_list_resume">대표이력서 설정</button></div>
+				</div>
+			</c:if>
 		</div>
 		<div class="grades">
 			<div class="grades_div">

@@ -237,7 +237,6 @@
 		overseas_Experience();
 		language();
 		preferential();
-		console.log(filename);
 
 		$.ajax({
 			url : "/mypage/resume/update",
@@ -248,8 +247,7 @@
 			cache : false,
 			data : formData,
 			success : function(data) {
-// 				location.href = "/mypage/resume/list";
-				console.log(upfile);
+				location.href = "/mypage/resume/list";
 			},
 			error : function() {
 				alert("error");
@@ -1745,7 +1743,6 @@
 				+ "<option value='슬로바이카어'>슬로바이카어</option>"
 				+ "<option value='세르비아어'>세르비아어</option>"
 				+ "<option value='한국어'>한국어</option>"
-				+ "<option value='직접입력'>직접입력</option>"
 				+ "</select>"
 				+ "</div>"
 				+ "<div class='info_form normal' style='margin: 0; width: 140px;'>"
@@ -1801,7 +1798,6 @@
 				+ "<option value='슬로바이카어'>슬로바이카어</option>"
 				+ "<option value='세르비아어'>세르비아어</option>"
 				+ "<option value='한국어'>한국어</option>"
-				+ "<option value='직접입력'>직접입력</option>"
 				+ "</select>"
 				+ "</div>"
 				+ "<div class='info_form normal' style='margin: 0; width: 140px;'>"
@@ -1859,7 +1855,6 @@
 				+ "<option value='슬로바이카어'>슬로바이카어</option>"
 				+ "<option value='세르비아어'>세르비아어</option>"
 				+ "<option value='한국어'>한국어</option>"
-				+ "<option value='직접입력'>직접입력</option>"
 				+ "</select>"
 				+ "</div>"
 				+ "<div class='info_form normal' style='margin: 0;'>"
@@ -2081,7 +2076,8 @@ section {
 	height: 25px;
 	cursor: pointer;
 }
-.img_button_down{
+
+.img_button_down {
 	background: url( "/resources/images/down.png" ) no-repeat;
 	border: none;
 	width: 25px;
@@ -2233,6 +2229,7 @@ input {
 	background-color: white;
 	position: relative;
 }
+
 .more {
 	width: 110px;
 	padding: 20px 20px 10px;
@@ -2370,7 +2367,8 @@ input {
 .military_status {
 	display: none;
 }
-.sub_title{
+
+.sub_title {
 	border: 1px solid #A4A4A4;
 	text-align: center;
 	height: 40px;
@@ -2393,13 +2391,14 @@ input {
 			</div>
 			<div class="resume_title">
 				<input type="text" name="resume_title" placeholder="제목을 입력하세요."
-					value="${resume.resume_title }">
-					<input type="hidden" id="member_no" name="member_no" value="${mem }" />
-					<input type="hidden" id="resume_no" name="resume_no" value="${resume.resume_no }"/>
+					value="${resume.resume_title }"> <input type="hidden"
+					id="member_no" name="member_no" value="${mem }" /> <input
+					type="hidden" id="resume_no" name="resume_no"
+					value="${resume.resume_no }" />
 			</div>
 
 			<div class="form" style="float: left; margin-bottom: 40px;">
-				<div  class="sub_title">
+				<div class="sub_title">
 					<h4 style="font-weight: bold;">인적사항</h4>
 				</div>
 				<div class="info" style="padding-bottom: 20px;" id="user_info">
@@ -2410,25 +2409,29 @@ input {
 							<input style="display: none;" type="file" name="imgfile">
 						</form>
 					</div>
-					<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left; margin-top: 10px;">
+					<div
+						style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left; margin-top: 10px;">
 						<div class="info_form name" style="width: 35%;">
 							<input type="text" name="resume_name" placeholder="이름"
 								value="${resume.resume_name }">
 						</div>
 						<div class="info_form name" style="width: 35%;">
-							<input type="text" name="resume_birth" placeholder="생년월일" onfocus="focusBirth();" onblur="blurBirth();"
+							<input type="text" name="resume_birth" placeholder="생년월일"
+								onfocus="focusBirth();" onblur="blurBirth();"
 								value="${resume.resume_birth }">
 						</div>
 						<div class="info_form normal">
 							<c:if test="${resume.resume_gender eq '남자'}">
-								<select class="selecter" style="height: 100%;" name="resume_gender">
+								<select class="selecter" style="height: 100%;"
+									name="resume_gender">
 									<option value="남자" selected="selected">남자</option>
 									<option value="여자">여자</option>
 								</select>
 							</c:if>
 
 							<c:if test="${resume.resume_gender eq '여자'}">
-								<select class="selecter" style="height: 100%;" name="resume_gender">
+								<select class="selecter" style="height: 100%;"
+									name="resume_gender">
 									<option value="남자">남자</option>
 									<option value="여자" selected="selected">여자</option>
 								</select>
@@ -2436,13 +2439,15 @@ input {
 
 						</div>
 					</div>
-					<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
-						<div class="info_form email"> 
+					<div
+						style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
+						<div class="info_form email">
 							<input type="text" name="resume_email" placeholder="이메일"
 								value="${resume.resume_email }">
 						</div>
 					</div>
-					<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
+					<div
+						style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
 						<div class="info_form name" style="width: 45%;">
 							<input type="text" name="resume_phone" placeholder="전화번호"
 								value="${resume.resume_phone }">
@@ -2452,7 +2457,8 @@ input {
 								value="${resume.resume_cellphone }">
 						</div>
 					</div>
-					<div style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
+					<div
+						style="width: 680px; height: 50px; margin-left: 10px; margin-bottom: 10px; float: left;">
 						<div class="info_form addr">
 							<input type="text" name="resume_addr" placeholder="주소"
 								value="${resume.resume_addr }">
@@ -2463,7 +2469,7 @@ input {
 
 			<c:if test="${checkSchool eq true }">
 				<div id="form_School" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">학력사항</h4>
 					</div>
 					<div class="form" id="div_School">
@@ -2483,13 +2489,30 @@ input {
 												</select>
 											</div>
 											<div class="info_form school">
-												<input type="text" name="school_name" placeholder="학교이름"
-													value="${i.school_name }">
+												<c:choose>
+													<c:when test="${i.school_name ne '0'}">
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="${i.school_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="graduation_date"
-													placeholder="졸업년도" value="${i.graduation_date }">
+												<c:choose>
+													<c:when test="${i.graduation_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="${i.graduation_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="graduation_status">
@@ -2526,18 +2549,45 @@ input {
 												</select>
 											</div>
 											<div class="info_form school">
-												<input type="text" name="school_name" placeholder="학교이름"
-													value="${i.school_name }">
+												<c:choose>
+													<c:when test="${i.school_name ne '0'}">
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="${i.school_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="admission_date"
-													placeholder="입학년월" value="${i.admission_date }">
+												<c:choose>
+													<c:when test="${i.admission_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="admission_date"
+															placeholder="입학년월" value="${i.admission_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="admission_date"
+															placeholder="입학년월" value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="graduation_date"
-													placeholder="졸업년월" value="${i.graduation_date }">
+												<c:choose>
+													<c:when test="${i.graduation_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="${i.graduation_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="graduation_status">
@@ -2560,12 +2610,29 @@ input {
 										</div>
 										<div class="row">
 											<div class="info_form school" style="width: 412px;">
-												<input type="text" name="major_name" placeholder="전공명"
-													value="${i.major_name }">
+												<c:choose>
+													<c:when test="${i.major_name ne '0'}">
+														<input type="text" name="major_name" placeholder="전공명"
+															value="${i.major_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="major_name" placeholder="전공명"
+															value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input type="text" name="credit" placeholder="학점"
-													value="${i.credit }">
+												<c:choose>
+													<c:when test="${i.credit ne '0'}">
+														<input type="text" name="credit" placeholder="학점"
+															value="${i.credit }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="credit" placeholder="학점" value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="total_score">
@@ -2588,15 +2655,34 @@ input {
 													</select>
 												</div>
 												<div class="info_form school">
-													<input type="text" name="sub_major_name" placeholder="전공명"
-														value="${i.sub_major_name }">
+													<c:choose>
+														<c:when test="${i.sub_major_name ne '0'}">
+															<input type="text" name="sub_major_name"
+																placeholder="전공명" value="${i.sub_major_name }">
+														</c:when>
+														<c:otherwise>
+															<input type="text" name="sub_major_name"
+																placeholder="전공명" value="">
+														</c:otherwise>
+													</c:choose>
+
 												</div>
 											</div>
 										</div>
 										<div class="row grad" style="height: 85; display: none;">
-											<textarea class="textarea_content"
-												name="graduation_thesis_content" rows="4" cols="118"
-												placeholder="졸업 논문/작품">${i.graduation_thesis_content }</textarea>
+											<c:choose>
+												<c:when test="${i.graduation_thesis_content ne '0'}">
+													<textarea class="textarea_content"
+														name="graduation_thesis_content" rows="4" cols="118"
+														placeholder="졸업 논문/작품">${i.graduation_thesis_content }</textarea>
+												</c:when>
+												<c:otherwise>
+													<textarea class="textarea_content"
+														name="graduation_thesis_content" rows="4" cols="118"
+														placeholder="졸업 논문/작품"></textarea>
+												</c:otherwise>
+											</c:choose>
+
 										</div>
 										<div class="sub_footer">
 											<div class="more_sub_btn">
@@ -2643,18 +2729,45 @@ input {
 												</select>
 											</div>
 											<div class="info_form school">
-												<input type="text" name="school_name" placeholder="학교이름"
-													value="${i.school_name }">
+												<c:choose>
+													<c:when test="${i.school_name ne '0'}">
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="${i.school_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="admission_date"
-													placeholder="입학년월" value="${i.admission_date }">
+												<c:choose>
+													<c:when test="${i.admission_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="admission_date"
+															placeholder="입학년월" value="${i.admission_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="admission_date"
+															placeholder="입학년월" value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="graduation_date"
-													placeholder="졸업년월" value="${i.graduation_date }">
+												<c:choose>
+													<c:when test="${i.graduation_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="${i.graduation_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="graduation_status">
@@ -2677,12 +2790,29 @@ input {
 										</div>
 										<div class="row">
 											<div class="info_form school" style="width: 412px;">
-												<input type="text" name="major_name" placeholder="전공명"
-													value="${i.major_name }">
+												<c:choose>
+													<c:when test="${i.major_name ne '0'}">
+														<input type="text" name="major_name" placeholder="전공명"
+															value="${i.major_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="major_name" placeholder="전공명"
+															value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input type="text" name="credit" placeholder="학점"
-													value="${i.credit }">
+												<c:choose>
+													<c:when test="${i.credit ne '0'}">
+														<input type="text" name="credit" placeholder="학점"
+															value="${i.credit }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="credit" placeholder="학점" value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="total_score">
@@ -2705,15 +2835,34 @@ input {
 													</select>
 												</div>
 												<div class="info_form school">
-													<input type="text" name="sub_major_name" placeholder="전공명"
-														value="${i.sub_major_name }">
+													<c:choose>
+														<c:when test="${i.sub_major_name ne '0'}">
+															<input type="text" name="sub_major_name"
+																placeholder="전공명" value="${i.sub_major_name }">
+														</c:when>
+														<c:otherwise>
+															<input type="text" name="sub_major_name"
+																placeholder="전공명" value="">
+														</c:otherwise>
+													</c:choose>
+
 												</div>
 											</div>
 										</div>
 										<div class="row grad" style="height: 85; display: none;">
-											<textarea class="textarea_content"
-												name="graduation_thesis_content" rows="4" cols="118"
-												placeholder="졸업 논문/작품">${i.graduation_thesis_content }</textarea>
+											<c:choose>
+												<c:when test="${i.graduation_thesis_content ne '0'}">
+													<textarea class="textarea_content"
+														name="graduation_thesis_content" rows="4" cols="118"
+														placeholder="졸업 논문/작품">${i.graduation_thesis_content }</textarea>
+												</c:when>
+												<c:otherwise>
+													<textarea class="textarea_content"
+														name="graduation_thesis_content" rows="4" cols="118"
+														placeholder="졸업 논문/작품"></textarea>
+												</c:otherwise>
+											</c:choose>
+
 										</div>
 										<div class="sub_footer">
 											<div class="more_sub_btn">
@@ -2761,8 +2910,16 @@ input {
 											</div>
 											<div class="info_form school"
 												style="width: 219px; margin: 0;">
-												<input type="text" name="school_name" placeholder="학교이름"
-													value="${i.school_name }">
+												<c:choose>
+													<c:when test="${i.school_name ne '0'}">
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="${i.school_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="school_name" placeholder="학교이름"
+															value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal" style="width: 80px;">
 												<select class="selecter_full" name="academic_degree">
@@ -2773,14 +2930,33 @@ input {
 												</select>
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="admission_date"
-													placeholder="입학년월" value="${i.admission_date }">
+												<c:choose>
+													<c:when test="${i.admission_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="admission_date"
+															placeholder="입학년월" value="${i.admission_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="admission_date"
+															placeholder="입학년월" value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input class="date" onblur="blurDate()"
-													onfocus="focusDate();" type="text" name="graduation_date"
-													placeholder="졸업년월" value="${i.graduation_date }">
+												<c:choose>
+													<c:when test="${i.graduation_date ne '0'}">
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="${i.graduation_date }">
+													</c:when>
+													<c:otherwise>
+														<input class="date" onblur="blurDate()"
+															onfocus="focusDate();" type="text" name="graduation_date"
+															placeholder="졸업년도" value="">
+													</c:otherwise>
+												</c:choose>
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="graduation_status">
@@ -2803,12 +2979,29 @@ input {
 										</div>
 										<div class="row">
 											<div class="info_form school" style="width: 412px;">
-												<input type="text" name="major_name" placeholder="전공명"
-													value="${i.major_name }">
+												<c:choose>
+													<c:when test="${i.major_name ne '0'}">
+														<input type="text" name="major_name" placeholder="전공명"
+															value="${i.major_name }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="major_name" placeholder="전공명"
+															value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal" style="margin: 0;">
-												<input type="text" name="credit" placeholder="학점"
-													value="${i.credit }">
+												<c:choose>
+													<c:when test="${i.credit ne '0'}">
+														<input type="text" name="credit" placeholder="학점"
+															value="${i.credit }">
+													</c:when>
+													<c:otherwise>
+														<input type="text" name="credit" placeholder="학점" value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class="info_form normal">
 												<select class="selecter_full" name="total_score">
@@ -2831,15 +3024,34 @@ input {
 													</select>
 												</div>
 												<div class="info_form school">
-													<input type="text" name="sub_major_name" placeholder="전공명"
-														value="${i.sub_major_name }">
+													<c:choose>
+														<c:when test="${i.sub_major_name ne '0'}">
+															<input type="text" name="sub_major_name"
+																placeholder="전공명" value="${i.sub_major_name }">
+														</c:when>
+														<c:otherwise>
+															<input type="text" name="sub_major_name"
+																placeholder="전공명" value="">
+														</c:otherwise>
+													</c:choose>
+
 												</div>
 											</div>
 										</div>
 										<div class="row grad" style="height: 85; display: none;">
-											<textarea class="textarea_content"
-												name="graduation_thesis_content" rows="4" cols="118"
-												placeholder="졸업 논문/작품">${i.graduation_thesis_content }</textarea>
+											<c:choose>
+												<c:when test="${i.graduation_thesis_content ne '0'}">
+													<textarea class="textarea_content"
+														name="graduation_thesis_content" rows="4" cols="118"
+														placeholder="졸업 논문/작품">${i.graduation_thesis_content }</textarea>
+												</c:when>
+												<c:otherwise>
+													<textarea class="textarea_content"
+														name="graduation_thesis_content" rows="4" cols="118"
+														placeholder="졸업 논문/작품"></textarea>
+												</c:otherwise>
+											</c:choose>
+
 										</div>
 										<div class="sub_footer">
 											<div class="more_sub_btn">
@@ -2884,7 +3096,7 @@ input {
 
 			<c:if test="${checkSchool eq false }">
 				<div id="form_School">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">학력사항</h4>
 					</div>
 					<div class="form" id="div_School"></div>
@@ -2897,7 +3109,7 @@ input {
 
 			<c:if test="${checkCareer eq true }">
 				<div id="form_Career" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">경력사항</h4>
 					</div>
 					<div class="form" id="div_Career">
@@ -2905,23 +3117,61 @@ input {
 							<div class="new add">
 								<div class="row">
 									<div class="info_form school" style="width: 276px; margin: 0;">
-										<input type="text" name="company_name" placeholder="회사명"
-											value="${i.company_name }">
+										<c:choose>
+											<c:when test="${i.company_name ne '0'}">
+												<input type="text" name="company_name" placeholder="회사명"
+													value="${i.company_name }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="company_name" placeholder="회사명"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form school" style="width: 276px;">
-										<input type="text" name="department_name" placeholder="부서명"
-											value="${i.department_name }">
+										<c:choose>
+											<c:when test="${i.department_name ne '0'}">
+												<input type="text" name="department_name" placeholder="부서명"
+													value="${i.department_name }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="department_name" placeholder="부서명"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="hire_date" placeholder="입사년월"
-											value="${i.hire_date }">
+										<c:choose>
+											<c:when test="${i.hire_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="hire_date"
+													placeholder="입사년월" value="${i.hire_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="hire_date"
+													placeholder="입사년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form normal">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="retirement_date" placeholder="퇴사년월"
-											value="${i.retirement_date }">
+										<c:choose>
+											<c:when test="${i.retirement_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="retirement_date"
+													placeholder="퇴사년월" value="${i.retirement_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="retirement_date"
+													placeholder="퇴사년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="checkbox">
 										<p>
@@ -2933,12 +3183,29 @@ input {
 								</div>
 								<div class="row info_career">
 									<div class="info_form school" style="width: 276px; margin: 0;">
-										<input type="text" name="position" placeholder="직급/직책"
-											value="${i.position }">
+										<c:choose>
+											<c:when test="${i.position ne '0'}">
+												<input type="text" name="position" placeholder="직급/직책"
+													value="${i.position }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="position" placeholder="직급/직책"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form school" style="width: 276px;">
-										<input type="text" name="job_work" placeholder="직무"
-											value="${i.job_work }">
+										<c:choose>
+											<c:when test="${i.job_work ne '0'}">
+												<input type="text" name="job_work" placeholder="직무"
+													value="${i.job_work }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="job_work" placeholder="직무" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal salary" style="display: none;">
@@ -2948,8 +3215,16 @@ input {
 								</div>
 								<div class="row assigned_task"
 									style="height: 85; display: none;">
-									<textarea class="textarea_content" name="assigned_task"
-										rows="4" cols="118" placeholder="담당업무">${i.assigned_task }</textarea>
+									<c:choose>
+										<c:when test="${i.assigned_task ne '0'}">
+											<textarea class="textarea_content" name="assigned_task"
+												rows="4" cols="118" placeholder="담당업무">${i.assigned_task }</textarea>
+										</c:when>
+										<c:otherwise>
+											<textarea class="textarea_content" name="assigned_task"
+												rows="4" cols="118" placeholder="담당업무"></textarea>
+										</c:otherwise>
+									</c:choose>
 
 								</div>
 								<div class='sub_footer'>
@@ -2991,7 +3266,7 @@ input {
 
 			<c:if test="${checkCareer eq false }">
 				<div id="form_Career">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">경력사항</h4>
 					</div>
 					<div class="form" id="div_Career"></div>
@@ -3006,7 +3281,7 @@ input {
 
 			<c:if test="${checkActivities eq true }">
 				<div id="form_Activities" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">대외활동</h4>
 					</div>
 					<div class="form" id="div_Activities">
@@ -3026,25 +3301,62 @@ input {
 									</div>
 
 									<div class="info_form school" style="width: 510px;">
-										<input type="text" name="institution_name"
-											placeholder="회사/기관/단체명" value="${i.institution_name }">
+										<c:choose>
+											<c:when test="${i.institution_name ne '0'}">
+												<input type="text" name="institution_name"
+													placeholder="회사/기관/단체명" value="${i.institution_name }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="institution_name"
+													placeholder="회사/기관/단체명" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="start_date" placeholder="시작년월"
-											value="${i.start_date }">
+										<c:choose>
+											<c:when test="${i.start_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="start_date"
+													placeholder="시작년월" value="${i.start_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="start_date"
+													placeholder="시작년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="end_date" placeholder="종료년월"
-											value="${i.end_date }">
+										<c:choose>
+											<c:when test="${i.end_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="end_date"
+													placeholder="종료년월" value="${i.end_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="end_date"
+													placeholder="종료년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 								</div>
 								<div class="row" style="height: 85;">
-									<textarea class="textarea_content" name="activity_content"
-										rows="4" cols="118" placeholder="활동내용">${i.activity_content }</textarea>
+									<c:choose>
+										<c:when test="${i.activity_content ne '0'}">
+											<textarea class="textarea_content" name="activity_content"
+												rows="4" cols="118" placeholder="활동내용">${i.activity_content }</textarea>
+										</c:when>
+										<c:otherwise>
+											<textarea class="textarea_content" name="activity_content"
+												rows="4" cols="118" placeholder="활동내용"></textarea>
+										</c:otherwise>
+									</c:choose>
 
 								</div>
 								<button type="button" class="delete_btn" onclick="delete_btn();"></button>
@@ -3060,7 +3372,7 @@ input {
 
 			<c:if test="${checkActivities eq false }">
 				<div id="form_Activities">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">대외활동</h4>
 					</div>
 					<div class="form" id="div_Activities"></div>
@@ -3075,7 +3387,7 @@ input {
 
 			<c:if test="${checkEducation eq true }">
 				<div id="form_Education" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">교육사항</h4>
 					</div>
 					<div class="form" id="div_Education">
@@ -3083,28 +3395,74 @@ input {
 							<div class="new add">
 								<div class="row">
 									<div class="info_form school" style="width: 276px;">
-										<input type="text" name="training_title" placeholder="교육명"
-											value="${i.training_title }">
+										<c:choose>
+											<c:when test="${i.training_title ne '0'}">
+												<input type="text" name="training_title" placeholder="교육명"
+													value="${i.training_title }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="training_title" placeholder="교육명"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form school" style="width: 276px;">
-										<input type="text" name="education_facilities"
-											placeholder="교육기관" value="${i.educational_facilities }">
+										<c:choose>
+											<c:when test="${i.educational_facilities ne '0'}">
+												<input type="text" name="educational_facilities"
+													placeholder="교육기관" value="${i.educational_facilities }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="educational_facilities"
+													placeholder="교육기관" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="start_date" placeholder="시작년월"
-											value="${i.start_date }">
+										<c:choose>
+											<c:when test="${i.start_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="start_date"
+													placeholder="시작년월" value="${i.start_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="start_date"
+													placeholder="시작년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form normal">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="end_date" placeholder="종료년월"
-											value="${i.end_date }">
+										<c:choose>
+											<c:when test="${i.end_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="end_date"
+													placeholder="종료년월" value="${i.end_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="end_date"
+													placeholder="종료년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 								</div>
 								<div class="row" style="height: 85;">
-									<textarea class="textarea_content" name="training_content"
-										rows="4" cols="118" placeholder="교육내용">${i.training_content }</textarea>
+									<c:choose>
+										<c:when test="${i.training_content ne '0'}">
+											<textarea class="textarea_content" name="training_content"
+												rows="4" cols="118" placeholder="교육내용">${i.training_content }</textarea>
+										</c:when>
+										<c:otherwise>
+											<textarea class="textarea_content" name="training_content"
+												rows="4" cols="118" placeholder="교육내용"></textarea>
+										</c:otherwise>
+									</c:choose>
 
 								</div>
 								<button type="button" class="delete_btn" onclick="delete_btn();"></button>
@@ -3120,7 +3478,7 @@ input {
 
 			<c:if test="${checkEducation eq false }">
 				<div id="form_Education">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">교육사항</h4>
 					</div>
 					<div class="form" id="div_Education"></div>
@@ -3135,7 +3493,7 @@ input {
 
 			<c:if test="${checkCertificate eq true }">
 				<div id="form_Certificate" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">자격면허</h4>
 					</div>
 					<div class="form" id="div_Certificate">
@@ -3143,18 +3501,46 @@ input {
 							<div class="new add">
 								<div class="row">
 									<div class="info_form school" style="width: 400px;">
-										<input type="text" name="certificate_name" placeholder="자격증 명"
-											value="${i.certificate_name }">
+										<c:choose>
+											<c:when test="${i.certificate_name ne '0'}">
+												<input type="text" name="certificate_name"
+													placeholder="자격증 명" value="${i.certificate_name }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="certificate_name"
+													placeholder="자격증 명" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form school" style="width: 276px;">
-										<input type="text" name="place_issue" placeholder="발행처"
-											value="${i.place_issue }">
+										<c:choose>
+											<c:when test="${i.place_issue ne '0'}">
+												<input type="text" name="place_issue" placeholder="발행처"
+													value="${i.place_issue }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="place_issue" placeholder="발행처"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="acquisition_date" placeholder="취득년월"
-											value="${i.acquisition_date }">
+										<c:choose>
+											<c:when test="${i.acquisition_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="acquisition_date"
+													placeholder="취득년월" value="${i.acquisition_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="acquisition_date"
+													placeholder="취득년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 								</div>
 								<button type="button" class="delete_btn" onclick="delete_btn();"></button>
@@ -3170,7 +3556,7 @@ input {
 
 			<c:if test="${checkCertificate eq false }">
 				<div id="form_Certificate">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">자격면허</h4>
 					</div>
 					<div class="form" id="div_Certificate"></div>
@@ -3186,7 +3572,7 @@ input {
 
 			<c:if test="${checkAward eq true }">
 				<div id="form_Award" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">수상경력</h4>
 					</div>
 					<div class="form" id="div_Award">
@@ -3194,23 +3580,59 @@ input {
 							<div class="new add">
 								<div class="row">
 									<div class="info_form school" style="width: 400px;">
-										<input type="text" name="award_name" placeholder="수상명"
-											value="${i.award_name }">
+										<c:choose>
+											<c:when test="${i.award_name ne '0'}">
+												<input type="text" name="award_name" placeholder="수상명"
+													value="${i.award_name }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="award_name" placeholder="수상명"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 									<div class="info_form school" style="width: 276px;">
-										<input type="text" name="award_service" placeholder="수여기관"
-											value="${i.award_service }">
+										<c:choose>
+											<c:when test="${i.award_service ne '0'}">
+												<input type="text" name="award_service" placeholder="수여기관"
+													value="${i.award_service }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="award_service" placeholder="수여기관"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" onblur="blurDate()" onfocus="focusDate();"
-											type="text" name="award_date" placeholder="수상년도"
-											value="${i.award_date }">
+										<c:choose>
+											<c:when test="${i.award_date ne '0'}">
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="award_date"
+													placeholder="수상년도" value="${i.award_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" onblur="blurDate()"
+													onfocus="focusDate();" type="text" name="award_date"
+													placeholder="수상년도" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 								</div>
 								<div class="row" style="height: 85;">
-									<textarea class="textarea_content" name="award_content"
-										rows="4" cols="118" placeholder="수여내용">${i.award_content }</textarea>
+									<c:choose>
+										<c:when test="${i.award_content ne '0'}">
+											<textarea class="textarea_content" name="award_content"
+												rows="4" cols="118" placeholder="수여내용">${i.award_content }</textarea>
+										</c:when>
+										<c:otherwise>
+											<textarea class="textarea_content" name="award_content"
+												rows="4" cols="118" placeholder="수여내용"></textarea>
+										</c:otherwise>
+									</c:choose>
 
 								</div>
 								<button type="button" class="delete_btn" onclick="delete_btn();"></button>
@@ -3226,7 +3648,7 @@ input {
 
 			<c:if test="${checkAward eq false }">
 				<div id="form_Award">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">수상경력</h4>
 					</div>
 					<div class="form" id="div_Award"></div>
@@ -3241,7 +3663,7 @@ input {
 
 			<c:if test="${checkOverseas_Experience eq true }">
 				<div id="form_Overseas_Experience" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">해외경험</h4>
 					</div>
 					<div class="form" id="div_Overseas_Experience">
@@ -3249,26 +3671,63 @@ input {
 							<div class="new add">
 								<div class="row">
 									<div class="info_form school" style="width: 400px;">
-										<input type="text" name="country_name" placeholder="국가명"
-											value="${i.country_name }">
+										<c:choose>
+											<c:when test="${i.country_name ne '0'}">
+												<input type="text" name="country_name" placeholder="국가명"
+													value="${i.country_name }">
+											</c:when>
+											<c:otherwise>
+												<input type="text" name="country_name" placeholder="국가명"
+													value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" type="text" name="start_date"
-											onblur="blurDate()" onfocus="focusDate();" placeholder="시작년월"
-											value="${i.start_date }">
+										<c:choose>
+											<c:when test="${i.start_date ne '0'}">
+												<input class="date" type="text" name="start_date"
+													onblur="blurDate()" onfocus="focusDate();"
+													placeholder="시작년월" value="${i.start_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" type="text" name="start_date"
+													onblur="blurDate()" onfocus="focusDate();"
+													placeholder="시작년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 									<div class="info_form normal" style="margin: 0;">
-										<input class="date" type="text" name="end_date"
-											onblur="blurDate()" onfocus="focusDate();" placeholder="종료년월"
-											value="${i.end_date }">
+										<c:choose>
+											<c:when test="${i.end_date ne '0'}">
+												<input class="date" type="text" name="end_date"
+													onblur="blurDate()" onfocus="focusDate();"
+													placeholder="종료년월" value="${i.end_date }">
+											</c:when>
+											<c:otherwise>
+												<input class="date" type="text" name="end_date"
+													onblur="blurDate()" onfocus="focusDate();"
+													placeholder="종료년월" value="">
+											</c:otherwise>
+										</c:choose>
+
 									</div>
 
 								</div>
 								<div class="row" style="height: 85;">
-									<textarea class="textarea_content"
-										name="overseas_experience_content" placeholder="내용">${i.overseas_experience_content }</textarea>
+									<c:choose>
+										<c:when test="${i.overseas_experience_content ne '0'}">
+											<textarea class="textarea_content"
+												name="overseas_experience_content" placeholder="내용">${i.overseas_experience_content }</textarea>
+										</c:when>
+										<c:otherwise>
+											<textarea class="textarea_content"
+												name="overseas_experience_content" placeholder="내용"></textarea>
+										</c:otherwise>
+									</c:choose>
 
 								</div>
 								<button type="button" class="delete_btn" onclick="delete_btn();"></button>
@@ -3285,7 +3744,7 @@ input {
 
 			<c:if test="${checkOverseas_Experience eq false }">
 				<div id="form_Overseas_Experience">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">해외경험</h4>
 					</div>
 					<div class="form" id="div_Overseas_Experience"></div>
@@ -3301,7 +3760,7 @@ input {
 
 			<c:if test="${checkLanguage eq true }">
 				<div id="form_Language" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">어학능력</h4>
 					</div>
 					<div class="form" id="div_Language">
@@ -3357,7 +3816,7 @@ input {
 											</div>
 											<div class="info_form normal"
 												style="margin: 0; width: 140px;">
-												<select class="selecter_full" name="conversation_ability">
+												<select class="selecter_full" name="conversational_ability">
 													<option value="구분" selected="selected">회화능력</option>
 													<option value="일상회화가능">일상회화 가능</option>
 													<option value="비즈니스회화가능">비즈니스 회화가능</option>
@@ -3419,7 +3878,17 @@ input {
 												</select>
 											</div>
 											<div class='info_form normal' style='margin: 0;'>
-												<input type='text' name='language_score' placeholder='급수/점수'>
+												<c:choose>
+													<c:when test="${i.language_score ne '0'}">
+														<input type='text' name='language_score'
+															placeholder='급수/점수' value="${i.language_score }">
+													</c:when>
+													<c:otherwise>
+														<input type='text' name='language_score'
+															placeholder='급수/점수' value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 											<div class='info_form normal'
 												style='margin: 0; width: 140px;'>
@@ -3431,9 +3900,20 @@ input {
 												</select>
 											</div>
 											<div class='info_form normal' style='margin: 0;'>
-												<input class='date' onblur='blurDate()'
-													onfocus='focusDate();' type='text' name='acquisition_date'
-													placeholder='취득년월'>
+												<c:choose>
+													<c:when test="${i.acquisition_date ne '0'}">
+														<input class='date' onblur='blurDate()'
+															onfocus='focusDate();' type='text'
+															name='acquisition_date' placeholder='취득년월'
+															value="${i.acquisition_date }">
+													</c:when>
+													<c:otherwise>
+														<input class='date' onblur='blurDate()'
+															onfocus='focusDate();' type='text'
+															name='acquisition_date' placeholder='취득년월' value="">
+													</c:otherwise>
+												</c:choose>
+
 											</div>
 										</div>
 										<button type='button' class='delete_btn'
@@ -3453,7 +3933,7 @@ input {
 
 			<c:if test="${checkLanguage eq false }">
 				<div id="form_Language">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">어학능력</h4>
 					</div>
 					<div class="form" id="div_Language"></div>
@@ -3468,7 +3948,7 @@ input {
 
 			<c:if test="${checkPreferential eq true }">
 				<div id="form_Preferential" style="display: block;">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">우대사항, 병역</h4>
 					</div>
 					<div class="form" style="margin-bottom: 30px;"
@@ -3502,8 +3982,9 @@ input {
 								<div class="prefer_checkbox">
 									<div class="checkbox">
 										<p>
-											<input class="input_checkbox" type="checkbox" name="disability_grade"
-												id="checkbox_disorder" onchange="disorderChange();"><label
+											<input class="input_checkbox" type="checkbox"
+												name="disability_grade" id="checkbox_disorder"
+												onchange="disorderChange();"><label
 												style="padding-left: 5px;">장애</label>
 										</p>
 									</div>
@@ -3511,8 +3992,9 @@ input {
 								<div class="prefer_checkbox">
 									<div class="checkbox">
 										<p>
-											<input class="input_checkbox" type="checkbox" name="military_status"
-												id="checkbox_military" onchange="militaryChange();"><label
+											<input class="input_checkbox" type="checkbox"
+												name="military_status" id="checkbox_military"
+												onchange="militaryChange();"><label
 												style="padding-left: 5px;">병역</label>
 										</p>
 									</div>
@@ -3601,7 +4083,7 @@ input {
 
 			<c:if test="${checkPreferential eq false }">
 				<div id="form_Preferential">
-					<div  class="sub_title">
+					<div class="sub_title">
 						<h4 style="font-weight: bold;">우대사항, 병역</h4>
 					</div>
 					<div class="form" style="margin-bottom: 30px;"
@@ -3613,9 +4095,9 @@ input {
 
 
 			<div class="form" style="margin-bottom: 300px;">
-				<div  class="sub_title">
-						<h4 style="font-weight: bold;">희망취업조건</h4>
-					</div>
+				<div class="sub_title">
+					<h4 style="font-weight: bold;">희망취업조건</h4>
+				</div>
 				<div class="new">
 					<div class="row">
 						<div class="info_form normal Preferential" style="width: 200px;">
@@ -3884,8 +4366,8 @@ input {
 							</div>
 							<button class="img_button_plus" id="plus_Preferential"></button></li>
 						<li style="display: none;"><div class="div_menu_li">
-								<a style="color: black;"><span
-									style="color: black; font-weight: bold;">우대사항, 병역</span></a>
+								<a style="color: black;"><span style="color: black;">우대사항,
+										병역</span></a>
 							</div>
 							<button class="img_button_minus" id="minus_Preferential"></button></li>
 					</c:if>
@@ -3903,8 +4385,9 @@ input {
 				</ul>
 			</div>
 			<div class="" style="width: 205px; height: 40px; float: left;">
-			<button type="button" class=" btn-primary" id="submit"
-					style="border: none; width: 100%; height: 100%; background-color: #848484; font-weight: bold;" onclick="submit();">작성하기</button>
+				<button type="button" class=" btn-primary" id="submit"
+					style="border: none; width: 100%; height: 100%; background-color: #848484; font-weight: bold;"
+					onclick="submit();">수정완료</button>
 			</div>
 		</aside>
 	</div>
