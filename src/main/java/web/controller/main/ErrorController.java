@@ -16,9 +16,16 @@ public class ErrorController {
 	@RequestMapping(value="/accessError")
 	public void accessDenied(Authentication auth) {
 		
-		logger.info("access Denied : "+auth);
+	 }
+
+	@RequestMapping(value="/500")
+	public void serverError() {
 		
-		logger.info("test");
+	 }
+
+	@RequestMapping(value="/404")
+	public void pageNotFound() {
+		
 	 }
 	
 }
