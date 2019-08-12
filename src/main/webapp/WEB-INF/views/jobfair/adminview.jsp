@@ -117,7 +117,7 @@ h4 {
 			<br><br>
 			<div id="map"></div>
 			<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-			<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=adf60f4bed100f285f60937e1dcf14a2&libraries=services,clusterer,drawing"></script>
+			<script type="text/javascript" src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 
 			<script type="text/javascript">
 			

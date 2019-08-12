@@ -127,8 +127,8 @@ $(document).ready(function() {
 </div>
 &nbsp;
 <div>
-<label>급여</label>
-<input type="number" name="recruit_sal" >원
+<label>연봉</label>
+<input type="number" name="recruit_sal" >만 원
 </div>
 &nbsp;&nbsp;
 <div>
