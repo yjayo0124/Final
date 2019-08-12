@@ -213,7 +213,7 @@ dd {
 					</dd>
 					<dt>급여</dt>
 					<dd>
-						<strong class="col_1">${viewRecruit.recruit_sal }</strong>
+						연봉 : <strong class="col_1">${viewRecruit.recruit_sal }</strong>만원
 					</dd>
 					<dt>직급</dt>
 					<dd>
